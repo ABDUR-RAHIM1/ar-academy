@@ -1,8 +1,5 @@
 import mongoose from "mongoose";
 
-// const mongoUrl = "mongodb+srv://abrarjohn85:tWTbAN2895QNyAgi@cluster0.ep0wj.mongodb.net/ar-academy=true&w=majority&appName=Cluster0"
-
-//  "mongodb+srv://abrarjohn85:ojDePdjahudsyP2y@ar-academy.4wb8v.mongodb.net/?retryWrites=true&w=majority&appName=ar-academy"
 
 const mongoUrl = "mongodb+srv://abrarjohn85:ojDePdjahudsyP2y@ar-academy.4wb8v.mongodb.net/?retryWrites=true&w=majority"
 
@@ -21,8 +18,7 @@ export const connectDb = async () => {
 
     try {
         await mongoose.connect(mongoUrl, {
-            dbName: "ar-academy",
-            bufferCommands: true,
+            dbName: "ar-academy"
         });
         console.log("Database is Connected");
     } catch (error) {

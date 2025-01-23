@@ -1,18 +1,14 @@
-import { Button } from '@/components/ui/button'
-import { Loader2 } from 'lucide-react'
+import { Button } from '@/components/ui/button' 
 import React from 'react'
 
-export default function SubmitButton({ loadingState, text }) {
+export default function SubmitButton({ loadingState, btnText }) {
     return (
         <div>
             {
                 loadingState ?
-                    <Button disabled>
-                        <Loader2 className="animate-spin" />
-                        Please wait
-                    </Button>
+                    <Button> {"Loading . . ."}</Button>
                     :
-                    <Button type="submit">Add {text || ""}</Button>
+                    <Button type="submit"> {btnText || "Submit"}</Button>
             }
         </div>
     )

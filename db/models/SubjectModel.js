@@ -3,12 +3,19 @@ import mongoose from "mongoose";
 // Schema Definition
 const subjectSchema = new mongoose.Schema(
     {
-        name: {
+        subjectName: {
             type: String,
-            required: [true, "Name is required"],
+            required: [true, "Subject Name is required"],
             unique: true,
             trim: true,
-            maxlength: [100, "Name cannot exceed 100 characters"],
+            maxlength: [100, "Subject Name cannot exceed 100 characters"],
+        },
+        username: {
+            type: String,
+            required: [true, "username is required"],
+            unique: true,
+            trim: true,
+            maxlength: [100, "username cannot exceed 100 characters"],
         },
         description: {
             type: String,
@@ -22,7 +29,7 @@ const subjectSchema = new mongoose.Schema(
             trim: true,
         },
     },
-    { timestamps: true }  
+    { timestamps: true }
 );
 
 // Model Definition

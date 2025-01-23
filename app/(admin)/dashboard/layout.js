@@ -1,22 +1,10 @@
 import Sidebar from '@/components/dashboard/Sidebar'
-import { Geist, Geist_Mono } from 'next/font/google';
 import "@/app/globals.css"
 import React from 'react'
 import DashboardHeader from '@/components/dashboard/Header';
 import DashboardState from '@/contextApi/DashboardState';
 import { Toaster } from '@/components/ui/toaster';
 
-
-
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
-});
 
 export const metadata = {
     title: "Create Next App",
@@ -27,10 +15,9 @@ export default function DashboardLayout({ children }) {
     return (
 
         <html lang="en">
-            <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-                cz-shortcut-listen="true"
-            >
+            <body cz-shortcut-listen="true">
+
+                <Toaster />
                 <div className='flex'>
                     <DashboardState>
                         <Sidebar />
@@ -38,10 +25,9 @@ export default function DashboardLayout({ children }) {
                             <DashboardHeader />
                             <div className='p-3'>
                                 {children}
-                                <div className=' my-5'/>
+                                <div className=' my-5' />
                             </div>
                         </main>
-                        <Toaster />
                     </DashboardState>
                 </div>
             </body>

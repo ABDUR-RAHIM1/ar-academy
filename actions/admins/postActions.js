@@ -1,9 +1,12 @@
 
- 
-export const postActions = async (endpoint, body) => {
 
-    const res = await fetch(endpoint, {
-        method: "POST",
+export const postActions = async (payload) => {
+
+    const { method, api, body } = payload
+
+
+    const res = await fetch(api, {
+        method: method, // pass from components
         headers: {
             "Content-type": "application/json"
         },

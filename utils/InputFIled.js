@@ -7,70 +7,57 @@ import { Textarea } from '@/components/ui/textarea'
 import useFileUploader from './fileUploader'
 import { uploaderStyle } from './uploadStyle'
 
-export function InputField({ width, type, name, required, placeholder, handler }) {
+export function InputField({ width, type, name, value, required, placeholder, handler }) {
     const { uploadResponse } = useFileUploader();
 
     const { status, message } = uploadResponse;
 
     const fileStyle = uploaderStyle(status);
+    const isRequired = required !== undefined ? required : true;
 
-    return (
-        <>
-            {
-                type === "textarea" ?
+return (
+    <>
+        {
+            type === "textarea" ?
+                <div style={{ margin: "15px 0px" }} className={`${width || "w-full"}`}>
+                    <Label htmlFor={name}>{name}</Label>
+                    <Textarea
+                        name={name}
+                        value={value}
+                        required={isRequired}
+                        placeholder={placeholder || name}
+                        onChange={handler}
+                        id={name}
+                    />
+                </div>
+                : type === "file" ?
                     <div style={{ margin: "15px 0px" }} className={`${width || "w-full"}`}>
-                        <Label htmlFor={name}>{name}</Label>
-                        <Textarea
+                        <Label htmlFor={name} style={fileStyle}>{message || name}</Label>
+                        <Input
+                            type={"file"}
                             name={name}
-                            required={required || true}
+                            required={isRequired}
                             placeholder={placeholder || name}
                             onChange={handler}
                             id={name}
                         />
                     </div>
-                    : type === "file" ?
-                        <div style={{ margin: "15px 0px" }} className={`${width || "w-full"}`}>
-                            <Label htmlFor={name} style={fileStyle}>{message || name}</Label>
-                            <Input
-                                type={"file"}
-                                name={name}
-                                required={required || true}
-                                placeholder={placeholder || name}
-                                onChange={handler}
-                                id={name}
-                            />
-                        </div>
-                        :
-                        <div style={{ margin: "15px 0px" }} className={`${width || "w-full"}`}>
-                            <Label htmlFor={name}>{name}</Label>
-                            <Input
-                                type={type || "text"}
-                                name={name}
-                                required={required || true}
-                                placeholder={placeholder || name}
-                                onChange={handler}
-                                id={name}
-                            />
-                        </div>
-            }
-        </>
-    )
+                    :
+                    <div style={{ margin: "15px 0px" }} className={`${width || "w-full"}`}>
+                        <Label htmlFor={name}>{name}</Label>
+                        <Input
+                            type={type || "text"}
+                            name={name}
+                            value={value}
+                            required={isRequired}
+                            placeholder={placeholder || name}
+                            onChange={handler}
+                            id={name}
+                        />
+                    </div>
+        }
+    </>
+)
 }
 
 
-// export default function InputFIled({ width, type, name, required, placeholder, handler }) {
-//     return (
-//         <div className={width || "w-full"}>
-//             <label htmlFor={name} className=' mb-2 font-medium text-gray-700 capitalize'>{name}</label>
-//             <input
-//                 type={type || "text"}
-//                 name={name}
-//                 required={required || true}
-//                 placeholder={placeholder || name}
-//                 onChange={handler}
-//                 id={name}
-//                 className='w-full p-2 rounded-md border-1 border-gray-800 focus:outline-gray-700 placeholder:bg-gray-600'
-//             />
-//         </div>
-//     )
-// }

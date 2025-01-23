@@ -5,12 +5,15 @@ import SubmitButton from '@/utils/SubmitButton'
 import { postActions } from '@/actions/admins/postActions';
 import { contextD } from '@/contextApi/DashboardState';
 import useFileUploader from '@/utils/fileUploader';
+import { subjectPutDelete } from '@/constans'; 
 
-export default function AddSubject() {
+export default function EditSubject() { 
+    const { editSubject } = useContext(contextD);
     const { uploader, imgUrl } = useFileUploader()
     const { showToast } = useContext(contextD);
     const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({ subjectName: "", username: "", description: "", coverPhoto: null })
+    const [formData, setFormData] = useState({ name: "", description: "", coverPhoto: null });
+
 
     const handleChange = (e) => {
         const { type, name, value } = e.target;
@@ -23,6 +26,12 @@ export default function AddSubject() {
 
     };
 
+    //  editable Data set In FormData
+    useEffect(() => {
+        if (editSubject !== null) {
+            setFormData(editSubject)
+        }
+    }, [editSubject])
 
     useEffect(() => {
         if (imgUrl) {
@@ -37,15 +46,13 @@ export default function AddSubject() {
         e.preventDefault();
         setLoading(true);
 
-
         try {
             const payload = {
-                method: "POST",
-                api: "/api/subject",
+                method: "PUT",
+                api: subjectPutDelete + formData._id,
                 body: formData
             }
             const { status, data } = await postActions(payload);
-            console.log(data)
             showToast(status, data)
 
         } catch (error) {
@@ -61,18 +68,12 @@ export default function AddSubject() {
     return (
         <div className='addFormWrap'>
             <form onSubmit={handleSubmit}>
-                <h2>Add Subject List</h2>
+                <h2>Edit Subject</h2>
                 <div>
                     <InputField
-                        name={"subjectName"}
-                        value={formData.subjectName}
+                        name={"name"}
+                        value={formData.name}
                         placeholder={"Enter Subject Name"}
-                        handler={handleChange}
-                    />
-                    <InputField
-                        name={"username"}
-                        value={formData.username}
-                        placeholder={"Subject username"}
                         handler={handleChange}
                     />
                     <InputField
@@ -85,11 +86,12 @@ export default function AddSubject() {
                     <InputField
                         type={"file"}
                         name={"coverPhoto"}
+                        required={false}
                         placeholder={"Enter Subject Cover Photo"}
                         handler={handleChange}
                     />
                 </div>
-                <SubmitButton loadingState={loading} btnText={"Add A Subject"} />
+                <SubmitButton loadingState={loading} btnText={" Update The Subject"} />
             </form>
         </div>
     )
