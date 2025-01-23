@@ -13,13 +13,13 @@ export default async function Nav() {
     }
 
     return (
-        <nav className='w-full primaryBg px-5 md:px-10 border-y shadow-md '>
+        <nav className='w-full flex items-center justify-start gap-2 flex-wrap primaryBg px-5 md:px-10 border-y shadow-md '>
             {
                 data && data.length <= 0 ? <NoData />
                     :
 
                     data.map(item => (
-                        <Link key={item._id} href={item.username} className=' secondaryBg text-gray-800 inline-block  px-2 py-1 primaryHover border-r capitalize'>
+                        <Link key={item._id} href={item.username} className=' secondaryBg my-1 text-gray-800 inline-block  px-2 py-1 primaryHover capitalize'>
                             {item.subjectName}
                         </Link>
                     ))

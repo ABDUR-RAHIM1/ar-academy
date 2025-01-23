@@ -39,7 +39,7 @@ const sidebarItems = [
             },
             {
                 item: "Add Chapter",
-                path: "chapter/add",
+                path: "chapters/add",
                 icon: <MdLibraryBooks />
             },
         ]
