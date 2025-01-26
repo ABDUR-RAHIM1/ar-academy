@@ -8,9 +8,8 @@ import useFileUploader from '@/utils/fileUploader';
 import { subjectPutDelete } from '@/constans'; 
 
 export default function EditSubject() { 
-    const { editSubject } = useContext(contextD);
-    const { uploader, imgUrl } = useFileUploader()
-    const { showToast } = useContext(contextD);
+    const { editData , showToast} = useContext(contextD);
+    const { uploader, imgUrl } = useFileUploader() 
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({ name: "", description: "", coverPhoto: null });
 
@@ -28,10 +27,10 @@ export default function EditSubject() {
 
     //  editable Data set In FormData
     useEffect(() => {
-        if (editSubject !== null) {
-            setFormData(editSubject)
+        if (editData !== null) {
+            setFormData(editData)
         }
-    }, [editSubject])
+    }, [editData])
 
     useEffect(() => {
         if (imgUrl) {

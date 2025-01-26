@@ -16,7 +16,7 @@ export default function Sidebar() {
             {/* Desktop Sidebar */}
             <aside className={`hidden md:block w-[250px] h-screen bg-gray-800 text-white z-50 relative`}>
                 <div className="p-4 my-10">
-                    <div className="text-xl font-bold mb-6">AR-ACADEMY</div>
+                    <Link href={"/"} className=" inline-block text-xl font-bold mb-6">AR-ACADEMY</Link>
                     <div className="space-y-4">
                         {sidebarItems.map((item, index) => (
                             <div key={index}>
@@ -48,7 +48,7 @@ export default function Sidebar() {
             {/* Mobile Sidebar */}
             <aside className={`${isOpen ? "scale-x-0" : "scale-x-100"} block md:hidden transition-all origin-left w-[250px] h-screen top-0 left-0 bg-gray-800 text-white fixed z-50`}>
                 <div className="p-4">
-                <div className="text-xl font-bold mb-6">AR-ACADEMY</div>
+                    <div className="text-xl font-bold mb-6">AR-ACADEMY</div>
                     <div className="space-y-4">
                         {sidebarItems.map((item, index) => (
                             <div key={index}>

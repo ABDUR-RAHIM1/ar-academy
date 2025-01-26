@@ -1,4 +1,29 @@
+ 
+ 1 . categories => [
+      categories : unique,
+      identifier : unique,
+      description : optional
+ ]
+
+ 2 . sub_categories => [
+      name : String,
+      username : unique, 
+      categories : categories.ObjectId
+ ]
+ 
+ 3 . chapters => [
+     name : unique,
+     content : html content,
+     sub_categories : sub_categories.ObjectId
+ ]
+ 
+ 
+ 
+ 
  userName : abrarjohn85
 Password : tWTbAN2895QNyAgi
 
 ojDePdjahudsyP2y
+
+
+

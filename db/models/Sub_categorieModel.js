@@ -1,0 +1,31 @@
+import mongoose from "mongoose";
+
+// Schema Definition
+const SubCategorieSchema = new mongoose.Schema(
+    {
+        sub_name: {
+            type: String,
+            required: [true, "Subject Name is required"],
+            unique: true,
+            trim: true,
+            maxlength: [100, "sub_name  cannot exceed 100 characters"],
+        },
+        identifier: {
+            type: String,
+            required: [true, "identifier is required"],
+            unique: true,
+            trim: true,
+            maxlength: [100, "identifier cannot exceed 100 characters"],
+        },
+        categorieId: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: [true, "categorie is required"],
+        },
+    },
+    { timestamps: true }
+);
+
+// Model Definition
+const SubjectModel = mongoose.models.SubCategorie || mongoose.model("SubCategorie", SubCategorieSchema);
+
+export default SubjectModel;

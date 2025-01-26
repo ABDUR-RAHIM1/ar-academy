@@ -18,7 +18,7 @@ export const connectDb = async () => {
 
     try {
         await mongoose.connect(mongoUrl, {
-            dbName: "ar-academy"
+            dbName: "ar-academy", 
         });
         console.log("Database is Connected");
     } catch (error) {

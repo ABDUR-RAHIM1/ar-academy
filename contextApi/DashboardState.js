@@ -9,7 +9,7 @@ export const contextD = createContext()
 export default function DashboardState({ children }) {
     const router = useRouter()
     const [isOpen, setIsOpen] = useState(false);
-    const [editSubject, setEditSubject] = useState(null)
+    const [editData, setEditData] = useState(null)
 
     // Function to show toast
     const showToast = (status, data) => {
@@ -19,6 +19,7 @@ export default function DashboardState({ children }) {
                 title: "Success!",
                 description: message,
                 duration: 4000,
+                className: "bg-green-100 border-l-4 border-green-500 text-green-700",
             });
             router.refresh()
         } else {
@@ -26,6 +27,7 @@ export default function DashboardState({ children }) {
                 title: "Failed!",
                 description: message,
                 duration: 4000,
+                className: "bg-red-100 border-l-4 border-red-500 text-red-700",
             });
         }
     };
@@ -33,7 +35,7 @@ export default function DashboardState({ children }) {
 
     const value = {
         isOpen, setIsOpen,
-        editSubject, setEditSubject,
+        editData, setEditData,
         showToast,
     }
 

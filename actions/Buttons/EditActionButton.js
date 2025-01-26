@@ -6,10 +6,10 @@ import React, { useContext } from 'react'
 
 export default function EditActionButton({ data, path }) {
     const router = useRouter();
-    const { setEditSubject } = useContext(contextD);
+    const { setEditData } = useContext(contextD);
 
     const handleEditData = () => {
-        setEditSubject(data)
+        setEditData(data)
         router.push(path)
     }
 

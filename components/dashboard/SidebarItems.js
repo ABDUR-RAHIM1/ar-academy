@@ -11,18 +11,35 @@ const sidebarItems = [
         children: []
     },
     {
-        item: "Subjects",
+        item: "Categories",
         path: "",
         icon: <MdLibraryBooks />,
         children: [
             {
-                item: "All Subjects",
-                path: "subjects/view",
+                item: "All Categories",
+                path: "categories/view",
                 icon: <BsViewList />
             },
             {
-                item: "Add Subject",
-                path: "subjects/add",
+                item: "Add Categories",
+                path: "categories/add",
+                icon: <MdLibraryBooks />
+            },
+        ]
+    },
+    {
+        item: "Sub Categories",
+        path: "",
+        icon: <MdLibraryBooks />,
+        children: [
+            {
+                item: "Sub Categories",
+                path: "sub-categorie/view",
+                icon: <BsViewList />
+            },
+            {
+                item: "Add Sub Categorie",
+                path: "sub-categorie/add",
                 icon: <MdLibraryBooks />
             },
         ]

@@ -1,4 +1,4 @@
-import SubjectModel from "@/db/models/SubjectModel";
+import SubCategories from "@/db/models/Sub_categorieModel";
 import { NextResponse } from "next/server";
 
 
@@ -6,17 +6,15 @@ import { NextResponse } from "next/server";
 export async function PUT(req, { params }) {
 
     const body = await req.json();
-    const { subjectId } = await params;
-    const { subjectName, username, description, coverPhoto } = body;
+    const { sub_id } = await params;
+    const { sub_name, identifier } = body;
 
     try {
 
-        const isUpdated = await SubjectModel.findByIdAndUpdate(subjectId, {
+        const isUpdated = await SubCategories.findByIdAndUpdate(sub_id, {
             $set: {
-                subjectName,
-                username,
-                description,
-                coverPhoto
+                sub_name,
+                identifier,
             }
         }, { new: true, runValidators: true });
 
@@ -26,14 +24,14 @@ export async function PUT(req, { params }) {
 
 
         return NextResponse.json({
-            message: "Subject Updated"
+            message: "Updated"
         },
             { status: 200 }
         )
 
     } catch (error) {
         return NextResponse.json({
-            message: "Failed To Update Subject",
+            message: "Failed To Update",
         }, { status: 500 });
     }
 };
@@ -42,14 +40,14 @@ export async function PUT(req, { params }) {
 
 export const DELETE = async (req, { params }) => {
 
-    const { subjectId } = await params;
+    const { sub_id } = await params;
     try {
 
-        const isDeleted = await SubjectModel.findByIdAndDelete(subjectId);
+        const isDeleted = await SubCategories.findByIdAndDelete(sub_id);
 
         if (!isDeleted) {
             return NextResponse.json({
-                message: "Subject Not Found!"
+                message: "Not Found!"
             },
                 { status: 404 }
             )
@@ -57,13 +55,13 @@ export const DELETE = async (req, { params }) => {
 
 
         return NextResponse.json(
-            { message: "Subject Deleted" },
+            { message: "Deleted" },
             { status: 200 }
         )
 
     } catch (error) {
         return NextResponse.json({
-            message: "Failed To Delete Subject",
+            message: "Failed To Delete",
         }, { status: 500 });
     }
 }

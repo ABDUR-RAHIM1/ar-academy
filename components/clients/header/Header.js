@@ -1,20 +1,19 @@
 import React from 'react'
-import { Input } from '../../ui/input'
-import Nav from './Nav'
+import Link from "next/link"
+
+import { Button } from "@/components/ui/button"
 
 export default function Header() {
     return (
-        <div className=''>
-            <div className=' px-4 py-5 primaryBg flex items-center justify-between flex-wrap'>
-                <h2 className=' italic'>AR-ACADEMY</h2>
-                <div>
-                    <Input type="search" placeholder="Quick Search" />
-                </div>
+        <div className=' sticky top-0 px-4 py-5 headerBg flex items-center justify-between flex-wrap'>
+            <Link href={"/"} className=' text-xl md:text-2xl italic text-gray-300'>AR-ACADEMY</Link>
+            <div>
+                <Button asChild>
+                    <Link href="/">Login</Link>
+                </Button>
             </div>
-
-            {/*  subject List Fetch from database */}
-            <Nav />
-
         </div>
+
+
     )
 }

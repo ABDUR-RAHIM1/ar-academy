@@ -1,35 +1,55 @@
-"use client"
-import React, { useRef, useState } from "react";
-import JoditEditor from "jodit-react";
+"use client";
 
-function JoditRichTextEditor() {
-    const editor = useRef(null);
-    const [content, setContent] = useState("");
+import { useEffect, useState } from "react";
+import "quill/dist/quill.snow.css";
 
-    const config = {
-        readonly: false,
-        height: 400,
-        toolbarSticky: true,
-        placeholder: "Start typing here...",
-    };
+const QuillEditor = () => {
+    const [editorContent, setEditorContent] = useState("");
+    const [Quill, setQuill] = useState(null);
 
-    const handleEditorChange = (newContent) => {
-        setContent(newContent);
-    };
-console.log(content)
+    useEffect(() => {
+        // Dynamically import Quill
+        (async () => {
+            const { default: QuillModule } = await import("quill");
+            setQuill(() => QuillModule);
+        })();
+    }, []);
+
+    useEffect(() => {
+        if (Quill) {
+            // Initialize Quill editor
+            const editor = new Quill("#editor-container", {
+                theme: "snow",
+                modules: {
+                    toolbar: [
+                        [{ header: "1" }, { header: "2" }, { font: [] }],
+                        [{ list: "ordered" }, { list: "bullet" }],
+                        ["bold", "italic", "underline"],
+                        [{ align: [] }],
+                        ["link"],
+                        ["blockquote", "code-block"],
+                        [{ color: [] }, { background: [] }],
+                        ["image", "video"],
+                    ],
+                },
+            });
+
+            // Listen for text changes and update state
+            editor.on("text-change", () => {
+                setEditorContent(editor.root.innerHTML);
+            });
+        }
+    }, [Quill]);
+
     return (
-        <div style={{ margin: "20px" }}>
-            <h2>Jodit Rich Text Editor</h2>
-            <JoditEditor
-                ref={editor}
-                value={content}
-                config={config}
-                onBlur={(newContent) => handleEditorChange(newContent)}
-            />
-            <h3>Preview:</h3>
-            <div dangerouslySetInnerHTML={{ __html: content }} />
+        <div>
+            {/* Editor container */}
+            <div id="editor-container" style={{ height: "200px" }}></div>
+
+            {/* Display content */}
+            <p>{editorContent}</p>
         </div>
     );
-}
+};
 
-export default JoditRichTextEditor;
+export default QuillEditor;

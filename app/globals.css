@@ -17,12 +17,14 @@ body {
 @layer components {
 
   /* client Start */
-     .primaryBg {
-      @apply bg-gray-300
+     .headerBg {
+      @apply bg-blue-900
      }
-     .secondaryBg {
-      @apply bg-gray-100
+     .heroBg {
+      @apply bg-blue-200
      }
+   
+    
      .primaryHover{
       @apply hover:bg-gray-400 hover:text-white transition-all
      }
