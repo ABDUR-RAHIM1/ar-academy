@@ -1,51 +1,51 @@
 "use client"
 import DeleteActionButton from '@/actions/Buttons/DeleteActionButton';
 import EditActionButton from '@/actions/Buttons/EditActionButton';
-import { subCategoriePutDelete } from '@/constans'; 
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 
-export default function SubjectTable({ sub_categories }) {
+export default function ChaptersTable({ chaptersData }) {
     const [data, setData] = useState([]);
 
-
     useEffect(() => {
-        if (sub_categories) {
-            setData(sub_categories)
+
+        if (chaptersData) {
+            setData(chaptersData)
         }
-    }, [sub_categories]);
+
+    }, [chaptersData]);
 
 
     const columns = [
         {
             name: "#",
-            selector: (row, index) => <span>{index + 1}</span >
+            selector: (row, index) => index + 1
         },
         {
-            name: "sub Categorie",
-            selector: (row) => row.sub_name
+            name: "Chapter",
+            selector: (row) => row.chapter_name
         },
         {
-            name: "identifier",
+            name: "Identifier",
             selector: (row) => row.identifier
         },
         {
             name: "Edit",
-            selector: (row) => <EditActionButton data={row} path={"/dashboard/sub-categorie/edit"} />
+            selector: (row) => <EditActionButton data={row} path={"/dashboard/chapters/edit"} />
         },
         {
+            // <DeleteActionButton route={ } />
             name: "Delete",
-            selector: (row) => <DeleteActionButton deleteRoute={subCategoriePutDelete + row._id} />
+            selector: (row) => <span>Delete after</span>
         },
     ]
-
 
     return (
         <div>
             <DataTable
-                title={"Subject Lists"}
-                columns={columns}
+                title={"Chapters"}
                 data={data}
+                columns={columns}
                 pagination
                 highlightOnHover
             />

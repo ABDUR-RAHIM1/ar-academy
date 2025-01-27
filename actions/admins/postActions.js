@@ -1,7 +1,7 @@
 
 
 export const postActions = async (payload) => {
-
+ 
     const { method, api, body } = payload
 
 
@@ -14,7 +14,8 @@ export const postActions = async (payload) => {
         body: JSON.stringify(body)
     });
 
-    const data = await res.json();
+    const data = await res.json(); 
+    console.log(data)
 
     return {
         status: res.status,

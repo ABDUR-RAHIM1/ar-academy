@@ -19,6 +19,7 @@ const SubCategorieSchema = new mongoose.Schema(
         },
         categorieId: {
             type: mongoose.Schema.Types.ObjectId,
+            ref: "Categorie",
             required: [true, "categorie is required"],
         },
     },

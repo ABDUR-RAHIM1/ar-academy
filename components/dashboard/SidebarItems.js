@@ -51,7 +51,7 @@ const sidebarItems = [
         children: [
             {
                 item: "All Chapters",
-                path: "chapter-list",
+                path: "chapters/view",
                 icon: <BsViewList />
             },
             {

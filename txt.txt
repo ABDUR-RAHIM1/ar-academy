@@ -12,11 +12,11 @@
  ]
  
  3 . chapters => [
-     name : unique,
+     chapter_name : unique,
+      identifier : unique,
      content : html content,
      sub_categories : sub_categories.ObjectId
  ]
- 
  
  
  

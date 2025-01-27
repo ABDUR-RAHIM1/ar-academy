@@ -4,15 +4,26 @@ import { InputField } from '@/utils/InputFIled'
 import SubmitButton from '@/utils/SubmitButton'
 import { postActions } from '@/actions/admins/postActions';
 import { contextD } from '@/contextApi/DashboardState';
-import useFileUploader from '@/utils/fileUploader';
-import { subjectPutDelete } from '@/constans'; 
+import { subCategoriePutDelete, subjectPutDelete } from '@/constans';
+import { getCategories } from '@/app/apiActions/client/clientApi';
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
-export default function EditSubject() { 
-    const { editData , showToast} = useContext(contextD);
-    const { uploader, imgUrl } = useFileUploader() 
+
+
+
+export default function EditSubject() {
+    const { editData, showToast } = useContext(contextD);
     const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({ name: "", description: "", coverPhoto: null });
-
+    const [formData, setFormData] = useState({ sub_name: "", identifier: "", categorieId: "" })
+    const [categorie, setCategorie] = useState([])
 
     const handleChange = (e) => {
         const { type, name, value } = e.target;
@@ -25,6 +36,25 @@ export default function EditSubject() {
 
     };
 
+    const handleCategorieChange = (categorieId) => {
+        setFormData((prev) => ({
+            ...prev,
+            categorieId: categorieId
+        }))
+    };
+
+    //  get all categorie  item and set Select Field
+    useEffect(() => {
+        const getCategorieData = async () => {
+            const { status, data } = await getCategories();
+            if (status === 200) {
+                setCategorie(data)
+            }
+        };
+
+        getCategorieData()
+    }, [])
+
     //  editable Data set In FormData
     useEffect(() => {
         if (editData !== null) {
@@ -32,14 +62,6 @@ export default function EditSubject() {
         }
     }, [editData])
 
-    useEffect(() => {
-        if (imgUrl) {
-            setFormData({
-                ...formData,
-                coverPhoto: imgUrl
-            })
-        }
-    }, [imgUrl])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,15 +70,16 @@ export default function EditSubject() {
         try {
             const payload = {
                 method: "PUT",
-                api: subjectPutDelete + formData._id,
+                api: subCategoriePutDelete + formData._id,
                 body: formData
-            }
-            const { status, data } = await postActions(payload);
+            };
+
+            const { status, data } = await postActions(payload); 
             showToast(status, data)
 
         } catch (error) {
-            console.log(error);
-            showToast(500, "Failed To Post")
+            console.log(error)
+            showToast(500, "Failed To Update")
         } finally {
             setLoading(false)
         }
@@ -67,30 +90,44 @@ export default function EditSubject() {
     return (
         <div className='addFormWrap'>
             <form onSubmit={handleSubmit}>
-                <h2>Edit Subject</h2>
+                <h2>Edit Sub Categorie</h2>
                 <div>
+                    <Select name='categorieId'
+                        onValueChange={handleCategorieChange}
+
+                    >
+                        <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select a Categorie" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel> Categories</SelectLabel>
+                                {
+                                    categorie && categorie.length > 0 ?
+                                        categorie.map((CItem, index) => (
+                                            <SelectItem key={index} value={CItem._id}>{CItem.categorie}</SelectItem>
+                                        ))
+                                        : null
+                                }
+
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+
                     <InputField
-                        name={"name"}
-                        value={formData.name}
+                        name={"sub_name"}
+                        value={formData.sub_name}
                         placeholder={"Enter Subject Name"}
                         handler={handleChange}
                     />
                     <InputField
-                        type={"textarea"}
-                        name={"description"}
-                        value={formData.description}
-                        placeholder={"Enter Subject description"}
-                        handler={handleChange}
-                    />
-                    <InputField
-                        type={"file"}
-                        name={"coverPhoto"}
-                        required={false}
-                        placeholder={"Enter Subject Cover Photo"}
+                        name={"identifier"}
+                        value={formData.identifier}
+                        placeholder={"White speace Not Allowed"}
                         handler={handleChange}
                     />
                 </div>
-                <SubmitButton loadingState={loading} btnText={" Update The Subject"} />
+                <SubmitButton loadingState={loading} btnText={" Update Sub Categorie"} />
             </form>
         </div>
     )
