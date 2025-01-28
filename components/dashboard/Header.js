@@ -1,5 +1,6 @@
 "use client"
 import { contextD } from '@/contextApi/DashboardState';
+import Logo from '@/utils/Logo';
 import React, { useContext } from 'react'
 import { FaBars } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
@@ -8,7 +9,10 @@ export default function DashboardHeader() {
     const { isOpen, setIsOpen } = useContext(contextD)
 
     return (
-        <div className={` w-full text-end flex md:hidden py-3 px-4 bg-gray-800  items-center justify-end sticky top-0`}>
+        <div className={` w-full flex md:hidden py-5 px-4 bg-gray-800  items-center justify-between sticky top-0`}>
+
+            <Logo />
+
             <div onClick={() => setIsOpen(!isOpen)}>
 
                 {

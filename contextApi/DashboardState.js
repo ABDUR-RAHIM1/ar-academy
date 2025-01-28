@@ -8,7 +8,7 @@ export const contextD = createContext()
 
 export default function DashboardState({ children }) {
     const router = useRouter()
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
     const [editData, setEditData] = useState(null)
 
     // Function to show toast

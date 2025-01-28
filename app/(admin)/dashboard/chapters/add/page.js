@@ -138,7 +138,9 @@ const ChapterAdd = () => {
                             {
                                 sub_Categorie && sub_Categorie.length > 0 ?
                                     sub_Categorie.map((CItem, index) => (
-                                        <SelectItem key={index} value={CItem._id}>{CItem.sub_name}</SelectItem>
+                                        <SelectItem key={index} value={CItem._id}>
+                                            {`${CItem.sub_name} (${CItem.identifier})`}
+                                        </SelectItem>
                                     ))
                                     : null
                             }

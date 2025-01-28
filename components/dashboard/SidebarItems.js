@@ -6,13 +6,11 @@ import { BsViewList } from "react-icons/bs";
 const sidebarItems = [
     {
         item: "Dashboard",
-        path: "dashboard",
         icon: <MdSpaceDashboard />,
         children: []
     },
     {
         item: "Categories",
-        path: "",
         icon: <MdLibraryBooks />,
         children: [
             {
@@ -28,8 +26,7 @@ const sidebarItems = [
         ]
     },
     {
-        item: "Sub Categories",
-        path: "",
+        item: "Sub-Categorie",
         icon: <MdLibraryBooks />,
         children: [
             {
@@ -46,7 +43,6 @@ const sidebarItems = [
     },
     {
         item: "Chapters",
-        path: "",
         icon: <MdLibraryBooks />,
         children: [
             {
@@ -63,7 +59,6 @@ const sidebarItems = [
     },
     {
         item: "Settings",
-        path: "",
         icon: <MdSettings />,
         children: [
             {
@@ -85,7 +80,6 @@ const sidebarItems = [
     },
     {
         item: "Logout",
-        path: "logout",
         icon: <IoMdLogOut />,
         children: []
     }

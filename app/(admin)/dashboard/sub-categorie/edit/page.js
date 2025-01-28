@@ -74,7 +74,7 @@ export default function EditSubject() {
                 body: formData
             };
 
-            const { status, data } = await postActions(payload); 
+            const { status, data } = await postActions(payload);
             showToast(status, data)
 
         } catch (error) {
@@ -105,7 +105,9 @@ export default function EditSubject() {
                                 {
                                     categorie && categorie.length > 0 ?
                                         categorie.map((CItem, index) => (
-                                            <SelectItem key={index} value={CItem._id}>{CItem.categorie}</SelectItem>
+                                            <SelectItem key={index} value={CItem._id}>
+                                                {`${CItem.categorie} (${CItem.identifier})`}
+                                            </SelectItem>
                                         ))
                                         : null
                                 }

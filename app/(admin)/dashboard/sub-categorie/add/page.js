@@ -92,7 +92,9 @@ export default function AddSubject() {
                                 {
                                     categorie && categorie.length > 0 ?
                                         categorie.map((CItem, index) => (
-                                            <SelectItem key={index} value={CItem._id}>{CItem.categorie}</SelectItem>
+                                            <SelectItem key={index} value={CItem._id}>
+                                                {`${CItem.categorie} (${CItem.identifier})`}
+                                            </SelectItem>
                                         ))
                                         : null
                                 }
