@@ -8,6 +8,7 @@
  2 . sub_categories => [
       name : String,
       username : unique, 
+       description : optional
       categories : categories.ObjectId
  ]
  
@@ -15,6 +16,7 @@
      chapter_name : unique,
       identifier : unique,
      content : html content,
+      description : optional
      sub_categories : sub_categories.ObjectId
  ]
  

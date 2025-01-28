@@ -1,7 +1,23 @@
 import React from 'react'
+import LoadingGif from "@/public/Images/loading.gif"
+import Image from 'next/image'
 
 export default function Loading() {
     return (
-        <div className=' min-h-[50vh] w-full  p-5 text-blue-500 text-xl font-bold'>Loading....</div>
+        <div className=' w-full h-screen flex items-center justify-center p-5'>
+            <div className=' text-center'>
+                <Image
+                    src={LoadingGif}
+                    width={100}
+                    height={100}
+                    alt='ar-academy'
+                    className=' w-44 h-44'
+                />
+                <p className=' text-xl font-bold text-blue-800'>
+                    Loading....
+                </p>
+
+            </div>
+        </div>
     )
 }

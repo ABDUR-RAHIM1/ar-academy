@@ -1,7 +1,7 @@
 "use client"
 import DeleteActionButton from '@/actions/Buttons/DeleteActionButton';
 import EditActionButton from '@/actions/Buttons/EditActionButton';
-import { subCategoriePutDelete } from '@/constans'; 
+import { subCategoriePutDelete } from '@/constans';
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 
@@ -24,6 +24,14 @@ export default function SubjectTable({ sub_categories }) {
         {
             name: "sub Categorie",
             selector: (row) => row.sub_name
+        },
+        {
+            name: "Description",
+            selector: (row) => row.description ? <span className=' text-blue-800'>
+                {row.description}
+            </span> : <p className=' text-red-900'>
+                কোন টেক্সট নাই
+            </p>
         },
         {
             name: "identifier",

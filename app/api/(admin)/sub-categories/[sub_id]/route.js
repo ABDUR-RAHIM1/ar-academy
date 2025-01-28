@@ -7,7 +7,7 @@ export async function PUT(req, { params }) {
 
     const body = await req.json();
     const { sub_id } = await params;
-    const { sub_name, identifier } = body;
+    const { sub_name, identifier , description } = body;
  
     try {
 
@@ -15,6 +15,7 @@ export async function PUT(req, { params }) {
             $set: {
                 sub_name,
                 identifier,
+                description
             }
         }, { new: true, runValidators: true });
 

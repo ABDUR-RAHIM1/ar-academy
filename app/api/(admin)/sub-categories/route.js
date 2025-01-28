@@ -5,8 +5,8 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
     const body = await req.json();
-    const  { sub_name, identifier, categorieId } = body;
-    
+    const { sub_name, identifier, description, categorieId } = body;
+
     // Validate inputs
     if (!sub_name || !identifier || !categorieId) {
         return NextResponse.json({
@@ -36,6 +36,7 @@ export async function POST(req) {
         const newSubject = SubCategories({
             sub_name,
             identifier,
+            description,
             categorieId
         });
         // [ ===== Create new subject ======]
@@ -47,8 +48,7 @@ export async function POST(req) {
             message: "Created Successfully"
         }, { status: 201 });
 
-    } catch (error) {
-        console.log(error)
+    } catch (error) { 
         return NextResponse.json({
             message: "Failed To Post",
         }, { status: 500 });

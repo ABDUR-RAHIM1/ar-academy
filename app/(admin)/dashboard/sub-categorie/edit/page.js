@@ -22,7 +22,7 @@ import {
 export default function EditSubject() {
     const { editData, showToast } = useContext(contextD);
     const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({ sub_name: "", identifier: "", categorieId: "" })
+   const [formData, setFormData] = useState({ sub_name: "", identifier: "", description: "", categorieId: "" })
     const [categorie, setCategorie] = useState([])
 
     const handleChange = (e) => {
@@ -127,6 +127,13 @@ export default function EditSubject() {
                         value={formData.identifier}
                         placeholder={"White speace Not Allowed"}
                         handler={handleChange}
+                    />
+                    <InputField
+                        name={"description"}
+                        value={formData.description}
+                        placeholder={"Write Short Description"}
+                        handler={handleChange}
+                        required={false}
                     />
                 </div>
                 <SubmitButton loadingState={loading} btnText={" Update Sub Categorie"} />

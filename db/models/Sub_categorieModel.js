@@ -17,6 +17,10 @@ const SubCategorieSchema = new mongoose.Schema(
             trim: true,
             maxlength: [100, "identifier cannot exceed 100 characters"],
         },
+        description: {
+            type: String,
+            maxlength: [100, "description cannot exceed 100 characters"],
+        },
         categorieId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Categorie",
