@@ -1,36 +1,31 @@
 "use client"
-import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { createContext, useState } from "react"
-
-
+import { createContext, useEffect, useState } from "react"
+import { toast } from 'react-hot-toast';
 export const contextD = createContext()
 
 export default function DashboardState({ children }) {
     const router = useRouter()
     const [isOpen, setIsOpen] = useState(true);
-    const [editData, setEditData] = useState(null)
+    const [editData, setEditData] = useState({})
 
     // Function to show toast
     const showToast = (status, data) => {
         const message = data.message || data
+
         if (status === 200 || status === 201) {
-            toast({
-                title: "Success!",
-                description: message,
-                duration: 4000,
-                className: "bg-green-100 border-l-4 border-green-500 text-green-700",
-            });
-            router.refresh()
+            toast.success(message);
+            router.refresh();
         } else {
-            toast({
-                title: "Failed!",
-                description: message,
-                duration: 4000,
-                className: "bg-red-100 border-l-4 border-red-500 text-red-700",
-            });
+            toast.error(message);
         }
     };
+
+    useEffect(() => {
+
+    }, [])
+
+
 
 
     const value = {

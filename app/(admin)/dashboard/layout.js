@@ -3,8 +3,7 @@ import "@/app/globals.css"
 import React from 'react'
 import DashboardHeader from '@/components/dashboard/Header';
 import DashboardState from '@/contextApi/DashboardState';
-import { Toaster } from '@/components/ui/toaster';
-
+import { Toaster } from 'react-hot-toast';
 
 export const metadata = {
     title: "Create Next App",

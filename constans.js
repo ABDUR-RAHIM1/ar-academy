@@ -23,6 +23,7 @@ const subCategoriePutDelete = "/api/sub-categories/"
 //  chapters start
 const chapters = "/api/chapters/"
 const chapterWithContent = "/api/chapters/contents/"
+const chapterEdit = "/api/chapters/contents/"
 //  chapters end
 
 export {
@@ -33,5 +34,5 @@ export {
     postGetSubCategories,
     getSubCategoryByIndentifier, subCategoriePutDelete,
 
-    chapters,chapterWithContent,
+    chapters, chapterWithContent, chapterEdit,
 }

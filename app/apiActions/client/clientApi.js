@@ -29,7 +29,7 @@ export const getAllChapters = async () => {
     return chapterList;
 }
 
-// get chapter by identifier without content
+// get chapter by identifier without content (/sub-categorie == /dashboard)
 export const getChapterByIdentifier = async (identifier) => {
     const api = chapters + identifier;
     const chapterBYIdentifier = await getsActions(api);
@@ -38,6 +38,7 @@ export const getChapterByIdentifier = async (identifier) => {
 };
 
 
+// get One Chapter with Contens by Identifier (_id , identifier ) -> ("/chapters/[chapterName]")
 export const getChapterWithContent = async (chapterName) => {
     const api = chapterWithContent + chapterName
     const chapters = await getsActions(api);

@@ -2,7 +2,7 @@ import { connectDb } from "@/db/ConnetcDb";
 import ChaptersModel from "@/db/models/ChaptersModel";
 import { NextResponse } from "next/server";
 
-//  get Chapter By _Id
+//  get Chapter By Sub Categorie Identifier then find By _id
 export const GET = async (req, { params }) => {
     const { chapterName } = await params;
 
@@ -27,4 +27,5 @@ export const GET = async (req, { params }) => {
             { status: 500 }
         )
     }
-}
+};
+

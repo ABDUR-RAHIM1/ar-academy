@@ -1,6 +1,7 @@
 "use client"
 import DeleteActionButton from '@/actions/Buttons/DeleteActionButton';
 import EditActionButton from '@/actions/Buttons/EditActionButton';
+import { chapters } from '@/constans';
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 
@@ -34,9 +35,8 @@ export default function ChaptersTable({ chaptersData }) {
             selector: (row) => <EditActionButton data={row} path={"/dashboard/chapters/edit"} />
         },
         {
-            // <DeleteActionButton route={ } />
             name: "Delete",
-            selector: (row) => <span>Delete after</span>
+            selector: (row) => <DeleteActionButton deleteRoute={chapters + row._id} />
         },
     ]
 
@@ -47,6 +47,8 @@ export default function ChaptersTable({ chaptersData }) {
                 data={data}
                 columns={columns}
                 pagination
+                paginationPerPage={10}
+                paginationRowsPerPageOptions={[5, 10, 15, 20 , data?.length]} 
                 highlightOnHover
             />
         </div>
