@@ -7,7 +7,8 @@ export const contextD = createContext()
 export default function DashboardState({ children }) {
     const router = useRouter()
     const [isOpen, setIsOpen] = useState(true);
-    const [editData, setEditData] = useState({})
+    const [editData, setEditData] = useState({});
+    const [showSearchBar, setShowSearchBar] = useState(false)
 
     // Function to show toast
     const showToast = (status, data) => {
@@ -21,17 +22,12 @@ export default function DashboardState({ children }) {
         }
     };
 
-    useEffect(() => {
-
-    }, [])
-
-
-
 
     const value = {
         isOpen, setIsOpen,
         editData, setEditData,
         showToast,
+        showSearchBar, setShowSearchBar,
     }
 
 

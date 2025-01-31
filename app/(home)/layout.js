@@ -1,6 +1,7 @@
 
 import Header from '@/components/clients/header/Header';
 import '../globals.css'
+import DashboardState from '@/contextApi/DashboardState';
 
 export const metadata = {
   title: "AR Academy - Learn Your Favorite Subjects",
@@ -12,8 +13,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body cz-shortcut-listen="true" >
-        <Header />
-        {children}
+        <DashboardState>
+          <Header />
+          {children}
+        </DashboardState>
       </body>
     </html>
   );

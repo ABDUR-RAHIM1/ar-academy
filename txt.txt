@@ -1,3 +1,9 @@
+ <.................
+ problems :
+ bangla chapter name not supported
+ 
+ .................>
+ 
  
  1 . categories => [
       categories : unique,
