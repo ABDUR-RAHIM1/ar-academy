@@ -10,7 +10,6 @@ import React from 'react'
 
 export default async function Categories({ params }) {
     const { categorie } = await params;
-
     const { status, data } = await getSubCategoieById(categorie);
 
     if (!status || !data) {

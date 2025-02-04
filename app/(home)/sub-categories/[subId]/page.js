@@ -7,6 +7,7 @@ import React from 'react'
 
 export default async function SubCategories({ params }) {
     const { subId } = await params;
+    const paramsName = subId ? decodeURIComponent(subId) :""
 
     const { status, data } = await getChapterByIdentifier(subId);
  
@@ -16,7 +17,7 @@ export default async function SubCategories({ params }) {
 
     return (
         <div className=' py-10 px-3 md:px-5'>
-      <Heading text={`চ্যাপ্টার সমূহ - (${subId})`} />
+      <Heading text={`চ্যাপ্টার সমূহ - (${paramsName})`} />
             <div className=' flex flex-wrap gap-3'>
                 {
                     data && data.length <= 0 ? <NoData />
