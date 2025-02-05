@@ -1,34 +1,30 @@
  
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
-// API_URL = "http://localhost:3000"  // local
+// const API_URL = "http://localhost:3000"  // local
 
 const userLogin = "/account"
 
-//  Categories Start
-const categoriePostGet = "/api/categories"
-const categoriePutDelete = "/api/categories/"
-//  Categories End
+// 1 Categories Start
+const categoriePostGet = process.env.NEXT_PUBLIC_CATEGORIE_GET;
+const categoriePutDelete = process.env.NEXT_PUBLIC_CATEGORIE_PUT_DELETE
+// 1 Categories End
 
-// const subjectGetPost = "/api/subject" // get and post endpoint use hocce na
-// const subjectPutDelete = "/api/subject/" // get and post endpoint use hocce na
+ 
+// 2 Sub Categories start
+const postGetSubCategories = process.env.NEXT_PUBLIC_POST_GET_SUB_CATEGORIES;
+const getSubCategoryByIndentifier = process.env.NEXT_PUBLIC_POST_GET_SUB_CATEGORIES_BY_IDENTIFIER;
+const subCategoriePutDelete =  process.env.NEXT_PUBLIC_SUB_CATEGORIE_PUT_DELETE;
+// 2 Sub Categories start
 
-
-//  Sub Categories start
-const postGetSubCategories = "/api/sub-categories/"
-const getSubCategoryByIndentifier = "/api/sub-categories/sub/"
-const subCategoriePutDelete = "/api/sub-categories/"
-//  Sub Categories start
-
-//  chapters start
-const chapters = "/api/chapters/"
-const chapterWithContent = "/api/chapters/contents/"
-const chapterEdit = "/api/chapters/contents/"
-//  chapters end
+// 3 chapters start
+const chapters = process.env.NEXT_PUBLIC_CHAPTERS;
+const chapterWithContent = process.env.NEXT_PUBLIC_CHAPTERS_WITH_CONTENT;
+const chapterEdit = process.env.NEXT_PUBLIC_CHAPTER_EDIT
+// 3 chapters end
 
 export {
     API_URL, userLogin,
-    categoriePostGet, categoriePutDelete,
-    // subjectGetPost, subjectPutDelete,
+    categoriePostGet, categoriePutDelete, 
 
     postGetSubCategories,
     getSubCategoryByIndentifier, subCategoriePutDelete,

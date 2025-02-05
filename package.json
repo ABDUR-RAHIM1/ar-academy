@@ -21,6 +21,7 @@
     "mongoose": "^8.9.5",
     "next": "15.1.5",
     "quill": "^2.0.3",
+    "quill-better-table": "^1.2.10",
     "react": "^19.0.0",
     "react-data-table-component": "^7.6.2",
     "react-dom": "^19.0.0",

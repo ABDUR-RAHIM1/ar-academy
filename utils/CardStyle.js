@@ -1,9 +1,9 @@
 
 export const cardStyle = (text) => {
-    const length = text.length;
-    if (length > 15) return "border-l-red-500";
-    if (length > 10) return "border-l-purple-500";
-    if (length > 8) return "border-l-green-500";
-    if (length > 5) return "border-l-blue-500";
-    return "border-l-pink-500";
+    const length = text.length; 
+    if (length > 15) return "#EF4444"; // Red
+    if (length > 10) return "#A855F7"; // Purple
+    if (length > 8) return "#10B981";  // Green
+    if (length > 5) return "#3B82F6";  // Blue
+    return "#EC4899"; // Pink
 }; 

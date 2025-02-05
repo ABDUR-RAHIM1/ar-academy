@@ -54,14 +54,19 @@ const ChapterAdd = () => {
                 theme: "snow",
                 modules: {
                     toolbar: [
-                        [{ header: "1" }, { header: "2" }, { font: [] }],
-                        [{ list: "ordered" }, { list: "bullet" }],
-                        ["bold", "italic", "underline"],
-                        [{ align: [] }],
-                        ["link"],
-                        ["blockquote", "code-block"],
-                        [{ color: [] }, { background: [] }],
-                        ["image", "video"],
+                        [{ header: [1, 2, 3, 4, 5, 6, false] }], // Heading levels
+                        [{ font: [] }], // Font selection
+                        [{ size: ["small", false, "large", "huge"] }], // Font size
+                        [{ list: "ordered" }, { list: "bullet" }], // Ordered & Unordered lists
+                        [{ script: "sub" }, { script: "super" }], // Subscript & Superscript
+                        [{ indent: "-1" }, { indent: "+1" }], // Indentation
+                        [{ direction: "rtl" }], // Right-to-Left text support
+                        [{ align: [] }], // Text align (left, center, right, justify)
+                        ["bold", "italic", "underline", "strike"], // Text formatting
+                        [{ color: [] }, { background: [] }], // Text & Background color
+                        ["blockquote", "code-block"], // Blockquote & Code block
+                        ["link", "image", "video", "formula"], // Media (link, image, video, formula)
+                        ["clean"], // Remove formatting
                     ],
                 },
             });
@@ -168,7 +173,7 @@ const ChapterAdd = () => {
                     <SelectContent>
                         <SelectGroup>
                             <SelectLabel>
-                                 সাব ক্যাটাগরি সমূহ
+                                সাব ক্যাটাগরি সমূহ
                             </SelectLabel>
                             {
                                 sub_Categorie && sub_Categorie.length > 0 ?
