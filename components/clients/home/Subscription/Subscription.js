@@ -36,7 +36,7 @@ export default function Subscription() {
     const borders = ["border-gray-400", "border-yellow-500", "border-blue-800", "border-blue-green-300"];
 
     return (
-        <div className='my-10 px-3 md:px-5 py-10 rounded-md heroBg'>
+        <div className='my-10 px-3 md:px-5 py-10 rounded-md bg2'>
             <div className=' md:bg-white py-10 rounded-md'>
                 <div className="max-w-5xl mx-auto text-center">
                     <h2 className="text-3xl font-bold mb-6">সাবস্ক্রিপশন প্ল্যান বেছে নিন</h2>

@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function Hero() {
   return (
-    <section className="heroBg py-20 px-4 rounded-b-[30px]">
+    <section className="bg2 py-20 px-4 rounded-b-[30px]">
       <div className=" w-full md:w-[50%] m-auto text-center">
         <h1 className=" text-2xl md:text-4xl font-bold leading-tight mb-4">AR Academy তে স্বাগতম</h1>
         <p className=" text-sm md:text-lg mb-8">

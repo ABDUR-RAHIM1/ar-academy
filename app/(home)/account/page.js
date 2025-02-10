@@ -23,9 +23,9 @@ export default function Account() {
 
 
     return (
-        <div className=' w-full min-h-screen px-3 bg-gray-100 flex items-center justify-center'>
-            <form onSubmit={handleSubmit} className=' w-full md:w-[45%] m-auto shadow-2xl p-5 rounded-md'>
-                <h3 className=' text-xl my-3 font-medium text-blue-800'>একাউন্ট তৈরী করুন </h3>
+        <div className=' w-full min-h-screen px-3 bg2 flex items-center justify-center'>
+            <form onSubmit={handleSubmit} className=' w-full md:w-[45%] m-auto bg1 text-white shadow-2xl p-5 rounded-md'>
+                <h3 className=' text-xl my-3 font-medium text-center'>একাউন্ট তৈরী করুন </h3>
                 <InputField
                     name={"plan"}
                     placeholder={"Enter Your Plan"}

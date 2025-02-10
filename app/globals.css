@@ -17,10 +17,10 @@ body {
 @layer components {
 
   /* client Start */
-     .headerBg {
+     .bg1 {
       @apply bg-[#1e708a]
      }
-     .heroBg {
+     .bg2 {
       @apply bg-[#33dfe985]
      }
      .color1{

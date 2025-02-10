@@ -81,7 +81,7 @@ export default function Search() {
     }, [searchValue]);
 
     return (
-        <div className={`px-2 py-20 fixed top-0 left-0 w-full h-screen headerBg bg-opacity-90  z-50 transition-all duration-500 ${showSearchBar ? "scale-100 opacity-100" : "scale-0 opacity-0"}`}>
+        <div className={`px-2 py-20 fixed top-0 left-0 w-full h-screen bg1 bg-opacity-90  z-50 transition-all duration-500 ${showSearchBar ? "scale-100 opacity-100" : "scale-0 opacity-0"}`}>
             <MdClose
                 onClick={() => setShowSearchBar(false)}
                 className='fixed top-10 right-10 text-4xl text-red-700 border-2 border-red-600 p-1 rounded-md cursor-pointer transition-transform transform hover:rotate-90 duration-300'

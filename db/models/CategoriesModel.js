@@ -2,6 +2,11 @@
 import { mongoose, Schema, model } from "mongoose";
 
 const CategoriesSchema = new Schema({
+    // position: {
+    //     type: Number,
+    //     required: true,
+    //     unique: true,
+    // },
     categorie: {
         type: String,
         required: true,
