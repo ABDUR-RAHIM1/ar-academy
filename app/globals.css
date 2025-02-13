@@ -11,6 +11,13 @@ body {
   :root {
     --radius: 0.5rem;
   }
+  .textShadow {
+    text-shadow: 11px 19px 61px teal;
+}
+.scrollbarHide::-webkit-scrollbar{
+   display: none;
+}
+ 
 }
 
 
@@ -70,4 +77,7 @@ body {
   }
 
   /*  common Style End */
-}
+};
+
+
+ 

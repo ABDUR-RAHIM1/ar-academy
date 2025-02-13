@@ -1,6 +1,6 @@
 import { getSubCategoieById } from '@/app/apiActions/client/clientApi';
 import Heading from '@/components/clients/globals/Heading';
-import { bookIcon } from '@/Images/Images';
+import { bookCover, bookIcon } from '@/Images/Images';
 import { cardStyle } from '@/utils/CardStyle';
 import Error from '@/utils/Error';
 import NoData from '@/utils/NoData';
@@ -8,9 +8,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 
-export default async function Categories({ params }) {
-    const { categorie } = await params;
-    const { status, data } = await getSubCategoieById(categorie);
+export default async function SubCategories({ params }) {
+    const { categorieIdentifier } = await params;
+    const { status, data } = await getSubCategoieById(categorieIdentifier);
 
     if (!status || !data) {
         return <Error />
@@ -27,7 +27,10 @@ export default async function Categories({ params }) {
             </div>
             <div className=" flex flex-wrap gap-4 justify-center">
                 {data.map((item) => (
-                    <Link href={`/sub-categories/${item.identifier}`}
+                    <Link href={{
+                        pathname: `/chapters/${item.identifier}`,
+                        query: { "subCover": bookCover.src },
+                    }}
                         key={item._id}
                         className={`flex w-full md:w-[48%] lg:w-[30%] bg-white shadow-lg rounded-lg border-l-4 ${cardStyle(item.sub_name)} overflow-hidden`}
                     >

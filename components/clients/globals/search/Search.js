@@ -55,7 +55,8 @@ export default function Search() {
                     const allChapters = await getSearchChapters();
                     data = allChapters.data.map(item => ({
                         _id: item._id,
-                        name: item.chapter_name
+                        name: item.chapter_name,
+                        path: `/chapters/${item.identifier}`
                     }));
                 }
                 setSelectData(data);
