@@ -11,6 +11,12 @@ body {
   :root {
     --radius: 0.5rem;
   }
+  .heroBanner{
+    background-image: url("../public/Images/banner.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: cover;
+  }
   .textShadow {
     text-shadow: 11px 19px 61px teal;
 }

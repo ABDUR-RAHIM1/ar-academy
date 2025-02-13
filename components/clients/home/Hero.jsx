@@ -1,20 +1,52 @@
-import { userLogin } from '@/constans'
-import Link from 'next/link'
+import { heroImage } from '@/Images/Images'
+import Image from 'next/image'
 import React from 'react'
 
 export default function Hero() {
   return (
-    <section className="bg2 py-20 px-4 rounded-b-[30px]">
-      <div className=" w-full md:w-[50%] m-auto text-center">
-        <h1 className=" text-2xl md:text-4xl font-bold leading-tight mb-4">AR Academy তে স্বাগতম</h1>
-        <p className=" text-sm md:text-lg mb-8">
-          বাংলাসহ, ইংরেজি, গণিত, বিজ্ঞান, ইতিহাস এবং আরও অনেক বিষয় AR Academy তে শিখুন। এখানেই আপনি আপনার পছন্দমত বিষয় পড়তে পারবেন, পুরোপুরি নিজের গতিতে!
-        </p>
-        <div>
-          <Link href={userLogin} className="bg-[#1E90FF] text-sm text-white py-2 px-3 md:px-6 rounded-lg md:text-xl hover:bg-[#0c7db3] transition duration-300">যোগ দিন</Link>
-          <button id='categories' className="bg-[#32CD32] text-sm text-white py-2 px-3 md:px-6 rounded-lg md:text-xl ml-4 hover:bg-[#28a829] transition duration-300">এক্সপ্লোর করুন</button>
+    <div className=' w-full h-[90vh] md:h-[80vh] flex items-center justify-center gap-5 flex-wrap py-10 md:py-0 heroBanner relative'>
+      <div className='leftText w-full md:w-[45%] px-5 flex flex-col gap-2 md:gap-5'>
+        <h1 className=' text-3xl  md:text-5xl font-bold text-red-800  '>
+          AR Academy BD <br />
+        </h1>
+        <h1 className=' text-3xl  md:text-5xl text-center md:text-right font-bold text-white  '>
+          তে স্বাগতম
+        </h1>
+
+        <p className=' text-white text-sm md:text-xl'>বাংলাসহ, ইংরেজি, গণিত, বিজ্ঞান, ইতিহাস এবং আরও অনেক বিষয় AR Academy তে শিখুন। এখানেই আপনি আপনার পছন্দমত বিষয় পড়তে পারবেন, পুরোপুরি নিজের গতিতে!</p>
+      </div>
+
+      <div className='rightImage w-full  md:w-[45%] px-5'>
+        <Image
+          src={heroImage}
+          width={500}
+          height={500}
+          alt='ar academy bd '
+          className=' w-full h-full -translate-y-[155px] md:-translate-y-[0px]'
+        />
+      </div>
+
+
+      <div className='heroInfo w-[90%] m-auto py-5 px-3 bg-gradient-to-l to-[#33dfe985] from-[#1e708a] bg-opacity-90 text-white absolute left-auto bottom-10 rounded-xl shadow-xl flex items-center justify-between flex-wrap '>
+        <div className=' w-[48%] md:w-[24%] py-4 px-2 rounded-md shadow-md border border-teal-300 flex items-center flex-col gap-3 my-1'>
+          <h3 className=' text-xl font-bold'>৫০ হাজার +</h3>
+          <p>শিক্ষার্থী</p>
+        </div>
+        <div className=' w-[48%] md:w-[24%] py-4 px-2 rounded-md shadow-md border border-teal-300 flex items-center flex-col gap-3 my-1'>
+          <h3 className=' text-xl font-bold'> ৩ লক্ষ+</h3>
+          <p>প্রশ্ন</p>
+        </div>
+        <div className=' w-[48%] md:w-[24%] py-4 px-2 rounded-md shadow-md border border-teal-300 flex items-center flex-col gap-3 my-1'>
+          <h3 className=' text-xl font-bold'> ২০+</h3>
+          <p>মেন্টর</p>
+        </div>
+        <div className=' w-[48%] md:w-[24%] py-4 px-2 rounded-md shadow-md border border-teal-300 flex items-center flex-col gap-3 my-1'>
+          <h3 className=' text-xl font-bold'> ১০ লক্ষ+</h3>
+          <p>ওয়েবসাইট ভিজিট</p>
         </div>
       </div>
-    </section>
+
+
+    </div>
   )
 }
