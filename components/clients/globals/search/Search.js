@@ -83,11 +83,12 @@ export default function Search() {
 
     return (
         <div className={`px-2 py-20 fixed top-0 left-0 w-full h-screen bg1 bg-opacity-90  z-50 transition-all duration-500 ${showSearchBar ? "scale-100 opacity-100" : "scale-0 opacity-0"}`}>
-            <MdClose
-                onClick={() => setShowSearchBar(false)}
-                className='fixed top-10 right-10 text-4xl text-red-700 border-2 border-red-600 p-1 rounded-md cursor-pointer transition-transform transform hover:rotate-90 duration-300'
-            />
-            <div className='w-full md:w-[50%] m-auto bg-white p-6 rounded-lg shadow-lg transition-all duration-500'>
+
+            <div className='w-full md:w-[50%] m-auto bg-white py-10 px-6 rounded-lg shadow-lg transition-all duration-500 relative' >
+                <MdClose
+                    onClick={() => setShowSearchBar(false)}
+                    className=' absolute top-0 right-2 text-4xl text-red-700 p-1 rounded-md cursor-pointer transition-transform transform hover:rotate-90 duration-300'
+                />
                 {!selectValue && <p className='text-gray-600 text-center'>আগে বিষয় নির্বাচন করুন!</p>}
                 <div className='flex items-center bg-gray-100 p-2 rounded-lg shadow-sm'>
                     <Input

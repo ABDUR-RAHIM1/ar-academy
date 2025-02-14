@@ -11,63 +11,120 @@ body {
   :root {
     --radius: 0.5rem;
   }
-  .heroBanner{
-    background-image: url("../public/Images/banner.png");
+
+  .heroBanner {
+    background-image: url("../public/Images/banner.gif");
     background-repeat: no-repeat;
     background-size: cover;
     object-fit: cover;
   }
-  .textShadow {
+
+
+  @media (max-width: 767px) {
+    .heroBanner {
+      background-image: url("../public/Images/banner2.gif");
+      background-repeat: no-repeat;
+      background-size: cover;
+      object-fit: cover;
+    }
+
+    /* Mobile screen */
+    .heroImageAnimate {
+      animation: upDownMobile 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes upDownMobile {
+      from {
+        transform: translateY(-175px);
+      }
+
+      to {
+        transform: translateY(-195px);
+        /* তুমি ইচ্ছে মতো মান পরিবর্তন করতে পারো */
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+
+    /* Medium & larger screens */
+    .heroImageAnimate {
+      animation: upDownDesktop 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes upDownDesktop {
+      from {
+        transform: translateY(0px);
+      }
+
+      to {
+        transform: translateY(-20px);
+      }
+    }
+  }
+
+  /* .textShadow {
     text-shadow: 11px 19px 61px teal;
-}
-.scrollbarHide::-webkit-scrollbar{
-   display: none;
-}
- 
+} */
+  .scrollbarHide::-webkit-scrollbar {
+    display: none;
+  }
+
 }
 
 
 @layer components {
 
   /* client Start */
-     .bg1 {
-      @apply bg-[#1e708a]
-     }
-     .bg2 {
-      @apply bg-[#33dfe985]
-     }
-     .color1{
-      @apply text-[#1e708a]
-     }
-     .color2{
-      @apply text-[#33dfe985]
-     }
-     .border1{
-      @apply border-[#1e708a]
-     }
-     .border2{
-      @apply border-[#33dfe985]
-     }
-     .btnBg{
-      @apply mt-4 bg-blue-900 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-all
-     }
-    
-     .primaryHover{
-      @apply hover:bg-gray-400 hover:text-white transition-all
-     }
-     .secondaryHover{
-      @apply hover:bg-gray-200 transition-all
-     }
+  .bg1 {
+    @apply bg-[#1e708a]
+  }
+
+  .bg2 {
+    @apply bg-[#33dfe985]
+  }
+
+  .color1 {
+    @apply text-[#1e708a]
+    /* @apply text-[#ffde59] */
+  }
+
+  .color2 {
+    @apply text-[#33dfe985]
+  }
+
+  .border1 {
+    @apply border-[#1e708a]
+  }
+
+  .border2 {
+    @apply border-[#33dfe985]
+  }
+
+  .btnBg {
+    @apply mt-4 bg-blue-900 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-all
+  }
+
+  .primaryHover {
+    @apply hover:bg-gray-400 hover:text-white transition-all
+  }
+
+  .secondaryHover {
+    @apply hover:bg-gray-200 transition-all
+  }
+
   /* client End */
 
 
   /*  common Style Start */
-  h1{
-    @apply text-2xl md:text-3xl font-semibold 
+  h1 {
+    @apply text-2xl md:text-3xl font-semibold
   }
-  h2{
-    @apply text-xl md:text-2xl font-semibold 
+
+  h2 {
+    @apply text-xl md:text-2xl font-semibold
   }
+
   .addFormWrap {
     @apply w-full min-h-screen bg-gray-100 rounded-md flex items-center justify-center
   }
@@ -75,15 +132,16 @@ body {
   .addFormWrap form {
     @apply w-full md:w-[70%] m-auto p-2 md:p-4 rounded-md shadow-md shadow-gray-300
   }
-  .addFormWrap form h2{
+
+  .addFormWrap form h2 {
     @apply font-semibold text-2xl md:text-3xl my-4 italic text-gray-800 capitalize
   }
-  .formGroup{
-    @apply flex items-center justify-between gap-2 
+
+  .formGroup {
+    @apply flex items-center justify-between gap-2
   }
 
   /*  common Style End */
-};
+}
 
-
- 
+;

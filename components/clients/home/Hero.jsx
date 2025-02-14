@@ -22,7 +22,7 @@ export default function Hero() {
           width={500}
           height={500}
           alt='ar academy bd '
-          className=' w-full h-full -translate-y-[155px] md:-translate-y-[0px]'
+          className="w-full h-full md:-translate-y-[0px] heroImageAnimate"
         />
       </div>
 

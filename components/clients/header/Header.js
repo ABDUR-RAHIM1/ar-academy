@@ -11,11 +11,14 @@ import { Button } from "@/components/ui/button"
 import Logo from '@/utils/Logo'
 import SearchButton from '../globals/search/SearchButton'
 import { MdMenu, } from 'react-icons/md'
+import { usePathname } from 'next/navigation'
 
 
 export default function Header() {
-    const [menuClick, setMenuClick] = useState(false);
 
+    const path = usePathname()
+
+    const [menuClick, setMenuClick] = useState(false);
 
 
     const menuItems = [
@@ -43,11 +46,11 @@ export default function Header() {
                 <nav className=' flex items-center justify-center gap-3 text-white'>
                     {
                         menuItems.map((item, index) => (
-                            <span
+                            <Link href={item.path}
                                 key={index}
-                                className=' text-sm font-medium'
+                                className={` ${path === item.path ? "text-blue-300" : ""} text-sm font-medium transition-all`}
                             >{item.item}
-                            </span>
+                            </Link>
                         ))
                     }
                 </nav>
@@ -93,11 +96,12 @@ export default function Header() {
                         <div className=' flex flex-col gap-4'>
                             {
                                 menuItems.map((item, index) => (
-                                    <span
+                                    <Link
+                                        href={item.path}
                                         key={index}
-                                        className=' text-sm font-medium color1'
+                                        className={` ${path === item.path ? "text-blue-300" : ""} text-sm font-medium transition-all color1`}
                                     >{item.item}
-                                    </span>
+                                    </Link>
                                 ))
                             }
                         </div>
@@ -116,18 +120,6 @@ export default function Header() {
                         </TooltipProvider>
                     </div>
 
-                    {/* <TooltipProvider>
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <Button asChild>
-                                    <Link href="/account">একাউন্ট </Link>
-                                </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                <p>প্রিমিয়াম সব ফিচারস পেতে  লগইন করুন</p>
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider> */}
                 </div>
             </div>
             {/* Mobile Header End  */}
