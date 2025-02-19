@@ -19,16 +19,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { uploaderStyle } from '@/utils/uploadStyle';
 
-
-
 export default function AddSubject() {
     const { showToast, imgUrl, uploadResponse, uploader } = useContext(contextD);
     const { status, message } = uploadResponse;
     const costomStyle = uploaderStyle(status);
-    
+
     const [loading, setLoading] = useState(false);
 
-    const [formData, setFormData] = useState({ sub_name: "", description: "", categorieId: "", coverPhoto: "" })
+    const [formData, setFormData] = useState({ sub_name: "", description: "", categorieId: "", type: "free", coverPhoto: "" })
 
     const [categorie, setCategorie] = useState([])
 
@@ -43,7 +41,7 @@ export default function AddSubject() {
 
 
     };
-   
+
     //  image url set in the state
     useEffect(() => {
         if (imgUrl) {
@@ -61,6 +59,18 @@ export default function AddSubject() {
         }))
     };
 
+
+    // handle Type Change
+    const handleTypeChange = (typeValue) => {
+        console.log("typeValue", typeValue);
+
+        setFormData((prev) => ({
+            ...prev,
+            type: typeValue
+        }))
+    }
+
+    //  get all categories
     useEffect(() => {
         const getCategorieData = async () => {
             const { status, data } = await getCategories();
@@ -95,8 +105,7 @@ export default function AddSubject() {
         }
 
     }
-
-
+ 
 
 
     return (
@@ -144,6 +153,28 @@ export default function AddSubject() {
                         handler={handleChange}
                         required={false}
                     />
+
+                    <div className=" my-4">
+                        <Select name='type'
+                            onValueChange={handleTypeChange}
+
+                        >
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder={"ধরণ"} />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectLabel>
+                                        স্ট্যাটাস
+                                    </SelectLabel>
+
+                                    <SelectItem value={"free"}>Free</SelectItem>
+                                    <SelectItem value={"paid"}>Paid</SelectItem>
+
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                    </div>
 
                     <div className=' my-4'>
                         <Label htmlFor={"coverPhoto"} style={costomStyle} >{message || "Cover Photo"}</Label>

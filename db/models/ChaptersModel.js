@@ -19,7 +19,7 @@ const ChapterSchema = new mongoose.Schema({
         ref: "SubCategorie",
         required: [true, "Sub Category ID is required"]
     },
-    status: {
+    type: {
         type: String,
         required: true,
         default: "free",

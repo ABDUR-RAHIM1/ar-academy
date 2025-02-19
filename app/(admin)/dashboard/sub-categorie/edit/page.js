@@ -23,13 +23,13 @@ import { uploaderStyle } from '@/utils/uploadStyle';
 
 
 export default function EditSubject() {
-    const { showToast, imgUrl, uploadResponse, uploader , editData } = useContext(contextD);
+    const { showToast, imgUrl, uploadResponse, uploader, editData } = useContext(contextD);
     const { status, message } = uploadResponse;
     const costomStyle = uploaderStyle(status);
 
 
     const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({ sub_name: "", description: "", categorieId: "", coverPhoto: "" });
+    const [formData, setFormData] = useState({ sub_name: "", description: "", categorieId: "", type: "free", coverPhoto: "" })
 
     const [categorie, setCategorie] = useState([])
 
@@ -61,6 +61,16 @@ export default function EditSubject() {
             categorieId: categorieId
         }))
     };
+
+    // handle Type Change
+    const handleTypeChange = (typeValue) => {
+        console.log("typeValue", typeValue);
+
+        setFormData((prev) => ({
+            ...prev,
+            type: typeValue
+        }))
+    }
 
     //  get all categorie  item and set Select Field
     useEffect(() => {
@@ -149,6 +159,29 @@ export default function EditSubject() {
                         handler={handleChange}
                         required={false}
                     />
+
+                    <div className=" my-4">
+                        <Select name='type'
+                            onValueChange={handleTypeChange}
+
+                        >
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder={"ধরণ"} />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectLabel>
+                                        স্ট্যাটাস
+                                    </SelectLabel>
+
+                                    <SelectItem value={"free"}>Free</SelectItem>
+                                    <SelectItem value={"paid"}>Paid</SelectItem>
+
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                    </div>
+
                     <div className=' my-4'>
                         <Label htmlFor={"coverPhoto"} style={costomStyle} >{message || "Cover Photo"}</Label>
                         <Input

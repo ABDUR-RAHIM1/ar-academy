@@ -31,7 +31,7 @@ const EditChapters = () => {
     chapter_name: "",
     contents: "",
     sub_categorie_id: "",
-    status: "free"
+    type: ""
   });
   const [searchValue, setSearchValue] = useState("")
 
@@ -119,22 +119,14 @@ const EditChapters = () => {
 
   };
 
-  const handleCategorieChange = (categorieId) => {
+  const handleCategorieChange = (categorie) => {
     setFormData((prev) => ({
       ...prev,
-      sub_categorie_id: categorieId
+      sub_categorie_id: categorie._id,
+      type: categorie.type
     }))
   };
 
-  // handle Status Change
-  const handleStatusChange = (statusValue) => {
-    console.log(statusValue);
-
-    setFormData((prev) => ({
-      ...prev,
-      status: statusValue
-    }))
-  }
 
   // get all chapter and set Select Field
   useEffect(() => {
@@ -225,7 +217,7 @@ const EditChapters = () => {
               {
                 sub_Categorie && sub_Categorie.length > 0 ?
                   sub_Categorie.map((CItem, index) => (
-                    <SelectItem key={index} value={CItem._id}>
+                    <SelectItem key={index} value={CItem}>
                       {`${CItem.sub_name} (${CItem.identifier})`}
                     </SelectItem>
                   ))
@@ -245,27 +237,7 @@ const EditChapters = () => {
           required={false}
         />
 
-        <div className=" my-4">
-          <Select name='status'
-            onValueChange={handleStatusChange}
 
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder={"স্ট্যাটাস"} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>
-                  স্ট্যাটাস
-                </SelectLabel>
-
-                <SelectItem value={"free"}>Free</SelectItem>
-                <SelectItem value={"paid"}>Paid</SelectItem>
-
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
 
       </div>
       {/* Editor container */}

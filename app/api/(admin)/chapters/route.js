@@ -6,9 +6,9 @@ import { NextResponse } from "next/server"
 export const POST = async (req) => {
     const body = await req.json();
 
-    const { chapter_name, contents, sub_categorie_id, status } = body;
+    const { chapter_name, contents, sub_categorie_id, type } = body;
 
-    if (!chapter_name || !contents || !sub_categorie_id) {
+    if (!chapter_name || !contents || !sub_categorie_id || !type) {
         return NextResponse.json({
             message: "All Field Are Required"
         }, { status: 400 })
@@ -32,14 +32,14 @@ export const POST = async (req) => {
             identifier: slug,
             contents,
             sub_categorie_id,
-            status
+            type
         });
+ 
 
-        const x = await newChapter.save();
+         await newChapter.save();
 
         return NextResponse.json({
-            message: "Chapter Created Successfully",
-            data: x
+            message: "Chapter Created Successfully", 
         },
             { status: 201 }
         );

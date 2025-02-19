@@ -52,8 +52,8 @@ export default async function SubCategories({ params }) {
                                     className="w-full h-full"
                                 />
                                 {/* অ্যাক্সেস ব্যাজ */}
-                                <span className={`absolute top-2 right-2 px-2 py-1 text-xs font-semibold text-white rounded ${isPremium ? 'bg-red-500' : 'bg-green-500'}`}>
-                                    {isPremium ? "প্রিমিয়াম সদস্যদের জন্য" : "বিনামূল্যে"}
+                                <span className={`absolute top-2 right-2 px-2 py-1 text-xs font-semibold text-white rounded ${item.type === "paid" ? 'bg-red-500' : 'bg-green-500'}`}>
+                                    {item.type === "paid" ? "প্রিমিয়াম সদস্যদের জন্য" : "বিনামূল্যে"}
                                 </span>
                             </div>
 

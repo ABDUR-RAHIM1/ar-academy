@@ -34,6 +34,10 @@ export default function SubjectTable({ sub_categories }) {
             selector: (row) => row.sub_name
         },
         {
+            name: "Type",
+            selector: (row) => row.type === "paid" ? <p className=' text-red-600 bg-red-200 px-2 py-1 text-sm'>Paid</p> : <p className=' color1 bg2 px-2 py-1 text-sm'>Free</p>
+        },
+        {
             name: "Description",
             selector: (row) => row.description ? <span className=' text-blue-800'>
                 {row.description}

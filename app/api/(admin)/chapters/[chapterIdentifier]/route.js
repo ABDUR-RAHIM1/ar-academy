@@ -56,14 +56,14 @@ export const PUT = async (req, { params }) => {
     }
 
     // _id ছাড়া বাকি ফিল্ড গুলির আপডেট করার জন্য filter 
-    const { chapter_name, contents, sub_categorie_id, status } = body;
+    const { chapter_name, contents, sub_categorie_id, type } = body;
     const slug = createSlug(chapter_name)
     const updatedBody = {
         chapter_name,
         identifier: slug,
         contents,
         sub_categorie_id,
-        status
+        type
     }
 
     // আপডেট করার আগে check

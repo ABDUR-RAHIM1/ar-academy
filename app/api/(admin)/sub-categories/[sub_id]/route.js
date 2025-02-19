@@ -8,7 +8,7 @@ export async function PUT(req, { params }) {
 
     const body = await req.json();
     const { sub_id } = await params;
-    const { sub_name, description , coverPhoto } = body;
+    const { sub_name, description, type, coverPhoto } = body;
 
     const slug = createSlug(sub_name);
 
@@ -16,13 +16,14 @@ export async function PUT(req, { params }) {
         sub_name,
         identifier: slug,
         description,
+        type,
         coverPhoto
     }
 
     try {
 
         const isUpdated = await SubCategories.findByIdAndUpdate(sub_id, {
-            $set:  updatedBody
+            $set: updatedBody
         }, { new: true, runValidators: true });
 
         if (!isUpdated) {

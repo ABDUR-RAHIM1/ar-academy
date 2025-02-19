@@ -27,8 +27,9 @@ const ChapterAdd = () => {
         chapter_name: "",
         contents: "",
         sub_categorie_id: "",
-        status: "free"
+        type: ""
     });
+    console.log(formData)
     const [searchValue, setSearchValue] = useState("")
 
     const [sub_Categorie, set_SubCategorie] = useState([])
@@ -93,29 +94,22 @@ const ChapterAdd = () => {
     };
 
     // categories Change handler
-    const handleCategorieChange = (categorieId) => {
+    const handleSubCategorieChange = (categorie) => {
+        console.log(categorie)
         setFormData((prev) => ({
             ...prev,
-            sub_categorie_id: categorieId
+            sub_categorie_id: categorie._id,
+            type: categorie?.type
         }))
     };
 
-    // handle Status Change
-    const handleStatusChange = (statusValue) => {
-        console.log(statusValue);
 
-        setFormData((prev) => ({
-            ...prev,
-            status: statusValue
-        }))
-    }
-   
     //  seacrh Filter Categories 
     const handleSearch = (e) => {
         setSearchValue(e.target.value)
     }
 
-    // get all chapter and set Select Field
+    // get all Sub Categories and set Select Field
     useEffect(() => {
         const getCategorieData = async () => {
             const { status, data } = await getSubCategorie();
@@ -134,6 +128,7 @@ const ChapterAdd = () => {
 
         getCategorieData();
     }, [searchValue]);
+
 
 
     //  submit Chapter
@@ -172,7 +167,7 @@ const ChapterAdd = () => {
                 />
 
                 <Select name='categorieId'
-                    onValueChange={handleCategorieChange}
+                    onValueChange={handleSubCategorieChange}
 
                 >
                     <SelectTrigger className="w-full">
@@ -186,7 +181,7 @@ const ChapterAdd = () => {
                             {
                                 sub_Categorie && sub_Categorie.length > 0 ?
                                     sub_Categorie.map((CItem, index) => (
-                                        <SelectItem key={index} value={CItem._id}>
+                                        <SelectItem key={index} value={CItem}>
                                             {`${CItem.sub_name} (${CItem.identifier})`}
                                         </SelectItem>
                                     ))
@@ -205,27 +200,7 @@ const ChapterAdd = () => {
                     handler={handleChange}
                 />
 
-                <div className=" my-4">
-                    <Select name='status'
-                        onValueChange={handleStatusChange}
 
-                    >
-                        <SelectTrigger className="w-full">
-                            <SelectValue placeholder={"স্ট্যাটাস"} />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectLabel>
-                                    স্ট্যাটাস
-                                </SelectLabel>
-
-                                <SelectItem value={"free"}>Free</SelectItem>
-                                <SelectItem value={"paid"}>Paid</SelectItem>
-
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </div>
             </div>
             {/* Editor container */}
             <div id="editor-container" style={{ height: "500px", marginBottom: "10px" }}></div>

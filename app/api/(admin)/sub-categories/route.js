@@ -6,11 +6,11 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
     const body = await req.json();
-    const { sub_name, description, categorieId, coverPhoto } = body;
+    const { sub_name, description, categorieId, type, coverPhoto } = body;
 
 
     // Validate inputs
-    if (!sub_name || !categorieId) {
+    if (!sub_name || !categorieId || !type) {
         return NextResponse.json({
             message: "All Fields Are Required!",
         }, { status: 400 });
@@ -42,6 +42,7 @@ export async function POST(req) {
             identifier: slug,
             description,
             categorieId,
+            type,
             coverPhoto
         });
         // [ ===== Create new subject ======]

@@ -26,6 +26,12 @@ const SubCategorieSchema = new mongoose.Schema(
             ref: "Categorie",
             required: [true, "categorie is required"],
         },
+        type: {
+            type: String,
+            required: true,
+            enum: ["paid", "free"],
+            default: "free"
+        },
         coverPhoto: {
             type: String,
         },
