@@ -1,7 +1,7 @@
 import { connectDb } from "@/db/ConnetcDb";
 import ChaptersModel from "@/db/models/ChaptersModel";
 import SubCategories from "@/db/models/Sub_categorieModel";
-import mongoose from "mongoose";
+import { createSlug } from "@/helpers/createSlug";
 import { NextResponse } from "next/server";
 
 //  get Chapter By Identifier then find By _id without content (only chapter name,  decription)
@@ -13,6 +13,7 @@ export const GET = async (req, { params }) => {
             message: "Chapter Identifier Missing!"
         }, { status: 404 })
     }
+
 
     try {
         await connectDb()
@@ -54,20 +55,28 @@ export const PUT = async (req, { params }) => {
         return NextResponse.json({ message: "Invalid chapterId" }, { status: 400 });
     }
 
-    // _id ছাড়া বাকি ফিল্ড গুলির আপডেট করার জন্য filter
-    const { _id, ...updateData } = body;
+    // _id ছাড়া বাকি ফিল্ড গুলির আপডেট করার জন্য filter 
+    const { chapter_name, contents, sub_categorie_id, status } = body;
+    const slug = createSlug(chapter_name)
+    const updatedBody = {
+        chapter_name,
+        identifier: slug,
+        contents,
+        sub_categorie_id,
+        status
+    }
 
     // আপডেট করার আগে check
-    if (Object.keys(updateData).length === 0) {
+    if (Object.keys(updatedBody).length === 0) {
         return NextResponse.json({
             message: "No fields to update"
         }, { status: 400 });
     }
 
     try {
-
+        await connectDb()
         const isUpdate = await ChaptersModel.findByIdAndUpdate(chapterId, {
-            $set: updateData  // _id ছাড়া বাকি ফিল্ড গুলি আপডেট হবে
+            $set: updatedBody  // _id ছাড়া বাকি ফিল্ড গুলি আপডেট হবে
         }, { new: true });
 
 
@@ -101,7 +110,7 @@ export const DELETE = async (req, { params }) => {
     }
 
     try {
-
+        await connectDb()
         const isDelete = await ChaptersModel.findByIdAndDelete(chapterId);
 
         if (!isDelete) {

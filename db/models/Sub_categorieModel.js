@@ -26,6 +26,9 @@ const SubCategorieSchema = new mongoose.Schema(
             ref: "Categorie",
             required: [true, "categorie is required"],
         },
+        coverPhoto: {
+            type: String,
+        },
     },
     { timestamps: true }
 );

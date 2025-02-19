@@ -18,7 +18,13 @@ const ChapterSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "SubCategorie",
         required: [true, "Sub Category ID is required"]
-    }
+    },
+    status: {
+        type: String,
+        required: true,
+        default: "free",
+        emun: ["free", "paid"]
+    },
 });
 
 

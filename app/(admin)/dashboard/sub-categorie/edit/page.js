@@ -4,7 +4,7 @@ import { InputField } from '@/utils/InputFIled'
 import SubmitButton from '@/utils/SubmitButton'
 import { postActions } from '@/actions/admins/postActions';
 import { contextD } from '@/contextApi/DashboardState';
-import { subCategoriePutDelete, subjectPutDelete } from '@/constans';
+import { subCategoriePutDelete } from '@/constans';
 import { getCategories } from '@/app/apiActions/client/clientApi';
 import {
     Select,
@@ -15,14 +15,22 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { uploaderStyle } from '@/utils/uploadStyle';
 
 
 
 
 export default function EditSubject() {
-    const { editData, showToast } = useContext(contextD);
+    const { showToast, imgUrl, uploadResponse, uploader , editData } = useContext(contextD);
+    const { status, message } = uploadResponse;
+    const costomStyle = uploaderStyle(status);
+
+
     const [loading, setLoading] = useState(false);
-   const [formData, setFormData] = useState({ sub_name: "", identifier: "", description: "", categorieId: "" })
+    const [formData, setFormData] = useState({ sub_name: "", description: "", categorieId: "", coverPhoto: "" });
+
     const [categorie, setCategorie] = useState([])
 
     const handleChange = (e) => {
@@ -35,6 +43,17 @@ export default function EditSubject() {
         }
 
     };
+
+
+    //  image url set in the state
+    useEffect(() => {
+        if (imgUrl) {
+            setFormData((prev) => ({
+                ...prev,
+                coverPhoto: imgUrl
+            }))
+        }
+    }, [imgUrl])
 
     const handleCategorieChange = (categorieId) => {
         setFormData((prev) => ({
@@ -122,12 +141,7 @@ export default function EditSubject() {
                         placeholder={"Enter Subject Name"}
                         handler={handleChange}
                     />
-                    <InputField
-                        name={"identifier"}
-                        value={formData.identifier}
-                        placeholder={"White speace Not Allowed"}
-                        handler={handleChange}
-                    />
+
                     <InputField
                         name={"description"}
                         value={formData.description}
@@ -135,6 +149,15 @@ export default function EditSubject() {
                         handler={handleChange}
                         required={false}
                     />
+                    <div className=' my-4'>
+                        <Label htmlFor={"coverPhoto"} style={costomStyle} >{message || "Cover Photo"}</Label>
+                        <Input
+                            type={"file"}
+                            name={"coverPhoto"}
+                            required={false}
+                            onChange={handleChange}
+                        />
+                    </div>
                 </div>
                 <SubmitButton loadingState={loading} btnText={" Update Sub Categorie"} />
             </form>

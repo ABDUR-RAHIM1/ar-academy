@@ -1,10 +1,16 @@
 import { connectDb } from "@/db/ConnetcDb";
 import CategorieModel from "@/db/models/CategoriesModel";
+import { createSlug } from "@/helpers/createSlug";
 import { NextResponse } from "next/server"
 
 export const PUT = async (req, { params }) => {
     const { categorieId } = await params;
-    const body = await req.json()
+    const body = await req.json();
+    const { categorie, description } = body;
+
+    const slug = createSlug(categorie);
+
+
     try {
 
         if (!categorieId) {
@@ -13,10 +19,16 @@ export const PUT = async (req, { params }) => {
             }, { status: 404 })
         }
 
+        const updatedData = {
+            categorie,
+            identifier: slug,
+            description
+        }
+
         await connectDb()
         const updated = await CategorieModel.findByIdAndUpdate(categorieId, {
-            $set: body
-        }, { new: true }); 
+            $set: updatedData
+        }, { new: true });
 
         if (!updated) {
             return NextResponse.json({
@@ -42,7 +54,7 @@ export const PUT = async (req, { params }) => {
 
 export const DELETE = async (req, { params }) => {
     const { categorieId } = await params;
-    console.log(categorieId)
+
     try {
 
         if (!categorieId) {

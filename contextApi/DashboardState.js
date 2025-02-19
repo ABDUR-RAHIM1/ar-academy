@@ -7,6 +7,62 @@ export const contextD = createContext()
 export default function DashboardState({ children }) {
     const router = useRouter()
     const [showSearchBar, setShowSearchBar] = useState(false)
+
+    const [imgUrl, setImgUrl] = useState("");
+    const [uploadResponse, setUploadResponse] = useState({
+        message: "",
+        status: 0,
+    });
+
+
+    // 🔹 File Upload Function
+    const uploader = async (file) => {
+        if (!file) {
+            setUploadResponse({
+                message: "No file selected",
+                status: 400,
+            });
+            return;
+        }
+
+        const form = new FormData();
+        form.append("image", file);
+
+        try {
+            setUploadResponse({
+                message: "Uploading...",
+                status: 102,
+            });
+
+            const response = await fetch("https://api.imgbb.com/1/upload?key=862850e874b9b92bba3bbba84383b4dd", {
+                method: "POST",
+                body: form,
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to upload");
+            }
+
+            const data = await response.json();
+            const uploadedUrl = data.data.url;
+
+            setImgUrl(uploadedUrl);
+            setUploadResponse({
+                message: "Uploaded successfully",
+                status: 200,
+            });
+
+           
+        } catch (error) {
+            console.error("Error uploading:", error);
+            setUploadResponse({
+                message: "Failed to upload",
+                status: 500,
+            });
+            
+        }
+    };
+
     //  user Content end here
 
 
@@ -29,6 +85,7 @@ export default function DashboardState({ children }) {
 
 
     const value = {
+        imgUrl, uploadResponse, uploader,
         showToast,
         showSearchBar, setShowSearchBar,
         isOpen, setIsOpen,

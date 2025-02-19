@@ -9,7 +9,7 @@ import { categoriePostGet } from '@/constans';
 export default function AddCategories() {
     const { showToast } = useContext(contextD);
     const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({ categorie: "", identifier: "", description: "", coverPhoto: null })
+    const [formData, setFormData] = useState({ categorie: "", description: "", coverPhoto: null })
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -32,7 +32,7 @@ export default function AddCategories() {
                 body: formData
             }
             const { status, data } = await postActions(payload);
-            console.log(data)
+          
             showToast(status, data)
 
         } catch (error) {
@@ -56,12 +56,12 @@ export default function AddCategories() {
                         placeholder={"Enter Categorie Name"}
                         handler={handleChange}
                     />
-                    <InputField
+                    {/* <InputField
                         name={"identifier"}
                         value={formData.identifier}
                         placeholder={"Unique identifier"}
                         handler={handleChange}
-                    />
+                    /> */}
                     <InputField
                         type={"textarea"}
                         name={"description"}

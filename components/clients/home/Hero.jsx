@@ -6,14 +6,14 @@ export default function Hero() {
   return (
     <div className=' w-full h-[90vh] md:h-[80vh] flex items-center justify-center gap-5 flex-wrap py-10 md:py-0 heroBanner relative'>
       <div className='leftText w-full md:w-[45%] px-5 flex flex-col gap-2 md:gap-5'>
-        <h1 className=' text-3xl  md:text-5xl font-bold text-red-800  '>
-          AR Academy BD <br />
+        <h1 className=' text-2xl  md:text-4xl font-bold text-yellow-200  '>
+          শেখার নতুন দিগন্তে আপনাকে <br />
         </h1>
         <h1 className=' text-3xl  md:text-5xl text-center md:text-right font-bold text-white  '>
-          তে স্বাগতম
+         স্বাগতম
         </h1>
 
-        <p className=' text-white text-sm md:text-xl'>বাংলাসহ, ইংরেজি, গণিত, বিজ্ঞান, ইতিহাস এবং আরও অনেক বিষয় AR Academy তে শিখুন। এখানেই আপনি আপনার পছন্দমত বিষয় পড়তে পারবেন, পুরোপুরি নিজের গতিতে!</p>
+        <p className=' text-white text-sm md:text-[16px]'>আমরা একটি আধুনিক অনলাইন লার্নিং প্ল্যাটফর্ম, যেখানে একাডেমিক পড়াশোনা, ভর্তি প্রস্তুতি, চাকরি প্রস্তুতি এবং জব এক্সাম প্রশ্ন সমাধানসহ নানান বিষয় শেখার সুযোগ পাবেন।</p>
       </div>
 
       <div className='rightImage w-full  md:w-[45%] px-5'>

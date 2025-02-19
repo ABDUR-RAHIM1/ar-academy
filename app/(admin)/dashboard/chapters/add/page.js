@@ -25,9 +25,9 @@ const ChapterAdd = () => {
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
         chapter_name: "",
-        identifier: "",
         contents: "",
-        sub_categorie_id: ""
+        sub_categorie_id: "",
+        status: "free"
     });
     const [searchValue, setSearchValue] = useState("")
 
@@ -85,7 +85,6 @@ const ChapterAdd = () => {
     //  onChange handler
     const handleChange = (e) => {
         const { name, value } = e.target;
-
         setFormData((prev) => ({
             ...prev,
             [name]: value
@@ -101,7 +100,16 @@ const ChapterAdd = () => {
         }))
     };
 
+    // handle Status Change
+    const handleStatusChange = (statusValue) => {
+        console.log(statusValue);
 
+        setFormData((prev) => ({
+            ...prev,
+            status: statusValue
+        }))
+    }
+   
     //  seacrh Filter Categories 
     const handleSearch = (e) => {
         setSearchValue(e.target.value)
@@ -196,16 +204,31 @@ const ChapterAdd = () => {
                     value={formData.chapter_name}
                     handler={handleChange}
                 />
-                <InputField
-                    name={"identifier"}
-                    placeholder={"Unique"}
-                    value={formData.identifier}
-                    handler={handleChange}
-                />
 
+                <div className=" my-4">
+                    <Select name='status'
+                        onValueChange={handleStatusChange}
+
+                    >
+                        <SelectTrigger className="w-full">
+                            <SelectValue placeholder={"স্ট্যাটাস"} />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>
+                                    স্ট্যাটাস
+                                </SelectLabel>
+
+                                <SelectItem value={"free"}>Free</SelectItem>
+                                <SelectItem value={"paid"}>Paid</SelectItem>
+
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
             </div>
             {/* Editor container */}
-            <div id="editor-container" style={{ height: "300px", marginBottom: "10px" }}></div>
+            <div id="editor-container" style={{ height: "500px", marginBottom: "10px" }}></div>
 
 
             <div onClick={handleSubmitChapter}>

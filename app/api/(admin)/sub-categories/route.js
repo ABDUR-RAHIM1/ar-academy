@@ -1,29 +1,33 @@
 
 import { connectDb } from "@/db/ConnetcDb";
 import SubCategories from "@/db/models/Sub_categorieModel";
+import { createSlug } from "@/helpers/createSlug";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
     const body = await req.json();
-    const { sub_name, identifier, description, categorieId } = body;
+    const { sub_name, description, categorieId, coverPhoto } = body;
+
 
     // Validate inputs
-    if (!sub_name || !identifier || !categorieId) {
+    if (!sub_name || !categorieId) {
         return NextResponse.json({
             message: "All Fields Are Required!",
         }, { status: 400 });
     }
+
+    const slug = createSlug(sub_name)
 
     try {
         await connectDb();
 
         //  < ======== Validation =========>
 
-        const exists = await SubCategories.findOne({ identifier })
+        const exists = await SubCategories.findOne({ identifier: slug })
 
         if (exists) {
             return NextResponse.json({
-                message: `${identifier} Already Created!`
+                message: `${slug} Already Created!`
             },
                 { status: 400 }
             )
@@ -35,9 +39,10 @@ export async function POST(req) {
         // [ ===== Create new subject ======]
         const newSubject = SubCategories({
             sub_name,
-            identifier,
+            identifier: slug,
             description,
-            categorieId
+            categorieId,
+            coverPhoto
         });
         // [ ===== Create new subject ======]
 
@@ -48,7 +53,7 @@ export async function POST(req) {
             message: "Created Successfully"
         }, { status: 201 });
 
-    } catch (error) { 
+    } catch (error) {
         return NextResponse.json({
             message: "Failed To Post",
         }, { status: 500 });

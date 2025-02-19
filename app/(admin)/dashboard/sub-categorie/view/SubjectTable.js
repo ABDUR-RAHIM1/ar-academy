@@ -2,6 +2,8 @@
 import DeleteActionButton from '@/actions/Buttons/DeleteActionButton';
 import EditActionButton from '@/actions/Buttons/EditActionButton';
 import { subCategoriePutDelete } from '@/constans';
+import { bookCover } from '@/Images/Images';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 
@@ -18,8 +20,14 @@ export default function SubjectTable({ sub_categories }) {
 
     const columns = [
         {
-            name: "#",
-            selector: (row, index) => <span>{index + 1}</span >
+            name: "cover photo",
+            selector: (row) => <Image
+                width={50}
+                height={50}
+                src={row.coverPhoto || bookCover}
+                alt='AR Academy BD'
+                className=' w-20 h-20 rounded-md my-3'
+            />
         },
         {
             name: "sub Categorie",

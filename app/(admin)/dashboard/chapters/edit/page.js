@@ -29,9 +29,9 @@ const EditChapters = () => {
 
   const [formData, setFormData] = useState({
     chapter_name: "",
-    identifier: "",
     contents: "",
-    sub_categorie_id: ""
+    sub_categorie_id: "",
+    status: "free"
   });
   const [searchValue, setSearchValue] = useState("")
 
@@ -81,14 +81,19 @@ const EditChapters = () => {
         theme: "snow",
         modules: {
           toolbar: [
-            [{ header: "1" }, { header: "2" }, { font: [] }],
-            [{ list: "ordered" }, { list: "bullet" }],
-            ["bold", "italic", "underline"],
-            [{ align: [] }],
-            ["link"],
-            ["blockquote", "code-block"],
-            [{ color: [] }, { background: [] }],
-            ["image", "video"],
+            [{ header: [1, 2, 3, 4, 5, 6, false] }], // Heading levels
+            [{ font: [] }], // Font selection
+            [{ size: ["small", false, "large", "huge"] }], // Font size
+            [{ list: "ordered" }, { list: "bullet" }], // Ordered & Unordered lists
+            [{ script: "sub" }, { script: "super" }], // Subscript & Superscript
+            [{ indent: "-1" }, { indent: "+1" }], // Indentation
+            [{ direction: "rtl" }], // Right-to-Left text support
+            [{ align: [] }], // Text align (left, center, right, justify)
+            ["bold", "italic", "underline", "strike"], // Text formatting
+            [{ color: [] }, { background: [] }], // Text & Background color
+            ["blockquote", "code-block"], // Blockquote & Code block
+            ["link", "image", "video", "formula"], // Media (link, image, video, formula)
+            ["clean"], // Remove formatting
           ],
         },
       });
@@ -120,6 +125,16 @@ const EditChapters = () => {
       sub_categorie_id: categorieId
     }))
   };
+
+  // handle Status Change
+  const handleStatusChange = (statusValue) => {
+    console.log(statusValue);
+
+    setFormData((prev) => ({
+      ...prev,
+      status: statusValue
+    }))
+  }
 
   // get all chapter and set Select Field
   useEffect(() => {
@@ -180,7 +195,7 @@ const EditChapters = () => {
         });
     }
   };
- 
+
   return (
     <div className=" w-[95%] md:w-[80%] m-auto my-10 bg-gray-100 p-4 rounded-md">
       <div>
@@ -229,17 +244,32 @@ const EditChapters = () => {
           handler={handleChange}
           required={false}
         />
-        <InputField
-          name={"identifier"}
-          placeholder={"Unique"}
-          value={formData.identifier}
-          handler={handleChange}
-          required={false}
-        />
+
+        <div className=" my-4">
+          <Select name='status'
+            onValueChange={handleStatusChange}
+
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder={"স্ট্যাটাস"} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>
+                  স্ট্যাটাস
+                </SelectLabel>
+
+                <SelectItem value={"free"}>Free</SelectItem>
+                <SelectItem value={"paid"}>Paid</SelectItem>
+
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
 
       </div>
       {/* Editor container */}
-      <div id="editor-container" style={{ height: "300px", marginBottom: "10px" }}>  </div>
+      <div id="editor-container" style={{ height: "500px", marginBottom: "10px" }}>  </div>
 
 
       {/*  extra activites for copyes Chapter Contens */}

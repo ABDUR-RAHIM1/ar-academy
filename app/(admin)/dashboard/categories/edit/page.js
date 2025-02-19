@@ -9,7 +9,7 @@ import {  categoriePutDelete } from '@/constans';
 export default function EditCategories() {
     const { showToast, editData } = useContext(contextD);
     const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({ categorie: "", identifier: "", description: "", coverPhoto: null })
+    const [formData, setFormData] = useState({ categorie: "", description: "", coverPhoto: null })
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -59,12 +59,12 @@ export default function EditCategories() {
                         placeholder={"Enter Categorie Name"}
                         handler={handleChange}
                     />
-                    <InputField
+                    {/* <InputField
                         name={"identifier"}
                         value={formData.identifier}
                         placeholder={"Unique identifier"}
                         handler={handleChange}
-                    />
+                    /> */}
                     <InputField
                         type={"textarea"}
                         name={"description"}

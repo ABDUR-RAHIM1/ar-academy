@@ -4,13 +4,12 @@ import Loading from '@/utils/Loading';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import { MdMenu } from 'react-icons/md';
 
 export default function ChaptersDetails() {
     const [loading, setLoading] = useState(false);
     const searchParams = useSearchParams();
     const chapter = searchParams.get("chapter");
-    const bookCover = searchParams.get("subCover");
+    const coverPhoto = searchParams.get("coverPhoto");
 
     const [chapterDetails, setChapterDetails] = useState(null);
 
@@ -37,17 +36,17 @@ export default function ChaptersDetails() {
     }
 
     return (
-        <div className=' py-10'>
+        <div className='py-10'>
 
-            {/* যদি bookCover থাকে এবং chapter না থাকে, শুধু cover দেখাবে */}
-            {bookCover && !chapter && (
-                <div className="flex justify-center items-center">
+            {/* যদি coverPhoto থাকে এবং chapter না থাকে, শুধু cover দেখাবে */}
+            {coverPhoto && !chapter && (
+                <div className=" px-5 w-full h-screen flex justify-center items-center">
                     <Image
-                        src={bookCover}
+                        src={coverPhoto}
                         width={1000}
                         height={1000}
                         alt="Book Cover"
-                        className="w-auto h-auto"
+                        className="w-auto h-[70vh] md:h-auto"
                     />
                 </div>
             )}

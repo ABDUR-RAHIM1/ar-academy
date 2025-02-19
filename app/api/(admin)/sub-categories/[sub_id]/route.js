@@ -1,4 +1,5 @@
 import SubCategories from "@/db/models/Sub_categorieModel";
+import { createSlug } from "@/helpers/createSlug";
 import { NextResponse } from "next/server";
 
 
@@ -7,16 +8,21 @@ export async function PUT(req, { params }) {
 
     const body = await req.json();
     const { sub_id } = await params;
-    const { sub_name, identifier , description } = body;
- 
+    const { sub_name, description , coverPhoto } = body;
+
+    const slug = createSlug(sub_name);
+
+    const updatedBody = {
+        sub_name,
+        identifier: slug,
+        description,
+        coverPhoto
+    }
+
     try {
 
         const isUpdated = await SubCategories.findByIdAndUpdate(sub_id, {
-            $set: {
-                sub_name,
-                identifier,
-                description
-            }
+            $set:  updatedBody
         }, { new: true, runValidators: true });
 
         if (!isUpdated) {

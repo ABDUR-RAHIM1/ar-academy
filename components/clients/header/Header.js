@@ -10,8 +10,9 @@ import {
 import { Button } from "@/components/ui/button"
 import Logo from '@/utils/Logo'
 import SearchButton from '../globals/search/SearchButton'
-import { MdMenu, } from 'react-icons/md'
+import { MdClose, MdMenu, } from 'react-icons/md'
 import { usePathname } from 'next/navigation'
+import { userLogin } from '@/constans'
 
 
 export default function Header() {
@@ -22,6 +23,11 @@ export default function Header() {
 
 
     const menuItems = [
+
+        {
+            item: "সমস্ত ক্যাটাগরি",
+            path: "/categories",
+        },
         {
             item: "সমস্যা ও সমাধান",
             path: "/problem-solved",
@@ -48,7 +54,7 @@ export default function Header() {
                         menuItems.map((item, index) => (
                             <Link href={item.path}
                                 key={index}
-                                className={` ${path === item.path ? "text-blue-300" : ""} text-sm font-medium transition-all`}
+                                className={` ${path === item.path ? "text-blue-300" : ""} text-sm font-medium hover:text-blue-300 transition-all`}
                             >{item.item}
                             </Link>
                         ))
@@ -63,7 +69,7 @@ export default function Header() {
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Button asChild>
-                                    <Link href="/account">একাউন্ট </Link>
+                                    <Link href={userLogin}>একাউন্ট </Link>
                                 </Button>
                             </TooltipTrigger>
                             <TooltipContent>
@@ -85,10 +91,18 @@ export default function Header() {
 
                 <div className=' flex items-center gap-1 md:gap-2'>
 
-                    <MdMenu
-                        onClick={() => setMenuClick(!menuClick)}
-                        className=' text-3xl text-white'
-                    />
+                    {
+                        menuClick ?
+                            <MdClose
+                                onClick={() => setMenuClick(!menuClick)}
+                                className=' text-3xl text-white cursor-pointer'
+                            />
+                            :
+                            <MdMenu
+                                onClick={() => setMenuClick(!menuClick)}
+                                className=' text-3xl text-white cursor-pointer'
+                            />
+                    }
 
 
 
@@ -99,7 +113,8 @@ export default function Header() {
                                     <Link
                                         href={item.path}
                                         key={index}
-                                        className={` ${path === item.path ? "text-blue-300" : ""} text-sm font-medium transition-all color1`}
+                                        onClick={() => setMenuClick(false)}
+                                        className={` ${path === item.path ? "text-blue-300" : ""} text-sm font-medium hover:text-blue-300 transition-all color1`}
                                     >{item.item}
                                     </Link>
                                 ))
@@ -110,7 +125,7 @@ export default function Header() {
                             <Tooltip>
                                 <TooltipTrigger asChild>
                                     <Button asChild>
-                                        <Link href="/account">একাউন্ট </Link>
+                                        <Link href={userLogin}>একাউন্ট </Link>
                                     </Button>
                                 </TooltipTrigger>
                                 <TooltipContent>

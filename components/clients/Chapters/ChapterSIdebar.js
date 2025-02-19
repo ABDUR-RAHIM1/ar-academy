@@ -59,7 +59,7 @@ export default function ChapterSidebar({ subIdentifier }) {
 
     return (
         <>
-            <div onClick={handleArrowClick} className={` block md:hidden  z-50 fixed top-[100px] md:top-[95px] ${arrowClick ? " left-2" : " left-[313px]"} cursor-pointer transition-all`}>
+            <div onClick={handleArrowClick} className={` block md:hidden  z-30 fixed top-[68px] md:top-[68px] ${arrowClick ? " left-0" : " left-[313px]"} cursor-pointer transition-all`}>
                 <Image
                     src={arrow}
                     width={30}
@@ -73,7 +73,7 @@ export default function ChapterSidebar({ subIdentifier }) {
                 `${arrowClick ? "scale-x-0" : "scale-x-100"} origin-left transition-all 
                      h-screen p-5 bg-gray-200 
                     absolute md:static w-[320px]
-                    top-[80px] left-0 
+                    top-[70px] left-0 
                     overflow-y-auto`
 
             }>
@@ -99,7 +99,7 @@ export default function ChapterSidebar({ subIdentifier }) {
                         </Link>
                     ))
                 }
-                <div style={{ height: "1000px" }}></div>
+                <div style={{ height: "10px" }}></div>
             </div>
         </>
     )

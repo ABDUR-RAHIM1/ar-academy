@@ -15,20 +15,44 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { postGetSubCategories } from '@/constans';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { uploaderStyle } from '@/utils/uploadStyle';
 
 
 
 export default function AddSubject() {
-    const { showToast } = useContext(contextD);
+    const { showToast, imgUrl, uploadResponse, uploader } = useContext(contextD);
+    const { status, message } = uploadResponse;
+    const costomStyle = uploaderStyle(status);
+    
     const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({ sub_name: "", identifier: "", description: "", categorieId: "" })
+
+    const [formData, setFormData] = useState({ sub_name: "", description: "", categorieId: "", coverPhoto: "" })
+
     const [categorie, setCategorie] = useState([])
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value })
+        const { type, name, value, files } = e.target;
+
+        if (type === "file") {
+            uploader(files[0])
+        } else {
+            setFormData({ ...formData, [name]: value })
+        }
+
 
     };
+   
+    //  image url set in the state
+    useEffect(() => {
+        if (imgUrl) {
+            setFormData((prev) => ({
+                ...prev,
+                coverPhoto: imgUrl
+            }))
+        }
+    }, [imgUrl])
 
     const handleCategorieChange = (categorieId) => {
         setFormData((prev) => ({
@@ -73,6 +97,8 @@ export default function AddSubject() {
     }
 
 
+
+
     return (
         <div className='addFormWrap'>
             <form onSubmit={handleSubmit}>
@@ -110,12 +136,7 @@ export default function AddSubject() {
                         placeholder={"Enter Subject Name"}
                         handler={handleChange}
                     />
-                    <InputField
-                        name={"identifier"}
-                        value={formData.identifier}
-                        placeholder={"White speace Not Allowed"}
-                        handler={handleChange}
-                    />
+
                     <InputField
                         name={"description"}
                         value={formData.description}
@@ -124,7 +145,15 @@ export default function AddSubject() {
                         required={false}
                     />
 
-
+                    <div className=' my-4'>
+                        <Label htmlFor={"coverPhoto"} style={costomStyle} >{message || "Cover Photo"}</Label>
+                        <Input
+                            type={"file"}
+                            name={"coverPhoto"}
+                            required={false}
+                            onChange={handleChange}
+                        />
+                    </div>
                 </div>
                 <SubmitButton loadingState={loading} btnText={"Add Sub Categorie"} />
             </form>

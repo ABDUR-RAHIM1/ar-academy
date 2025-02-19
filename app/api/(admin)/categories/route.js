@@ -1,23 +1,27 @@
 import { connectDb } from "@/db/ConnetcDb";
 import CategorieModel from "@/db/models/CategoriesModel";
+import { createSlug } from "@/helpers/createSlug";
 import { NextResponse } from "next/server"
 
 export const POST = async (req) => {
     const body = await req.json();
-    const { categorie, identifier, description } = body
+    const { categorie, description } = body
+
+    const slug = createSlug(categorie);
+ 
     try {
         await connectDb()
-        const exist = await CategorieModel.findOne({ identifier });
+        const exist = await CategorieModel.findOne({ identifier: slug });
 
         if (exist) {
             return NextResponse.json({
-                message: `${identifier} Already Created!`
+                message: `${slug} Already Created!`
             }, { status: 400 })
         }
 
         const newCategorie = CategorieModel({
             categorie,
-            identifier,
+            identifier: slug,
             description
         });
 

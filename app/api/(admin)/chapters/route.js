@@ -1,36 +1,39 @@
 import { connectDb } from "@/db/ConnetcDb";
 import ChaptersModel from "@/db/models/ChaptersModel";
+import { createSlug } from "@/helpers/createSlug";
 import { NextResponse } from "next/server"
 
 export const POST = async (req) => {
     const body = await req.json();
 
-    const { chapter_name, identifier, contents, sub_categorie_id } = body;
+    const { chapter_name, contents, sub_categorie_id, status } = body;
 
-    if (!chapter_name || !identifier || !contents || !sub_categorie_id) {
+    if (!chapter_name || !contents || !sub_categorie_id) {
         return NextResponse.json({
             message: "All Field Are Required"
         }, { status: 400 })
     }
 
+    const slug = createSlug(chapter_name)
+
     try {
         await connectDb();
 
-        const exist = await ChaptersModel.findOne({ identifier, chapter_name });
+        const exist = await ChaptersModel.findOne({ identifier: slug });
 
         if (exist) {
             return NextResponse.json({
-                message: `Chapter with identifier: ${identifier} or chapter_name: ${chapter_name} is already created.`
+                message: `${chapter_name} is already created.`
             }, { status: 400 });
         };
 
         const newChapter = new ChaptersModel({
             chapter_name,
-            identifier,
+            identifier: slug,
             contents,
-            sub_categorie_id
+            sub_categorie_id,
+            status
         });
-
 
         const x = await newChapter.save();
 
@@ -42,7 +45,6 @@ export const POST = async (req) => {
         );
 
     } catch (error) {
-        console.log(error)
         return NextResponse.json({
             message: "Chapter Creation Failed."
         },

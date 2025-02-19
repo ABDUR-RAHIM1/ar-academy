@@ -1,39 +1,9 @@
 import React from 'react'
 import SubScribeButton from './SubScribeButton';
+import { plans } from '@/LocalDatabase/Subcriptions';
 
 export default function Subscription() {
 
-    const plans = [
-        {
-            plan: "ফ্রি",
-            description: "শুধুমাত্র ফ্রি কন্টেন্ট",
-            price: "৳0",
-            border: "",
-            discount: ""
-        },
-        {
-            plan: "মাসিক",
-            description: "সম্পূর্ণ অ্যাক্সেস",
-            price: "৳99",
-            border: "border-2 border-yellow-500",
-            discount: ""
-        },
-        {
-            plan: "অর্ধ-বার্ষিক",
-            description: "১০% ডিসকাউন্ট",
-            price: "৳390",
-            border: "",
-            discount: "১০% ডিসকাউন্ট"
-        },
-        {
-            plan: "বার্ষিক",
-            description: "৩০% ডিসকাউন্ট",
-            price: "৳599",
-            border: "border-2 border-green-500",
-            discount: "৩০% ডিসকাউন্ট"
-        },
-    ];
-    const borders = ["border-gray-400", "border-yellow-500", "border-blue-800", "border-blue-green-300"];
 
     return (
         <div className='my-10 px-3 md:px-5 py-10 rounded-md bg2'>

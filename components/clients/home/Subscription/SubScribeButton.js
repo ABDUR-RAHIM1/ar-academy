@@ -1,4 +1,5 @@
 "use client"
+import { userLogin } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState'
 import { useRouter } from 'next/navigation'
 import React, { useContext } from 'react'
@@ -9,7 +10,7 @@ export default function SubScribeButton({ planInfoData }) {
 
     function handleClickSubScription() {
         setPlanInfo(planInfoData);
-        router.push("/account")
+        router.push(userLogin)
     }
 
 

@@ -6,15 +6,13 @@ import Image from "next/image";
 export const CategoriesCard = ({ categoriesData }) => {
     const { categorie, identifier, description } = categoriesData;
 
-    const x = cardStyle("asdadasdasd")
-    console.log(x)
-
+  
     return (
         <Link
             href={`/sub-categories/${identifier}`}
 
             style={{ borderLeft: `4px solid ${cardStyle(categorie)}` }}
-            className={`w-[48%] md:w-[22%] hover:shadow-xl transition-all flex flex-col items-center justify-between py-3 my-4 rounded-md shadow-xl hover:bg-gray-200`}
+            className={`w-[48%] md:w-[22%] hover:shadow-xl transition-all flex flex-col items-center justify-between py-3 my-4 rounded-md shadow-xl bg-gray-100 hover:bg-gray-200`}
         >
             <div className='w-full flex justify-center'>
                 <Image
