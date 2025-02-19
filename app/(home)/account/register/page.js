@@ -17,15 +17,20 @@ import { contextD } from '@/contextApi/DashboardState';
 import { plans } from '@/LocalDatabase/Subcriptions';
 import { validateEmail, validatePhone } from '@/helpers/verfications';
 import Link from 'next/link';
+import { postActionUser } from '@/actions/users/postActions';
+import {  userAccountRegister } from '@/constans';
+import { useRouter } from 'next/navigation';
 
 export default function Account() {
+    const router = useRouter()
     const { planInfo, showToast } = useContext(contextD);
 
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         plan: {},
         username: "",
-        email: "", // corrected from 'email' to match input field name
+        email: "",
+        password: "",
         bkashNumber: "",
         amount: ""
     });
@@ -37,13 +42,7 @@ export default function Account() {
                 plan: planInfo
             }))
         }
-        // else {
-        //     const defaultPlan = plans.find(plan => plan.plan === "ফ্রি");
-        //     setFormData((prev) => ({
-        //         ...prev,
-        //         plan: defaultPlan
-        //     }))
-        // }
+
     }, [planInfo])
 
 
@@ -66,15 +65,13 @@ export default function Account() {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         try {
             const isEmail = validateEmail(formData.email);
-            const isPhone = validatePhone(formData.bkashNumber); // ✅ সঠিক ফাংশন ব্যবহার
-
-            console.log(isEmail, isPhone);
+            const isPhone = validatePhone(formData.bkashNumber);
 
             if (!isEmail) {
                 showToast(400, "Invalid Email");
@@ -85,8 +82,18 @@ export default function Account() {
                 return;
             }
 
-            console.log(formData);
-            alert("এখনি ক্লিক করে লাভ নাই , কাজ চলতেছে !"); // Example alert
+            const payload = {
+                api: userAccountRegister,
+                method: "POST",
+                body: formData
+            }
+            const { status, data } = await postActionUser(payload);
+            showToast(status, data)
+
+            if (data.token) {
+                router.push("/profile")
+            }
+
         } catch (error) {
             console.log(error);
         } finally {
@@ -126,6 +133,7 @@ export default function Account() {
 
                 <InputField name="username" placeholder="Enter Your Username" handler={handleChange} />
                 <InputField name="email" type="email" placeholder="Enter Your Email" handler={handleChange} />
+                <InputField name="password" type="password" placeholder="Enter Your password" handler={handleChange} />
                 <InputField name="bkashNumber" type="number" placeholder="Enter Bkash Number" handler={handleChange} />
                 <InputField name="amount" type="number" placeholder="Enter Bkash Amount" handler={handleChange} />
 
@@ -138,7 +146,7 @@ export default function Account() {
                             href="/account/login"
                             className="inline-block px-6 py-2 rounded-md bg1 text-white font-medium hover:bg2 transition-all duration-300"
                         >
-                           লগইন করুন 
+                            লগইন করুন
                         </Link>
                     </p>
                 </div>

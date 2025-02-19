@@ -5,9 +5,13 @@ import React, { useContext, useState } from 'react';
 import { contextD } from '@/contextApi/DashboardState';
 import { validateEmail, validatePhone } from '@/helpers/verfications';
 import Link from 'next/link';
+import { postActionUser } from '@/actions/users/postActions';
+import { useRouter } from 'next/navigation';
+import { userAccountLogin } from '@/constans';
 
 export default function Account() {
-    const {  showToast } = useContext(contextD);
+    const router = useRouter()
+    const { showToast } = useContext(contextD);
 
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -24,27 +28,34 @@ export default function Account() {
     };
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         try {
             const isEmail = validateEmail(formData.email);
-            const isPhone = validatePhone(formData.bkashNumber); // ✅ সঠিক ফাংশন ব্যবহার
+           
 
-            console.log(isEmail, isPhone);
 
             if (!isEmail) {
                 showToast(400, "Invalid Email");
                 return;
             }
-            if (!isPhone) {
-                showToast(400, "Invalid Bkash number");
-                return;
+          
+            
+
+            const payload = {
+                api: userAccountLogin,
+                method: "POST",
+                body: formData
             }
 
-            console.log(formData);
-            alert("এখনি ক্লিক করে লাভ নাই , কাজ চলতেছে !"); // Example alert
+            const { status, data } = await postActionUser(payload);
+            showToast(status, data)
+
+            if (data.token) {
+                router.push("/profile")
+            }
         } catch (error) {
             console.log(error);
         } finally {

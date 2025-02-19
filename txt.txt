@@ -1,3 +1,21 @@
+ 
+ API -[
+
+    API_URL = https://ar-academy.vercel.app
+          local : "http://localhost:3000"
+
+
+         user : {
+           
+            1 : account
+                /api/user/account/register
+               /api/user/account/login
+               
+          }
+
+ ]
+ 
+ 
  <.................
  problems :
  bangla chapter name not supported
