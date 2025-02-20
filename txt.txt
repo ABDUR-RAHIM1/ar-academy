@@ -10,6 +10,8 @@
             1 : account
                 /api/user/account/register
                /api/user/account/login
+               /api/user/account/dash/all
+               /api/user/account/dash/:userId   {admin er jonno delete / status update}
                
           }
 

@@ -58,6 +58,18 @@ const sidebarItems = [
         ]
     },
     {
+        item: "Users",
+        icon: <MdLibraryBooks />,
+        children: [
+            {
+                item: "User Managment",
+                path: "users/view",
+                icon: <BsViewList />
+            },
+            
+        ]
+    },
+    {
         item: "Settings",
         icon: <MdSettings />,
         children: [

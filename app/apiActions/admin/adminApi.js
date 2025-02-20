@@ -2,7 +2,7 @@
 // admin api handlers
 
 import { getsActions } from "@/actions/admins/getsAction"
-import { chapters, postGetSubCategories } from "@/constans"
+import { chapters, postGetSubCategories, userAllAccount } from "@/constans"
 
 
 // dashboard/sub-categorie/view
@@ -18,3 +18,12 @@ export const getAllChapters = async () => {
 
     return resposne;
 }
+
+
+//  get all users for admin dahsboard (user managment)
+export const getAllUsers = async () => {
+    const resposne = await getsActions(userAllAccount);
+
+    return resposne;
+}
+

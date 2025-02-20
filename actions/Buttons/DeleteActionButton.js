@@ -10,6 +10,7 @@ export default function DeleteActionButton({ deleteRoute }) {
 
     const handleDelete = async () => {
         setIsLoading(true)
+        console.log(deleteRoute)
         try {
             const { status, data } = await deleteAction(deleteRoute);
             showToast(status, data)

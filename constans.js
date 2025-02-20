@@ -30,6 +30,8 @@ const chapterEdit = process.env.NEXT_PUBLIC_CHAPTER_EDIT
 
 export const userAccountRegister = "/api/user/account/register"
 export const userAccountLogin = "/api/user/account/login"
+export const userAllAccount = "/api/user/account/dash/all"
+export const userAllAccountStatusDelete = "/api/user/account/dash/"
 
 //  User End Here ===============================================================
 
