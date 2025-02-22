@@ -1,4 +1,5 @@
-import UserModel from "@/db/models/users/userModel";
+
+import AccountModel from "@/db/models/account/accountModel";
 import { NextResponse } from "next/server"
 
 export const PUT = async (req, { params }) => {
@@ -13,7 +14,7 @@ export const PUT = async (req, { params }) => {
             }, { status: 400 })
         }
 
-        const isUpdated = await UserModel.findByIdAndUpdate(userId, {
+        const isUpdated = await AccountModel.findByIdAndUpdate(userId, {
             $set: {
                 status: status
             }
@@ -49,7 +50,7 @@ export const DELETE = async (req, { params }) => {
             }, { status: 400 })
         }
 
-        const isDeleted = await UserModel.findByIdAndDelete(userId);
+        const isDeleted = await AccountModel.findByIdAndDelete(userId);
 
         if (isDeleted) {
             return NextResponse.json({

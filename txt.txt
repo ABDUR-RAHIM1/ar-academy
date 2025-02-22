@@ -7,12 +7,19 @@
 
          user : {
            
-            1 : account
-                /api/user/account/register
-               /api/user/account/login
-               /api/user/account/dash/all
-               /api/user/account/dash/:userId   {admin er jonno delete / status update}
+            1 : account (user o admin er jonno akoi schema suhdu role based)
+                /api/account/register
+               /api/account/login
+               /api/account/dash/all
+               /api/account/dash/:userId   {admin er jonno delete / status update}
                
+
+               2 : comment :
+             =>  /api/user/comment/  {getall (admin / users in dashboard and each      chapter) , post}
+
+              => /api/user/comment/byChapter/:chapterId {for Specefic chapters}
+              
+              => /api/user/comment/reply   {reply dewar jonno}
           }
 
  ]

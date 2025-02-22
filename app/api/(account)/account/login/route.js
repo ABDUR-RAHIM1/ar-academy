@@ -1,10 +1,10 @@
 import { connectDb } from "@/db/ConnetcDb"
-import UserModel from "@/db/models/users/userModel"
 import { NextResponse } from "next/server"
 import Jwt from "jsonwebtoken"
 import { secretKey } from "@/constans"
 import { cookies } from "next/headers"
 import bcrypt from "bcrypt"
+import AccountModel from "@/db/models/account/accountModel"
 
 //  user login
 export const POST = async (req) => {
@@ -22,30 +22,32 @@ export const POST = async (req) => {
         await connectDb();
 
         //  Email Exist Check
-        const isUser = await UserModel.findOne({ email });
-        if (!isUser) {
+        const isAccount = await AccountModel.findOne({ email });
+        if (!isAccount) {
             return NextResponse.json({
                 message: "Invalid Credentials"
             }, { status: 404 });
         }
 
 
-        const matchPassword = await bcrypt.compare(password, isUser.password)
+        const matchPassword = await bcrypt.compare(password, isAccount.password)
 
         if (matchPassword) {
 
             //  Token Generate
-            const userToken = {
-                id: isUser._id,
-                username: isUser.username,
-                email: isUser.email,
-                plan: isUser.plan
+            const accountToken = {
+                id: isAccount._id,
+                username: isAccount.username,
+                email: isAccount.email,
+                role: isAccount.role,
+                plan: isAccount.plan
             };
 
-            const token = Jwt.sign({ user: userToken }, secretKey, { expiresIn: "7d" });
+            const token = Jwt.sign({ account: accountToken }, secretKey, { expiresIn: "7d" });
 
             // HTTP-Only Cookie সেট করা
-            cookies().set("u_token", token, {
+            const cookie = await cookies(); // Here we await cookies()
+            cookie.set("ar_academy_token", token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
                 path: "/",

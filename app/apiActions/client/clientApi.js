@@ -1,5 +1,5 @@
 import { getsActions } from "@/actions/users/getActions"
-import { categoriePostGet, chapters, chapterWithContent, getSubCategoryByIndentifier, postGetSubCategories } from "@/constans"
+import { categoriePostGet, chapters, chapterWithContent, commentByChapterId, getSubCategoryByIndentifier, postGetSubCategories } from "@/constans"
 
 export const getCategories = async () => {
     const res = await getsActions(categoriePostGet);
@@ -43,4 +43,14 @@ export const getChapterWithContent = async (chapterName) => {
     const api = chapterWithContent + chapterName
     const chapters = await getsActions(api);
     return chapters
+}
+
+
+
+// get comment using chapterId for specefic Chapter
+export const getCommentsByChapterId = async (chapterId) => {
+    const api = commentByChapterId + chapterId
+    const comments = await getsActions(api);
+    
+    return comments
 }

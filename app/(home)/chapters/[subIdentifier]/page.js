@@ -4,6 +4,7 @@ import Loading from '@/utils/Loading';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import { CommentSection } from '../Comments';
 
 export default function ChaptersDetails() {
     const [loading, setLoading] = useState(false);
@@ -53,7 +54,7 @@ export default function ChaptersDetails() {
 
             {/* যদি chapter থাকে, তাহলে শুধু chapter এর ডাটা দেখাবে */}
             {chapter && chapterDetails && (
-                <div className='flex justify-between flex-wrap'>
+                <div className=''>
                     <div className="w-full bg-white px-4 md:px-5 py-10">
                         {/* Chapter Title */}
                         <h2 className="my-4 text-center color1 font-serif text-3xl md:text-4xl font-bold italic">
@@ -65,8 +66,11 @@ export default function ChaptersDetails() {
                             <div dangerouslySetInnerHTML={{ __html: chapterDetails.contents }} />
                         </div>
                     </div>
+                    <CommentSection chapterId={chapterDetails._id} />
                 </div>
+
             )}
+
         </div>
     );
 }

@@ -3,6 +3,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 // const API_URL = "http://localhost:3000"  // local
 // export const secretKey = process.env.NETX_PUBLIC_SECRET_KEY
 export const secretKey = "ab_rahimArAcademy_BD17"
+export const adminSecretKey = "@Admin#2024!Secure/17"
 
 const userLogin = "/account/register"
 
@@ -28,10 +29,14 @@ const chapterEdit = process.env.NEXT_PUBLIC_CHAPTER_EDIT
 
 //  user Start here ============================================================
 
-export const userAccountRegister = "/api/user/account/register"
-export const userAccountLogin = "/api/user/account/login"
-export const userAllAccount = "/api/user/account/dash/all"
-export const userAllAccountStatusDelete = "/api/user/account/dash/"
+export const accountRegister = "/api/account/register"
+export const accountLogin = "/api/account/login"
+export const AllAccount = "/api/account/dash/all"
+export const AllAccountStatusDelete = "/api/account/dash/"
+
+export const commentPostGetAll = "/api/user/comment/" // post , get all
+export const commentByChapterId = "/api/user/comment/byChapter/"
+export const commentReply = "/api/user/comment/reply"
 
 //  User End Here ===============================================================
 

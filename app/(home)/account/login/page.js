@@ -3,11 +3,11 @@ import { InputField } from '@/utils/InputFIled';
 import SubmitButton from '@/utils/SubmitButton';
 import React, { useContext, useState } from 'react';
 import { contextD } from '@/contextApi/DashboardState';
-import { validateEmail, validatePhone } from '@/helpers/verfications';
+import { validateEmail } from '@/helpers/verfications';
 import Link from 'next/link';
 import { postActionUser } from '@/actions/users/postActions';
 import { useRouter } from 'next/navigation';
-import { userAccountLogin } from '@/constans';
+import { accountLogin } from '@/constans';
 
 export default function Account() {
     const router = useRouter()
@@ -45,7 +45,7 @@ export default function Account() {
             
 
             const payload = {
-                api: userAccountLogin,
+                api: accountLogin,
                 method: "POST",
                 body: formData
             }

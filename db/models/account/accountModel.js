@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const UserShcema = new mongoose.Schema({
+const AccountSchema = new mongoose.Schema({
     plan: {
         type: Object,
         required: true,
@@ -16,6 +16,12 @@ const UserShcema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
+    },
+    role: {
+        type: String,
+        required: true,
+        enum: ["user", "admin"],
+        default: "user"
     },
     status: {
         type: String,
@@ -34,6 +40,6 @@ const UserShcema = new mongoose.Schema({
 
 
 
-const UserModel = mongoose.models.Users || mongoose.model("Users", UserShcema);
+const AccountModel = mongoose.models.AuthAccount || mongoose.model("AuthAccount", AccountSchema);
 
-export default UserModel;
+export default AccountModel;

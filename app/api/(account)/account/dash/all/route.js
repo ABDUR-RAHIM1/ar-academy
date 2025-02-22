@@ -1,13 +1,14 @@
 import { connectDb } from "@/db/ConnetcDb"
-import UserModel from "@/db/models/users/userModel"
+import AccountModel from "@/db/models/account/accountModel"
 import { NextResponse } from "next/server"
 
 export const GET = async (req) => {
     try {
 
         await connectDb()
-        const users = await UserModel.find().select("-password");
-        return NextResponse.json(users)
+        const accounts = await AccountModel.find().select("-password");
+        console.log(accounts)
+        return NextResponse.json(accounts)
 
     } catch (error) {
         return NextResponse.json({

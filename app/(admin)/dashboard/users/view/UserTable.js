@@ -1,7 +1,7 @@
 "use client"
 import { postActions } from '@/actions/admins/postActions';
 import DeleteActionButton from '@/actions/Buttons/DeleteActionButton';
-import { userAllAccountStatusDelete } from '@/constans';
+import { AllAccountStatusDelete } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import React, { useContext, useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
@@ -26,7 +26,7 @@ export default function UserTable({ usersData }) {
 
         const payload = {
             method: "PUT",
-            api: userAllAccountStatusDelete + userId,
+            api: AllAccountStatusDelete + userId,
             body: { status: e.target.value }
         }
         const { status, data } = await postActions(payload);
@@ -82,7 +82,7 @@ export default function UserTable({ usersData }) {
         },
         {
             name: "Delete",
-            selector: row => <DeleteActionButton deleteRoute={userAllAccountStatusDelete + row._id} />
+            selector: row => <DeleteActionButton deleteRoute={AllAccountStatusDelete + row._id} />
         },
     ]
 

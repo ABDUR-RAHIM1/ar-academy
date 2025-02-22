@@ -18,7 +18,7 @@ import { plans } from '@/LocalDatabase/Subcriptions';
 import { validateEmail, validatePhone } from '@/helpers/verfications';
 import Link from 'next/link';
 import { postActionUser } from '@/actions/users/postActions';
-import {  userAccountRegister } from '@/constans';
+import {  accountRegister } from '@/constans';
 import { useRouter } from 'next/navigation';
 
 export default function Account() {
@@ -83,7 +83,7 @@ export default function Account() {
             }
 
             const payload = {
-                api: userAccountRegister,
+                api: accountRegister,
                 method: "POST",
                 body: formData
             }
