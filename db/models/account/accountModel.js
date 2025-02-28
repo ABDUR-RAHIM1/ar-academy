@@ -23,6 +23,9 @@ const AccountSchema = new mongoose.Schema({
         enum: ["user", "admin"],
         default: "user"
     },
+    profilePhoto: {
+        type: String
+    },
     status: {
         type: String,
         enum: ["accept", "pending", "reject"],

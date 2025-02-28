@@ -5,10 +5,10 @@ import { NextResponse } from "next/server"
 
 export const POST = async (req) => {
     const body = await req.json();
-    const { categorie, description } = body
+    const { position, categorie, description } = body
 
     const slug = createSlug(categorie);
- 
+
     try {
         await connectDb()
         const exist = await CategorieModel.findOne({ identifier: slug });
@@ -20,6 +20,7 @@ export const POST = async (req) => {
         }
 
         const newCategorie = CategorieModel({
+            position,
             categorie,
             identifier: slug,
             description
@@ -46,9 +47,12 @@ export const POST = async (req) => {
 export const GET = async (req) => {
     try {
         await connectDb()
-        const categories = await CategorieModel.find();
+        const categories = await CategorieModel.find()
+            .sort({ position: 1, _id: 1 });
+ 
 
         return NextResponse.json(categories, { status: 200 })
+
 
     } catch (error) {
         return NextResponse.json({

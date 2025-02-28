@@ -8,11 +8,20 @@ export const POST = async (req) => {
     try {
 
         const accountInfo = await decodedToken();
+
+        if (accountInfo.error) {
+            return NextResponse.json({
+                message: accountInfo.error,
+                token: false
+            }, { status: 400 })
+        }
+
         await connectDb();
 
         const repliedBody = {
             accountName: accountInfo.username,
             accountId: accountInfo.id,
+            profilePhoto: accountInfo.profilePhoto,
             reply: reply,
             createdAt: new Date()
         }
@@ -30,17 +39,18 @@ export const POST = async (req) => {
         if (!isReplied) {
             return NextResponse.json({
                 message: "Comment not found",
-                error: error
+                error: error,
+                token: false
             }, { status: 404 })
         }
 
 
         return NextResponse.json({
-            message: "Reply Succesfull"
+            message: "Reply Succesfull",
+            token: false
         }, { status: 200 })
 
     } catch (error) {
-        console.log(error)
         return NextResponse.json({
             message: "Failed to post reply",
             error: error

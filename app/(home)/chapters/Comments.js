@@ -9,87 +9,9 @@ import Image from "next/image";
 import { demoProfilePhoto } from "@/Images/Images";
 import AddReply from "./AddReply";
 
-const CommentList = ({ comments }) => {
-
-    return (
-        <div className="space-y-4">
-            {comments.map((comment) => (
-                <div key={comment._id} className="p-4 border rounded-lg shadow-sm bg-white">
-                    <div className="flex items-center justify-between">
-                        <div className="font-bold flex items-center gap-2">
-                            <Image
-                                src={comment.profilePhoto || demoProfilePhoto}
-                                alt="User Photo"
-                                width={40}
-                                height={40}
-                                className="w-6 h-6 rounded-full"
-                            />
-                            {comment.accountId?.username || "Anonymous User"}
-                        </div>
-                        <span className="text-sm text-gray-500">
-                            {new Date(comment.createdAt).toLocaleDateString()}
-                        </span>
-                    </div>
-                    <p className="mt-2 text-gray-800 border-l-2 border-blue-500 px-2">{comment.comment}</p>
-
-                    {/* Reply Button */}
-                    <AddReply comment={comment} />
-
-
-                    {/* Replies Section */}
-                    {comment.replies && comment.replies.length > 0 && (
-                        <div className="mt-3 ml-4  border-l-2 border-blue-400 pl-4">
-                            {comment.replies.map((reply, index) => (
-                                <div key={index} className="my-3 flex items-center gap-2 border-t">
-                                    <Image
-                                        src={comment.profilePhoto || demoProfilePhoto}
-                                        alt="User Photo"
-                                        width={40}
-                                        height={40}
-                                        className="w-6 h-6 rounded-full"
-                                    />
-                                    <div>
-                                        <p className="font-semibold">
-                                            {reply.accountName || "Anonymous User"}:
-                                        </p>
-
-                                        <p>{reply.reply}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
-            ))}
-        </div>
-    );
-};
-
-
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-    const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-    }
-    return (
-        <div className="flex justify-center mt-6 space-x-2">
-            {pages.map((page) => (
-                <button
-                    key={page}
-                    onClick={() => onPageChange(page)}
-                    className={`px-3 py-1 border rounded ${currentPage === page
-                        ? "bg-blue-500 text-white"
-                        : "bg-white text-blue-500"
-                        }`}
-                >
-                    {page}
-                </button>
-            ))}
-        </div>
-    );
-};
 
 export const CommentSection = ({ chapterId }) => {
+
     const router = useRouter();
     const { showToast } = useContext(contextD);
     const [isLoading, setIsLoading] = useState(false);
@@ -133,7 +55,12 @@ export const CommentSection = ({ chapterId }) => {
             };
 
             const { status, data } = await postActionUser(payload);
+            if (status === 400 && !data.token) {
+                showToast(status, "আপনি এখনো লগ-ইন করেননি !");
+                return;
+            }
             showToast(status, data);
+
             if (status === 200 || status === 201) {
                 // নতুন মন্তব্য পোস্ট হওয়ার পর, তালিকা রিফ্রেশ করা
                 const { status: getStatus, data: getData } =
@@ -190,7 +117,7 @@ export const CommentSection = ({ chapterId }) => {
                 </h4>
                 {comments && comments.length > 0 ? (
                     <>
-                        <CommentList comments={currentComments} />
+                        <CommentList comments={currentComments} setComments={setComments} />
                         {totalPages > 1 && (
                             <Pagination
                                 currentPage={currentPage}
@@ -203,6 +130,90 @@ export const CommentSection = ({ chapterId }) => {
                     <p className="mt-4 text-gray-500">কোন মন্তব্য নেই</p>
                 )}
             </div>
+        </div>
+    );
+};
+
+
+
+const CommentList = ({ comments }) => {
+
+    return (
+        <div className="space-y-4">
+            {comments.map((comment) => (
+                <div key={comment._id} className="p-4 border rounded-lg shadow-sm bg-white">
+                    <div className="flex items-center justify-between">
+                        <div className="font-bold flex items-center gap-2">
+                            <Image
+                                src={comment.accountId.profilePhoto || demoProfilePhoto}
+                                alt="User Photo"
+                                width={40}
+                                height={40}
+                                className="w-8 h-8 rounded-full"
+                            />
+                            {comment.accountId?.username || "Anonymous User"}
+                        </div>
+                        <span className="text-sm text-gray-500">
+                            {new Date(comment.createdAt).toLocaleDateString()}
+                        </span>
+                    </div>
+                    <p className="mt-2 text-gray-800 border-l-2 border-blue-500 px-2">{comment.comment}</p>
+                    <button className=" px-2 py-1 rounded-md bg-red-500 text-white font-medium">delete</button>
+
+                    {/* Reply Button */}
+                    <AddReply comment={comment} />
+
+
+                    {/* Replies Section */}
+                    {comment.replies && comment.replies.length > 0 && (
+                        <div className="mt-3 ml-4  border-l-2 border-blue-400 pl-4">
+                            {comment.replies.map((reply, index) => (
+                                <div key={index} className="my-3 flex items-center gap-2 border-t">
+                                    <Image
+                                        src={reply.profilePhoto || demoProfilePhoto}
+                                        alt="User Photo"
+                                        width={40}
+                                        height={40}
+                                        className="w-6 h-6 rounded-full"
+                                    />
+                                    <div>
+                                        <p className="font-semibold">
+                                            {reply.accountName || "Anonymous User"}:
+                                        </p>
+
+                                        <p>{reply.reply}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            ))}
+        </div>
+    );
+};
+
+
+//  paginations
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+    }
+    return (
+        <div className="flex justify-center mt-6 space-x-2">
+            {pages.map((page) => (
+                <button
+                    key={page}
+                    onClick={() => onPageChange(page)}
+                    className={`px-3 py-1 border rounded ${currentPage === page
+                        ? "bg-blue-500 text-white"
+                        : "bg-white text-blue-500"
+                        }`}
+                >
+                    {page}
+                </button>
+            ))}
         </div>
     );
 };

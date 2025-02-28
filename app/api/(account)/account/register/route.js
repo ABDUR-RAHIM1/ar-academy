@@ -8,7 +8,7 @@ import AccountModel from "@/db/models/account/accountModel";
 
 export const POST = async (req) => {
     const body = await req.json();
-    const { plan, username, email, password, role, bkashNumber, amount, adminKey } = body; // `adminKey` ইনপুট নিতে হবে
+    const { plan, username, email, password, profilePhoto, role, bkashNumber, amount, adminKey } = body; // `adminKey` ইনপুট নিতে হবে
 
     //  All Fields Validation
     if (!plan || !username || !email || !password || !bkashNumber || !amount) {
@@ -46,6 +46,7 @@ export const POST = async (req) => {
             username,
             email,
             password: hashPassword,
+            profilePhoto,
             role,
             bkashNumber,
             amount
@@ -59,7 +60,8 @@ export const POST = async (req) => {
             username: account.username,
             email: account.email,
             plan: account.plan,
-            role: account.role
+            role: account.role,
+            profilePhoto: account.profilePhoto
         };
 
         const token = Jwt.sign({ account: accountToken }, secretKey, { expiresIn: "7d" });

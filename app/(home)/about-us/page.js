@@ -1,7 +1,9 @@
+ 
 import PageBanner from '@/utils/PageBanner';
 import React from 'react';
 
 export default function AboutUs() {
+
     return (
         <div className="bg-gray-50 min-h-screen">
             {/* Banner */}

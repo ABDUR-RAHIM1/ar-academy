@@ -89,6 +89,7 @@ export default function UserTable({ usersData }) {
     return (
         <div className=' my-10'>
             <DataTable
+                title={`User Managment : ${users?.length}`}
                 columns={columns}
                 data={users}
                 pagination

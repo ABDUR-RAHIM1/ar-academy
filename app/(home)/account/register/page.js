@@ -18,12 +18,17 @@ import { plans } from '@/LocalDatabase/Subcriptions';
 import { validateEmail, validatePhone } from '@/helpers/verfications';
 import Link from 'next/link';
 import { postActionUser } from '@/actions/users/postActions';
-import {  accountRegister } from '@/constans';
+import { accountRegister } from '@/constans';
 import { useRouter } from 'next/navigation';
+import { Input } from '@/components/ui/input';
+import { uploaderStyle } from '@/utils/uploadStyle';
 
 export default function Account() {
     const router = useRouter()
-    const { planInfo, showToast } = useContext(contextD);
+    const { planInfo, showToast, imgUrl, uploadResponse, uploader } = useContext(contextD);
+
+    const { status, message } = uploadResponse;
+    const costomStyle = uploaderStyle(status);
 
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -32,8 +37,22 @@ export default function Account() {
         email: "",
         password: "",
         bkashNumber: "",
-        amount: ""
+        amount: "",
+        profilePhoto: ""
     });
+
+
+    //  Image set in the formState
+    useEffect(() => {
+        if (imgUrl) {
+            setFormData((prev) => ({
+                ...prev,
+                profilePhoto: imgUrl
+            }))
+        }
+    }, [imgUrl])
+
+
 
     useEffect(() => {
         if (planInfo && Object.keys(planInfo).length > 0) {
@@ -46,12 +65,15 @@ export default function Account() {
     }, [planInfo])
 
 
-
-
+    console.log(formData)
     // ইনপুট চেঞ্জ হ্যান্ডলার
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        const { type, name, value, files } = e.target;
+        if (type === "file") {
+            uploader(files[0])
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
     };
 
     // স্ট্যাটাস পরিবর্তন হ্যান্ডলার (প্ল্যান আপডেট)
@@ -136,6 +158,16 @@ export default function Account() {
                 <InputField name="password" type="password" placeholder="Enter Your password" handler={handleChange} />
                 <InputField name="bkashNumber" type="number" placeholder="Enter Bkash Number" handler={handleChange} />
                 <InputField name="amount" type="number" placeholder="Enter Bkash Amount" handler={handleChange} />
+
+                <div className=' my-4'>
+                    <Label htmlFor={"profilePhoto"} style={costomStyle} >{message || "Profile Photo"}</Label>
+                    <Input
+                        type={"file"}
+                        name={"profilePhoto"}
+                        required={false}
+                        onChange={handleChange}
+                    />
+                </div>
 
                 <SubmitButton loadingState={loading} btnText="সাইন আপ করুন" />
 

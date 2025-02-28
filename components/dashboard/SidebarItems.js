@@ -58,6 +58,23 @@ const sidebarItems = [
         ]
     },
     {
+        item: "Questions",
+        icon: <MdLibraryBooks />,
+        children: [
+            {
+                item: "all Questions",
+                path: "questions/view",
+                icon: <BsViewList />
+            },
+            {
+                item: "Add Questions",
+                path: "questions/add",
+                icon: <BsViewList />
+            },
+
+        ]
+    },
+    {
         item: "Users",
         icon: <MdLibraryBooks />,
         children: [
@@ -66,7 +83,7 @@ const sidebarItems = [
                 path: "users/view",
                 icon: <BsViewList />
             },
-            
+
         ]
     },
     {

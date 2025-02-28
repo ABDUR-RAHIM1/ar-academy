@@ -4,12 +4,12 @@ import { InputField } from '@/utils/InputFIled'
 import SubmitButton from '@/utils/SubmitButton'
 import { postActions } from '@/actions/admins/postActions';
 import { contextD } from '@/contextApi/DashboardState';
-import {  categoriePutDelete } from '@/constans';
+import { categoriePutDelete } from '@/constans';
 
 export default function EditCategories() {
     const { showToast, editData } = useContext(contextD);
     const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({ categorie: "", description: "", coverPhoto: null })
+    const [formData, setFormData] = useState({ position: "", categorie: "", description: "", coverPhoto: null })
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -36,10 +36,10 @@ export default function EditCategories() {
                 api: categoriePutDelete + formData._id,
                 body: formData
             }
-            const { status, data } = await postActions(payload); 
+            const { status, data } = await postActions(payload);
             showToast(status, data)
 
-        } catch (error) { 
+        } catch (error) {
             showToast(500, "Failed To Post")
         } finally {
             setLoading(false)
@@ -54,17 +54,19 @@ export default function EditCategories() {
                 <h2>Edit Categorie</h2>
                 <div>
                     <InputField
+                        type={"number"}
+                        name={"position"}
+                        value={formData.position}
+                        placeholder={"Postion Number"}
+                        handler={handleChange}
+                    />
+                    <InputField
                         name={"categorie"}
                         value={formData.categorie}
                         placeholder={"Enter Categorie Name"}
                         handler={handleChange}
                     />
-                    {/* <InputField
-                        name={"identifier"}
-                        value={formData.identifier}
-                        placeholder={"Unique identifier"}
-                        handler={handleChange}
-                    /> */}
+                  
                     <InputField
                         type={"textarea"}
                         name={"description"}

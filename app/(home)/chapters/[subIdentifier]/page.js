@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { CommentSection } from '../Comments';
+import Link from 'next/link';
 
 export default function ChaptersDetails() {
     const [loading, setLoading] = useState(false);
@@ -62,10 +63,22 @@ export default function ChaptersDetails() {
                         </h2>
 
                         {/* Chapter Content */}
-                        <div className="leading-relaxed">
+                        <div className="leading-relaxed ">
                             <div dangerouslySetInnerHTML={{ __html: chapterDetails.contents }} />
                         </div>
                     </div>
+
+                    <div className='my-5 text-center px-2'>
+                        <Link href={{
+                            pathname: "/exam",
+                            query: { chapterId: chapterDetails._id }
+                        }}
+                            className='inline-block py-3 px-5 bg1 text-white font-semibold text-lg rounded-md shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg'>
+                            📖 এই বিষয়ের উপর পরীক্ষা দিন 🚀
+                        </Link>
+                    </div>
+
+
                     <CommentSection chapterId={chapterDetails._id} />
                 </div>
 

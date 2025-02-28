@@ -13,8 +13,9 @@ export const POST = async (req) => {
         const accountInfo = await decodedToken()
         if (accountInfo.error) {
             return NextResponse.json({
-                message: accountInfo.error
-            })
+                message: accountInfo.error,
+                token: false
+            }, { status: 400 })
         }
 
         await connectDb()
@@ -25,13 +26,15 @@ export const POST = async (req) => {
         });
         await newComment.save();
         return NextResponse.json({
-            message: "Comment Done"
+            message: "Comment Done",
+            token: true
         }, { status: 201 });
 
     } catch (error) {
         return NextResponse.json({
             message: "Failed to post comment",
-            error: error
+            error: error,
+            token: false
         }, { status: 500 })
     }
 }

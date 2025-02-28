@@ -16,8 +16,8 @@ export default function CategorieTable({ categories }) {
 
     const columns = [
         {
-            name: "#",
-            selector: (row, index) => index + 1
+            name: "Position",
+            selector: (row, index) => row.position || 0
         },
         {
             name: "Categorie",

@@ -5,7 +5,7 @@ import { contextD } from '@/contextApi/DashboardState';
 import { useRouter } from 'next/navigation';
 import React, { useContext, useState } from 'react'
 
-export default function AddReply({ comment }) {
+export default function AddReply({ comment, setComments }) {
     const router = useRouter();
     const { showToast } = useContext(contextD);
     const [isLoading, setIsLoading] = useState(false)
@@ -30,9 +30,13 @@ export default function AddReply({ comment }) {
                 body: replyBody
             }
             const { status, data } = await postActionUser(payload);
-            showToast(status, data);
+            if (status === 400 && !data.token) {
+                showToast(status, "আপনি এখনো লগ-ইন করেননি !");
+                return;
+            }
             if (status === 200 || status === 201) {
-                router.refresh()
+                // ✅ লোকাল স্টেটে নতুন রিপ্লাই যোগ করা
+                router.refresh();
             }
             setReplyText("");
             setReplyingTo(null);

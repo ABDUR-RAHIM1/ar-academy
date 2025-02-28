@@ -1,4 +1,6 @@
 "use client"
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react"
 import { toast } from 'react-hot-toast';
@@ -13,6 +15,18 @@ export default function DashboardState({ children }) {
         message: "",
         status: 0,
     });
+
+
+    const clientToken = Cookies.get("ar_academy_token");
+ 
+    let clientLoginInfo = null;
+    if (clientToken) {
+        try {
+            clientLoginInfo = jwtDecode(clientToken);
+        } catch (error) {
+            console.error("Invalid Token:", error);
+        }
+    }
 
 
     // 🔹 File Upload Function
@@ -52,14 +66,14 @@ export default function DashboardState({ children }) {
                 status: 200,
             });
 
-           
+
         } catch (error) {
             console.error("Error uploading:", error);
             setUploadResponse({
                 message: "Failed to upload",
                 status: 500,
             });
-            
+
         }
     };
 
@@ -85,6 +99,7 @@ export default function DashboardState({ children }) {
 
 
     const value = {
+        clientToken, clientLoginInfo,
         imgUrl, uploadResponse, uploader,
         showToast,
         showSearchBar, setShowSearchBar,

@@ -6,7 +6,7 @@ import { NextResponse } from "next/server"
 export const PUT = async (req, { params }) => {
     const { categorieId } = await params;
     const body = await req.json();
-    const { categorie, description } = body;
+    const { position, categorie, description } = body;
 
     const slug = createSlug(categorie);
 
@@ -20,6 +20,7 @@ export const PUT = async (req, { params }) => {
         }
 
         const updatedData = {
+            position,
             categorie,
             identifier: slug,
             description

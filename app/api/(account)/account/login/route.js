@@ -40,7 +40,8 @@ export const POST = async (req) => {
                 username: isAccount.username,
                 email: isAccount.email,
                 role: isAccount.role,
-                plan: isAccount.plan
+                plan: isAccount.plan,
+                profilePhoto: isAccount.profilePhoto
             };
 
             const token = Jwt.sign({ account: accountToken }, secretKey, { expiresIn: "7d" });
