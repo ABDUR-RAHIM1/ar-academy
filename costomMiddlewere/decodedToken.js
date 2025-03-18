@@ -1,28 +1,16 @@
 import { secretKey } from '@/constans';
-import jwt from 'jsonwebtoken';
-import { cookies } from 'next/headers';
+import { jwtVerify } from 'jose';
 
-export async function decodedToken() {
+export const DecoedToken = async (token) => {
 
-    const cookieStore = await cookies()
-    const getToken = cookieStore.get('ar_academy_token');
-    const token = getToken?.value;
+    const secret = new TextEncoder().encode("abrahimArAcademyBD17");
 
-    if (!token) {
-        return { error: "Token missing" };
-    }
- 
     try {
-        const decoded = jwt.verify(token, secretKey);
-       
-        const {account} = decoded;
-     
-        if (!account.role) {
-            return { error: 'Invalid token structure' };
-        }
 
-        return account;
-    } catch (error) { 
-        return { error: 'Invalid token' };
+        const { payload } = await jwtVerify(token, secret);
+        return payload;
+    } catch (error) {
+        console.error("JWT verification failed:", error);
+        throw new Error("Invalid Token");
     }
-}
+};

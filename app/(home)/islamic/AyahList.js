@@ -1,7 +1,9 @@
 "use client"
+import Link from "next/link";
 import { useState, useRef } from "react";
 
-export default function AyahList({ verses }) {
+export default function AyahList(props) {
+    const { id, verses } = props.verses;
     const [selectedAudio, setSelectedAudio] = useState(null); // অডিও সোর্স সংরক্ষণ করবে
     const audioRef = useRef(null); // অডিও প্লেয়ার রেফারেন্স
 
@@ -36,11 +38,20 @@ export default function AyahList({ verses }) {
 
                     {/* "শুনুন" বাটন */}
                     <button
-                        className="mt-4 px-4 py-2 bg1 text-white rounded hover:bg2 transition"
+                        className="mt-4 px-3 py-2 bg1 text-white rounded hover:bg2 transition"
                         onClick={() => handleAudioChange(ayah.audio)}
                     >
-                        🔊 
+                        🔊
                     </button>
+
+                    <Link
+                        className=" text-sm inline-block py-2 px-3 bg1 text-white mx-2 rounded-sm shadow-sm hover:bg2 transition-all"
+                        href={{
+                            pathname: `/islamic/tafsir/${"আল-কোরআন"}`,
+                            query: { surahNumber: id, ayahNumber: ayah.id }
+                        }}>
+                        তাফসীর দেখুন
+                    </Link>
 
                     {/* অতিরিক্ত তথ্য */}
                     <div className="mt-4 text-sm text-gray-600 flex flex-wrap gap-3">

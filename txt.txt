@@ -5,6 +5,8 @@
           local : "http://localhost:3000"
 
 
+       TOKEN_GET : /api/get-token/
+
          user : {
            
             1 : account (user o admin er jonno akoi schema suhdu role based)
@@ -20,6 +22,19 @@
               => /api/user/comment/byChapter/:chapterId {for Specefic chapters}
               
               => /api/user/comment/reply   {reply dewar jonno}
+
+
+              3 : Question (admin create korbe , subject onujyai user get korbe);
+                 => POST - /api/questions
+                 => GET - /api/questions 
+                 => GET - /api/questions/get-one/:questionId (single questions by id)
+                 => DELETE - /api/questions/delete/:questionId
+
+
+               4 : Results 
+                  => POST - /api/user/results   (submit Question Paper)
+                  => GET (me) - /api/user/results/get-me/
+                  => GET (details) /api/user/results/details/:resultId
           }
 
  ]

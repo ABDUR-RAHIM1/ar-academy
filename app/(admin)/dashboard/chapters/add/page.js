@@ -29,7 +29,7 @@ const ChapterAdd = () => {
         sub_categorie_id: "",
         type: ""
     });
-    console.log(formData)
+
     const [searchValue, setSearchValue] = useState("")
 
     const [sub_Categorie, set_SubCategorie] = useState([])
@@ -95,7 +95,7 @@ const ChapterAdd = () => {
 
     // categories Change handler
     const handleSubCategorieChange = (categorie) => {
-        console.log(categorie)
+
         setFormData((prev) => ({
             ...prev,
             sub_categorie_id: categorie._id,
@@ -182,7 +182,7 @@ const ChapterAdd = () => {
                                 sub_Categorie && sub_Categorie.length > 0 ?
                                     sub_Categorie.map((CItem, index) => (
                                         <SelectItem key={index} value={CItem}>
-                                            {`${CItem.sub_name} (${CItem.identifier})`}
+                                            {CItem.sub_name}
                                         </SelectItem>
                                     ))
                                     : null

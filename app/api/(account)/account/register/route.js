@@ -71,6 +71,7 @@ export const POST = async (req) => {
         cookie.set("ar_academy_token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
+            secure: false,
             path: "/",
             maxAge: 7 * 24 * 60 * 60, //  7 দিন থাকবে
         });

@@ -5,7 +5,11 @@ export const getsActions = async (endpoint) => {
 
     const res = await fetch(API_URL + endpoint, {
         method: "GET",
-        cache: "no-store"
+        cache: "no-store",
+        credentials: "include", // Ensure cookies are sent
+        headers: {
+            "Content-Type": "application/json"
+        }
     });
 
     const data = await res.json();

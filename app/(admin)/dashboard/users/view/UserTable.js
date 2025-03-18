@@ -87,13 +87,31 @@ export default function UserTable({ usersData }) {
     ]
 
     return (
-        <div className=' my-10'>
+        <div className='my-10 p-4 bg-gray-100 rounded-lg shadow-lg'>
             <DataTable
                 title={`User Managment : ${users?.length}`}
                 columns={columns}
                 data={users}
                 pagination
-
+                subHeader
+                subHeaderAlign="left"
+                customStyles={{
+                    headCells: {
+                        style: {
+                            backgroundColor: '#4c4f69',
+                            color: 'white',
+                            fontSize: '14px',
+                            fontWeight: '400',
+                        },
+                    },
+                    cells: {
+                        style: {
+                            backgroundColor: '#f4f4f9',
+                            fontSize: '14px',
+                            color: '#333',
+                        },
+                    },
+                }}
             />
         </div>
     )

@@ -18,7 +18,9 @@ body {
     background-size: cover;
     object-fit: cover;
   }
-   
+   .tafsir-content p{
+    margin: 10px 0px;
+   }
 
   @media (max-width: 767px) {
     .heroBanner {

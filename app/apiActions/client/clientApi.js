@@ -1,5 +1,13 @@
 import { getsActions } from "@/actions/users/getActions"
-import { categoriePostGet, chapters, chapterWithContent, commentByChapterId, getSubCategoryByIndentifier, postGetSubCategories } from "@/constans"
+import { categoriePostGet, chapters, chapterWithContent, commentByChapterId, getMyResult, getSubCategoryByIndentifier, getTokenApi, postGetSubCategories, questionSingleGET, questionsPOST_GET } from "@/constans"
+
+
+export const getToken = async () => {
+    const token = await getsActions(getTokenApi);
+
+    return token
+}
+
 
 export const getCategories = async () => {
     const res = await getsActions(categoriePostGet);
@@ -51,6 +59,28 @@ export const getChapterWithContent = async (chapterName) => {
 export const getCommentsByChapterId = async (chapterId) => {
     const api = commentByChapterId + chapterId
     const comments = await getsActions(api);
-    
+
     return comments
+}
+
+
+//  get all questions for user and admin
+export const getAllQuestions = async () => {
+    const questions = await getsActions(questionsPOST_GET);
+
+    return questions;
+}
+
+//  get Single question for user Using question _id for give exam
+export const getSingleQuestion = async (questionId) => {
+    const singleQuestion = await getsActions(questionSingleGET + questionId);
+
+    return singleQuestion;
+}
+
+//  exam result for users Profile (logged in users result)
+export const getMyResultData = async () => {
+    const myResults = await getsActions(getMyResult);
+
+    return myResults
 }

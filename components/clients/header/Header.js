@@ -1,18 +1,11 @@
 "use client"
 import React, { useState } from 'react'
-import Link from "next/link"
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { Button } from "@/components/ui/button"
+import Link from "next/link"  
 import Logo from '@/utils/Logo'
 import SearchButton from '../globals/search/SearchButton'
 import { MdClose, MdMenu, } from 'react-icons/md'
 import { usePathname } from 'next/navigation'
-import { userLogin } from '@/constans'
+import AccountBtn from './AccountBtn'
 
 
 export default function Header() {
@@ -65,18 +58,8 @@ export default function Header() {
                 <div className=' flex items-center gap-1 md:gap-2'>
                     <SearchButton />
 
-                    <TooltipProvider>
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <Button asChild>
-                                    <Link href={userLogin}>একাউন্ট </Link>
-                                </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                <p>প্রিমিয়াম সব ফিচারস পেতে  লগইন করুন</p>
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
+                    <AccountBtn />
+                 
                 </div>
             </div>
             {/*  desktop header End  */}
@@ -121,18 +104,7 @@ export default function Header() {
                             }
                         </div>
                         <br />
-                        <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <Button asChild>
-                                        <Link href={userLogin}>একাউন্ট </Link>
-                                    </Button>
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                    <p>প্রিমিয়াম সব ফিচারস পেতে  লগইন করুন</p>
-                                </TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
+                        <AccountBtn />
                     </div>
 
                 </div>

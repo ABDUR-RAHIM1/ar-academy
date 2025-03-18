@@ -9,6 +9,7 @@ export const contextD = createContext()
 export default function DashboardState({ children }) {
     const router = useRouter()
     const [showSearchBar, setShowSearchBar] = useState(false)
+    const [subIdentifier, setSubIdentifer] = useState("")
 
     const [imgUrl, setImgUrl] = useState("");
     const [uploadResponse, setUploadResponse] = useState({
@@ -18,7 +19,7 @@ export default function DashboardState({ children }) {
 
 
     const clientToken = Cookies.get("ar_academy_token");
- 
+
     let clientLoginInfo = null;
     if (clientToken) {
         try {
@@ -102,6 +103,7 @@ export default function DashboardState({ children }) {
         clientToken, clientLoginInfo,
         imgUrl, uploadResponse, uploader,
         showToast,
+        subIdentifier, setSubIdentifer,
         showSearchBar, setShowSearchBar,
         isOpen, setIsOpen,
         editData, setEditData,

@@ -1,23 +1,33 @@
 "use client"
 import { getChapterByIdentifier } from '@/app/apiActions/client/clientApi';
+import { contextD } from '@/contextApi/DashboardState';
 import { arrow } from '@/Images/Images';
 import Error from '@/utils/Error';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 export default function ChapterSidebar({ subIdentifier }) {
     const searchParams = useSearchParams();
     const chapterName = searchParams.get("chapter")
     const paramsName = subIdentifier ? decodeURIComponent(subIdentifier) : "";
 
+    const { setSubIdentifer } = useContext(contextD);
     const [arrowClick, setArrowClick] = useState(false)
     const [loading, setLoading] = useState(false)
     const [chapterItems, setChaptersItems] = useState([]);
     const [status, setStatus] = useState("200")
 
 
+    //  store sub Categories Identifier in Context API
+    useEffect(() => {
+        if (paramsName) {
+            setSubIdentifer(paramsName)
+        }
+    }, [chapterName])
+
+    //  get chapter by Identfier
     useEffect(() => {
         const getData = async () => {
             setLoading(true)

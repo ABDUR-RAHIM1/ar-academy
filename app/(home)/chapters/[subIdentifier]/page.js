@@ -3,11 +3,13 @@ import { getChapterWithContent } from '@/app/apiActions/client/clientApi';
 import Loading from '@/utils/Loading';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CommentSection } from '../Comments';
 import Link from 'next/link';
+import { contextD } from '@/contextApi/DashboardState';
 
 export default function ChaptersDetails() {
+    const { subIdentifier } = useContext(contextD);
     const [loading, setLoading] = useState(false);
     const searchParams = useSearchParams();
     const chapter = searchParams.get("chapter");
@@ -69,12 +71,11 @@ export default function ChaptersDetails() {
                     </div>
 
                     <div className='my-5 text-center px-2'>
-                        <Link href={{
-                            pathname: "/exam",
-                            query: { chapterId: chapterDetails._id }
-                        }}
+                        <Link
+                            href={`/exam/${subIdentifier}`}
                             className='inline-block py-3 px-5 bg1 text-white font-semibold text-lg rounded-md shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg'>
-                            📖 এই বিষয়ের উপর পরীক্ষা দিন 🚀
+
+                            {`📖 ${subIdentifier}  বিষয়ের উপর পরীক্ষা দিন 🚀`}
                         </Link>
                     </div>
 

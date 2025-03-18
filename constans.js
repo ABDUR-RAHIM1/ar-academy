@@ -1,11 +1,14 @@
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-// const API_URL = "http://localhost:3000"  // local
+// const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = "http://localhost:3000"  // local
 // export const secretKey = process.env.NETX_PUBLIC_SECRET_KEY
-export const secretKey = "ab_rahimArAcademy_BD17"
+export const secretKey = "abrahimArAcademyBD17"
 export const adminSecretKey = "@Admin#2024!Secure/17"
 
 const userLogin = "/account/register"
+
+//  get token api 
+export const getTokenApi = "/api/get-token/"
 
 // 1 Categories Start
 const categoriePostGet = process.env.NEXT_PUBLIC_CATEGORIE_GET;
@@ -25,7 +28,17 @@ const chapterWithContent = process.env.NEXT_PUBLIC_CHAPTERS_WITH_CONTENT;
 const chapterEdit = process.env.NEXT_PUBLIC_CHAPTER_EDIT
 // 3 chapters end
 
+//  questions start
+export const questionsPOST_GET = "/api/questions/"
+export const questionSingleGET = "/api/questions/get-one/"
+export const questionDelete = "/api/questions/delete/"
+//  questions End
 
+//  results Start here ==========================
+export const submitQuestions_get_all_result = "/api/user/results"
+export const getMyResult = "/api/user/results/get-me"
+export const resultDetailsApi = "/api/user/results/details/"
+//  results End here ============================
 
 //  user Start here ============================================================
 

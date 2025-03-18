@@ -83,8 +83,13 @@ const sidebarItems = [
                 path: "users/view",
                 icon: <BsViewList />
             },
+            {
+                item: "Results",
+                path: "users/results",
+                icon: <BsViewList />
+            },
+        ],
 
-        ]
     },
     {
         item: "Settings",
