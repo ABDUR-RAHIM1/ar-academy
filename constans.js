@@ -2,7 +2,7 @@
 // const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_URL = "http://localhost:3000"  // local
 // export const secretKey = process.env.NETX_PUBLIC_SECRET_KEY
-export const secretKey = "abrahimArAcademyBD17"
+export const secretKey = "abrahimArAcademy"
 export const adminSecretKey = "@Admin#2024!Secure/17"
 
 const userLogin = "/account/register"

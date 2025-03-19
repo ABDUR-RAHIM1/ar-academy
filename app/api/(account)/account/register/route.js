@@ -1,10 +1,10 @@
 import { connectDb } from "@/db/ConnetcDb";
 import { NextResponse } from "next/server";
-import Jwt from "jsonwebtoken";
-import { secretKey, adminSecretKey } from "@/constans"; // Admin Secret Key ইম্পোর্ট করতে হবে
-import { cookies } from "next/headers";
+import { secretKey, adminSecretKey } from "@/constans"; 
 import bcrypt from "bcrypt";
 import AccountModel from "@/db/models/account/accountModel";
+import { SignJWT } from "jose";
+const secret = new TextEncoder().encode(secretKey);
 
 export const POST = async (req) => {
     const body = await req.json();
@@ -56,7 +56,7 @@ export const POST = async (req) => {
 
         //  Token Generate
         const accountToken = {
-            id: account._id,
+            id: account._id.toString(),
             username: account.username,
             email: account.email,
             plan: account.plan,
@@ -64,22 +64,25 @@ export const POST = async (req) => {
             profilePhoto: account.profilePhoto
         };
 
-        const token = Jwt.sign({ account: accountToken }, secretKey, { expiresIn: "7d" });
+        const token = await new SignJWT({ account: accountToken })
+            .setProtectedHeader({ alg: "HS256" })
+            .setExpirationTime("7d")
+            .sign(secret);
 
-        // HTTP-Only Cookie সেট করা
-        const cookie = await cookies(); // Here we await cookies()
-        cookie.set("ar_academy_token", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            secure: false,
-            path: "/",
-            maxAge: 7 * 24 * 60 * 60, //  7 দিন থাকবে
-        });
-
-        return NextResponse.json({
-            message: "Account Created Successfully",
+        const response = NextResponse.json({
+            message: 'Registration successfully!',
             token: true
         }, { status: 201 });
+
+        response.cookies.set('ar_academy_token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            path: '/',
+            maxAge: 7 * 24 * 60 * 60, // 7 Days
+        });
+
+        return response;
 
     } catch (error) {
         console.log(error);

@@ -1,12 +1,12 @@
-import { connectDb } from "@/db/ConnetcDb"
-import { NextResponse } from "next/server"
-import Jwt from "jsonwebtoken"
-import { secretKey } from "@/constans"
-import { cookies } from "next/headers"
-import bcrypt from "bcrypt"
-import AccountModel from "@/db/models/account/accountModel"
+import { connectDb } from "@/db/ConnetcDb";
+import { NextResponse } from "next/server";
+import { SignJWT } from "jose"; // jose import 
+import bcrypt from "bcrypt";
+import AccountModel from "@/db/models/account/accountModel";
+import { secretKey } from "@/constans";
 
-//  user login
+const secret = new TextEncoder().encode(secretKey); // Secret Key Encode
+
 export const POST = async (req) => {
     const body = await req.json();
     const { email, password } = body;
@@ -29,14 +29,13 @@ export const POST = async (req) => {
             }, { status: 404 });
         }
 
-
-        const matchPassword = await bcrypt.compare(password, isAccount.password)
+        const matchPassword = await bcrypt.compare(password, isAccount.password);
 
         if (matchPassword) {
 
-            //  Token Generate
+            //  Token Generate using `jose`
             const accountToken = {
-                id: isAccount._id,
+                id: isAccount._id.toString(),
                 username: isAccount.username,
                 email: isAccount.email,
                 role: isAccount.role,
@@ -44,29 +43,30 @@ export const POST = async (req) => {
                 profilePhoto: isAccount.profilePhoto
             };
 
-            const token = Jwt.sign({ account: accountToken }, secretKey, { expiresIn: "7d" });
+            const token = await new SignJWT({ account: accountToken })
+                .setProtectedHeader({ alg: "HS256" })
+                .setExpirationTime("7d")
+                .sign(secret);
 
-            // HTTP-Only Cookie সেট করা
-            const cookie = await cookies(); // Here we await cookies()
-            cookie.set("ar_academy_token", token, {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                secure: false,
-                path: "/",
-                maxAge: 7 * 24 * 60 * 60, //  7 দিন থাকবে
-            });
-
-            return NextResponse.json({
-                message: "Login Successfully",
+            const response = NextResponse.json({
+                message: 'Login successfully!',
                 token: true
             }, { status: 201 });
+
+            response.cookies.set('ar_academy_token', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                path: '/',
+                maxAge: 7 * 24 * 60 * 60, // 7 Days
+            });
+
+            return response;
         } else {
             return NextResponse.json({
                 message: "Invalid Credentials"
             }, { status: 404 });
         }
-
-
 
     } catch (error) {
         return NextResponse.json({

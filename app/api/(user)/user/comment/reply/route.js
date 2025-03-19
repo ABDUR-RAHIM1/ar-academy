@@ -1,4 +1,4 @@
-import { decodedToken } from "@/costomMiddlewere/decodedToken";
+import { decodedToken } from "@/costomMiddlewere/DecodedToken";
 import { connectDb } from "@/db/ConnetcDb";
 import CommentModel from "@/db/models/comments/commentsModel";
 import { NextResponse } from "next/server"

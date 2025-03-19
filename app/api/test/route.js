@@ -1,4 +1,4 @@
-import { decodedToken } from "@/costomMiddlewere/decodedToken"
+import { decodedToken } from "@/costomMiddlewere/DecodedToken"
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server"
 
