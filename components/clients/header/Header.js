@@ -56,7 +56,7 @@ export default function Header() {
 
 
                 <div className=' flex items-center gap-1 md:gap-2'>
-                    <SearchButton />
+                    {/* <SearchButton /> */}
 
                     <AccountBtn />
                  
@@ -70,7 +70,7 @@ export default function Header() {
             <div className=' flex md:hidden sticky top-0 px-4 py-5 bg1 items-center justify-between flex-wrap z-40'>
                 <Logo />
 
-                <SearchButton />
+                {/* <SearchButton /> */}
 
                 <div className=' flex items-center gap-1 md:gap-2'>
 

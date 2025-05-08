@@ -60,6 +60,7 @@ export const resultMy = process.env.NEXT_PUBLIC_RESULT_MY
 export const accountRegister = "/api/account/register"
 export const accountLogin = "/api/account/login"
 export const AllAccount = "/api/account/all"
+export const loginUserAccount = "/api/account/user/"
 export const accountDelete = "/api/account/delete/"
 export const updateUserStatus = "/api/account/update/"
 

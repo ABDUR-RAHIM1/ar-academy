@@ -2,6 +2,7 @@ import { getsActions } from "@/actions/users/getActions"
 import { categorieGetAll, chaptersGetAll, chapterWithContent, chapterWithoutContent, getSubCategories, getSubCategoryByIndentifier, getTokenApi } from "@/constans"
 
 
+//  dorikar hocce na 
 export const getToken = async () => {
     const token = await getsActions(getTokenApi);
 

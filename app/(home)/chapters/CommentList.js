@@ -30,7 +30,7 @@ export default function CommentList({ comments, tokenInfo }) {
                     <div className="flex items-center justify-between">
                         <div className="font-bold flex items-center gap-2">
                             <Image
-                                src={comment.accountId.profilePhoto || demoProfilePhoto}
+                                src={comment.accountId?.profilePhoto || demoProfilePhoto}
                                 alt="User Photo"
                                 width={40}
                                 height={40}
@@ -65,7 +65,7 @@ export default function CommentList({ comments, tokenInfo }) {
                             {comment.replies.map((reply, index) => (
                                 <div key={index} className="my-3 flex items-center gap-2 border-t pt-2">
                                     <Image
-                                        src={reply.profilePhoto || demoProfilePhoto}
+                                        src={reply?.profilePhoto || demoProfilePhoto}
                                         alt="User Photo"
                                         width={40}
                                         height={40}

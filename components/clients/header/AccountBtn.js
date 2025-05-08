@@ -23,7 +23,7 @@ import Image from 'next/image'
 import { decodedToken } from '@/helpers/token-decoded/tokenDecoded'
 import getToken from '@/actions/getToken/getToken'
 import Cookies from 'js-cookie'
-import { FiChevronDown } from 'react-icons/fi'
+import { FiChevronDown, FiUser } from 'react-icons/fi'
 
 export default function AccountBtn() {
     const router = useRouter()
@@ -80,14 +80,11 @@ export default function AccountBtn() {
                     {/* Avatar কে DropdownTrigger বানানো হয়েছে */}
                     <DropdownMenuTrigger asChild>
 
-                        <div className='w-12 h-12 rounded-full border p-1 cursor-pointer flex items-center justify-center relative'>
-                            <p className='text-3xl'>
-                                {username}
-                            </p>
-                            <div className=' text-black font-bold-500 text-2xl absolute left-auto -bottom-4'>
-                                <FiChevronDown />
-                            </div>
-                        </div>
+                        <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md bg1 hover:bg2 md:bg-gray-100 md:hover:bg-gray-200 transition text-sm font-medium">
+                            <FiUser className="text-xl" />
+                            <span>{username}</span>
+                            <FiChevronDown className="text-lg" />
+                        </button>
 
                     </DropdownMenuTrigger>
 

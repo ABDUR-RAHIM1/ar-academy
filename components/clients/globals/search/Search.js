@@ -42,14 +42,14 @@ export default function Search() {
                     data = allCategories.data.map(item => ({
                         _id: item._id,
                         name: item.categorie,
-                        path: "/"
+                        path:`/sub-categories/${item.identifier}`
                     }));
                 } else if (selectValue === "subCategories") {
                     const allSubCategories = await getSearchSubCategories();
                     data = allSubCategories.data.map(item => ({
                         _id: item._id,
                         name: item.sub_name,
-                        path: `/sub-categories/${item.identifier}`
+                        path: `/chapter/${item.identifier}`
                     }));
                 } else if (selectValue === "chapters") {
                     const allChapters = await getSearchChapters();

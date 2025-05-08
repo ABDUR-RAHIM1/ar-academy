@@ -1,8 +1,11 @@
 import React from 'react';
 import { FiEdit, FiBookOpen, FiFileText, FiBarChart2, FiClock } from 'react-icons/fi';
 import { BsPatchCheckFill } from 'react-icons/bs';
+import { getUserAccount } from '@/app/apiActions/userInformantion';
+import Image from 'next/image';
+import Link from 'next/link';
 
-const ProfileDashboard = () => {
+const ProfileDashboard = async () => {
     const user = {
         name: "Rahim Uddin",
         email: "rahim@example.com",
@@ -19,28 +22,45 @@ const ProfileDashboard = () => {
         achievements: ["React Beginner", "Top Scorer"],
     };
 
+
+    const { status, data } = await getUserAccount();
+
+    if (status !== 200 || !data) {
+        return "no data found"
+    }
+
+    const { username, email, profilePhoto, createdAt, updatedAt } = data
+
     return (
         <div className="max-w-5xl mx-auto p-6">
             {/* Profile Header */}
-            <div className="flex items-center justify-between bg-white shadow-md rounded-xl p-6 mb-6">
+            <div className="flex items-center justify-between flex-wrap gap-2 bg-white shadow-md rounded-xl p-6 mb-6">
                 <div className="flex items-center gap-4">
-                    <img
-                        src={user.photo || "https://i.pravatar.cc/100"}
-                        alt="profile"
+                    <Image
+                        src={profilePhoto || "https://i.pravatar.cc/100"}
+                        alt="onushilon academy - abdur rahim"
+                        width={50}
+                        height={50}
                         className="w-20 h-20 rounded-full border"
                     />
                     <div>
-                        <h2 className="text-xl font-bold">{user.name}</h2>
-                        <p className="text-gray-600">{user.email}</p>
-                        <p className="text-sm text-gray-400">Member since: {user.joined}</p>
+                        <h2 className="text-xl font-bold">{username}</h2>
+                        <p className="text-gray-600">{email}</p>
+                        <p className="text-sm text-gray-400">Member since: {createdAt || new Date().toLocaleDateString()}</p>
                         <p className="text-xs text-gray-400 flex items-center gap-1">
-                            <FiClock /> Last login: {user.lastLogin}
+                            <FiClock /> Last update: {updatedAt || new Date().toLocaleDateString()}
+                        </p>
+                        <p className='text-xs text-gray-400'>
+                            Account Status : <span>{data.status}</span>
                         </p>
                     </div>
                 </div>
-                <button className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                    <FiEdit /> Edit Profile
-                </button>
+                <Link href={"/profile/settings"} className=' inline-block '>
+                    <button className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        <FiEdit /> Edit Profile
+                    </button>
+                </Link>
+
             </div>
 
             {/* Overview Cards */}
