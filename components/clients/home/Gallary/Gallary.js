@@ -9,7 +9,7 @@ export default function Gallary() {
         <div className=' px-3 my-10 flex items-center justify-between flex-wrap'>
             {
                 gallaryImage.map((image, index) => (
-                    <div  key={index} className='w-[49%] h-[470px] rounded-md my-4 '>
+                    <div  key={index} className='w-[49%] h-auto md:h-[470px] rounded-md my-4 '>
                         <Image
                             src={image}
                             width={1000}

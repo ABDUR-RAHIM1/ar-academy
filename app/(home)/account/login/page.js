@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { InputField } from '@/utils/InputFIled';
 import SubmitButton from '@/utils/SubmitButton';
 import React, { useContext, useState } from 'react';
@@ -10,8 +10,8 @@ import { useRouter } from 'next/navigation';
 import { accountLogin } from '@/constans';
 import Cookies from 'js-cookie';
 
-export default function Account() {
-    const router = useRouter()
+export default function LoginAccount() {
+    const router = useRouter();
     const { showToast, loginSignal, setLoginSignal } = useContext(contextD);
 
     const [loading, setLoading] = useState(false);
@@ -20,13 +20,10 @@ export default function Account() {
         password: "",
     });
 
-
-    // ইনপুট চেঞ্জ হ্যান্ডলার
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,29 +31,24 @@ export default function Account() {
 
         try {
             const isEmail = validateEmail(formData.email);
-
-
-
             if (!isEmail) {
                 showToast(400, "Invalid Email");
                 return;
             }
 
-
-
             const payload = {
                 api: accountLogin,
                 method: "POST",
                 body: formData
-            }
+            };
 
             const { status, data } = await postActionUser(payload);
-            showToast(status, data)
+            showToast(status, data);
 
             if (data.token) {
-                setLoginSignal(!loginSignal)
-                Cookies.set("ar_academy_session", data.token)
-                router.push("/profile")
+                setLoginSignal(!loginSignal);
+                Cookies.set("ar_academy_session", data.token);
+                router.push("/profile");
             }
         } catch (error) {
             console.log(error);
@@ -65,35 +57,50 @@ export default function Account() {
         }
     };
 
-
     return (
-        <div className='w-full min-h-screen px-3 bg2 flex items-center justify-center'>
-            <form onSubmit={handleSubmit} className='w-full md:w-[45%] m-auto bg-white color1 shadow-2xl p-5 rounded-md'>
-                <h3 className='text-xl my-3 font-medium text-center'>লগইন  ফর্ম </h3>
+        <div className="min-h-screen bg-gradient-to-r from-[#F9FAFB] to-[#EFF6FF] flex items-center justify-center px-4">
+            <div className="w-full max-w-6xl bg-white rounded-2xl shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+                
+                {/* Left Side - Branding */}
+                <div className="bg-blue-100 p-10 flex flex-col justify-center items-center text-center">
+                    <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">অনুশীলন একাডেমি</h2>
+                    <p className="text-gray-700 max-w-sm">
+                        আমাদের মাধ্যমে অনুশীলন করুন এবং নিজেকে তৈরি করুন আপনার কাঙ্ক্ষিত ভবিষ্যতের জন্য।
+                    </p>
+                    {/* <img 
+                        src="" 
+                        alt="Login Illustration" 
+                        className="w-60 mt-6 hidden md:block"
+                    /> */}
+                </div>
 
+                {/* Right Side - Login Form */}
+                <form
+                    onSubmit={handleSubmit}
+                    className='w-full p-10'
+                >
+                    <h2 className='text-2xl font-semibold text-gray-800 mb-6 text-center'>লগইন করুন</h2>
 
-                <InputField name="email" type="email" placeholder="Enter Your Email" handler={handleChange} />
-                <InputField name="password" type="password" placeholder="Enter Your password" handler={handleChange} />
+                    <div className="space-y-4">
+                        <InputField name="email" type="email" placeholder="আপনার ইমেইল লিখুন" handler={handleChange} />
+                        <InputField name="password" type="password" placeholder="পাসওয়ার্ড লিখুন" handler={handleChange} />
+                    </div>
 
-                <SubmitButton loadingState={loading} btnText="লগইন করুন" />
+                    <div className="mt-6">
+                        <SubmitButton loadingState={loading} btnText="লগইন করুন" />
+                    </div>
 
-                <div className="mt-6 flex justify-center items-center">
-                    <p className="text-gray-700 text-sm">
-                        <span className="mr-1">একাউন্ট নেই?</span>
+                    <div className="mt-6 text-center text-sm text-gray-600">
+                        <span>একাউন্ট নেই?</span>{" "}
                         <Link
                             href="/account/register"
-                            className="inline-block px-6 py-2 rounded-md bg1 text-white font-medium hover:bg2 transition-all duration-300"
+                            className="text-blue-600 hover:underline font-medium"
                         >
                             একাউন্ট তৈরি করুন
                         </Link>
-                    </p>
-                </div>
-
-
-
-
-
-            </form>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }
