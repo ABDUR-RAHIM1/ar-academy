@@ -7,11 +7,12 @@ export default function DeleteActionButton({ deleteRoute }) {
 
     const [isLoading, setIsLoading] = useState(false)
     const { showToast } = useContext(contextD)
-
+  
     const handleDelete = async () => {
-        setIsLoading(true) 
+        setIsLoading(true)
         try {
             const { status, data } = await deleteAction(deleteRoute);
+
             showToast(status, data)
 
         } catch (error) {

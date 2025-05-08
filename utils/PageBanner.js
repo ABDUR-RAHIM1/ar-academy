@@ -4,15 +4,13 @@ import React from 'react'
 
 export default function PageBanner({ text }) {
     return (
-        <div className='relative flex items-center justify-center'>
-            <Image
-                src={pageBanner}
-                width={1000}
-                height={200}
-                alt='ar academy bd'
-                className=' w-full h-auto '
-            />
-            <h1 className=' absolute top-auto left-auto text-white'>
+        // <div className='bg2 w-full h-[250px] overflow-hidden flex items-center justify-center'>
+        //     <h1 className=' text-white'>
+        //         {text || ""}
+        //     </h1>
+        // </div>
+        <div className=' w-full h-[100vh] overflow-hidden'>
+            <h1 className=' text-center my-4'>
                 {text || ""}
             </h1>
         </div>

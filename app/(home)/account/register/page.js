@@ -22,10 +22,11 @@ import { accountRegister } from '@/constans';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { uploaderStyle } from '@/utils/uploadStyle';
+import Cookies from 'js-cookie';
 
 export default function Account() {
     const router = useRouter()
-    const { planInfo, showToast, imgUrl, uploadResponse, uploader } = useContext(contextD);
+    const { planInfo, showToast, imgUrl, uploadResponse, uploader, loginSignal, setLoginSignal } = useContext(contextD);
 
     const { status, message } = uploadResponse;
     const costomStyle = uploaderStyle(status);
@@ -65,7 +66,6 @@ export default function Account() {
     }, [planInfo])
 
 
-    console.log(formData)
     // ইনপুট চেঞ্জ হ্যান্ডলার
     const handleChange = (e) => {
         const { type, name, value, files } = e.target;
@@ -113,11 +113,14 @@ export default function Account() {
             showToast(status, data)
 
             if (data.token) {
+                setLoginSignal(!loginSignal)
+                Cookies.set("ar_academy_session", data.token)
                 router.push("/profile")
             }
 
         } catch (error) {
             console.log(error);
+            showToast(500, "Register Failed");
         } finally {
             setLoading(false);
         }

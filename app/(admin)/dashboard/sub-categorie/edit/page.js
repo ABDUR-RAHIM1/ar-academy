@@ -4,7 +4,7 @@ import { InputField } from '@/utils/InputFIled'
 import SubmitButton from '@/utils/SubmitButton'
 import { postActions } from '@/actions/admins/postActions';
 import { contextD } from '@/contextApi/DashboardState';
-import { subCategoriePutDelete } from '@/constans';
+import { subCategoriePutDelete, subCategoriesUpdate } from '@/constans';
 import { getCategories } from '@/app/apiActions/client/clientApi';
 import {
     Select,
@@ -99,7 +99,7 @@ export default function EditSubject() {
         try {
             const payload = {
                 method: "PUT",
-                api: subCategoriePutDelete + formData._id,
+                api: subCategoriesUpdate + formData._id,
                 body: formData
             };
 

@@ -4,10 +4,11 @@ import { commentReply } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import { useRouter } from 'next/navigation';
 import React, { useContext, useState } from 'react'
+import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 
-export default function AddReply({ comment, setComments }) {
+export default function AddReply({ comment }) {
     const router = useRouter();
-    const { showToast } = useContext(contextD);
+    const { showToast, token } = useContext(contextD);
     const [isLoading, setIsLoading] = useState(false)
     const [replyingTo, setReplyingTo] = useState(null);
     const [replyText, setReplyText] = useState("");
@@ -19,6 +20,10 @@ export default function AddReply({ comment, setComments }) {
     const handleReplySubmit = async () => {
         if (replyText.trim() === "") return;
         try {
+            if (!token) {
+                showToast(status, "আপনি এখনো লগ-ইন করেননি !");
+                return;
+            }
             setIsLoading(true)
             const replyBody = {
                 commentId: comment._id,
@@ -30,13 +35,12 @@ export default function AddReply({ comment, setComments }) {
                 body: replyBody
             }
             const { status, data } = await postActionUser(payload);
-            if (status === 400 && !data.token) {
-                showToast(status, "আপনি এখনো লগ-ইন করেননি !");
-                return;
-            }
+
             if (status === 200 || status === 201) {
                 // ✅ লোকাল স্টেটে নতুন রিপ্লাই যোগ করা
+                showToast(200, data.message)
                 router.refresh();
+                console.log(data)
             }
             setReplyText("");
             setReplyingTo(null);
@@ -72,7 +76,7 @@ export default function AddReply({ comment, setComments }) {
                         onClick={() => handleReplySubmit(comment._id)}
                     >
                         {
-                            isLoading ? "Waiting..." : "Submit"
+                            isLoading ? "Waiting..." : < IoCheckmarkDoneCircleSharp className=' text-2xl' />
                         }
                     </button>
                 </div>

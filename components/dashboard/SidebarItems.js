@@ -110,6 +110,11 @@ const sidebarItems = [
                 path: "settings/notifications",
                 icon: <MdLibraryBooks />
             },
+            {
+                item: "How to work",
+                path: "settings/how-to-work",
+                icon: <MdLibraryBooks />
+            },
         ]
     },
     {

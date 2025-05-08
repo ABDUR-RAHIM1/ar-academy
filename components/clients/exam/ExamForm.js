@@ -1,15 +1,18 @@
 "use client";
 import { postActionUser } from "@/actions/users/postActions";
-import { submitQuestions_get_all_result } from "@/constans";
+import { questionsSubmit, userLogin } from "@/constans";
 import { contextD } from "@/contextApi/DashboardState";
+import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
 
 export default function ExamForm({ questions }) {
-    const [ loading, setLoading ] = useState(false)
-    const { showToast } = useContext(contextD)
+    const router = useRouter()
+    const [loading, setLoading] = useState(false)
+    const { showToast, token } = useContext(contextD)
     const [formData, setFormData] = useState(
         questions.map((q) => ({ ...q, selectAns: "" })) // Initial state with empty selectAns
     );
+
 
     // Function to handle option selection
     const handleOptionChange = (question, selectedOption) => {
@@ -25,6 +28,14 @@ export default function ExamForm({ questions }) {
 
     const handleSubmitQuestion = async (e) => {
         e.preventDefault();
+
+        if (!token) {
+            showToast(400, `আপনি এখনো লগইন করেননি
+পরীক্ষা দিতে আগে লগইন করুন। `)
+            router.push(userLogin)
+            return
+        }
+
         setLoading(true)
         try {
             // মার্কিং করার জন্য নতুন ফর্ম ডাটা তৈরি করা
@@ -54,15 +65,11 @@ export default function ExamForm({ questions }) {
 
             const payload = {
                 method: "POST",
-                api: submitQuestions_get_all_result,
+                api: questionsSubmit,
                 body: resultSheetData
             }
             const { status, data } = await postActionUser(payload);
 
-            if (data.token === false) {
-                showToast(status, "পরীক্ষা দিতে হলে আগে লগইন করতে হবে!")
-                return
-            }
             showToast(status, data)
 
         } catch (error) {

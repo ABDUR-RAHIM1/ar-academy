@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select";
 import { getChapterWithContent, getSubCategorie } from "@/app/apiActions/client/clientApi";
 import { postActions } from "@/actions/admins/postActions";
-import { chapters } from "@/constans";
+import { chaptersUpdate } from "@/constans";
 import SubmitButton from "@/utils/SubmitButton";
 import { contextD } from "@/contextApi/DashboardState";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
@@ -33,6 +33,7 @@ const EditChapters = () => {
     sub_categorie_id: "",
     type: ""
   });
+
   const [searchValue, setSearchValue] = useState("")
 
   const [sub_Categorie, set_SubCategorie] = useState([])
@@ -48,6 +49,7 @@ const EditChapters = () => {
       try {
         if (isEdit) {
           const { status, data } = await getChapterWithContent(editData.identifier);
+          console.log(status, data)
           if (status === 200) {
             setFormData(data);
           }
@@ -159,12 +161,12 @@ const EditChapters = () => {
     try {
       const payload = {
         method: "PUT",
-        api: chapters + formData._id,
+        api: chaptersUpdate + formData._id,
         body: formData
       }
       const { status, data } = await postActions(payload);
       showToast(status, data)
-
+      console.log("chapter update handler", data)
 
     } catch (error) {
       // showToast(500, "Failed To Update Chapter")

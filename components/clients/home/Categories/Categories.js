@@ -15,7 +15,7 @@ export default async function Categories() {
 
 
     return (
-        <div className='my-10 md:my-20 px-4 md:px-5 bg-white'>
+        <div className='my-10 md:my-20 px-4 md:px-5 bg-white '>
             <Heading text={"ক্যাটাগরি"} />
             <div className='flex justify-center flex-wrap gap-3 md:gap-5'>
                 {

@@ -4,7 +4,7 @@ import { InputField } from '@/utils/InputFIled'
 import SubmitButton from '@/utils/SubmitButton'
 import { postActions } from '@/actions/admins/postActions';
 import { contextD } from '@/contextApi/DashboardState';
-import { categoriePostGet } from '@/constans';
+import { categoriePost } from '@/constans';
 
 export default function AddCategories() {
     const { showToast } = useContext(contextD);
@@ -28,7 +28,7 @@ export default function AddCategories() {
         try {
             const payload = {
                 method: "POST",
-                api: categoriePostGet,
+                api: categoriePost,
                 body: formData
             }
             const { status, data } = await postActions(payload);

@@ -1,7 +1,7 @@
 "use client"
 import { postActions } from '@/actions/admins/postActions';
 import DeleteActionButton from '@/actions/Buttons/DeleteActionButton';
-import { AllAccountStatusDelete } from '@/constans';
+import { accountDelete, updateUserStatus } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import React, { useContext, useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
@@ -9,7 +9,6 @@ import DataTable from 'react-data-table-component';
 export default function UserTable({ usersData }) {
     const { showToast } = useContext(contextD);
     const [users, setUsers] = useState([]);
-    const [status, setStatus] = useState("")
 
     useEffect(() => {
         if (usersData) {
@@ -20,13 +19,10 @@ export default function UserTable({ usersData }) {
 
     //  Status OnChange Handler 
     const handleStatusChange = async (e, userId) => {
-        setStatus(e.target.value);
-        console.log(e.target.value, userId)
-
-
+    
         const payload = {
             method: "PUT",
-            api: AllAccountStatusDelete + userId,
+            api: updateUserStatus + userId,
             body: { status: e.target.value }
         }
         const { status, data } = await postActions(payload);
@@ -82,7 +78,7 @@ export default function UserTable({ usersData }) {
         },
         {
             name: "Delete",
-            selector: row => <DeleteActionButton deleteRoute={AllAccountStatusDelete + row._id} />
+            selector: row => <DeleteActionButton deleteRoute={accountDelete + row._id} />
         },
     ]
 

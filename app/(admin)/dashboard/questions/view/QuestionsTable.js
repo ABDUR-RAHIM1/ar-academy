@@ -1,5 +1,6 @@
 "use client"
 import DeleteActionButton from '@/actions/Buttons/DeleteActionButton';
+import EditActionButton from '@/actions/Buttons/EditActionButton';
 import { questionDelete } from '@/constans';
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
@@ -29,6 +30,10 @@ export default function QuestionsTable({ questionsData }) {
         {
             name: "মোট প্রশ্ন",
             selector: row => row.questions?.length || 0
+        },
+        {
+            name: "আপডেট করুন",
+            selector: row => <EditActionButton data={row} path={"/dashboard/questions/edit"} />
         },
         {
             name: "ডিলেট করুন",

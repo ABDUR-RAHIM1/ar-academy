@@ -1,7 +1,7 @@
 "use client"
 import DeleteActionButton from '@/actions/Buttons/DeleteActionButton';
 import EditActionButton from '@/actions/Buttons/EditActionButton';
-import { chapters } from '@/constans';
+import { chapterDelete } from '@/constans';
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import {
@@ -77,7 +77,7 @@ export default function ChaptersTable({ chaptersData }) {
         },
         {
             name: "Delete",
-            selector: (row) => <DeleteActionButton deleteRoute={chapters + row._id} />
+            selector: (row) => <DeleteActionButton deleteRoute={chapterDelete + row._id} />
         },
     ]
 

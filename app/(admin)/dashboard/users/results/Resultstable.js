@@ -13,9 +13,10 @@ export default function Resultstable({ resultsData }) {
     }, [resultsData]);
 
     const columns = [
+
         {
             name: "ব্যবহারকারী",
-            selector: row => row.user.username,
+            selector: row => <p className=' color1'>{row.user.username}</p>,
             sortable: true
         },
         {

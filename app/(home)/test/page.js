@@ -1,27 +1,23 @@
+
 import React from 'react'
 
-export default function Test() {
-    function decodeBanglaText(text) {
-        return decodeURIComponent(text);
-      }
-      
-      function convertToSlug(text) {
-        const decodedText = decodeBanglaText(text)
-          .replace(/[^\w\u0980-\u09FF\s-]/g, '') // শুধুমাত্র বাংলা, ইংরেজি, সংখ্যা ও স্পেস/হাইফেন রাখবে
-          .replace(/\s+/g, '-') // স্পেসকে `-` দিয়ে রিপ্লেস করবে
-          .toLowerCase()
-          .trim();
-      
-        return decodedText;
-      }
-      
-      // Example usage:
-      const encodedText = "বড়%20%2C%20ছোট%20তালিকা?chapter=সবচেয়ে+বড়দের+তালিকা";
-      const slug = convertToSlug(encodedText);
-      
-      console.log(slug);
+export default async function Test() {
+  const res = await fetch("http://localhost:5000/api/account/protected", {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json"
+    },
+    credentials: "include",
+  });
+  const data = await res.json();
 
-    return (
-        <div>Test</div>
-    )
+  console.log(data)
+
+
+  
+
+
+  return (
+    <div>Test</div>
+  )
 }

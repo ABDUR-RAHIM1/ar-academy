@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
-import {
-    Avatar,
-    AvatarFallback,
-    AvatarImage,
-} from "@/components/ui/avatar"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -21,22 +16,42 @@ import {
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { userLogin } from '@/constans'
-import { getToken } from '@/app/apiActions/client/clientApi'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { contextD } from '@/contextApi/DashboardState'
+import { demoProfilePhoto } from '@/Images/Images'
+import Image from 'next/image'
+import { decodedToken } from '@/helpers/token-decoded/tokenDecoded'
+import getToken from '@/actions/getToken/getToken'
+import Cookies from 'js-cookie'
+import { FiChevronDown } from 'react-icons/fi'
+
 export default function AccountBtn() {
+    const router = useRouter()
+    const { loginSignal, setLoginSignal } = useContext(contextD)
     const path = usePathname();
-    const [token, setToken] = useState("")
+    const [token, setToken] = useState(null)
+    const [username, setUsername] = useState(null)
 
     useEffect(() => {
         const getTokenData = async () => {
-            const { status, data } = await getToken();
-
-            if (status === 200 && data.token) {
-                setToken(data.token)
+            const tokenGet = await getToken()
+            const decod = await decodedToken()
+            if (decod?.username) {
+                setToken(tokenGet)
+                const firstLetter = decod.username.charAt(0).toUpperCase();
+                setUsername(firstLetter)
             }
         };
+
         getTokenData()
-    }, [])
+    }, [loginSignal])
+
+    const handleLougout = () => {
+        Cookies.remove("ar_academy_session")
+        setToken(null)
+        router.push("/")
+    }
+
 
 
     const profileItems = [
@@ -64,20 +79,26 @@ export default function AccountBtn() {
                 <DropdownMenu>
                     {/* Avatar কে DropdownTrigger বানানো হয়েছে */}
                     <DropdownMenuTrigger asChild>
-                        <Avatar className="cursor-pointer">
-                            <AvatarImage src="https://github.com/shadcn.png" alt="AR Academy BD" />
-                            <AvatarFallback>AR</AvatarFallback>
-                        </Avatar>
+
+                        <div className='w-12 h-12 rounded-full border p-1 cursor-pointer flex items-center justify-center relative'>
+                            <p className='text-3xl'>
+                                {username}
+                            </p>
+                            <div className=' text-black font-bold-500 text-2xl absolute left-auto -bottom-4'>
+                                <FiChevronDown />
+                            </div>
+                        </div>
+
                     </DropdownMenuTrigger>
 
                     <DropdownMenuContent className="w-56">
-                        <DropdownMenuLabel>Menu</DropdownMenuLabel>
+                        <DropdownMenuLabel>Profile Menu</DropdownMenuLabel>
                         <DropdownMenuSeparator />
 
                         {
                             profileItems.map((item, index) => (
                                 <DropdownMenuItem asChild key={index}>
-                                    <Link href={`/profile/${item.path}`} className=' w-full flex items-center justify-between'>
+                                    <Link href={`/profile/${item.path}`} className=' w-full flex items-center justify-between cursor-pointer'>
                                         {item.itemBN}
                                         {path === `/profile/${item.path}` && <span>
                                             ✔️
@@ -86,6 +107,12 @@ export default function AccountBtn() {
                                 </DropdownMenuItem>
                             ))
                         }
+                        <DropdownMenuItem
+                            className={" cursor-pointer"}
+                            onClick={handleLougout}
+                        >
+                            লগ আউট
+                        </DropdownMenuItem>
 
                     </DropdownMenuContent>
                 </DropdownMenu>

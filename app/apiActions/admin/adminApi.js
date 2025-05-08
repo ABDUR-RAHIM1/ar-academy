@@ -2,19 +2,25 @@
 // admin api handlers
 
 import { getsActions } from "@/actions/admins/getsAction"
-import { AllAccount, chapters, postGetSubCategories, resultDetailsApi, submitQuestions_get_all_result } from "@/constans"
+import { AllAccount, categorieGetAll, chaptersGetAll, getSubCategories  } from "@/constans"
+
+//  dashboard/categorie/view
+export const getAllCategorie = async () => {
+    const resposne = await getsActions(categorieGetAll);
+    return resposne;
+}
 
 
 // dashboard/sub-categorie/view
 export const getSubCategorie = async () => {
-    const resposne = await getsActions(postGetSubCategories);
+    const resposne = await getsActions(getSubCategories);
     return resposne;
 }
 
 
 // get all chapter without Contents for admin (dashboard/chapters/view)
 export const getAllChapters = async () => {
-    const resposne = await getsActions(chapters);
+    const resposne = await getsActions(chaptersGetAll);
 
     return resposne;
 }
@@ -27,18 +33,18 @@ export const getAllAccounts = async () => {
     return resposne;
 }
 
-//  get single result for details 
-export const getResultById = async (resultId) => {
-    const api = resultDetailsApi + resultId
-    const resposne = await getsActions(api);
+// //  get single result for details 
+// export const getResultById = async (resultId) => {
+//     const api = resultDetailsApi + resultId
+//     const resposne = await getsActions(api);
 
-    return resposne;
-}
+//     return resposne;
+// }
 
 
 //  get all results (admin)
-export const getAllResults = async () => {
-    const resulls = await getsActions(submitQuestions_get_all_result)
+// export const getAllResults = async () => {
+//     const resulls = await getsActions(submitQuestions_get_all_result)
 
-    return resulls
-}
+//     return resulls
+// }

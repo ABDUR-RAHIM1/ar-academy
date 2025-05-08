@@ -7,6 +7,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { CommentSection } from '../Comments';
 import Link from 'next/link';
 import { contextD } from '@/contextApi/DashboardState';
+import CommentList from '../comments/CommentList';
 
 export default function ChaptersDetails() {
     const { subIdentifier } = useContext(contextD);
@@ -18,9 +19,13 @@ export default function ChaptersDetails() {
     const [chapterDetails, setChapterDetails] = useState(null);
 
     useEffect(() => {
+
+      
+
         if (!chapter) return; // যদি chapter না থাকে, API কল করবে না
         const getDetails = async () => {
             setLoading(true);
+          
             try {
                 const { status, data } = await getChapterWithContent(chapter);
                 if (status === 200 && data) {
@@ -71,8 +76,8 @@ export default function ChaptersDetails() {
                     </div>
 
                     <div className='my-5 text-center px-2'>
-                        <Link
-                            href={`/exam/${subIdentifier}`}
+                        <Link 
+                            href={`/exam/chapter/${chapterDetails._id}`}
                             className='inline-block py-3 px-5 bg1 text-white font-semibold text-lg rounded-md shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg'>
 
                             {`📖 ${subIdentifier}  বিষয়ের উপর পরীক্ষা দিন 🚀`}
@@ -81,6 +86,7 @@ export default function ChaptersDetails() {
 
 
                     <CommentSection chapterId={chapterDetails._id} />
+                    {/* <CommentList chapterId={chapterDetails._id} /> */}
                 </div>
 
             )}

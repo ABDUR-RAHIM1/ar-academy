@@ -1,13 +1,15 @@
 "use client"
-import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
+
+import getToken from "@/actions/getToken/getToken";
 import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react"
 import { toast } from 'react-hot-toast';
 export const contextD = createContext()
 
 export default function DashboardState({ children }) {
-    const router = useRouter()
+    const [token, setToken] = useState("")
+    const router = useRouter();
+    const [loginSignal, setLoginSignal] = useState(false)
     const [showSearchBar, setShowSearchBar] = useState(false)
     const [subIdentifier, setSubIdentifer] = useState("")
 
@@ -18,17 +20,13 @@ export default function DashboardState({ children }) {
     });
 
 
-    const clientToken = Cookies.get("ar_academy_token");
-
-    let clientLoginInfo = null;
-    if (clientToken) {
-        try {
-            clientLoginInfo = jwtDecode(clientToken);
-        } catch (error) {
-            console.error("Invalid Token:", error);
-        }
-    }
-
+    useEffect(() => {
+        const getTokens = async () => {
+            const tokenValue = await getToken(); 
+            setToken(tokenValue)
+        };
+        getTokens()
+    }, [])
 
     // 🔹 File Upload Function
     const uploader = async (file) => {
@@ -100,7 +98,8 @@ export default function DashboardState({ children }) {
 
 
     const value = {
-        clientToken, clientLoginInfo,
+        token,
+        loginSignal, setLoginSignal,
         imgUrl, uploadResponse, uploader,
         showToast,
         subIdentifier, setSubIdentifer,

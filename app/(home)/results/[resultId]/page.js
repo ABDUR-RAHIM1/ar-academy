@@ -1,4 +1,5 @@
-import { getResultById } from '@/app/apiActions/admin/adminApi';
+ 
+import { getResultById } from '@/app/apiActions/results';
 import NoData from '@/utils/NoData';
 import React from 'react'
 

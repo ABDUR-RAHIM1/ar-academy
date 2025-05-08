@@ -14,17 +14,20 @@ import SubmitButton from '@/utils/SubmitButton';
 import * as XLSX from 'xlsx';
 import { Input } from '@/components/ui/input';
 import { postActions } from '@/actions/admins/postActions';
-import { questionsPOST_GET } from '@/constans';
+import { questionsCreate } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
-import { Label } from '@/components/ui/label';
+import { getAllChapters } from '@/app/apiActions/chapters';
 
 export default function AddQuestion() {
     const { showToast } = useContext(contextD);
     const [message, setMessage] = useState("")
     const [subCategories, setSubCategories] = useState([]);
+    const [chapters, setChapters] = useState([])
+
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
         sub_categorie: "",  //  subCategoire mean subject
+        chapter : "",    // chapter mean chapterId
         questions: []
     });
 
@@ -44,9 +47,10 @@ export default function AddQuestion() {
 
                 // Convert the sheet data to JSON
                 const questionsJson = XLSX.utils.sheet_to_json(worksheet);
+                const cleanedData = questionsJson.map(({ __rowNum__, ...rest }) => rest);
                 setFormData((prev) => ({
                     ...prev,
-                    questions: questionsJson
+                    questions: cleanedData
                 }));
                 setMessage("প্রশ্ন প্রস্তুত হয়েছে")
             };
@@ -60,7 +64,6 @@ export default function AddQuestion() {
     useEffect(() => {
         const getCategorieData = async () => {
             const { status, data } = await getSubCategorie();
-
             if (status === 200 && data) {
                 setSubCategories(data)
             }
@@ -70,11 +73,37 @@ export default function AddQuestion() {
         getCategorieData()
     }, []);
 
+    useEffect(() => {
+        const getChapters = async () => {
+            const { status, data } = await getAllChapters();
+            if (status === 200) {
+                // Filter chapters based on selected sub category
+                const filteredChapters = data.filter(
+                    chapter => chapter.sub_categorie_id === formData.sub_categorie
+                );
+                setChapters(filteredChapters);
+            }
+        };
+        if (formData.sub_categorie) {
+            getChapters();
+        }
+    }, [formData.sub_categorie]);
+
+
+
+
     // categories Change handler
     const handleSubCategorieChange = (SubCategorieId) => {
         setFormData((prev) => ({
             ...prev,
             sub_categorie: SubCategorieId
+        }))
+    };
+    // Chapter Change handler
+    const handleSubChapterChange = (ChapterId) => {
+        setFormData((prev) => ({
+            ...prev,
+            chapter: ChapterId // chapter mean chapterId
         }))
     };
 
@@ -85,9 +114,23 @@ export default function AddQuestion() {
         setLoading(true)
         try {
 
+            if (!formData?.sub_categorie) {
+                return showToast(400, "একটি Subject নির্বাচন করুন");
+            }
+            
+            if (!formData?.chapter) {
+                return showToast(400, "একটি Chapter নির্বাচন করুন");
+            }
+            
+            if (!formData?.questions || formData.questions.length === 0) {
+                return showToast(400, "প্রশ্নগুলো Excel থেকে যোগ করতে হবে");
+            }
+            
+
+
             const payload = {
                 method: "POST",
-                api: questionsPOST_GET,
+                api: questionsCreate,
                 body: formData
             }
             const { status, data } = await postActions(payload);
@@ -120,7 +163,7 @@ export default function AddQuestion() {
                             <SelectGroup>
                                 <SelectLabel>Subjects</SelectLabel>
                                 {subCategories && subCategories.length === 0 ? (
-                                    "Loading . . ."
+                                    "not found"
                                 ) : (
                                     subCategories.map((sc) => (
                                         <SelectItem key={sc._id} value={sc._id}>
@@ -132,6 +175,33 @@ export default function AddQuestion() {
                         </SelectContent>
                     </Select>
                 </div>
+                {/*  filtered chapter (filter with sub categorie) */}
+              {
+                formData.sub_categorie &&
+                <div className=' w- my-4'>
+                    <Select
+                        name='chapterId'
+                        onValueChange={handleSubChapterChange}
+                    >
+                        <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select Chapter Name" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>Chapters</SelectLabel>
+                                {chapters && chapters.length === 0 ? (
+                                    "not found"
+                                ) : (
+                                    chapters.map((ch) => (
+                                        <SelectItem key={ch._id} value={ch._id}>
+                                            {ch.identifier}
+                                        </SelectItem>
+                                    ))
+                                )}
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>}  
 
                 <div className=' my-4'>
                     <Input onChange={handleFileChange} type="file" accept=".xlsx, .xls" className=' w-full ' />

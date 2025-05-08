@@ -14,7 +14,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { postGetSubCategories } from '@/constans';
+import { createSubCategories, postGetSubCategories } from '@/constans';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { uploaderStyle } from '@/utils/uploadStyle';
@@ -83,8 +83,6 @@ export default function AddSubject() {
     }, [])
 
 
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -92,7 +90,7 @@ export default function AddSubject() {
         try {
             const payload = {
                 method: "POST",
-                api: postGetSubCategories, // form constans
+                api: createSubCategories, // form constans
                 body: formData
             }
             const { status, data } = await postActions(payload);
@@ -105,7 +103,7 @@ export default function AddSubject() {
         }
 
     }
- 
+
 
 
     return (

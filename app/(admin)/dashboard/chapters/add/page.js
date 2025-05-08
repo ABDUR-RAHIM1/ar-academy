@@ -16,13 +16,16 @@ import {
 } from "@/components/ui/select";
 import { getSubCategorie } from "@/app/apiActions/client/clientApi";
 import { postActions } from "@/actions/admins/postActions";
-import { chapters } from "@/constans";
+import { chaptersCreate } from "@/constans";
 import SubmitButton from "@/utils/SubmitButton";
 import { contextD } from "@/contextApi/DashboardState";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 const ChapterAdd = () => {
     const { showToast } = useContext(contextD)
     const [loading, setLoading] = useState(false)
+    const [type, setType] = useState(true) // editor
     const [formData, setFormData] = useState({
         chapter_name: "",
         contents: "",
@@ -49,7 +52,7 @@ const ChapterAdd = () => {
 
     //  Set Text Editor
     useEffect(() => {
-        if (Quill) {
+        if (Quill && type) {
             // Initialize Quill editor
             const editor = new Quill("#editor-container", {
                 theme: "snow",
@@ -82,6 +85,14 @@ const ChapterAdd = () => {
         }
     }, [Quill]);
 
+    //  handle type change
+    const handleTypeChange = (type) => {
+        if (type === "editor") {
+            setType(true)
+        } else {
+            setType(false)
+        }
+    }
 
     //  onChange handler
     const handleChange = (e) => {
@@ -138,7 +149,7 @@ const ChapterAdd = () => {
         try {
             const payload = {
                 method: "POST",
-                api: chapters,
+                api: chaptersCreate,
                 body: formData
             }
             const { status, data } = await postActions(payload);
@@ -200,11 +211,32 @@ const ChapterAdd = () => {
                     handler={handleChange}
                 />
 
+                <div className=" my-4">
+                    <Label >ধরণ</Label>
+                    <Select onValueChange={handleTypeChange}>
+                        <SelectTrigger className="w-full">
+                            <SelectValue placeholder="একটি ধরণ নির্বাচন করুন" />
+                        </SelectTrigger>
+
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem value="editor">এডিটর</SelectItem>
+                                <SelectItem value="file">ফাইল</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
 
             </div>
             {/* Editor container */}
-            <div id="editor-container" style={{ height: "500px", marginBottom: "10px" }}></div>
 
+            {
+                type ?
+                    <div id="editor-container" style={{ height: "500px", marginBottom: "10px" }}></div>
+                    :
+                    <Input type={"file"} name={"file"} className={"my-4"} />
+
+            }
 
             <div onClick={handleSubmitChapter}>
                 <SubmitButton loadingState={loading} btnText={"Add Chapter"} />

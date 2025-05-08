@@ -1,12 +1,12 @@
-import { getsActions } from '@/actions/admins/getsAction';
-import { categoriePostGet } from '@/constans';
+
 import Error from '@/utils/Error';
 import NoData from '@/utils/NoData';
 import React from 'react';
 import CategorieTable from './CategorieTable';
+import { getAllCategorie } from '@/app/apiActions/admin/adminApi';
 
 export default async function ViewCategories() {
-  const { status, data } = await getsActions(categoriePostGet);
+  const { status, data } = await getAllCategorie();
 
   if (!status || !data) {
     return <Error />;

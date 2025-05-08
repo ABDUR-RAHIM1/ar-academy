@@ -1,5 +1,5 @@
 import { getsActions } from "@/actions/users/getActions"
-import { categoriePostGet, chapters, chapterWithContent, commentByChapterId, getMyResult, getSubCategoryByIndentifier, getTokenApi, postGetSubCategories, questionSingleGET, questionsPOST_GET } from "@/constans"
+import { categorieGetAll, chaptersGetAll, chapterWithContent, chapterWithoutContent, getSubCategories, getSubCategoryByIndentifier, getTokenApi } from "@/constans"
 
 
 export const getToken = async () => {
@@ -10,18 +10,18 @@ export const getToken = async () => {
 
 
 export const getCategories = async () => {
-    const res = await getsActions(categoriePostGet);
+    const res = await getsActions(categorieGetAll);
     return res
 };
 
 
 // dashboard/sub-categorie/view
 export const getSubCategorie = async () => {
-    const resposne = await getsActions(postGetSubCategories);
+    const resposne = await getsActions(getSubCategories);
     return resposne;
 }
 
-// get Sub Categorie quiery by Indentifier with _id
+// get Sub Categorie query by Indentifier with _id
 export const getSubCategoieById = async (indentifier) => {
     const getCategorieByInderntifier = getSubCategoryByIndentifier + indentifier
     const resposne = await getsActions(getCategorieByInderntifier);
@@ -32,14 +32,14 @@ export const getSubCategoieById = async (indentifier) => {
 
 // get all chapter without Contents for User (home page)
 export const getAllChapters = async () => {
-    const chapterList = await getsActions(chapters);
+    const chapterList = await getsActions(chaptersGetAll);
 
     return chapterList;
 }
 
 // get chapter by identifier without content (/sub-categorie == /dashboard)
 export const getChapterByIdentifier = async (identifier) => {
-    const api = chapters + identifier;
+    const api = chapterWithoutContent + identifier;
     const chapterBYIdentifier = await getsActions(api);
 
     return chapterBYIdentifier;
@@ -56,31 +56,31 @@ export const getChapterWithContent = async (chapterName) => {
 
 
 // get comment using chapterId for specefic Chapter
-export const getCommentsByChapterId = async (chapterId) => {
-    const api = commentByChapterId + chapterId
-    const comments = await getsActions(api);
+// export const getCommentsByChapterId = async (chapterId) => {
+//     const api = commentByChapterId + chapterId
+//     const comments = await getsActions(api);
 
-    return comments
-}
+//     return comments
+// }
 
 
-//  get all questions for user and admin
-export const getAllQuestions = async () => {
-    const questions = await getsActions(questionsPOST_GET);
+// //  get all questions for user and admin
+// export const getAllQuestions = async () => {
+//     const questions = await getsActions(questionsPOST_GET);
 
-    return questions;
-}
+//     return questions;
+// }
 
 //  get Single question for user Using question _id for give exam
-export const getSingleQuestion = async (questionId) => {
-    const singleQuestion = await getsActions(questionSingleGET + questionId);
+// export const getSingleQuestion = async (questionId) => {
+//     const singleQuestion = await getsActions(questionSingleGET + questionId);
 
-    return singleQuestion;
-}
+//     return singleQuestion;
+// }
 
-//  exam result for users Profile (logged in users result)
-export const getMyResultData = async () => {
-    const myResults = await getsActions(getMyResult);
+// //  exam result for users Profile (logged in users result)
+// export const getMyResultData = async () => {
+//     const myResults = await getsActions(getMyResult);
 
-    return myResults
-}
+//     return myResults
+// }

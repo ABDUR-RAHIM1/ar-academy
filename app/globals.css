@@ -11,25 +11,27 @@ body {
   :root {
     --radius: 0.5rem;
   }
-
-  .heroBanner {
-    background-image: url("../public/Images/banner.gif");
-    background-repeat: no-repeat;
-    background-size: cover;
-    object-fit: cover;
+  *{
+    box-sizing: border-box;
   }
+  .animateOnLoad {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 1s ease-out forwards;
+  }
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
    .tafsir-content p{
     margin: 10px 0px;
    }
 
   @media (max-width: 767px) {
-    .heroBanner {
-      background-image: url("../public/Images/banner2.gif");
-      background-repeat: no-repeat;
-      background-size: cover;
-      object-fit: cover;
-    }
-
+   
     /* Mobile screen */
     .heroImageAnimate {
       animation: upDownMobile 1s ease-in-out infinite alternate;
@@ -78,12 +80,15 @@ body {
 @layer components {
 
   /* client Start */
-  .bg1 {
+  /* .bg1 {
     @apply bg-[#1e708a]
+  } */
+  .bg1 {
+    @apply bg-[#0891b2]
   }
 
   .bg2 {
-    @apply bg-[#33dfe985]
+    @apply bg-[#1e40af]
   }
 
   .color1 {
@@ -91,16 +96,22 @@ body {
     /* @apply text-[#ffde59] */
   }
 
-  .color2 {
+  /* .color2 {
     @apply text-[#33dfe985]
+  } */
+  .color2 {
+    @apply text-[#1e40af]
   }
 
   .border1 {
     @apply border-[#1e708a]
   }
 
-  .border2 {
+  /* .border2 {
     @apply border-[#33dfe985]
+  } */
+  .border2 {
+    @apply border-[#1e40af]
   }
 
   .btnBg {

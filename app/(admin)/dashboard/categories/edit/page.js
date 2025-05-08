@@ -4,7 +4,7 @@ import { InputField } from '@/utils/InputFIled'
 import SubmitButton from '@/utils/SubmitButton'
 import { postActions } from '@/actions/admins/postActions';
 import { contextD } from '@/contextApi/DashboardState';
-import { categoriePutDelete } from '@/constans';
+import { categorieUpdate } from '@/constans';
 
 export default function EditCategories() {
     const { showToast, editData } = useContext(contextD);
@@ -33,7 +33,7 @@ export default function EditCategories() {
         try {
             const payload = {
                 method: "PUT",
-                api: categoriePutDelete + formData._id,
+                api: categorieUpdate + formData._id,
                 body: formData
             }
             const { status, data } = await postActions(payload);
@@ -66,7 +66,7 @@ export default function EditCategories() {
                         placeholder={"Enter Categorie Name"}
                         handler={handleChange}
                     />
-                  
+
                     <InputField
                         type={"textarea"}
                         name={"description"}

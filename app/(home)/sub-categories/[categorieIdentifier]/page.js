@@ -11,6 +11,7 @@ export default async function SubCategories({ params }) {
     const { categorieIdentifier } = await params;
     const plainCategoriIdentifier = categorieIdentifier ? decodeURIComponent(categorieIdentifier) : ""
     const { status, data } = await getSubCategoieById(plainCategoriIdentifier);
+ 
 
     if (!status || !data) {
         return <Error />;

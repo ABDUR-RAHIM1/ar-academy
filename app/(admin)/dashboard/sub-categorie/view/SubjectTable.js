@@ -1,7 +1,7 @@
 "use client"
 import DeleteActionButton from '@/actions/Buttons/DeleteActionButton';
 import EditActionButton from '@/actions/Buttons/EditActionButton';
-import { subCategoriePutDelete } from '@/constans';
+import { subCategoriesDelete } from '@/constans';
 import { bookCover } from '@/Images/Images';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
@@ -55,7 +55,7 @@ export default function SubjectTable({ sub_categories }) {
         },
         {
             name: "Delete",
-            selector: (row) => <DeleteActionButton deleteRoute={subCategoriePutDelete + row._id} />
+            selector: (row) => <DeleteActionButton deleteRoute={subCategoriesDelete + row._id} />
         },
     ]
 

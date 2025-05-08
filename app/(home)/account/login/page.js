@@ -8,17 +8,17 @@ import Link from 'next/link';
 import { postActionUser } from '@/actions/users/postActions';
 import { useRouter } from 'next/navigation';
 import { accountLogin } from '@/constans';
+import Cookies from 'js-cookie';
 
 export default function Account() {
     const router = useRouter()
-    const { showToast } = useContext(contextD);
+    const { showToast, loginSignal, setLoginSignal } = useContext(contextD);
 
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         email: "",
         password: "",
     });
-
 
 
     // ইনপুট চেঞ্জ হ্যান্ডলার
@@ -34,15 +34,15 @@ export default function Account() {
 
         try {
             const isEmail = validateEmail(formData.email);
-           
+
 
 
             if (!isEmail) {
                 showToast(400, "Invalid Email");
                 return;
             }
-          
-            
+
+
 
             const payload = {
                 api: accountLogin,
@@ -54,6 +54,8 @@ export default function Account() {
             showToast(status, data)
 
             if (data.token) {
+                setLoginSignal(!loginSignal)
+                Cookies.set("ar_academy_session", data.token)
                 router.push("/profile")
             }
         } catch (error) {

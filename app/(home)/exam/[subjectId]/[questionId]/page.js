@@ -1,4 +1,5 @@
-import { getSingleQuestion } from '@/app/apiActions/client/clientApi';
+// import { getSingleQuestion } from '@/app/apiActions/client/clientApi';
+import { getSingleQuestion } from '@/app/apiActions/questions';
 import ExamForm from '@/components/clients/exam/ExamForm';
 import NoData from '@/utils/NoData';
 import React from 'react';
