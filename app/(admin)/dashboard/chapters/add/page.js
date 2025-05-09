@@ -21,24 +21,28 @@ import SubmitButton from "@/utils/SubmitButton";
 import { contextD } from "@/contextApi/DashboardState";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { getCategories } from "@/app/apiActions/categories";
+import * as XLSX from 'xlsx';
 
 const ChapterAdd = () => {
     const { showToast } = useContext(contextD)
     const [loading, setLoading] = useState(false)
-    const [type, setType] = useState(true) // editor
+    const [message, setMessage] = useState("")
+    const [categoriId, setCategoriId] = useState("");
     const [formData, setFormData] = useState({
         chapter_name: "",
         contents: "",
         sub_categorie_id: "",
-        type: ""
+        fileType: "editor"
     });
 
-    const [searchValue, setSearchValue] = useState("")
 
+    const [categories, setCategories] = useState([])
     const [sub_Categorie, set_SubCategorie] = useState([])
     const [Quill, setQuill] = useState(null);
 
-    const defaultSelectPlaceHolder = !sub_Categorie.some(() => true) ? "কোন ক্যাটাগরি পাওয়া যায়নি " : ` সাব ক্যাটাগরি সমূহ (${sub_Categorie?.length})`
+    const defaultSelectCategoriePlaceHolder = !categories.some(() => true) ? "loading...  " : ` ক্যাটাগরি সমূহ (${categories?.length})`
+    const defaultSelectPlaceHolder = !sub_Categorie.some(() => true) ? "কোন ক্যাটাগরি পাওয়া যায়নি " : ` সাব ক্যাটাগরি সমূহ (${sub_Categorie?.length})`;
 
     // Dynamically import Quill
     useEffect(() => {
@@ -52,7 +56,7 @@ const ChapterAdd = () => {
 
     //  Set Text Editor
     useEffect(() => {
-        if (Quill && type) {
+        if (Quill) {
             // Initialize Quill editor
             const editor = new Quill("#editor-container", {
                 theme: "snow",
@@ -85,14 +89,6 @@ const ChapterAdd = () => {
         }
     }, [Quill]);
 
-    //  handle type change
-    const handleTypeChange = (type) => {
-        if (type === "editor") {
-            setType(true)
-        } else {
-            setType(false)
-        }
-    }
 
     //  onChange handler
     const handleChange = (e) => {
@@ -104,44 +100,84 @@ const ChapterAdd = () => {
 
     };
 
-    // categories Change handler
-    const handleSubCategorieChange = (categorie) => {
 
-        setFormData((prev) => ({
-            ...prev,
-            sub_categorie_id: categorie._id,
-            type: categorie?.type
-        }))
+
+    // categories Change handler
+    const handleCategorieChange = (categorie) => {
+        // caterorie - recived categorieId when select change cateories
+        setCategoriId(categorie)
     };
 
 
-    //  seacrh Filter Categories 
-    const handleSearch = (e) => {
-        setSearchValue(e.target.value)
-    }
+    // sub categories Change handler
+    const handleSubCategorieChange = (subCategorie) => {
+
+        setFormData((prev) => ({
+            ...prev,
+            sub_categorie_id: subCategorie._id,
+            type: subCategorie?.type
+        }))
+    };
+
 
     // get all Sub Categories and set Select Field
     useEffect(() => {
         const getCategorieData = async () => {
             const { status, data } = await getSubCategorie();
             if (status === 200) {
-                // If searchValue is present, filter data based on sub_name or identifier
-                const filteredData = searchValue
-                    ? data.filter((item) =>
-                    (item.sub_name.toLowerCase().includes(searchValue.toLowerCase()) ||
-                        item.identifier.toLowerCase().includes(searchValue.toLowerCase()))
-                    )
-                    : data;
-
-                set_SubCategorie(filteredData);
+                const filteredSubCategories = data.filter(subC => subC.categorieId === categoriId)
+                set_SubCategorie(filteredSubCategories)
             }
+
         };
 
         getCategorieData();
-    }, [searchValue]);
+    }, [categoriId]);
+
+
+    // Categories get
+    useEffect(() => {
+        const getCategoriesData = async () => {
+            const { status, data } = await getCategories();
+            if (status === 200) {
+                setCategories(data)
+            }
+        };
+
+        getCategoriesData()
+    }, [])
 
 
 
+    // Convert exel sheet to JSON 
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                const data = e.target.result;
+                const workbook = XLSX.read(data, { type: 'binary' });
+
+                // Assuming the data is in the first sheet
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+
+                // Convert the sheet data to JSON
+                const questionsJson = XLSX.utils.sheet_to_json(worksheet);
+                const cleanedData = questionsJson.map(({ __rowNum__, ...rest }) => rest);
+                
+                setFormData((prev) => ({
+                    ...prev,
+                    contents: cleanedData
+                }));
+                setMessage("প্রশ্ন প্রস্তুত হয়েছে")
+            };
+
+            reader.readAsBinaryString(file);
+        }
+    };
+console.log(formData)
     //  submit Chapter
     const handleSubmitChapter = async (e) => {
         e.preventDefault();
@@ -169,15 +205,44 @@ const ChapterAdd = () => {
             <div>
                 <h2 className=" my-5">Add Chapters</h2>
 
-                <InputField
-                    label={"Search a Categories"}
-                    name={"Search a Categories"}
-                    placeholder={"Quick Search"}
-                    value={searchValue}
-                    handler={handleSearch}
-                />
+                {/*  Categories Select */}
+                <div className=" my-4">
+                    <Label >
+                        Select a Categorie
+                    </Label>
+                    <Select name='categorieId'
+                        onValueChange={handleCategorieChange}
 
-                <Select name='categorieId'
+                    >
+                        <SelectTrigger className="w-full">
+                            <SelectValue placeholder={defaultSelectCategoriePlaceHolder} />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>
+                                    ক্যাটাগরি সমূহ
+                                </SelectLabel>
+                                {
+                                    categories && categories.length > 0 ?
+                                        categories.map((CItem, index) => (
+                                            <SelectItem key={index} value={CItem._id}>
+                                                {CItem.categorie}
+                                            </SelectItem>
+                                        ))
+                                        : null
+                                }
+
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
+
+
+                {/*  select sub Categories */}
+                <Label >
+                    Select a Sub Categorie
+                </Label>
+                <Select name='subCategorieId'
                     onValueChange={handleSubCategorieChange}
 
                 >
@@ -213,7 +278,7 @@ const ChapterAdd = () => {
 
                 <div className=" my-4">
                     <Label >ধরণ</Label>
-                    <Select onValueChange={handleTypeChange}>
+                    <Select onValueChange={(value) => setFormData(prev => ({ ...prev, fileType: value }))}>
                         <SelectTrigger className="w-full">
                             <SelectValue placeholder="একটি ধরণ নির্বাচন করুন" />
                         </SelectTrigger>
@@ -231,14 +296,19 @@ const ChapterAdd = () => {
             {/* Editor container */}
 
             {
-                type ?
-                    <div id="editor-container" style={{ height: "500px", marginBottom: "10px" }}></div>
+                formData.fileType === "file" ?
+                    <>
+                        <Input onChange={handleFileChange} type="file" accept=".xlsx, .xls" className=' w-full my-3' />
+                        <small className={"text-blue-500 my-2"}>
+                            {message}
+                        </small>
+                    </>
                     :
-                    <Input type={"file"} name={"file"} className={"my-4"} />
+                    <div id="editor-container" style={{ height: "500px", marginBottom: "10px" }}></div>
 
             }
 
-            <div onClick={handleSubmitChapter}>
+            <div onClick={handleSubmitChapter} className=" my-4">
                 <SubmitButton loadingState={loading} btnText={"Add Chapter"} />
             </div>
 

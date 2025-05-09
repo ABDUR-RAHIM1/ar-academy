@@ -4,6 +4,7 @@ import '../globals.css'
 import DashboardState from '@/contextApi/DashboardState';
 import Search from '@/components/clients/globals/search/Search';
 import { Toaster } from 'react-hot-toast';
+import Footer from '@/components/clients/Footer/Footer';
 
 export const metadata = {
   title: "AR Academy - Learn Your Favorite Subjects",
@@ -19,7 +20,10 @@ export default function RootLayout({ children }) {
           <Toaster />
           <Search />     {/*  dynamicaly Show and hide , when click header Search Input */}
           <Header />
-          {children}
+           <main className=' min-h-screen'>
+           {children}
+           </main>
+          <Footer />
         </DashboardState>
       </body>
     </html>

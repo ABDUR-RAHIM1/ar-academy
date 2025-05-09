@@ -17,7 +17,7 @@ body {
   .animateOnLoad {
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeUp 1s ease-out forwards;
+    animation: fadeUp .5s ease-out forwards;
   }
   @keyframes fadeUp {
     to {

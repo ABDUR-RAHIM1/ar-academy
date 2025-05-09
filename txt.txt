@@ -42,9 +42,9 @@
  
  <.................
 tasks : => {
- 
+   => chapter update (backend) a fileType, soluitonTable etc add korte hobe , frontend a edit form a add  form er moto filed gulo add korte hbe
     => user profile ti thik korte hbe . (user info diye)
-   => add chapeter page a categorie filter korle sub Categorie gulo asbe abong tar under  a chapter add hobe . jodi categorie name prosno somadhan hoy tahole editor er poriborte file upload korte hbe
+   => add chapeter page a categorie filter korle sub Categorie gulo asbe abong tar under  a chapter add hobe . jodi categorie name prosno somadhan hoy tahole editor er poriborte file upload korte hbe - categorie jodi chakri prosner shomadhan hoy tahole automatic vabe type hbe "file" tachara type hobe editor
 
    =>. user profile 
    => exam sheet a je akbar exam dibe seta tar kach theke hide hbe (user ID store hbe) . kokhono exam sheet update kora hole sob User ID remove kora hobe.

@@ -25,7 +25,7 @@ export default function CommentList({ comments, tokenInfo }) {
     }
     return (
         <div className="space-y-4">
-            {comments.map((comment) => (
+            { comments && comments.map((comment) => (
                 <div key={comment._id} className="p-4 border rounded-lg shadow-sm bg-white">
                     <div className="flex items-center justify-between">
                         <div className="font-bold flex items-center gap-2">
@@ -46,7 +46,7 @@ export default function CommentList({ comments, tokenInfo }) {
                         <p className="mt-2 text-gray-800 border-l-2 border-blue-500 px-2">{comment.comment}</p>
                         {/* 🗑 Delete button  */}
                         {
-                            comment.accountId._id === tokenInfo?.id &&
+                            comment.accountId?._id === tokenInfo?.id &&
                             <button
                                 className="py-1  text-red-500 text-xl"
                                 onClick={() => handleDeleteComment(comment._id)}

@@ -8,6 +8,7 @@ import { CommentSection } from '../Comments';
 import Link from 'next/link';
 import { contextD } from '@/contextApi/DashboardState';
 import CommentList from '../comments/CommentList';
+import SolutionTable from '../SolutionTable';
 
 export default function ChaptersDetails() {
     const { subIdentifier } = useContext(contextD);
@@ -20,12 +21,12 @@ export default function ChaptersDetails() {
 
     useEffect(() => {
 
-      
+
 
         if (!chapter) return; // যদি chapter না থাকে, API কল করবে না
         const getDetails = async () => {
             setLoading(true);
-          
+
             try {
                 const { status, data } = await getChapterWithContent(chapter);
                 if (status === 200 && data) {
@@ -43,7 +44,7 @@ export default function ChaptersDetails() {
     if (loading) {
         return <Loading />;
     }
-
+   
     return (
         <div className='py-10'>
 
@@ -71,12 +72,21 @@ export default function ChaptersDetails() {
 
                         {/* Chapter Content */}
                         <div className="leading-relaxed ">
-                            <div dangerouslySetInnerHTML={{ __html: chapterDetails.contents }} />
+
+                            {
+                                chapterDetails.fileType === "file" ?
+                                    <div>
+                                        <SolutionTable solutionTable={chapterDetails.solutionTable}/>
+                                    </div>
+                                    :
+                                    < div dangerouslySetInnerHTML={{ __html: chapterDetails.contents }} />
+                            }
+
                         </div>
                     </div>
 
                     <div className='my-5 text-center px-2'>
-                        <Link 
+                        <Link
                             href={`/exam/chapter/${chapterDetails._id}`}
                             className='inline-block py-3 px-5 bg1 text-white font-semibold text-lg rounded-md shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg'>
 
@@ -84,9 +94,7 @@ export default function ChaptersDetails() {
                         </Link>
                     </div>
 
-
                     <CommentSection chapterId={chapterDetails._id} />
-                    {/* <CommentList chapterId={chapterDetails._id} /> */}
                 </div>
 
             )}

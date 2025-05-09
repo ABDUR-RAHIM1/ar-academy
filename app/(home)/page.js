@@ -1,4 +1,4 @@
-import Footer from '@/components/clients/Footer/Footer'
+ 
 import Categories from '@/components/clients/home/Categories/Categories'
 import Faq from '@/components/clients/home/FAQ/Faq'
 import Features from '@/components/clients/home/Features/Features'
@@ -16,7 +16,7 @@ export default function HomePage() {
       <Gallary />
       <Subscription />
       <Faq />
-      <Footer />
+
     </div>
 
 
