@@ -1,5 +1,6 @@
 import { heroImage } from '@/Images/Images'
 import Image from 'next/image'
+import Link from 'next/link';
 import React from 'react'
 
 // export default function Hero() {
@@ -66,12 +67,17 @@ export default function Hero() {
             এক জায়গায় সবকিছু: পড়াশোনা, প্রস্তুতি, পরীক্ষা ও মূল্যায়ন! অনলাইনে ঘরে বসেই শেখো নিজের গতিতে।
           </p>
           <div className="flex justify-center lg:justify-start gap-4">
-            <button className=" border hover:bg-[#0891b2] text-white px-6 py-3 rounded-xl font-semibold shadow">
-              এখনই শুরু করুন
-            </button>
-            <button className="bg-white color2 font-semibold px-6 py-3 rounded-xl hover:bg-gray-100">
-              কোর্স ব্রাউজ করুন
-            </button>
+            <Link href={"/categories"} className=' inline-block'>
+              <button className=" border hover:bg-[#0891b2] text-white px-6 py-3 rounded-xl font-semibold shadow">
+                এখনই শুরু করুন
+              </button>
+            </Link>
+
+            <Link href={"/categories"} className=' inline-block'>
+              <button className="bg-white color2 font-semibold px-6 py-3 rounded-xl hover:bg-gray-100">
+                কোর্স ব্রাউজ করুন
+              </button>
+            </Link>
           </div>
         </div>
 

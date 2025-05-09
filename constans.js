@@ -1,7 +1,7 @@
 
 // const API_URL = process.env.NEXT_PUBLIC_API_URL; 
-// const API_URL = "http://localhost:5000"  // local
-const API_URL = "https://onushilon-academy.onrender.com"  // deploy
+const API_URL = "http://localhost:5000"  // local
+// const API_URL = "https://onushilon-academy.onrender.com"  // deploy
 // export const secretKey = process.env.NETX_PUBLIC_SECRET_KEY
 
 export const secretKey = "abrahimArAcademy"

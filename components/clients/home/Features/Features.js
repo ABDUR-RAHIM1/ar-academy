@@ -2,7 +2,7 @@ import React from 'react';
 import Heading from '../../globals/Heading';
 import { FeaturesData } from '@/LocalDatabase/FeaturesData';
 import Image from 'next/image';
-import { bookIcon, followArrowl, followArrowr } from '@/Images/Images';
+import { followArrowl, followArrowr } from '@/Images/Images';
 
 export default function Features() {
     return (
@@ -10,7 +10,7 @@ export default function Features() {
             <Heading text={"ফিচারস সমূহ"} />
             <div className='w-full md:w-[60%] m-auto font-[400] text-center'>
                 <p>
-                    তোমার ভর্তির যাত্রা কে সহজ করতে ও প্রস্তুতিকে আরও একধাপ এগিয়ে নিতে আমাদের পক্ষ থেকে তুমি পেয়ে যাচ্ছো অসাধারণ সব ফিচারস
+                শুধু পড়ালেখা নয়, পুরো প্রস্তুতি এখন আরও গুছানো, ইন্টারেক্টিভ এবং কার্যকর। এক্সপার্টদের পরিকল্পনায় সাজানো আমাদের আধুনিক ফিচারসসমূহ তোমার একাডেমিক ও ক্যারিয়ার লক্ষ্যপূরণে হবে নিঃসন্দেহে সেরা সহায়ক।
                 </p>
             </div>
             <div className='my-10'>
@@ -49,3 +49,6 @@ export default function Features() {
         </div>
     );
 }
+
+
+
