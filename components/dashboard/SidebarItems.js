@@ -115,8 +115,13 @@ const sidebarItems = [
                 path: "settings/how-to-work",
                 icon: <MdLibraryBooks />
             },
+            {
+                item: "Extract File",
+                path: "settings/extract-file",
+                icon: <MdLibraryBooks />
+            },
         ]
-    },
+    },  
     {
         item: "Logout",
         icon: <IoMdLogOut />,

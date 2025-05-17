@@ -24,13 +24,12 @@ import { Input } from "@/components/ui/input";
 import { getCategories } from "@/app/apiActions/categories";
 import * as XLSX from 'xlsx';
 
-const ChapterAdd = () => {
+const EditChapters = () => {
     const { showToast } = useContext(contextD)
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState("")
     const [categoriId, setCategoriId] = useState("");
     const [formData, setFormData] = useState({
-        position: "",
         chapter_name: "",
         contents: "",
         sub_categorie_id: "",
@@ -167,7 +166,7 @@ const ChapterAdd = () => {
                 // Convert the sheet data to JSON
                 const questionsJson = XLSX.utils.sheet_to_json(worksheet);
                 const cleanedData = questionsJson.map(({ __rowNum__, ...rest }) => rest);
-
+                
                 setFormData((prev) => ({
                     ...prev,
                     contents: cleanedData
@@ -179,32 +178,45 @@ const ChapterAdd = () => {
         }
     };
 
-    //  submit Chapter
-    const handleSubmitChapter = async (e) => {
-        e.preventDefault();
-        setLoading(true)
-        try {
-            const payload = {
-                method: "POST",
-                api: chaptersCreate,
-                body: formData
-            }
-            const { status, data } = await postActions(payload);
-            showToast(status, data)
+  const handleUpdateChapter = async (e) => {
+    e.preventDefault();
+    setLoading(true)
+    try {
+      const payload = {
+        method: "PUT",
+        api: chaptersUpdate + formData._id,
+        body: formData
+      }
+      const { status, data } = await postActions(payload);
+      showToast(status, data)
+      console.log("chapter update handler", data)
 
-        } catch (error) {
-            console.log(error?.message)
-            showToast(500, "Failed To Post Chapter")
-        } finally {
-            setLoading(false)
-        }
+    } catch (error) {
+      // showToast(500, "Failed To Update Chapter")
+    } finally {
+      setLoading(false)
     }
+  };
 
 
-    return (
+  //  Content Text Copy using Button (handler)
+  const handleCopyContent = () => {
+    if (textDivRef.current) {
+      const textContent = textDivRef.current.innerText || textDivRef.current.textContent;
+      navigator.clipboard.writeText(textContent)
+        .then(() => {
+          showToast(200, "Contents copied successfully!");
+        })
+        .catch(() => {
+          showToast(500, "Failed to copy Contents.");
+        });
+    }
+  };
+
+ return (
         <div className=" w-[95%] md:w-[80%] m-auto my-10 bg-gray-100 p-4 rounded-md">
             <div>
-                <h2 className=" my-5">Add Chapters</h2>
+                <h2 className=" my-5">Edit Chapter</h2>
 
                 {/*  Categories Select */}
                 <div className=" my-4">
@@ -271,12 +283,6 @@ const ChapterAdd = () => {
 
 
                 <InputField
-                    name={"position"}
-                    placeholder={"Position"}
-                    value={formData.position}
-                    handler={handleChange}
-                />
-                <InputField
                     name={"chapter_name"}
                     placeholder={"chapter Name"}
                     value={formData.chapter_name}
@@ -314,13 +320,14 @@ const ChapterAdd = () => {
                     <div id="editor-container" style={{ height: "500px", marginBottom: "10px" }}></div>
 
             }
+            
 
-            <div onClick={handleSubmitChapter} className=" my-4">
-                <SubmitButton loadingState={loading} btnText={"Add Chapter"} />
+            <div onClick={handleUpdateChapter} className=" my-4">
+                <SubmitButton loadingState={loading} btnText={"Update Chapter"} />
             </div>
 
         </div >
     );
 };
 
-export default ChapterAdd;
+export default EditChapters;

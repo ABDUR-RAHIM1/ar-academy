@@ -42,13 +42,17 @@
  
  <.................
 tasks : => {
-   => chapter update (backend) a fileType, soluitonTable etc add korte hobe , frontend a edit form a add  form er moto filed gulo add korte hbe
-    => user profile ti thik korte hbe . (user info diye)
-   => add chapeter page a categorie filter korle sub Categorie gulo asbe abong tar under  a chapter add hobe . jodi categorie name prosno somadhan hoy tahole editor er poriborte file upload korte hbe - categorie jodi chakri prosner shomadhan hoy tahole automatic vabe type hbe "file" tachara type hobe editor
 
-   =>. user profile 
+     =>. user profile 
+     => categories , sub_categories , chapters gulo saved kore profile a dekhate hbe .
+     => profile edit korte hbe 
+     => profile er baki kaj gulo korte hbe
+     
+     => user kobe purchase koreche sei date theke course (purce duration porjonto,(mashik , 6mont , full year) time coundown kore dekhate hobe . user profile a  
+   
    => exam sheet a je akbar exam dibe seta tar kach theke hide hbe (user ID store hbe) . kokhono exam sheet update kora hole sob User ID remove kora hobe.
 
+   => chapter update ata thik korte hbe  (pray sesh)
    => chapter details a error ase , comment list a profilePhoto not found
    => comment data gulo server side fetch korte hbe.  
    5. problems , solutions page ti remove kora lagte pare jodi proyojon na hoy

@@ -31,7 +31,7 @@ export default function ChaptersTable({ chaptersData }) {
         }
 
     }, [chaptersData, selectValue]);
-  
+
 
 
     //  get all sub Categories for select fiedl (filtering chapters)
@@ -60,12 +60,21 @@ export default function ChaptersTable({ chaptersData }) {
             selector: (row, index) => index + 1
         },
         {
+            name: "Position",
+            selector: (row, index) => row.position || "-" + (index+1)
+        },
+        {
             name: "Chapter",
             selector: (row) => row.chapter_name
         },
         {
             name: "Type",
-            selector: (row) => row.type === "paid" ? <p className=' text-red-600 bg-red-200 px-2 py-1 text-sm'>Paid</p> : <p className=' color1 bg2 px-2 py-1 text-sm'>Free</p>
+            selector: (row) =>
+                row.fileType === "file" ? (
+                    <p className="text-red-700 bg-red-100 px-2 py-1 text-sm rounded-full w-fit">File</p>
+                ) : (
+                    <p className="text-green-700 bg-green-100 px-2 py-1 text-sm rounded-full w-fit">Editor</p>
+                )
         },
         {
             name: "Identifier",
@@ -94,7 +103,7 @@ export default function ChaptersTable({ chaptersData }) {
                             subCategorie && subCategorie.length > 0 ?
                                 subCategorie.map((sub, idx) => (
                                     <SelectItem
-                                    key={`${sub._id}-${idx}`} 
+                                        key={`${sub._id}-${idx}`}
                                         value={sub._id}
                                     >
                                         {sub.sub_name}

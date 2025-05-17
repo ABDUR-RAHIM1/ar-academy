@@ -1,5 +1,6 @@
 "use client"
 import { getChapterByIdentifier } from '@/app/apiActions/client/clientApi';
+import { COMMON_ALT_TEXT } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import { arrow } from '@/Images/Images';
 import Error from '@/utils/Error';
@@ -26,6 +27,7 @@ export default function ChapterSidebar({ subIdentifier }) {
             setSubIdentifer(paramsName)
         }
     }, [chapterName])
+
 
     //  get chapter by Identfier
     useEffect(() => {
@@ -67,6 +69,7 @@ export default function ChapterSidebar({ subIdentifier }) {
         return null
     }
 
+
     return (
         <>
             <div onClick={handleArrowClick} className={` block md:hidden  z-30 fixed top-[68px] md:top-[68px] ${arrowClick ? " left-0" : " left-[313px]"} cursor-pointer transition-all`}>
@@ -75,7 +78,7 @@ export default function ChapterSidebar({ subIdentifier }) {
                     width={30}
                     height={30}
                     className='w-auto h-auto'
-                    alt='ar academy bd '
+                    alt={COMMON_ALT_TEXT}
                 />
             </div>
 

@@ -4,12 +4,12 @@ export default function SolutionTable({ solutionTable }) {
     const [selectedSubject, setSelectedSubject] = useState('সব');
 
     // Unique subject list
-    const subjects = ['সব', ...new Set(solutionTable.map(item => item.subject))];
+    const subjects = ['সব', ...new Set(solutionTable.map(item => item.Subject))];
 
     // Filtered data
     const filteredQuestions = selectedSubject === 'সব'
         ? solutionTable
-        : solutionTable.filter(item => item.subject === selectedSubject);
+        : solutionTable.filter(item => item.Subject === selectedSubject);
 
     return (
         <div className="mt-4">
@@ -26,7 +26,7 @@ export default function SolutionTable({ solutionTable }) {
                         <option key={idx} value={subject}>{subject}</option>
                     ))}
                 </select>
-                <span className=' py-2 px-4 bg-gray-100 rounded-md mx-2'>
+                <span className='py-2 px-4 bg-gray-100 rounded-md mx-2'>
                     {filteredQuestions?.length}
                 </span>
             </div>
@@ -37,10 +37,16 @@ export default function SolutionTable({ solutionTable }) {
             ) : (
                 <div className="space-y-6">
                     {filteredQuestions.map((item, index) => (
-                        <div key={index} className="p-4 bg-white border rounded-md shadow-sm flex justify-between flex-wrap">
+                        <div
+                            key={index}
+                            className="p-4 bg-white border rounded-md shadow-sm flex justify-between flex-wrap group hover:bg-gray-50 hover:shadow-lg transition-all duration-200"
+                        >
                             {/* Left: Question & Options */}
                             <div className="w-full md:w-4/5">
-                                <p className="font-medium mt-2 mb-2">{item.Question}</p>
+                                <p className="font-medium mt-2 mb-2 underline group-hover:text-blue-500 transition-colors duration-200">
+                                    <span className="mr-2">প্রশ্ন {item.ID} /</span>
+                                    {item.Question}
+                                </p>
 
                                 <ul className="ml-4 space-y-1">
                                     <li>ক) {item.Option1}</li>
@@ -49,17 +55,24 @@ export default function SolutionTable({ solutionTable }) {
                                     {item.Option4 && <li>ঘ) {item.Option4}</li>}
                                 </ul>
 
-                                <p className="mt-2 font-medium text-green-700">
+                                <p className="mt-2 font-medium color1">
                                     ✅ সঠিক উত্তর: {item.CorrectAnswer}
                                 </p>
                             </div>
 
                             {/* Right: Meta Info */}
                             <div className="w-full md:w-1/5 text-right mt-4 md:mt-0">
-                                <p className="font-semibold text-lg">প্রশ্ন {item.ID}</p>
-                                <p className="text-sm text-gray-500 italic">বিষয়: {item.subject}</p>
-                                {item.Clearance && (
-                                    <p className="text-xs text-gray-400 mt-1 italic">Clearence: {item.Clearance}</p>
+                                <p className="text-sm color2 italic group-hover:text-blue-500 transition-colors duration-200">
+                                    বিষয়: {item?.Subject}
+                                </p>
+                                {item.Explanation ? (
+                                    <p className="text-xs text-gray-400 mt-1 italic group-hover:text-gray-700">
+                                        ব্যাখ্যা : {item.Explanation}
+                                    </p>
+                                ) : (
+                                    <p className="text-xs text-red-600 mt-1 italic">
+                                        ব্যাখ্যা : আপডেট করা হচ্ছে
+                                    </p>
                                 )}
                             </div>
                         </div>

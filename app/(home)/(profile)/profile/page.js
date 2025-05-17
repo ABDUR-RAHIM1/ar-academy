@@ -4,6 +4,10 @@ import { BsPatchCheckFill } from 'react-icons/bs';
 import { getUserAccount } from '@/app/apiActions/userInformantion';
 import Image from 'next/image';
 import Link from 'next/link';
+import ExamTaken from '@/components/clients/profile/ExamTaken';
+import PLanInfo from '@/components/clients/profile/PLanInfo';
+import AvarageResult from '@/components/clients/profile/AvarageResult';
+import SavedItems from '@/components/clients/profile/SavedItems';
 
 const ProfileDashboard = async () => {
     const user = {
@@ -16,10 +20,10 @@ const ProfileDashboard = async () => {
         examsTaken: 12,
         avgResult: 84,
         recentCourses: [
-            { title: "React Basics", progress: 75 },
-            { title: "JavaScript Mastery", progress: 45 },
+            { title: "BCS Special", progress: 75 },
+            { title: "Bank Job", progress: 45 },
         ],
-        achievements: ["React Beginner", "Top Scorer"],
+        achievements: ["Top Contributor", "Top Scorer"],
     };
 
 
@@ -63,47 +67,24 @@ const ProfileDashboard = async () => {
 
             </div>
 
-            {/* Overview Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                <div className="bg-white p-4 rounded-xl shadow-md flex items-center gap-4">
-                    <FiBookOpen className="text-3xl text-blue-500" />
-                    <div>
-                        <p className="text-xl font-bold">{user.coursesBought}</p>
-                        <p className="text-gray-600 text-sm">Courses Bought</p>
-                    </div>
-                </div>
-                <div className="bg-white p-4 rounded-xl shadow-md flex items-center gap-4">
-                    <FiFileText className="text-3xl text-green-500" />
-                    <div>
-                        <p className="text-xl font-bold">{user.examsTaken}</p>
-                        <p className="text-gray-600 text-sm">Exams Taken</p>
-                    </div>
-                </div>
-                <div className="bg-white p-4 rounded-xl shadow-md flex items-center gap-4">
-                    <FiBarChart2 className="text-3xl text-purple-500" />
-                    <div>
-                        <p className="text-xl font-bold">{user.avgResult}%</p>
-                        <p className="text-gray-600 text-sm">Average Result</p>
-                    </div>
-                </div>
+            <div className=' my-5 p-4 bg-white rounded-xl shadow-md flex items-center justify-between flex-wrap gap-3 '>
+                <h3 className=' text-xl font-bold text-gray-600'>
+                    প্লান কিনেছেনঃ {new Date().toLocaleDateString("BN")}
+                </h3>
+                <h3 className=' text-xl font-bold text-red-600'>
+                    প্লানের মেয়াদ শেষ হবেঃ {new Date().toLocaleDateString("BN")}
+                </h3>
             </div>
 
-            {/* Recent Courses Progress */}
-            <div className="bg-white shadow-md rounded-xl p-6 mb-6">
-                <h3 className="text-lg font-semibold mb-4">Recent Courses</h3>
-                {user.recentCourses.map((course, i) => (
-                    <div key={i} className="mb-4">
-                        <p className="font-medium">{course.title}</p>
-                        <div className="w-full bg-gray-200 rounded-full h-2.5 mt-1">
-                            <div
-                                className="bg-blue-500 h-2.5 rounded-full"
-                                style={{ width: `${course.progress}%` }}
-                            ></div>
-                        </div>
-                        <p className="text-xs text-right text-gray-500">{course.progress}% completed</p>
-                    </div>
-                ))}
+            {/* Overview Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <PLanInfo />
+                <ExamTaken />
+                <AvarageResult />
             </div>
+
+            {/* Recent Courses Progress */} 
+                <SavedItems />  
 
             {/* Achievements */}
             <div className="bg-white shadow-md rounded-xl p-6">
