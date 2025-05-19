@@ -26,20 +26,16 @@ import Cookies from 'js-cookie';
 
 export default function RegisterAccount() {
     const router = useRouter();
-    const { planInfo, showToast, imgUrl, uploadResponse, uploader, loginSignal, setLoginSignal } = useContext(contextD);
+    const { showToast, imgUrl, uploadResponse, uploader, loginSignal, setLoginSignal } = useContext(contextD);
 
     const { status, message } = uploadResponse;
     const costomStyle = uploaderStyle(status);
 
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
-        plan: {},
         username: "",
         email: "",
         password: "",
-        bkashNumber: "",
-        amount: "",
-        institute: "",
         profilePhoto: ""
     });
 
@@ -52,14 +48,14 @@ export default function RegisterAccount() {
         }
     }, [imgUrl]);
 
-    useEffect(() => {
-        if (planInfo && Object.keys(planInfo).length > 0) {
-            setFormData((prev) => ({
-                ...prev,
-                plan: planInfo
-            }));
-        }
-    }, [planInfo]);
+    // useEffect(() => {
+    //     if (planInfo && Object.keys(planInfo).length > 0) {
+    //         setFormData((prev) => ({
+    //             ...prev,
+    //             plan: planInfo
+    //         }));
+    //     }
+    // }, [planInfo]);
 
     const handleChange = (e) => {
         const { type, name, value, files } = e.target;
@@ -70,15 +66,15 @@ export default function RegisterAccount() {
         }
     };
 
-    const handlePlanChange = (selectedPlan) => {
-        const newPlan = plans.find(p => p.plan === selectedPlan);
-        if (newPlan) {
-            setFormData(prev => ({
-                ...prev,
-                plan: newPlan
-            }));
-        }
-    };
+    // const handlePlanChange = (selectedPlan) => {
+    //     const newPlan = plans.find(p => p.plan === selectedPlan);
+    //     if (newPlan) {
+    //         setFormData(prev => ({
+    //             ...prev,
+    //             plan: newPlan
+    //         }));
+    //     }
+    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -86,16 +82,16 @@ export default function RegisterAccount() {
 
         try {
             const isEmail = validateEmail(formData.email);
-            const isPhone = validatePhone(formData.bkashNumber);
+            // const isPhone = validatePhone(formData.bkashNumber);
 
             if (!isEmail) {
                 showToast(400, "Invalid Email");
                 return;
             }
-            if (!isPhone) {
-                showToast(400, "Invalid Bkash number");
-                return;
-            }
+            // if (!isPhone) {
+            //     showToast(400, "Invalid Bkash number");
+            //     return;
+            // }
 
             const payload = {
                 api: accountRegister,
@@ -124,15 +120,11 @@ export default function RegisterAccount() {
         <div className='min-h-screen w-full flex flex-col md:flex-row items-center justify-center bg-gradient-to-r from-[#F0F4FF] to-[#E6F0FA]'>
             {/* Left Section */}
             <div className='hidden md:flex md:w-1/2 h-full flex-col items-center justify-center p-10'>
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">অনুশীলন একাডেমি</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">অনুশীলন একাডেমি</h2>
                 <p className='text-gray-700 text-center max-w-sm'>
                     একাডেমিক সাফল্যের প্রথম ধাপ শুরু হোক আপনার নিজস্ব একাউন্ট থেকে। শেখা হোক আরও সহজ ও নির্ভরযোগ্য।
                 </p>
-                {/* <img
-                    src='/images/register-side.png'
-                    alt='Onushilon Education'
-                    className='mt-8 max-w-sm'
-                /> */}
+
             </div>
 
             {/* Right Section */}
@@ -140,7 +132,7 @@ export default function RegisterAccount() {
                 <form onSubmit={handleSubmit} className='bg-white p-6 rounded-xl shadow-lg'>
                     <h3 className='text-xl font-semibold text-center mb-6'>একাউন্ট তৈরী করুন</h3>
 
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                         <Label>প্ল্যান</Label>
                         <Select name="plan" onValueChange={handlePlanChange} value={formData.plan.plan}>
                             <SelectTrigger className="w-full">
@@ -157,19 +149,19 @@ export default function RegisterAccount() {
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
-                    </div>
+                    </div> */}
 
                     <InputField name="username" placeholder="Username লিখুন" handler={handleChange} />
                     <InputField name="email" type="email" placeholder="Email লিখুন" handler={handleChange} />
                     <InputField name="password" type="password" placeholder="Password লিখুন" handler={handleChange} />
-                    <InputField name="bkashNumber" type="number" placeholder="Bkash Number দিন" handler={handleChange} />
-                    <InputField name="amount" type="number" placeholder="Bkash Amount দিন" handler={handleChange} />
-                    <InputField name="institute" type="text" placeholder="আপনার প্রতিষ্ঠানের নাম লিখুন" handler={handleChange} />
+                    {/* <InputField name="bkashNumber" type="number" placeholder="Bkash Number দিন" handler={handleChange} /> */}
+                    {/* <InputField name="amount" type="number" placeholder="Bkash Amount দিন" handler={handleChange} /> */}
+                    {/* <InputField name="institute" type="text" placeholder="আপনার প্রতিষ্ঠানের নাম লিখুন" handler={handleChange} /> */}
 
-                    <div className='my-4'>
+                    {/* <div className='my-4'>
                         <Label htmlFor={"profilePhoto"} style={costomStyle}>{message || "Profile Photo"}</Label>
                         <Input type="file" name="profilePhoto" onChange={handleChange} />
-                    </div>
+                    </div> */}
 
                     <SubmitButton loadingState={loading} btnText="সাইন আপ করুন" />
 

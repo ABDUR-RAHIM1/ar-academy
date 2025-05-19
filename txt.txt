@@ -44,8 +44,8 @@
 tasks : => {
 
      =>. user profile 
-     => categories , sub_categories , chapters gulo saved kore profile a dekhate hbe .
      => profile edit korte hbe 
+     => categories , sub_categories , chapters gulo saved kore profile a dekhate hbe .
      => profile er baki kaj gulo korte hbe
      
      => user kobe purchase koreche sei date theke course (purce duration porjonto,(mashik , 6mont , full year) time coundown kore dekhate hobe . user profile a  

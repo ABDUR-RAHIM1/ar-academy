@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiEdit, FiBookOpen, FiFileText, FiBarChart2, FiClock } from 'react-icons/fi';
+import { FiEdit, FiClock } from 'react-icons/fi';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import { getUserAccount } from '@/app/apiActions/userInformantion';
 import Image from 'next/image';
@@ -8,7 +8,10 @@ import ExamTaken from '@/components/clients/profile/ExamTaken';
 import PLanInfo from '@/components/clients/profile/PLanInfo';
 import AvarageResult from '@/components/clients/profile/AvarageResult';
 import SavedItems from '@/components/clients/profile/SavedItems';
+import ProfileEditButton from '@/components/clients/profile/ProfileEditButton';
+import PlanDetails from '@/components/clients/profile/PlanDetails';
 
+//  profile home page
 const ProfileDashboard = async () => {
     const user = {
         name: "Rahim Uddin",
@@ -26,7 +29,6 @@ const ProfileDashboard = async () => {
         achievements: ["Top Contributor", "Top Scorer"],
     };
 
-
     const { status, data } = await getUserAccount();
 
     if (status !== 200 || !data) {
@@ -34,7 +36,16 @@ const ProfileDashboard = async () => {
     }
 
     const { username, email, profilePhoto, createdAt, updatedAt } = data
-
+    const accountCreateDate = new Date(createdAt).toLocaleDateString('bn-BD', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
+    const accountUpdateDate = new Date(updatedAt).toLocaleDateString('bn-BD', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
     return (
         <div className="max-w-5xl mx-auto p-6">
             {/* Profile Header */}
@@ -50,41 +61,30 @@ const ProfileDashboard = async () => {
                     <div>
                         <h2 className="text-xl font-bold">{username}</h2>
                         <p className="text-gray-600">{email}</p>
-                        <p className="text-sm text-gray-400">Member since: {createdAt || new Date().toLocaleDateString()}</p>
+                        <p className="text-sm text-gray-400">Member since: {accountCreateDate}</p>
                         <p className="text-xs text-gray-400 flex items-center gap-1">
-                            <FiClock /> Last update: {updatedAt || new Date().toLocaleDateString()}
+                            <FiClock /> Last update: {accountUpdateDate}
                         </p>
                         <p className='text-xs text-gray-400'>
                             Account Status : <span>{data.status}</span>
                         </p>
                     </div>
                 </div>
-                <Link href={"/profile/settings"} className=' inline-block '>
-                    <button className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                        <FiEdit /> Edit Profile
-                    </button>
-                </Link>
+                <ProfileEditButton profileInfo={data} />
 
             </div>
 
-            <div className=' my-5 p-4 bg-white rounded-xl shadow-md flex items-center justify-between flex-wrap gap-3 '>
-                <h3 className=' text-xl font-bold text-gray-600'>
-                    প্লান কিনেছেনঃ {new Date().toLocaleDateString("BN")}
-                </h3>
-                <h3 className=' text-xl font-bold text-red-600'>
-                    প্লানের মেয়াদ শেষ হবেঃ {new Date().toLocaleDateString("BN")}
-                </h3>
-            </div>
+            <PlanDetails plan={data?.plan} />
 
             {/* Overview Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                <PLanInfo />
+                <PLanInfo plan={data?.plan} />
                 <ExamTaken />
                 <AvarageResult />
             </div>
 
-            {/* Recent Courses Progress */} 
-                <SavedItems />  
+            {/* Recent Courses Progress */}
+            <SavedItems />
 
             {/* Achievements */}
             <div className="bg-white shadow-md rounded-xl p-6">
