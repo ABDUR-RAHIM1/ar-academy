@@ -39,7 +39,7 @@ export default function PlanDetails({ plan }) {
             <div className="flex flex-col md:flex-row md:justify-around md:items-center gap-6 mb-8">
                 <p className="text-xl text-gray-800">দাম: <span className="font-semibold">৳{plan.price}</span></p>
                 <p className="text-blue-600">কিনেছেন: <span className="font-medium">{purchaseDate}</span></p>
-                <p className="text-red-600">মেয়াদ শেষ হবে: <span className="font-medium">{endDate}</span></p>
+                <p className="warningText">মেয়াদ শেষ হবে: <span className="font-medium">{endDate}</span></p>
             </div>
 
             <div className="bg-gray-100 p-6 rounded-lg shadow-inner max-w-4xl mx-auto">

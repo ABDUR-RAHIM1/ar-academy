@@ -11,7 +11,10 @@ export default function ProfileEditButton({ profileInfo }) {
     // profile er data gulo localhost save korbe 
     // settings page a naviagte korbe
     const handleProfileEditActivity = () => {
-        const jsonString = JSON.stringify(profileInfo); // Step 1: object → string
+
+        const { plan, password, role, status, ...others } = profileInfo
+
+        const jsonString = JSON.stringify(others); // Step 1: object → string
         const base64Encoded = btoa(unescape(encodeURIComponent(jsonString)));
 
         localStorage.setItem("ONUSHILON_USER_CACHE", base64Encoded);

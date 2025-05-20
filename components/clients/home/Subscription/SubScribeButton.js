@@ -1,6 +1,7 @@
 "use client"
+import getToken from '@/actions/getToken/getToken';
 import { postActionUser } from '@/actions/users/postActions';
-import { userRegister } from '@/constans';
+import { purchasePlan, userRegister } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState'
 import { useRouter } from 'next/navigation'
 import React, { useContext, useState } from 'react'
@@ -12,7 +13,14 @@ export default function SubScribeButton({ planInfoData }) {
 
     async function handleClickSubScription() {
         setPlanInfo(planInfoData);
-        console.log(planInfoData)
+
+        const token = await getToken();
+
+        if (!token) {
+            showToast(404, "আপনি এখনো লগিন করেননি!")
+            return
+        }
+
         // router.push(userRegister)
 
         try {
@@ -20,7 +28,7 @@ export default function SubScribeButton({ planInfoData }) {
 
             const payload = {
                 method: "POST",
-                api: "/api/purchase/create",
+                api: purchasePlan,
                 body: {
                     plan: planInfoData
                 }
@@ -42,9 +50,9 @@ export default function SubScribeButton({ planInfoData }) {
     return (
         <button
             onClick={handleClickSubScription}
-            className="btnBg ">
+            className={`${loading ? "btnBg2" : "btnBg "}`}>
             {
-                loading ? "Please Wait..." : " সাবস্ক্রাইব করুন"
+                loading ? "অপেক্ষা করুন..." : " সাবস্ক্রাইব করুন"
             }
         </button>
     )

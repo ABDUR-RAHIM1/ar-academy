@@ -1,7 +1,7 @@
 
 // const API_URL = process.env.NEXT_PUBLIC_API_URL; 
-// const API_URL = "http://localhost:5000"  // local
-const API_URL = "https://onushilon-academy.onrender.com"  // deploy
+const API_URL = "http://localhost:5000"  // local
+// const API_URL = "https://onushilon-academy.onrender.com"  // deploy
 // export const secretKey = process.env.NETX_PUBLIC_SECRET_KEY
 export const COMMON_ALT_TEXT = "Onushilon Academy - Empowering Your Learning Journey";
 
@@ -65,7 +65,8 @@ export const accountLogin = "/api/account/login"
 export const AllAccount = "/api/account/all"
 export const loginUserAccount = "/api/account/user/"
 export const accountDelete = "/api/account/delete/"
-export const updateUserStatus = "/api/account/update/"
+export const updateUserStatus = "/api/account/updateStatus/"
+export const updateUserAllInformation = "/api/account/updateAll/"
 
 
 //  comment
@@ -76,6 +77,12 @@ export const commentReply = process.env.NEXT_PUBLIC_COMMENT_REPLY
 export const commentDelete = process.env.NEXT_PUBLIC_COMMENT_DELETE
 //  comment ENd
 
+
+//  Purchase Plan Start
+export const purchasePlan = process.env.NEXT_PUBLIC_PLAN_PURCHASE;
+export const purchasePlanGetAll = process.env.NEXT_PUBLIC_MY_PLAN_ALL
+export const purchaseMyPlanDelete = process.env.NEXT_PUBLIC_MY_PLAN_DELETE
+//  Purchase Plan End
 
 //  User End Here ===============================================================
 

@@ -3,24 +3,12 @@ import { InputField } from '@/utils/InputFIled';
 import SubmitButton from '@/utils/SubmitButton';
 import React, { useContext, useEffect, useState } from 'react';
 
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import { Label } from '@/components/ui/label';
 import { contextD } from '@/contextApi/DashboardState';
-import { plans } from '@/LocalDatabase/Subcriptions';
 import { validateEmail, validatePhone } from '@/helpers/verfications';
 import Link from 'next/link';
 import { postActionUser } from '@/actions/users/postActions';
 import { accountRegister } from '@/constans';
 import { useRouter } from 'next/navigation';
-import { Input } from '@/components/ui/input';
 import { uploaderStyle } from '@/utils/uploadStyle';
 import Cookies from 'js-cookie';
 
@@ -48,14 +36,7 @@ export default function RegisterAccount() {
         }
     }, [imgUrl]);
 
-    // useEffect(() => {
-    //     if (planInfo && Object.keys(planInfo).length > 0) {
-    //         setFormData((prev) => ({
-    //             ...prev,
-    //             plan: planInfo
-    //         }));
-    //     }
-    // }, [planInfo]);
+  
 
     const handleChange = (e) => {
         const { type, name, value, files } = e.target;
@@ -66,15 +47,6 @@ export default function RegisterAccount() {
         }
     };
 
-    // const handlePlanChange = (selectedPlan) => {
-    //     const newPlan = plans.find(p => p.plan === selectedPlan);
-    //     if (newPlan) {
-    //         setFormData(prev => ({
-    //             ...prev,
-    //             plan: newPlan
-    //         }));
-    //     }
-    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault();

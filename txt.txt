@@ -1,4 +1,5 @@
  
+
  API -[
 
     API_URL = https://ar-academy.vercel.app
@@ -42,13 +43,13 @@
  
  <.................
 tasks : => {
-
+     
      =>. user profile 
      => profile edit korte hbe 
      => categories , sub_categories , chapters gulo saved kore profile a dekhate hbe .
      => profile er baki kaj gulo korte hbe
-     
-     => user kobe purchase koreche sei date theke course (purce duration porjonto,(mashik , 6mont , full year) time coundown kore dekhate hobe . user profile a  
+
+     => plan er price jodi 0 er theke beshi hoy tahole bkash api call hbe noyto automatic free tei thakbe
    
    => exam sheet a je akbar exam dibe seta tar kach theke hide hbe (user ID store hbe) . kokhono exam sheet update kora hole sob User ID remove kora hobe.
 

@@ -14,6 +14,25 @@ body {
   *{
     box-sizing: border-box;
   }
+
+  .warningText {
+  color: #b91c1c; 
+  background-color: #fee2e2;  
+  padding: 8px 12px;
+  border-radius: 6px;
+  animation: warningBlink 1.5s ease-in-out infinite;
+}
+
+@keyframes warningBlink {
+  0%, 100% {
+    background-color: #fee2e2; /* red-100 */
+  }
+  50% {
+    background-color: #fecaca; /* red-200 */
+  }
+}
+
+
   .animateOnLoad {
     opacity: 0;
     transform: translateY(20px);
@@ -29,6 +48,8 @@ body {
    .tafsir-content p{
     margin: 10px 0px;
    }
+
+
 
   @media (max-width: 767px) {
    
@@ -117,6 +138,9 @@ body {
   .btnBg {
     @apply mt-4 bg-blue-900 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-all
   }
+  .btnBg2 {
+    @apply mt-4 bg-yellow-600 text-white py-2 px-4 rounded-lg hover:bg-yellow-700 transition-all
+  }
 
   .primaryHover {
     @apply hover:bg-gray-400 hover:text-white transition-all
@@ -125,6 +149,7 @@ body {
   .secondaryHover {
     @apply hover:bg-gray-200 transition-all
   }
+
 
   /* client End */
 
@@ -151,8 +176,9 @@ body {
   }
 
   .formGroup {
-    @apply flex items-center justify-between gap-2
-  }
+    @apply flex items-center justify-between gap-2 my-3
+  } 
+
 
   /*  common Style End */
 }
