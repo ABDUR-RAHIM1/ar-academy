@@ -10,7 +10,7 @@ import { uploaderStyle } from '@/utils/uploadStyle';
 import React, { useContext, useEffect, useState } from 'react'
 
 export default function ProfileEditForm() {
-    const [loading, setLoading ] = useState(false)
+    const [loading, setLoading] = useState(false)
     const { showToast, imgUrl, uploadResponse, uploader } = useContext(contextD);
 
     const { status, message } = uploadResponse;
@@ -38,11 +38,14 @@ export default function ProfileEditForm() {
             try {
                 const decoded = JSON.parse(decodeURIComponent(escape(atob(userRawData))));
                 setFormData(decoded)
+                console.log(41, decoded.gender)
             } catch (err) {
                 console.error("Failed to decode user data:", err);
             }
         }
     }, [])
+
+ 
 
     useEffect(() => {
         if (imgUrl) {
@@ -81,11 +84,10 @@ export default function ProfileEditForm() {
         } catch (error) {
             console.log("failed to update profile:", error)
             showToast(500, "failed to update profile")
-        }finally{
+        } finally {
             setLoading(false)
         }
     }
-
 
 
     return (

@@ -3,8 +3,6 @@ import { FiClock } from 'react-icons/fi';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import { getUserAccount } from '@/app/apiActions/userInformantion';
 import Image from 'next/image';
-import ExamTaken from '@/components/clients/profile/ExamTaken';
-import AvarageResult from '@/components/clients/profile/AvarageResult';
 import ProfileEditButton from '@/components/clients/profile/ProfileEditButton';
 import PlanDetails from '@/components/clients/profile/PlanDetails';
 
@@ -33,6 +31,8 @@ const ProfileDashboard = async () => {
     }
 
     const { username, email, profilePhoto, createdAt, updatedAt, dob, address, mobile, favoriteSubject, qualification, instituteName, gender } = data
+
+    console.log(35, data)
 
     const dateOfBirth = new Date(dob).toLocaleDateString('bn-BD', {
         year: 'numeric',
@@ -68,7 +68,7 @@ const ProfileDashboard = async () => {
                         <div className="space-y-1">
                             <h2 className="text-2xl font-bold">{username || "নাম নেই"}</h2>
                             <p className="text-gray-600">{email}</p>
-                            <p className="text-gray-500 text-sm">মোবাইল: {mobile ? "0"+mobile : "—"}</p>
+                            <p className="text-gray-500 text-sm">মোবাইল: {mobile ? "0" + mobile : "—"}</p>
                             <p className="text-gray-400 text-sm">জন্ম তারিখ: {dateOfBirth || "—"}</p>
                             <p className="text-gray-400 text-sm flex items-center gap-1">
                                 <FiClock /> শেষ আপডেট: {accountUpdateDate}
@@ -92,7 +92,9 @@ const ProfileDashboard = async () => {
                     <div className="w-full md:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <p className="text-sm text-gray-500">লিঙ্গ</p>
-                            <p className="font-medium">{gender || "—"}</p>
+                            <p className="font-medium">
+                                {!gender ? "—" : gender === "male" ? "পুরুষ" : gender === "female" ? "মহিলা" : "অন্যান্য"} 
+                            </p> 
                         </div>
                         <div>
                             <p className="text-sm text-gray-500">ঠিকানা</p>
@@ -121,27 +123,8 @@ const ProfileDashboard = async () => {
 
             <PlanDetails plan={data?.plan} />
 
-            {/* Overview Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-12">
-                <ExamTaken />
-                <AvarageResult />
-            </div>
+            {/* extra information add  next time */}
 
-
-            {/* Achievements */}
-            <div className="bg-white shadow-md rounded-xl p-6">
-                <h3 className="text-lg font-semibold mb-4">Achievements</h3>
-                <div className="flex flex-wrap gap-3">
-                    {user.achievements.map((badge, i) => (
-                        <span
-                            key={i}
-                            className="flex items-center gap-2 bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm"
-                        >
-                            <BsPatchCheckFill /> {badge}
-                        </span>
-                    ))}
-                </div>
-            </div>
         </div>
     );
 };

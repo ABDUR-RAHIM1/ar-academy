@@ -7,7 +7,7 @@ import { Toaster } from 'react-hot-toast';
 import Footer from '@/components/clients/Footer/Footer';
 
 export const metadata = {
-  title: "AR Academy - Learn Your Favorite Subjects",
+  title: "Onushilon Academy - Preparation for jobs",
   description: "AR Academy offers an engaging learning platform with diverse subjects and chapters for students to learn at their own pace.",
 };
 
@@ -20,9 +20,9 @@ export default function RootLayout({ children }) {
           <Toaster />
           <Search />     {/*  dynamicaly Show and hide , when click header Search Input */}
           <Header />
-           <main className=' min-h-screen'>
-           {children}
-           </main>
+          <main className=' min-h-screen'>
+            {children}
+          </main>
           <Footer />
         </DashboardState>
       </body>

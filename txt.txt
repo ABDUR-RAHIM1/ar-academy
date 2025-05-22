@@ -43,18 +43,18 @@
  
  <.................
 tasks : => {
+
+   =shadcnn ti bad dite hbe proyojone , jhamela korte onek khhter.
+   => profile edit form a gender , dob ti sothik format  a pacce na
      
      =>. user profile 
-     => profile edit korte hbe 
-     => categories , sub_categories , chapters gulo saved kore profile a dekhate hbe .
-     => profile er baki kaj gulo korte hbe
+     => chapter er moddhe solutionTable model ti xls file er column name onujayi validate korte hbe , jate oi nam chara onno nam a data add na hoy 
+     => questions add er shomoy o validte korte hbe 
 
      => plan er price jodi 0 er theke beshi hoy tahole bkash api call hbe noyto automatic free tei thakbe
    
    => exam sheet a je akbar exam dibe seta tar kach theke hide hbe (user ID store hbe) . kokhono exam sheet update kora hole sob User ID remove kora hobe.
 
-   => chapter update ata thik korte hbe  (pray sesh)
-   => chapter details a error ase , comment list a profilePhoto not found
    => comment data gulo server side fetch korte hbe.  
    5. problems , solutions page ti remove kora lagte pare jodi proyojon na hoy
    4. search option thik korte hobe. (apatoto comment kore hide kora ace)
