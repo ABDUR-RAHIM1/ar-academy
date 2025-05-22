@@ -18,7 +18,7 @@
                
 
                2 : comment :
-             =>  /api/user/comment/  {getall (admin / users in dashboard and each      chapter) , post}
+             =>  /api/user/comment/  {getAll (admin / users in dashboard and each      chapter) , post}
 
               => /api/user/comment/byChapter/:chapterId {for Specefic chapters}
               
@@ -44,6 +44,7 @@
  <.................
 tasks : => {
 
+   => exam din page o result page a subject , explanation filed add korte hbe abong filter korte hbe 
    =shadcnn ti bad dite hbe proyojone , jhamela korte onek khhter.
    => profile edit form a gender , dob ti sothik format  a pacce na
      
@@ -64,27 +65,7 @@ tasks : => {
  .................>
  
  
- 1 . categories => [
-      categories : unique,
-      identifier : unique,
-      description : optional
- ]
 
- 2 . sub_categories => [
-      name : String,
-      username : unique, 
-       description : optional
-      categories : categories.ObjectId
- ]
- 
- 3 . chapters => [
-     chapter_name : unique,
-      identifier : unique,
-     content : html content,
-      description : optional
-     sub_categories : sub_categories.ObjectId
- ]
- 
  
  
  userName : abrarjohn85

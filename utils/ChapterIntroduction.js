@@ -52,7 +52,7 @@ export function ChapterIntroduction({ fileType }) {
                                             ["Explanation", "প্রশ্নের ব্যাখ্যা — যেমনঃ 'সূর্য পূর্ব দিকে উঠে'", "❌ না"],
                                             ["Subeject", "সাবজেক্ট নাম — যেমনঃ 'বাংলা , ইংলিশ , গণিত'", "✅ হ্যাঁ"],
                                         ].map(([name, desc, required], index) => (
-                                            <tr key={index} className="odd:bg-white even:bg-gray-50">
+                                             <tr key={index} className="odd:bg-white even:bg-gray-50">
                                                 <td className="border px-4 py-2 font-medium text-gray-900">{name}</td>
                                                 <td className="border px-4 py-2 text-gray-700">{desc}</td>
                                                 <td className="border px-4 py-2 text-center">{required}</td>

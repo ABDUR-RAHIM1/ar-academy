@@ -17,6 +17,7 @@ import { postActions } from '@/actions/admins/postActions';
 import { questionsCreate } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import { getAllChapters } from '@/app/apiActions/chapters';
+import { InputField } from '@/utils/InputFIled';
 
 export default function AddQuestion() {
     const { showToast } = useContext(contextD);
@@ -27,9 +28,13 @@ export default function AddQuestion() {
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
         sub_categorie: "",  //  subCategoire mean subject
-        chapter : "",    // chapter mean chapterId
+        chapter: "",    // chapter mean chapterId
+        isAll: "",
+        isAllTitle: "",
         questions: []
     });
+
+    console.log(formData)
 
     // Convert exel sheet to JSON 
     const handleFileChange = (event) => {
@@ -90,6 +95,19 @@ export default function AddQuestion() {
     }, [formData.sub_categorie]);
 
 
+    const handleQuestionType = (value) => {
+        if (value === "chapter") {
+            setFormData((prev) => ({
+                ...prev,
+                isAll: false
+            }))
+        } else {
+            setFormData((prev) => ({
+                ...prev,
+                isAll: true
+            }))
+        }
+    }
 
 
     // categories Change handler
@@ -114,18 +132,18 @@ export default function AddQuestion() {
         setLoading(true)
         try {
 
-            if (!formData?.sub_categorie) {
+            if (formData.isAll !== true && !formData?.sub_categorie) {
                 return showToast(400, "একটি Subject নির্বাচন করুন");
             }
-            
-            if (!formData?.chapter) {
+
+            if (formData.isAll !== true && !formData?.chapter) {
                 return showToast(400, "একটি Chapter নির্বাচন করুন");
             }
-            
+
             if (!formData?.questions || formData.questions.length === 0) {
                 return showToast(400, "প্রশ্নগুলো Excel থেকে যোগ করতে হবে");
             }
-            
+
 
 
             const payload = {
@@ -151,57 +169,99 @@ export default function AddQuestion() {
                 <h2 className=' text-xl font-bold my-5'>
                     সাবজেক্ট অনুযায়ী প্রশ্ন যুক্ত করুন
                 </h2>
-                <div className=' w-full'>
+
+                <div className=' my-4'>
                     <Select
-                        name='categorieId'
-                        onValueChange={handleSubCategorieChange}
+                        name='questionType'
+                        onValueChange={handleQuestionType}
                     >
                         <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select Subject Name" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectLabel>Subjects</SelectLabel>
-                                {subCategories && subCategories.length === 0 ? (
-                                    "not found"
-                                ) : (
-                                    subCategories.map((sc) => (
-                                        <SelectItem key={sc._id} value={sc._id}>
-                                            {sc.sub_name}
-                                        </SelectItem>
-                                    ))
-                                )}
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </div>
-                {/*  filtered chapter (filter with sub categorie) */}
-              {
-                formData.sub_categorie &&
-                <div className=' w- my-4'>
-                    <Select
-                        name='chapterId'
-                        onValueChange={handleSubChapterChange}
-                    >
-                        <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select Chapter Name" />
+                            <SelectValue placeholder="Select Question Type" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
                                 <SelectLabel>Chapters</SelectLabel>
-                                {chapters && chapters.length === 0 ? (
-                                    "not found"
-                                ) : (
-                                    chapters.map((ch) => (
-                                        <SelectItem key={ch._id} value={ch._id}>
-                                            {ch.identifier}
-                                        </SelectItem>
-                                    ))
-                                )}
+
+                                <SelectItem value="chapter">Chapter Wise</SelectItem>
+                                <SelectItem value="all">All</SelectItem>
+
                             </SelectGroup>
                         </SelectContent>
                     </Select>
-                </div>}  
+                </div>
+
+
+                {
+                    formData.isAll &&
+                    <div className=' my-4'>
+                        <InputField
+                            name={"isAllTitle"}
+                            label={"Title"}
+                            value={formData.isAllTitle}
+                            placeholder={"Question All Title"}
+                            handler={(e) => setFormData((prev) => ({ ...prev, isAllTitle: e.target.value }))}
+                        />
+                    </div>
+                }
+
+                {
+                    formData.isAll !== true &&
+                    <div>
+                        <div className=' w-full'>
+                            <Select
+                                name='categorieId'
+                                onValueChange={handleSubCategorieChange}
+                            >
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Select Subject Name" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>Subjects</SelectLabel>
+                                        {subCategories && subCategories.length === 0 ? (
+                                            "not found"
+                                        ) : (
+                                            subCategories.map((sc) => (
+                                                <SelectItem key={sc._id} value={sc._id}>
+                                                    {sc.sub_name}
+                                                </SelectItem>
+                                            ))
+                                        )}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        {/*  filtered chapter (filter with sub categorie) */}
+                        {
+                            formData.sub_categorie &&
+                            <div className=' w- my-4'>
+                                <Select
+                                    name='chapterId'
+                                    onValueChange={handleSubChapterChange}
+                                >
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Select Chapter Name" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            <SelectLabel>Chapters</SelectLabel>
+                                            {chapters && chapters.length === 0 ? (
+                                                "not found"
+                                            ) : (
+                                                chapters.map((ch) => (
+                                                    <SelectItem key={ch._id} value={ch._id}>
+                                                        {ch.identifier}
+                                                    </SelectItem>
+                                                ))
+                                            )}
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            </div>}
+                    </div>
+
+                }
+
 
                 <div className=' my-4'>
                     <Input onChange={handleFileChange} type="file" accept=".xlsx, .xls" className=' w-full ' />

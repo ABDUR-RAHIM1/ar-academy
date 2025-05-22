@@ -1,4 +1,4 @@
- 
+
 import { getResultById } from '@/app/apiActions/results';
 import NoData from '@/utils/NoData';
 import React from 'react'
@@ -69,7 +69,15 @@ export default async function ResultDeatils({ params }) {
                             <div className="mt-4 text-sm text-gray-600">
                                 <p><strong>আপনার নির্বাচিত উত্তর:</strong> {result.selectAns}</p>
                                 <p><strong>সঠিক উতর:</strong> {result.CorrectAnswer}</p>
-                                <p><strong>ব্যাখ্যা:</strong> {result.Clearance}</p>
+                                <p><strong>ব্যাখ্যা:</strong> {result.Explanation || "N/A"}</p>
+                            </div>
+
+                            <div className=" text-right">
+                                <small className=" text-gray-500 text-sm">
+                                    {
+                                        result.Subject || "N/A"
+                                    }
+                                </small>
                             </div>
 
                         </div>

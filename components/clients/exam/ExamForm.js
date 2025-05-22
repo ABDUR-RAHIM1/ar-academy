@@ -116,16 +116,25 @@ export default function ExamForm({ questions }) {
                             )
                         )}
                     </div>
+
+                    <div className=" text-right">
+                        <small className=" text-gray-500 text-sm">
+                            {
+                                question.Subject || "N/A"
+                            }
+                        </small>
+                    </div>
+
                 </div>
             ))}
 
             {/* Submit Button */}
             <button
                 onClick={handleSubmitQuestion} // Later you can send this to API
-                className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+                className=" sticky bottom-0 w-full bg1 hover:bg2 transition-all text-white px-4 py-2 rounded-md mt-4"
             >
                 {
-                    loading ? "Please Wait..." : "Submit Answers"
+                    loading ? "সাবমিট করা হচ্ছে..." : "সাবমিট করুন"
                 }
             </button>
         </div>
