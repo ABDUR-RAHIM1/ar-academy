@@ -4,12 +4,9 @@ import React from 'react'
 import DashboardHeader from '@/components/dashboard/Header';
 import DashboardState from '@/contextApi/DashboardState';
 import { Toaster } from 'react-hot-toast';
+import { siteMetadata } from '@/seo/siteMetadata';
 
-export const metadata = {
-    title: "Onushilon Academy | Online Courses and Skill Development",
-    description: "Onushilon Academy offers various online courses and skill development programs designed to help individuals enhance their professional skills.",
-    keywords: "Onushilon Academy, online courses, skill development, education, learning, professional growth, online classes",
-};
+export const metadata = siteMetadata
 
 export default function DashboardLayout({ children }) {
     return (

@@ -18,6 +18,7 @@ import { questionsCreate } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import { getAllChapters } from '@/app/apiActions/chapters';
 import { InputField } from '@/utils/InputFIled';
+import { Label } from '@/components/ui/label';
 
 export default function AddQuestion() {
     const { showToast } = useContext(contextD);
@@ -33,8 +34,6 @@ export default function AddQuestion() {
         isAllTitle: "",
         questions: []
     });
-
-    console.log(formData)
 
     // Convert exel sheet to JSON 
     const handleFileChange = (event) => {
@@ -171,6 +170,9 @@ export default function AddQuestion() {
                 </h2>
 
                 <div className=' my-4'>
+                    <Label >
+                        প্রশ্নের ধরন
+                    </Label>
                     <Select
                         name='questionType'
                         onValueChange={handleQuestionType}
@@ -182,8 +184,8 @@ export default function AddQuestion() {
                             <SelectGroup>
                                 <SelectLabel>Chapters</SelectLabel>
 
-                                <SelectItem value="chapter">Chapter Wise</SelectItem>
-                                <SelectItem value="all">All</SelectItem>
+                                <SelectItem value="chapter">অধ্যায় ভিত্তিক</SelectItem>
+                                <SelectItem value="all">সব</SelectItem>
 
                             </SelectGroup>
                         </SelectContent>
@@ -196,9 +198,9 @@ export default function AddQuestion() {
                     <div className=' my-4'>
                         <InputField
                             name={"isAllTitle"}
-                            label={"Title"}
+                            label={"শিরোনাম"}
                             value={formData.isAllTitle}
-                            placeholder={"Question All Title"}
+                            placeholder={"শিরোনাম লিখুন"}
                             handler={(e) => setFormData((prev) => ({ ...prev, isAllTitle: e.target.value }))}
                         />
                     </div>
@@ -208,6 +210,9 @@ export default function AddQuestion() {
                     formData.isAll !== true &&
                     <div>
                         <div className=' w-full'>
+                            <Label >
+                                সাবজেক্টের নাম
+                            </Label>
                             <Select
                                 name='categorieId'
                                 onValueChange={handleSubCategorieChange}
@@ -235,6 +240,9 @@ export default function AddQuestion() {
                         {
                             formData.sub_categorie &&
                             <div className=' w- my-4'>
+                                <Label >
+                                    অধ্যায়ের নাম
+                                </Label>
                                 <Select
                                     name='chapterId'
                                     onValueChange={handleSubChapterChange}
@@ -264,6 +272,9 @@ export default function AddQuestion() {
 
 
                 <div className=' my-4'>
+                    <Label >
+                       ফাইল আপলোড  করুন (.xls/.xlsx)
+                    </Label>
                     <Input onChange={handleFileChange} type="file" accept=".xlsx, .xls" className=' w-full ' />
 
                     <small className={"text-blue-500 my-2"}>

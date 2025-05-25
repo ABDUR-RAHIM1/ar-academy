@@ -5,11 +5,9 @@ import DashboardState from '@/contextApi/DashboardState';
 import Search from '@/components/clients/globals/search/Search';
 import { Toaster } from 'react-hot-toast';
 import Footer from '@/components/clients/Footer/Footer';
+import { siteMetadata } from '@/seo/siteMetadata';
 
-export const metadata = {
-  title: "Onushilon Academy - Preparation for jobs",
-  description: "AR Academy offers an engaging learning platform with diverse subjects and chapters for students to learn at their own pace.",
-};
+export const metadata = siteMetadata
 
 
 export default function RootLayout({ children }) {

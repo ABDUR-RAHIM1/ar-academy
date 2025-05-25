@@ -61,22 +61,6 @@ export default function UserTable({ usersData }) {
             </div>
         },
         {
-            name: "Plan",
-            selector: row => row.plan?.plan
-        },
-        {
-            name: "Price",
-            selector: row => row.plan?.price
-        },
-        {
-            name: "Payment Number",
-            selector: row => row.bkashNumber
-        },
-        {
-            name: "Amount",
-            selector: row => `${"৳" + row.amount}`
-        },
-        {
             name: "Delete",
             selector: row => <DeleteActionButton deleteRoute={accountDelete + row._id} />
         },

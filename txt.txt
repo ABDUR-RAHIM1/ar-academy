@@ -44,13 +44,12 @@
  <.................
 tasks : => {
 
-   => exam din page o result page a subject , explanation filed add korte hbe abong filter korte hbe 
-   =shadcnn ti bad dite hbe proyojone , jhamela korte onek khhter.
+    = job soluution page a questions gulo dekhano jete pare
+   => questions Update form ti edit korte hbe 
+
    => profile edit form a gender , dob ti sothik format  a pacce na
      
-     =>. user profile 
-     => chapter er moddhe solutionTable model ti xls file er column name onujayi validate korte hbe , jate oi nam chara onno nam a data add na hoy 
-     => questions add er shomoy o validte korte hbe 
+     =>. user profile  
 
      => plan er price jodi 0 er theke beshi hoy tahole bkash api call hbe noyto automatic free tei thakbe
    
