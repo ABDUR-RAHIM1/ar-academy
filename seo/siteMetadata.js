@@ -1,7 +1,7 @@
-// app/metadata.ts
 
-export const siteMetadata ={
-  metadataBase: new URL('https://onushilonacademycom'),
+
+export const siteMetadata = {
+  metadataBase: new URL('https://onushilon-academy.vercel.app/'),
   title: 'Onushilon Academy - Learn & Grow',
   description: 'Onushilon Academy is a learning platform to enhance your skills.',
   keywords: ['Onushilon', 'Academy', 'Learning', 'Education'],
@@ -14,7 +14,8 @@ export const siteMetadata ={
   openGraph: {
     title: 'Onushilon Academy',
     description: 'A place to learn and grow together.',
-    url: 'http://localhost:3000/',
+    // url: 'http://localhost:3000/',
+    // url: 'https://onushilon-academy.vercel.app/',
     siteName: 'Onushilon Academy',
     images: [
       {

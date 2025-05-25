@@ -32,8 +32,6 @@ const ProfileDashboard = async () => {
 
     const { username, email, profilePhoto, createdAt, updatedAt, dob, address, mobile, favoriteSubject, qualification, instituteName, gender } = data
 
-    console.log(35, data)
-
     const dateOfBirth = new Date(dob).toLocaleDateString('bn-BD', {
         year: 'numeric',
         month: 'long',

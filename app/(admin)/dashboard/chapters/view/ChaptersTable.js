@@ -53,7 +53,6 @@ export default function ChaptersTable({ chaptersData }) {
     }
 
 
-
     const columns = [
         {
             name: "#",
@@ -61,14 +60,30 @@ export default function ChaptersTable({ chaptersData }) {
         },
         {
             name: "Position",
-            selector: (row, index) => row.position || "-" + (index+1)
+            selector: (row, index) => row.position || "-" + (index + 1)
         },
         {
             name: "Chapter",
             selector: (row) => row.chapter_name
         },
         {
-            name: "Type",
+            name: "access type",
+            selector: (row) => row?.type,
+            cell: (row) => (
+                <span
+                    className={`px-2 py-1 text-xs font-semibold rounded 
+                ${row?.type === "paid"
+                            ? "bg-red-100 text-red-700"
+                            : "bg-green-100 text-green-700"
+                        }`}
+                >
+                    {row?.type === "paid" ? "প্রিমিয়াম" : "বিনামূল্যে"}
+                </span>
+            ),
+            sortable: true,
+        },
+        {
+            name: "FIle Type",
             selector: (row) =>
                 row.fileType === "file" ? (
                     <p className="text-red-700 bg-red-100 px-2 py-1 text-sm rounded-full w-fit">File</p>

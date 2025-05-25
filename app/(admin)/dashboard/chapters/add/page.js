@@ -35,6 +35,7 @@ const ChapterAdd = () => {
         chapter_name: "",
         contents: "",
         sub_categorie_id: "",
+        type: "",
         fileType: "editor"
     });
 
@@ -111,31 +112,6 @@ const ChapterAdd = () => {
     };
 
 
-    // sub categories Change handler
-    const handleSubCategorieChange = (subCategorie) => {
-
-        setFormData((prev) => ({
-            ...prev,
-            sub_categorie_id: subCategorie._id,
-            type: subCategorie?.type
-        }))
-    };
-
-
-    // get all Sub Categories and set Select Field
-    useEffect(() => {
-        const getCategorieData = async () => {
-            const { status, data } = await getSubCategorie();
-            if (status === 200) {
-                const filteredSubCategories = data.filter(subC => subC.categorieId === categoriId)
-                set_SubCategorie(filteredSubCategories)
-            }
-
-        };
-
-        getCategorieData();
-    }, [categoriId]);
-
 
     // Categories get
     useEffect(() => {
@@ -149,6 +125,33 @@ const ChapterAdd = () => {
         getCategoriesData()
     }, [])
 
+
+
+    // get all Sub Categories and set Select Field
+    useEffect(() => {
+        const getCategorieData = async () => {
+            const { status, data } = await getSubCategorie();
+            if (status === 200) {
+                const filteredSubCategories = data.filter(subC => subC.categorieId === categoriId)
+                set_SubCategorie(filteredSubCategories);
+                console.log(filteredSubCategories)
+            }
+
+        };
+
+        getCategorieData();
+    }, [categoriId]);
+
+    
+    // sub categories Change handler
+    const handleSubCategorieChange = (subCategorie) => {
+
+        setFormData((prev) => ({
+            ...prev,
+            sub_categorie_id: subCategorie._id,
+            type: subCategorie?.type
+        }))
+    };
 
 
     // Convert exel sheet to JSON 

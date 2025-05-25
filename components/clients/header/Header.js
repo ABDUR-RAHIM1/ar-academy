@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import Link from "next/link"  
+import Link from "next/link"
 import Logo from '@/utils/Logo'
 import SearchButton from '../globals/search/SearchButton'
 import { MdClose, MdMenu, } from 'react-icons/md'
@@ -59,7 +59,7 @@ export default function Header() {
                     {/* <SearchButton /> */}
 
                     <AccountBtn />
-                 
+
                 </div>
             </div>
             {/*  desktop header End  */}
@@ -104,7 +104,7 @@ export default function Header() {
                             }
                         </div>
                         <br />
-                        <AccountBtn />
+                        <AccountBtn menuClick={menuClick} setMenuClick={setMenuClick} />
                     </div>
 
                 </div>

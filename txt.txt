@@ -64,6 +64,17 @@ tasks : => {
  .................>
  
  
+ how to works
+ --------------=> 
+   [
+
+      1. Paid subject access Check for paid User : {
+             =>  add/update : subject Shchema (sub_categories) te type (paid/ free) ache . chapter add korar shomoy jokhn subject data fetch kore subjectId store kora hoy tokhn e chapter schema te subject er type o automatic add hocce . taholei suhdu subject a type add korlei tar odhine sob chapter a type add hocce . mane add chapter theke automatic vabe sub_categories er type chapter er moddhe add hocce
+
+             => verify : subject a suhdu paid unpaid dekhabe, subject a click korle user chapter list gulo dekhte parbe (jate free user o bujhte pare je akhene ki ki ace - agroher jonno) . kintu chapterName diye content get korar shomoy user paid na free setar shathe chapter paid na free seta match kore data dite hobe.
+      }
+
+   ]
 
  
  

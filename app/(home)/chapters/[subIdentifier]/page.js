@@ -17,34 +17,41 @@ export default function ChaptersDetails() {
     const chapter = searchParams.get("chapter");
     const coverPhoto = searchParams.get("coverPhoto");
 
+    const [chapterNessage, setChapterMessage] = useState("")
     const [chapterDetails, setChapterDetails] = useState(null);
 
     useEffect(() => {
+        if (!chapter) return;
 
-
-
-        if (!chapter) return; // যদি chapter না থাকে, API কল করবে না
         const getDetails = async () => {
             setLoading(true);
+
+            // 🔴 পুরনো data reset করে দাও
+            setChapterDetails(null);
+            setChapterMessage("");
 
             try {
                 const { status, data } = await getChapterWithContent(chapter);
                 if (status === 200 && data) {
                     setChapterDetails(data);
+                } else {
+                    setChapterMessage(data?.message || "অধ্যায় লোড করতে সমস্যা হয়েছে");
                 }
             } catch (error) {
-                console.log("Failed to fetch chapter details");
+                setChapterMessage("অধ্যায় লোড করতে ব্যর্থ হয়েছি");
             } finally {
                 setLoading(false);
             }
         };
+
         getDetails();
     }, [chapter]);
+
 
     if (loading) {
         return <Loading />;
     }
-   
+
     return (
         <div className='py-10'>
 
@@ -61,6 +68,15 @@ export default function ChaptersDetails() {
                 </div>
             )}
 
+            {/* যদি chapter থাকে কিন্তু কোনো details না আসে, তাহলে message দেখাও */}
+            {chapter && !chapterDetails && chapterNessage && (
+                <div className="text-center py-10">
+                    <p className="text-red-500 text-lg font-medium">{chapterNessage}</p>
+                </div>
+            )}
+
+
+
             {/* যদি chapter থাকে, তাহলে শুধু chapter এর ডাটা দেখাবে */}
             {chapter && chapterDetails && (
                 <div className=''>
@@ -76,7 +92,7 @@ export default function ChaptersDetails() {
                             {
                                 chapterDetails.fileType === "file" ?
                                     <div>
-                                        <SolutionTable solutionTable={chapterDetails.solutionTable}/>
+                                        <SolutionTable solutionTable={chapterDetails.solutionTable} />
                                     </div>
                                     :
                                     < div dangerouslySetInnerHTML={{ __html: chapterDetails.contents }} />

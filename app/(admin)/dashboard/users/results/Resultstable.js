@@ -16,42 +16,56 @@ export default function Resultstable({ resultsData }) {
 
         {
             name: "ব্যবহারকারী",
-            selector: row => <p className=' color1'>{row.user.username}</p>,
+            selector: row => <p className=' color1'>{row?.user?.username || "N/A"}</p>,
             sortable: true
         },
         {
-            name: "সঠিক উত্তর",
-            selector: row => row.correctAns,
-            sortable: true
-        },
-        {
-            name: "ভুল উত্তর",
-            selector: row => row.wrongAns,
-            sortable: true
-        },
-        {
-            name: "স্কিপ",
-            selector: row => row.skip,
-            sortable: true
-        },
-        {
-            name: "মোট প্রশ্ন",
-            selector: row => row.totalQuestions,
-            sortable: true
-        },
-        {
-            name: "তারিখ",
-            selector: row => new Date(row.createdAt).toLocaleDateString('bn-BD'),
-            sortable: true
-        },
-        {
-            name: "বিস্তারিত",
-            selector: row => <Link className=' inline-block py-2 px-3 rounded-sm bg1 text-white transition-all hover:bg2 my-3' href={`/results/${row._id}`} >
-                দেখুন
-            </Link>,
-            sortable: true
-        },
-    ];
+        name: "❌ ভুল উত্তর",
+        cell: row => (
+            <span className="bg-red-100 text-red-700 font-semibold py-1 px-2 rounded-md">
+                 {row.wrongAns}
+            </span>
+        ),
+        sortable: true
+    },
+    {
+        name: "⏭️ স্কিপ",
+        cell: row => (
+            <span className="bg-yellow-100 text-yellow-800 font-semibold py-1 px-2 rounded-md">
+                 {row.skip}
+            </span>
+        ),
+        sortable: true
+    },
+    {
+        name: "📊 মোট প্রশ্ন",
+        cell: row => (
+            <span className="bg-blue-100 text-blue-800 font-semibold py-1 px-2 rounded-md">
+                 {row.totalQuestions}
+            </span>
+        ),
+        sortable: true
+    },
+    {
+        name: "📅 তারিখ",
+        selector: row => new Date(row.createdAt).toLocaleDateString('bn-BD'),
+        sortable: true
+    },
+    {
+        name: "🔍 বিস্তারিত",
+        cell: row => (
+            <Link
+                className="inline-block py-2 px-3 rounded-sm bg-violet-600 text-white transition-all hover:bg-violet-700 my-3"
+                href={`/results/${row._id}`}
+            >
+                👁️ দেখুন
+            </Link>
+        ),
+        ignoreRowClick: true,
+        allowoverflow: true,
+    }
+];
+
 
     return (
         <div className="my-10 p-4 bg-gray-100 rounded-lg shadow-lg">

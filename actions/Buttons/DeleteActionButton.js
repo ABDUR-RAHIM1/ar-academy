@@ -1,7 +1,8 @@
-import { DeleteBtn } from '@/utils/DeleteBtn'
+"use client"
 import React, { useContext, useState } from 'react'
 import { deleteAction } from '../admins/deleteAction';
 import { contextD } from '@/contextApi/DashboardState';
+import { Button } from '@/components/ui/button';
 
 export default function DeleteActionButton({ btnText, deleteRoute }) {
 
@@ -26,18 +27,17 @@ export default function DeleteActionButton({ btnText, deleteRoute }) {
     return (
         <div onClick={handleDelete}>
             {isLoading ?
-                (<button className=' rounded-md text-sm py-2 px-3 font-bold text-white bg-red-700 transition-all hover:bg-red-800'>
-                     ডিলিট করা হচ্ছে...
-                </button>)
+                <Button   variant="destructive">
+                    ...
+                </Button>
                 :
-                (<button className=' rounded-md py-2 px-3 text-sm font-bold text-white bg-red-700 transition-all hover:bg-red-800'>
-                    {btnText || "ডিলিট"}
-                </button>)
+                <Button   variant="destructive">
+                    {
+                        btnText || "ডিলিট"
+                    }
+                </Button>
+
             }
         </div>
     )
 }
-
-{/* <div onClick={handleDelete}>
-            {isLoading ? "deleting..." : <DeleteBtn />}
-        </div> */}

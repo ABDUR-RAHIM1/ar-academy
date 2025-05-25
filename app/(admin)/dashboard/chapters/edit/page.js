@@ -37,6 +37,7 @@ const EditChapters = () => {
     chapter_name: "",
     contents: "",
     sub_categorie_id: "",
+    type: "",
     fileType: "editor"
   });
 

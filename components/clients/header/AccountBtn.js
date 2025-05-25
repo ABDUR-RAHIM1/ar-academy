@@ -25,9 +25,9 @@ import getToken from '@/actions/getToken/getToken'
 import Cookies from 'js-cookie'
 import { FiChevronDown, FiUser } from 'react-icons/fi'
 
-export default function AccountBtn() {
+export default function AccountBtn({ menuClick, setMenuClick }) {
     const router = useRouter()
-    const { loginSignal, setLoginSignal } = useContext(contextD)
+    const { loginSignal } = useContext(contextD)
     const path = usePathname();
     const [token, setToken] = useState(null)
     const [username, setUsername] = useState(null)
@@ -95,7 +95,9 @@ export default function AccountBtn() {
                         {
                             profileItems.map((item, index) => (
                                 <DropdownMenuItem asChild key={index}>
-                                    <Link href={`/profile/${item.path}`} className=' w-full flex items-center justify-between cursor-pointer'>
+                                    <Link
+                                        onClick={() => setMenuClick(!menuClick)}
+                                        href={`/profile/${item.path}`} className=' w-full flex items-center justify-between cursor-pointer'>
                                         {item.itemBN}
                                         {path === `/profile/${item.path}` && <span>
                                             ✔️
