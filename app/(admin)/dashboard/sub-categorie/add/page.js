@@ -14,43 +14,24 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { createSubCategories, postGetSubCategories } from '@/constans';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { uploaderStyle } from '@/utils/uploadStyle';
+import { createSubCategories } from '@/constans';
 
 export default function AddSubject() {
-    const { showToast, imgUrl, uploadResponse, uploader } = useContext(contextD);
-    const { status, message } = uploadResponse;
-    const costomStyle = uploaderStyle(status);
+    const { showToast } = useContext(contextD);
 
     const [loading, setLoading] = useState(false);
 
-    const [formData, setFormData] = useState({ sub_name: "", description: "", categorieId: "", type: "free", coverPhoto: "" })
+    const [formData, setFormData] = useState({ sub_name: "", description: "", categorieId: "", type: "free" })
 
     const [categorie, setCategorie] = useState([])
 
     const handleChange = (e) => {
-        const { type, name, value, files } = e.target;
-
-        if (type === "file") {
-            uploader(files[0])
-        } else {
+        const { name, value } = e.target;
+ 
             setFormData({ ...formData, [name]: value })
-        }
-
 
     };
 
-    //  image url set in the state
-    useEffect(() => {
-        if (imgUrl) {
-            setFormData((prev) => ({
-                ...prev,
-                coverPhoto: imgUrl
-            }))
-        }
-    }, [imgUrl])
 
     const handleCategorieChange = (categorieId) => {
         setFormData((prev) => ({
@@ -62,8 +43,6 @@ export default function AddSubject() {
 
     // handle Type Change
     const handleTypeChange = (typeValue) => {
-        console.log("typeValue", typeValue);
-
         setFormData((prev) => ({
             ...prev,
             type: typeValue
@@ -174,15 +153,6 @@ export default function AddSubject() {
                         </Select>
                     </div>
 
-                    <div className=' my-4'>
-                        <Label htmlFor={"coverPhoto"} style={costomStyle} >{message || "Cover Photo"}</Label>
-                        <Input
-                            type={"file"}
-                            name={"coverPhoto"}
-                            required={false}
-                            onChange={handleChange}
-                        />
-                    </div>
                 </div>
                 <SubmitButton loadingState={loading} btnText={"Add Sub Categorie"} />
             </form>

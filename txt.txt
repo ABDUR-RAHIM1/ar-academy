@@ -47,6 +47,8 @@ tasks : => {
     = job soluution page a questions gulo dekhano jete pare
    => questions Update form ti edit korte hbe 
 
+   => Written part er jonno chapterModel a writtenSolution name akta field rakhte hbe abong frontend a conditionaly dekhate hbe
+
    => profile edit form a gender , dob ti sothik format  a pacce na
      
      =>. user profile  

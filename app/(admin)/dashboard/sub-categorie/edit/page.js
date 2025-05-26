@@ -4,7 +4,7 @@ import { InputField } from '@/utils/InputFIled'
 import SubmitButton from '@/utils/SubmitButton'
 import { postActions } from '@/actions/admins/postActions';
 import { contextD } from '@/contextApi/DashboardState';
-import { subCategoriePutDelete, subCategoriesUpdate } from '@/constans';
+import { subCategoriesUpdate } from '@/constans';
 import { getCategories } from '@/app/apiActions/client/clientApi';
 import {
     Select,
@@ -14,46 +14,23 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select";
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { uploaderStyle } from '@/utils/uploadStyle';
-
-
+} from "@/components/ui/select"; 
 
 
 export default function EditSubject() {
-    const { showToast, imgUrl, uploadResponse, uploader, editData } = useContext(contextD);
-    const { status, message } = uploadResponse;
-    const costomStyle = uploaderStyle(status);
-
-
+    const { showToast, editData } = useContext(contextD);
     const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({ sub_name: "", description: "", categorieId: "", type: "free", coverPhoto: "" })
+    const [formData, setFormData] = useState({ sub_name: "", description: "", categorieId: "", type: "free" })
 
     const [categorie, setCategorie] = useState([])
 
     const handleChange = (e) => {
-        const { type, name, value } = e.target;
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value })
 
-        if (type === "file") {
-            uploader(e.target.files[0])
-        } else {
-            setFormData({ ...formData, [name]: value })
-        }
 
     };
 
-
-    //  image url set in the state
-    useEffect(() => {
-        if (imgUrl) {
-            setFormData((prev) => ({
-                ...prev,
-                coverPhoto: imgUrl
-            }))
-        }
-    }, [imgUrl])
 
     const handleCategorieChange = (categorieId) => {
         setFormData((prev) => ({
@@ -64,7 +41,6 @@ export default function EditSubject() {
 
     // handle Type Change
     const handleTypeChange = (typeValue) => {
-        console.log("typeValue", typeValue);
 
         setFormData((prev) => ({
             ...prev,
@@ -182,15 +158,6 @@ export default function EditSubject() {
                         </Select>
                     </div>
 
-                    <div className=' my-4'>
-                        <Label htmlFor={"coverPhoto"} style={costomStyle} >{message || "Cover Photo"}</Label>
-                        <Input
-                            type={"file"}
-                            name={"coverPhoto"}
-                            required={false}
-                            onChange={handleChange}
-                        />
-                    </div>
                 </div>
                 <SubmitButton loadingState={loading} btnText={" Update Sub Categorie"} />
             </form>

@@ -3,7 +3,6 @@ import Heading from '@/components/clients/globals/Heading';
 import { coverPhoto } from '@/Images/Images';
 import Error from '@/utils/Error';
 import NoData from '@/utils/NoData';
-import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -11,7 +10,7 @@ export default async function SubCategories({ params }) {
     const { categorieIdentifier } = await params;
     const plainCategoriIdentifier = categorieIdentifier ? decodeURIComponent(categorieIdentifier) : ""
     const { status, data } = await getSubCategoieById(plainCategoriIdentifier);
- 
+
 
     if (!status || !data) {
         return <Error />;
@@ -40,7 +39,7 @@ export default async function SubCategories({ params }) {
                             :
                             {
                                 pathname: `/chapters/${item.identifier}`,
-                                query: { coverPhoto: item.coverPhoto || coverPhoto.src },
+                                // query: { coverPhoto: item.coverPhoto || coverPhoto.src },
                             }
 
                         return (
@@ -49,15 +48,13 @@ export default async function SubCategories({ params }) {
                                 href={pathLink}
                                 className="group bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl border"
                             >
-                                {/* উপরে ইমেজ */}
-                                <div className="relative w-full h-48 md:h-40 bg-gray-200 flex items-center justify-center">
-                                    <Image
-                                        src={item.coverPhoto || coverPhoto}
-                                        alt="Book Cover"
-                                        width={150}
-                                        height={200}
-                                        className="w-full h-full"
-                                    />
+                                
+                                <div className="relative w-full h-48 md:h-40 text-center bg-gray-200 flex items-center justify-center">
+
+                                    <h2 className=' text-xl font-semibold'>
+                                        {item.sub_name}
+                                    </h2>
+
                                     {/* অ্যাক্সেস ব্যাজ */}
                                     <span className={`absolute top-2 right-2 px-2 py-1 text-xs font-semibold text-white rounded ${item.type === "paid" ? 'bg-red-500' : 'bg-green-500'}`}>
                                         {item.type === "paid" ? "প্রিমিয়াম সদস্যদের জন্য" : "বিনামূল্যে"}
@@ -66,10 +63,7 @@ export default async function SubCategories({ params }) {
 
                                 {/* নিচের কনটেন্ট */}
                                 <div className="p-4 text-center">
-                                    <h3 className="text-lg font-semibold text-gray-800 group-hover:color1 transition-all">
-                                        {item.sub_name}
-                                    </h3>
-                                    <p className="text-sm text-gray-600 mt-1">
+                                    <p className="text-sm text-gray-600 my-3">
                                         {item.description || "কোনো বিবরণ নেই"}
                                     </p>
 

@@ -2,8 +2,13 @@ import React from 'react'
 
 export default function Heading({ text }) {
     return (
-        <h2 className=' text-[22px] md:text-3xl text-center my-3 border-b-2 border-b-teal-700 color1'>
-            {text || "Missing headline"}
-        </h2>
+        <div className="text-center my-10">
+            <h2 className="inline-block relative text-[22px] md:text-3xl font-semibold color1">
+                <span className="relative inline-block after:content-[''] after:absolute after:right-0 after:bottom-[-8px] after:h-[4px] after:w-[70%] after:bg-gradient-to-r after:from-[#0891b2] after:to-[#1e40af] after:rounded-full after:transition-all after:duration-500">
+                    {text || "Missing headline"}
+                    <span className="absolute bottom-[-10px] left-[25%] w-[10px] h-[10px] bg-[#1e40af] rounded-full shadow-md"></span>
+                </span>
+            </h2>
+        </div>
     )
 }
