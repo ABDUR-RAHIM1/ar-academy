@@ -1,15 +1,26 @@
 "use client"
+import { contextD } from '@/contextApi/DashboardState'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useContext } from 'react'
 import { IoMdLogOut } from 'react-icons/io'
 
 export default function AdminLogOutButton() {
-    const router = useRouter()
+    const { showToast } = useContext(contextD);
+    const router = useRouter();
+
     const handleLogOut = () => {
-        // Cookies.remove("")
-        alert("log out admin")
-        router.push("/")
+
+        Cookies.remove("onushilon_access")
+
+        const isStillThere = Cookies.get("onushilon_access")
+
+        if (!isStillThere) {
+            showToast(200, "✅ successfully logout");
+            router.push("/")
+        } else {
+            showToast(500, "❌ logout failed")
+        }
     }
 
     return (

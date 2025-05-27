@@ -47,7 +47,6 @@ tasks : => {
 
   { 
 
-   admin register form Create in dashboard 
    admin token o apiAction gulo adala alada vabe handle korte hbe 
    admin login handle , token save and route protected;
    admin registration korte hobe dashboard theke.

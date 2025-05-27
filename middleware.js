@@ -1,38 +1,31 @@
 import { NextResponse } from 'next/server';
 
-export async function middleware(req) {
-
+export function middleware(req) {
     try {
-        // **Get Token from Cookies**
-        const token = req.cookies.get('ar_academy_session')?.value;
-      
-        if (!token) {
+        const userToken = req.cookies.get('ar_academy_session')?.value;
+        const adminToken = req.cookies.get('onushilon_access')?.value;
 
-            if (req.nextUrl.pathname.startsWith('/profile') || req.nextUrl.pathname.startsWith('/dashboard')) {
-                return NextResponse.redirect(new URL('/account/login', req.url));
-            }
+        const { pathname } = req.nextUrl;
 
-            if (req.nextUrl.pathname.startsWith('/api')) {
-                return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-            }
+        // User token না থাকলে /profile এর যেকোনো route এ গেলে login page এ redirect
+        if (!userToken && pathname.startsWith('/profile')) {
+            return NextResponse.redirect(new URL('/account/login', req.url));
         }
 
-    } catch (error) { 
+        // Admin token না থাকলে /dashboard এর যেকোনো route এ গেলে admin login page এ redirect
+        if (!adminToken && pathname.startsWith('/dashboard')) {
+            return NextResponse.redirect(new URL('/auth-admin', req.url));
+        }
+
+    } catch (error) {
+        // error হলে default redirect to login
         return NextResponse.redirect(new URL('/account/login', req.url));
     }
 }
 
-// **Middleware Apply on Specific Routes**
 export const config = {
     matcher: [
-        //  client
         "/profile/:path*",
-        // "/dashboard",
-
-        //  api 
-
-        // "/api/test",
-        "/api/user/results/get-me"
-
+        "/dashboard/:path*",
     ],
 };
