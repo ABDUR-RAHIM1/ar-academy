@@ -5,6 +5,8 @@ import sidebarItems from './SidebarItems';
 import Link from 'next/link';
 import Logo from '@/utils/Logo';
 import { usePathname } from 'next/navigation';
+import { IoMdLogOut } from 'react-icons/io';
+import AdminLogOutButton from './AdminLogOutButton';
 
 export default function Sidebar() {
     const { isOpen } = useContext(contextD);
@@ -53,8 +55,11 @@ export default function Sidebar() {
                                         ))}
                                     </div>
                                 )}
+
+
                             </div>
                         ))}
+                        <AdminLogOutButton />
                     </div>
                 </div>
             </aside>
@@ -91,6 +96,7 @@ export default function Sidebar() {
                                 )}
                             </div>
                         ))}
+                        <AdminLogOutButton />
                     </div>
                 </div>
             </aside>

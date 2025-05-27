@@ -92,6 +92,23 @@ const sidebarItems = [
 
     },
     {
+        item: "Team",
+        icon: <MdLibraryBooks />,
+        children: [
+            {
+                item: "Team Managment",
+                path: "team/view",
+                icon: <BsViewList />
+            },
+            {
+                item: "Add new",
+                path: "team/add",
+                icon: <BsViewList />
+            },
+        ],
+
+    },
+    {
         item: "Settings",
         icon: <MdSettings />,
         children: [
@@ -121,11 +138,6 @@ const sidebarItems = [
                 icon: <MdLibraryBooks />
             },
         ]
-    },  
-    {
-        item: "Logout",
-        icon: <IoMdLogOut />,
-        children: []
     }
 ];
 

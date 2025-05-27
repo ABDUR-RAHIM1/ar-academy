@@ -11,6 +11,7 @@ export const adminSecretKey = "@Admin#2024!Secure/17"
 
 export const userRegister = "/account/register"
 export const userLogin = "/account/login"
+export const adminLogin = "/auth-admin"
 
 //  get token api // akhn use hocce na , delete korte hbe pore
 export const getTokenApi = "/api/get-token/"
@@ -63,6 +64,8 @@ export const resultMy = process.env.NEXT_PUBLIC_RESULT_MY
 export const accountRegister = "/api/account/register"
 export const accountLogin = "/api/account/login"
 export const AllAccount = "/api/account/all"
+export const allAdminAccount = "/api/account/all-admin"
+
 export const loginUserAccount = "/api/account/user/"
 export const accountDelete = "/api/account/delete/"
 export const updateUserStatus = "/api/account/updateStatus/"

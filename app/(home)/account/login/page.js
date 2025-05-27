@@ -67,11 +67,7 @@ export default function LoginAccount() {
                     <p className="text-gray-700 max-w-sm">
                         আমাদের মাধ্যমে অনুশীলন করুন এবং নিজেকে তৈরি করুন আপনার কাঙ্ক্ষিত ভবিষ্যতের জন্য।
                     </p>
-                    {/* <img 
-                        src="" 
-                        alt="Login Illustration" 
-                        className="w-60 mt-6 hidden md:block"
-                    /> */}
+
                 </div>
 
                 {/* Right Side - Login Form */}
@@ -82,8 +78,8 @@ export default function LoginAccount() {
                     <h2 className='text-2xl font-semibold text-gray-800 mb-6 text-center'>লগইন করুন</h2>
 
                     <div className="space-y-4">
-                        <InputField name="email" type="email" placeholder="আপনার ইমেইল লিখুন" handler={handleChange} />
-                        <InputField name="password" type="password" placeholder="পাসওয়ার্ড লিখুন" handler={handleChange} />
+                        <InputField name="email" type="email" placeholder="📧 আপনার ইমেইল লিখুন" handler={handleChange} />
+                        <InputField name="password" type="password" placeholder="🔒 পাসওয়ার্ড লিখুন" handler={handleChange} />
                     </div>
 
                     <div className="mt-6">

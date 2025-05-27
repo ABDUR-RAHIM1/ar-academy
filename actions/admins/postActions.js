@@ -1,13 +1,13 @@
 "use server"
 
 import { API_URL } from "@/constans";
-import getToken from "../getToken/getToken";
+import getAdminToken from "../getToken/getAdminToken";
 
 export const postActions = async (payload) => {
 
-    const token = await getToken()
+    const token = await getAdminToken();
 
-    const { method, api, body } = payload 
+    const { method, api, body } = payload
 
     const res = await fetch(API_URL + api, {
         method: method, // pass from components

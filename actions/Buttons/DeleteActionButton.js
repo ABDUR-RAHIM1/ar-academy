@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react'
 import { deleteAction } from '../admins/deleteAction';
 import { contextD } from '@/contextApi/DashboardState';
 import { Button } from '@/components/ui/button';
+import { LoaderIcon } from "lucide-react";
 
 export default function DeleteActionButton({ btnText, deleteRoute }) {
 
@@ -27,11 +28,11 @@ export default function DeleteActionButton({ btnText, deleteRoute }) {
     return (
         <div onClick={handleDelete}>
             {isLoading ?
-                <Button   variant="destructive">
-                    ...
+                <Button variant="destructive">
+                    <LoaderIcon className="animate-spin text-center" /> ...
                 </Button>
                 :
-                <Button   variant="destructive">
+                <Button variant="destructive">
                     {
                         btnText || "ডিলিট"
                     }

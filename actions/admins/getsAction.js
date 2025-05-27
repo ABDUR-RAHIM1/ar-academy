@@ -1,10 +1,19 @@
 import { API_URL } from "@/constans";
+import getAdminToken from "../getToken/getAdminToken";
+
 
 // for admin
 export const getsActions = async (endpoint) => {
-    const res = await fetch(`${API_URL+endpoint}`, {
+
+    const token = await getAdminToken();
+
+    const res = await fetch(`${API_URL + endpoint}`, {
         method: "GET",
-        cache: "no-store"
+        cache: "no-store",
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": `Bearer ${token}`
+        },
     });
 
     const data = await res.json();

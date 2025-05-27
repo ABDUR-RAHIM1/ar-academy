@@ -44,8 +44,23 @@
  <.................
 tasks : => {
 
+
+  { 
+
+   admin register form Create in dashboard 
+   admin token o apiAction gulo adala alada vabe handle korte hbe 
+   admin login handle , token save and route protected;
+   admin registration korte hobe dashboard theke.
+   
+   admin login form create => done
+  }
+
+    
+    => User Cookies set , get er nam change korte hbe - ar_academy_session theke onushilon_academy_seasion korte hobe.
     = job soluution page a questions gulo dekhano jete pare
    => questions Update form ti edit korte hbe 
+
+  => admin er jnno route gulo protected korte hbe
 
    => Written part er jonno chapterModel a writtenSolution name akta field rakhte hbe abong frontend a conditionaly dekhate hbe
 
@@ -78,6 +93,14 @@ tasks : => {
 
    ]
 
+
+ admin : [
+       1. user Managment : {
+          user er status (active , pending , reject) suhdu admin update korte parbe admin token verify er maddhome.
+       };
+
+       2. admin account Create
+ ]
  
  
  userName : abrarjohn85
