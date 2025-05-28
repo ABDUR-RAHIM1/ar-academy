@@ -142,7 +142,7 @@ const ChapterAdd = () => {
         getCategorieData();
     }, [categoriId]);
 
-    
+
     // sub categories Change handler
     const handleSubCategorieChange = (subCategorie) => {
 
@@ -303,6 +303,7 @@ const ChapterAdd = () => {
                             <SelectGroup>
                                 <SelectItem value="editor">এডিটর</SelectItem>
                                 <SelectItem value="file">ফাইল</SelectItem>
+                                <SelectItem value="written">লিখিত</SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select>
@@ -312,7 +313,7 @@ const ChapterAdd = () => {
             {/* Editor container */}
 
             {
-                formData.fileType === "file" ?
+                formData.fileType !== "editor" ?
                     <>
                         <Input onChange={handleFileChange} type="file" accept=".xlsx, .xls" className=' w-full my-3' />
                         <small className={"text-blue-500 my-2"}>

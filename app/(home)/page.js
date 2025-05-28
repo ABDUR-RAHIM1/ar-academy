@@ -1,10 +1,11 @@
- 
+
 import Categories from '@/components/clients/home/Categories/Categories'
 import Faq from '@/components/clients/home/FAQ/Faq'
 import Features from '@/components/clients/home/Features/Features'
 import Gallary from '@/components/clients/home/Gallary/Gallary'
 import Hero from '@/components/clients/home/Hero'
 import Subscription from '@/components/clients/home/Subscription/Subscription'
+import TopScorer from '@/components/clients/home/TopScorer/TopScorer'
 import React from 'react'
 
 export default function HomePage() {
@@ -12,6 +13,7 @@ export default function HomePage() {
     <div className='relative animateOnLoad'>
       <Hero />
       <Categories />
+      <TopScorer />
       <Features />
       <Gallary />
       <Subscription />

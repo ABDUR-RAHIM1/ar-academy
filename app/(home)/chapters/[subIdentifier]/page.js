@@ -9,14 +9,14 @@ import Link from 'next/link';
 import { contextD } from '@/contextApi/DashboardState';
 import CommentList from '../comments/CommentList';
 import SolutionTable from '../SolutionTable';
+import WrittenSolutions from '../WrittenSolutions';
 
 export default function ChaptersDetails() {
     const { subIdentifier } = useContext(contextD);
     const [loading, setLoading] = useState(false);
     const searchParams = useSearchParams();
     const chapter = searchParams.get("chapter");
-    console.log(subIdentifier)
-
+    
     const [chapterNessage, setChapterMessage] = useState("")
     const [chapterDetails, setChapterDetails] = useState(null);
 
@@ -52,6 +52,8 @@ export default function ChaptersDetails() {
         return <Loading />;
     }
 
+    console.log(chapterDetails)
+
     return (
         <div className='py-10'>
 
@@ -63,7 +65,7 @@ export default function ChaptersDetails() {
                             {subIdentifier}
                         </h1>
                         <p className="text-lg text-gray-500 italic">
-                             বিষয়ে আপনার জ্ঞান বাড়াতে সহায়ক একটি রিসোর্স।
+                            বিষয়ে আপনার জ্ঞান বাড়াতে সহায়ক একটি রিসোর্স।
                         </p>
                     </div>
                 </div>
@@ -97,8 +99,11 @@ export default function ChaptersDetails() {
                                     <div>
                                         <SolutionTable solutionTable={chapterDetails.solutionTable} />
                                     </div>
-                                    :
-                                    < div dangerouslySetInnerHTML={{ __html: chapterDetails.contents }} />
+
+                                    : chapterDetails.fileType === "written" ?
+                                        <WrittenSolutions writtenData={chapterDetails.writtenSolution} />
+                                        :
+                                        < div dangerouslySetInnerHTML={{ __html: chapterDetails.contents }} />
                             }
 
                         </div>
