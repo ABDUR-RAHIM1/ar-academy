@@ -1,47 +1,44 @@
 import React from 'react'
-import { Button } from '../../ui/button'
 import { FiClock } from 'react-icons/fi'
 import Image from 'next/image'
 import { Card, CardContent, CardHeader, CardTitle } from '../../ui/card'
 import AdminProfileEditButton from './AdminProfileEditButton'
+import { getAdminAccount } from '@/app/apiActions/admin/adminInformation'
+import NoData from '@/utils/NoData'
 
-export default function AdminProfile() {
-    const data = {
-        username: "Abdur Rahim",
-        email: "suman@email.com",
-        mobile: "1755123456",
-        dateOfBirth: "২০০০-০২-১৫",
-        gender: "male",
-        address: "রংপুর সদর, রংপুর",
-        qualification: "স্নাতক (বিজ্ঞান)",
-        instituteName: "রংপুর সরকারি কলেজ",
-        favoriteSubject: "পদার্থবিজ্ঞান",
-        profilePhoto: "https://i.pravatar.cc/100?img=13",
-        accountUpdateDate: "২০২৫-০৫-২৭",
-        accountCreateDate: "২০২৪-১২-৩০",
-        status: "active"
-    };
-    const {
-        username,
-        email,
-        mobile,
-        dateOfBirth,
-        gender,
-        address,
-        qualification,
-        instituteName,
-        favoriteSubject,
-        profilePhoto,
-        accountUpdateDate,
-        accountCreateDate,
-    } = data || {}
+export default async function AdminProfile() {
+    const { status, data } = await getAdminAccount();
+
+    if (status !== 200) {
+        return <NoData text={"admin Information not found"} />
+    }
+
+    const { username, email, profilePhoto, createdAt, updatedAt, dob, address, mobile, favoriteSubject, qualification, instituteName, gender } = data || {};
+    
+    const dateOfBirth = new Date(dob).toLocaleDateString('bn-BD', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
+
+    const accountCreateDate = new Date(createdAt).toLocaleDateString('bn-BD', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
+    const accountUpdateDate = new Date(updatedAt).toLocaleDateString('bn-BD', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
+
     return (
-        <div className="grid gap-6 max-w-5xl mx-auto py-8 px-4">
+        <div className="grid gap-6 py-8">
             {/* User Profile Card */}
             <Card>
                 <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between">
                     <CardTitle>অ্যাডমিন প্রোফাইল</CardTitle>
-                    <AdminProfileEditButton />
+                    <AdminProfileEditButton profileInfo={data} />
                 </CardHeader>
                 <CardContent className="flex flex-col md:flex-row gap-6">
                     {/* Proile Image and Basic Info */}

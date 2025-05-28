@@ -19,7 +19,7 @@ export default function UserTable({ usersData }) {
 
     //  Status OnChange Handler 
     const handleStatusChange = async (e, userId) => {
-    
+
         const payload = {
             method: "PUT",
             api: updateUserStatus + userId,
@@ -52,10 +52,10 @@ export default function UserTable({ usersData }) {
                     name="status"
                     id="status"
                     value={row.status}
-                    className={`px-1 py-1 rounded-sm border ${row.status === "pending" ? "border-red-500 text-red-800" : row.status === "accept" ? "border-green-300 text-green-600" : ""} `}
+                    className={`px-1 py-1 rounded-sm border ${row.status === "pending" ? "border-yellow-500 text-yellow-800" : row.status === "active" ? "border-green-300 text-green-600" : "text-red-500 border-red-500"} `}
                 >
                     <option value="pending">Pending</option>
-                    <option value="accept">Accept</option>
+                    <option value="active">Active</option>
                     <option value="reject">Reject</option>
                 </select>
             </div>

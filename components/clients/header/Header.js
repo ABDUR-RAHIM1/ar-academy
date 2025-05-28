@@ -22,8 +22,8 @@ export default function Header() {
             path: "/categories",
         },
         {
-            item: "সমস্যা ও সমাধান",
-            path: "/problem-solved",
+            item: "জব পোষ্ট",
+            path: "/job-post",
         },
         {
             item: "পরীক্ষা দিন",

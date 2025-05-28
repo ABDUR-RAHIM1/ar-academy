@@ -39,6 +39,8 @@ export default function SubScribeButton({ planInfoData }) {
 
         } catch (error) {
             console.log(error)
+            showToast(500, "failed to purchase!")
+
         } finally {
             setLoading(false)
         }
@@ -50,7 +52,7 @@ export default function SubScribeButton({ planInfoData }) {
     return (
         <button
             onClick={handleClickSubScription}
-            className={`${loading ? "btnBg2" : "btnBg "}`}>
+            className={`${loading ? "btnBg2" : "btnBg "} text-sm`}>
             {
                 loading ? "অপেক্ষা করুন..." : " সাবস্ক্রাইব করুন"
             }

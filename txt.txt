@@ -43,18 +43,21 @@
  
  <.................
 tasks : => {
+   done : {
+       faq - with acordion
+       subscription card with shadcn card
+       admin profile set and update
+       admin login form create => done
+       get all admin dashboard
+   }
 
 
   { 
 
-   admin token o apiAction gulo adala alada vabe handle korte hbe 
-   admin login handle , token save and route protected;
-   admin registration korte hobe dashboard theke.
-   
-   admin login form create => done
+   admin token o apiAction gulo adala alada vabe handle korte hbe   
   }
-
-    
+    => user login korar shomoy role , email , Password diye check korte hbe
+    => top result dhari user der list home page a dekhate hbe 
     => User Cookies set , get er nam change korte hbe - ar_academy_session theke onushilon_academy_seasion korte hobe.
     = job soluution page a questions gulo dekhano jete pare
    => questions Update form ti edit korte hbe 

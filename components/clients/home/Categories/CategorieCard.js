@@ -12,7 +12,7 @@ export const CategoriesCard = ({ categoriesData }) => {
             href={`/sub-categories/${identifier}`}
 
             style={{ borderLeft: `4px solid ${cardStyle(categorie)}` }}
-            className={`w-[48%] md:w-[22%] hover:shadow-xl transition-all flex flex-col items-center justify-between py-3 my-4 rounded-md shadow-xl bg-gray-100 hover:bg-gray-200 relative`}
+            className={`w-[48%] md:w-[22%] hover:shadow-xl transition-all flex flex-col items-center justify-between py-3 my-4 rounded-md shadow-xl bg-gray-100 hover:bg-gray-200 relative border-2`}
         >
             <blockquote className=" absolute top-2 left-2 bg-gray-200 py-1 px-2 rounded-full">
                 <span className=" text-xl font-bold">

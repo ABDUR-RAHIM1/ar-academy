@@ -1,15 +1,15 @@
 "use client"
-import { postActionUser } from '@/actions/users/postActions';
+import { postActions } from '@/actions/admins/postActions'; 
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { updateUserAllInformation } from '@/constans';
+import { updateAdminAllInformation } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import { InputField } from '@/utils/InputFIled'
 import { uploaderStyle } from '@/utils/uploadStyle';
 import React, { useContext, useEffect, useState } from 'react'
 
-export default function ProfileEditForm() {
+export default function AdminProfileEditForm() {
     const [loading, setLoading] = useState(false)
     const { showToast, imgUrl, uploadResponse, uploader } = useContext(contextD);
 
@@ -33,11 +33,11 @@ export default function ProfileEditForm() {
 
 
     useEffect(() => {
-        const userRawData = localStorage.getItem("ONUSHILON_USER_CACHE")
+        const userRawData = localStorage.getItem("ONUSHILON_ACCESS_CACHE")
         if (userRawData) {
             try {
                 const decoded = JSON.parse(decodeURIComponent(escape(atob(userRawData))));
-                setFormData(decoded)  
+                setFormData(decoded)
             } catch (err) {
                 console.error("Failed to decode user data:", err);
             }
@@ -73,10 +73,10 @@ export default function ProfileEditForm() {
 
             const payload = {
                 method: "PUT",
-                api: updateUserAllInformation + formData._id,
+                api: updateAdminAllInformation + formData._id,
                 body: formData
             }
-            const { status, data } = await postActionUser(payload);
+            const { status, data } = await postActions(payload);
             showToast(status, data)
 
 

@@ -1,6 +1,4 @@
-"use client"
-import { useState } from "react"; 
-import { FiChevronDown } from "react-icons/fi";
+ 
 
 const faqData = [
     {
@@ -25,37 +23,27 @@ const faqData = [
     },
 ];
 
-export default function Faq() {
-    const [openIndex, setOpenIndex] = useState(null);
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
+import Heading from "../../globals/Heading";
 
-    const toggleFAQ = (index) => {
-        setOpenIndex(openIndex === index ? null : index);
-    };
+export default function Faq() {
 
     return (
-        <section className="bg-gradient-to-br from-cyan-600 to-blue-800 text-white py-12 px-4">
-            <div className="max-w-4xl mx-auto">
-                <h2 className="text-3xl font-bold text-center mb-8">প্রশ্নোত্তর (FAQ)</h2>
-                <div className="space-y-4">
-                    {faqData.map((item, index) => (
-                        <div key={index} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 shadow-md">
-                            <button
-                                onClick={() => toggleFAQ(index)}
-                                className="w-full flex justify-between items-center text-left"
-                            >
-                                <span className="text-lg font-semibold">{item.question}</span>
-                                <FiChevronDown
-                                    className={`h-5 w-5 transform transition-transform duration-300 ${openIndex === index ? "rotate-180" : ""
-                                        }`}
-                                />
-                            </button>
-                            {openIndex === index && (
-                                <div className="mt-3 text-sm text-white/90">{item.answer}</div>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </section>
+        <div className=" w-full md:w-[60%] m-auto px-5 my-10">
+            <Heading text={"প্রশ্নোত্তর (FAQ)"} />
+            <Accordion type="single" collapsible className=" p-3 my-4 w-full border">
+                {faqData.map(({ question, answer }, index) => (
+                    <AccordionItem key={index} value={`item-${index}`}>
+                        <AccordionTrigger>{question}</AccordionTrigger>
+                        <AccordionContent>{answer}</AccordionContent>
+                    </AccordionItem>
+                ))}
+            </Accordion>
+        </div>
     );
 }

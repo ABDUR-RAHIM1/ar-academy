@@ -5,7 +5,7 @@ import getAdminToken from "../getToken/getAdminToken";
 
 export const postActions = async (payload) => {
 
-    const token = await getAdminToken();
+    const token = await getAdminToken(); 
 
     const { method, api, body } = payload
 

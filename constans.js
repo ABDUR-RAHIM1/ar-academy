@@ -1,6 +1,6 @@
 
 // const API_URL = process.env.NEXT_PUBLIC_API_URL; 
-const API_URL = "http://localhost:5000"  // local
+const API_URL = "http://localhost:5000"   //local
 // const API_URL = "https://onushilon-academy.onrender.com"  // deploy
 // export const secretKey = process.env.NETX_PUBLIC_SECRET_KEY
 export const COMMON_ALT_TEXT = "Onushilon Academy - Empowering Your Learning Journey";
@@ -59,6 +59,13 @@ export const resultMy = process.env.NEXT_PUBLIC_RESULT_MY
 //  results End here ============================
 
 
+//  summay start here
+export const getAllCourseSumary = "/api/utils/getSummary/"
+export const getAllUsersSumary = "/api/utils/getUserSummary/"
+//  summay End here
+
+
+
 //  user Start here ============================================================
 
 export const accountRegister = "/api/account/register"
@@ -67,9 +74,12 @@ export const AllAccount = "/api/account/all"
 export const allAdminAccount = "/api/account/all-admin"
 
 export const loginUserAccount = "/api/account/user/"
+export const loginAdminAccount = "/api/account/admin/"
+
 export const accountDelete = "/api/account/delete/"
 export const updateUserStatus = "/api/account/updateStatus/"
 export const updateUserAllInformation = "/api/account/updateAll/"
+export const updateAdminAllInformation = "/api/account/updateAdminAccount/"
 
 
 //  comment
