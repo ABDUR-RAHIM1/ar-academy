@@ -221,8 +221,7 @@ const EditChapters = () => {
         body: formData
       }
       const { status, data } = await postActions(payload);
-      showToast(status, data)
-      console.log("chapter update handler", data)
+      showToast(status, data) 
 
     } catch (error) {
       // showToast(500, "Failed To Update Chapter")
@@ -346,6 +345,7 @@ const EditChapters = () => {
               <SelectGroup>
                 <SelectItem value="editor">এডিটর</SelectItem>
                 <SelectItem value="file">ফাইল</SelectItem>
+                <SelectItem value="written">লিখিত</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>

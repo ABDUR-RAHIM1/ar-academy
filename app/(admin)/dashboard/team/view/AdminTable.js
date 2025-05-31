@@ -1,5 +1,6 @@
 'use client';
 import DeleteActionButton from '@/actions/Buttons/DeleteActionButton';
+import { accountDelete } from '@/constans';
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 
@@ -47,7 +48,7 @@ export default function AdminTable({ adminList }) {
         },
         {
             name: 'Delete',
-            selector: row => <DeleteActionButton  /> // ata admin token theke korte hbe 
+            selector: row => <DeleteActionButton deleteRoute={accountDelete + row._id} /> 
         },
     ];
 

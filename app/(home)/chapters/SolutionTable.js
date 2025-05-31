@@ -49,14 +49,14 @@ export default function SolutionTable({ solutionTable }) {
                                 </p>
 
                                 <ul className="ml-4 space-y-1">
-                                    <li>ক) {item.Option1}</li>
-                                    <li>খ) {item.Option2}</li>
-                                    <li>গ) {item.Option3}</li>
-                                    {item.Option4 && <li>ঘ) {item.Option4}</li>}
+                                    <li>⏺ ক) {item.Option1}</li>
+                                    <li>⏺ খ) {item.Option2}</li>
+                                    <li>⏺ গ) {item.Option3}</li>
+                                    {item.Option4 && <li>⏺ ঘ) {item.Option4}</li>}
                                 </ul>
 
                                 <p className="mt-2 font-medium color1">
-                                    ✅ সঠিক উত্তর: {item.CorrectAnswer}
+                                    ✔️ সঠিক উত্তর: {item.CorrectAnswer}
                                 </p>
                             </div>
 
@@ -67,7 +67,7 @@ export default function SolutionTable({ solutionTable }) {
                                 </p>
                                 {item.Explanation ? (
                                     <p className="text-xs text-gray-400 mt-1 italic group-hover:text-gray-700">
-                                        ব্যাখ্যা : {item.Explanation}
+                                       📝 ব্যাখ্যা : {item.Explanation}
                                     </p>
                                 ) : (
                                     <p className="text-xs text-red-600 mt-1 italic">

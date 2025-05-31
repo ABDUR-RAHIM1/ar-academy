@@ -1,17 +1,28 @@
-import { MdSpaceDashboard, MdLibraryBooks, MdSettings } from "react-icons/md";
-import { FaUsers } from "react-icons/fa";
+import { MdSpaceDashboard, MdLibraryBooks, MdSettings, MdOutlineQuiz, MdOutlinePeopleAlt } from "react-icons/md";
+import { FaUsers, FaUserCog, FaUserShield } from "react-icons/fa";
 import { IoMdLogOut } from "react-icons/io";
 import { BsViewList } from "react-icons/bs";
+import { RiTeamLine } from "react-icons/ri";
+import { GiBookshelf } from "react-icons/gi";
+import { HiOutlineDocumentReport } from "react-icons/hi";
+import { FiUserCheck } from "react-icons/fi";
+import { IoSettingsOutline } from "react-icons/io5";
 
 const sidebarItems = [
     {
         item: "Dashboard",
         icon: <MdSpaceDashboard />,
-        children: []
+        children: [
+            {
+                item: "Overview",
+                path: "",
+                icon: <BsViewList />
+            },
+        ]
     },
     {
         item: "Categories",
-        icon: <MdLibraryBooks />,
+        icon: <GiBookshelf />,
         children: [
             {
                 item: "All Categories",
@@ -21,13 +32,13 @@ const sidebarItems = [
             {
                 item: "Add Categories",
                 path: "categories/add",
-                icon: <MdLibraryBooks />
+                icon: <GiBookshelf />
             },
         ]
     },
     {
         item: "Sub-Categorie",
-        icon: <MdLibraryBooks />,
+        icon: <GiBookshelf />,
         children: [
             {
                 item: "Sub Categories",
@@ -37,7 +48,7 @@ const sidebarItems = [
             {
                 item: "Add Sub Categorie",
                 path: "sub-categorie/add",
-                icon: <MdLibraryBooks />
+                icon: <GiBookshelf />
             },
         ]
     },
@@ -59,7 +70,7 @@ const sidebarItems = [
     },
     {
         item: "Questions",
-        icon: <MdLibraryBooks />,
+        icon: <MdOutlineQuiz />,
         children: [
             {
                 item: "all Questions",
@@ -69,44 +80,58 @@ const sidebarItems = [
             {
                 item: "Add Questions",
                 path: "questions/add",
-                icon: <BsViewList />
+                icon: <MdOutlineQuiz />
             },
 
         ]
     },
     {
         item: "Users",
-        icon: <MdLibraryBooks />,
+        icon: <FaUsers />,
         children: [
             {
                 item: "User Managment",
                 path: "users/view",
-                icon: <BsViewList />
+                icon: <FaUserCog />
             },
             {
                 item: "Results",
                 path: "users/results",
-                icon: <BsViewList />
+                icon: <HiOutlineDocumentReport />
             },
         ],
-
     },
     {
         item: "Team",
-        icon: <MdLibraryBooks />,
+        icon: <RiTeamLine />,
         children: [
             {
                 item: "Team Managment",
                 path: "team/view",
-                icon: <BsViewList />
+                icon: <FaUserCog />
             },
             {
                 item: "Add new",
                 path: "team/add",
-                icon: <BsViewList />
+                icon: <FiUserCheck />
             },
         ],
-
+    },
+    {
+        item: "Subscription",
+        icon: <RiTeamLine />,
+        children: [
+            {
+                item: "View Subscription",
+                path: "subscription/view",
+                icon: <FaUserCog />
+            },
+            {
+                item: "Add Subscription",
+                path: "subscription/add",
+                icon: <FiUserCheck />
+            },
+        ],
     },
     {
         item: "Settings",
@@ -115,17 +140,17 @@ const sidebarItems = [
             {
                 item: "Profile",
                 path: "settings/profile",
-                icon: <MdLibraryBooks />
+                icon: <FaUserCog />
             },
             {
                 item: "Security",
                 path: "settings/security",
-                icon: <MdLibraryBooks />
+                icon: <FaUserShield />
             },
             {
                 item: "Notifications",
                 path: "settings/notifications",
-                icon: <MdLibraryBooks />
+                icon: <IoSettingsOutline />
             },
             {
                 item: "How to work",

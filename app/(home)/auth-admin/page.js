@@ -20,9 +20,9 @@ export default function AdminLogin() {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
+        role: "admin"
     })
-
-
+ 
 
 
     const handleChange = (e) => {
@@ -35,7 +35,6 @@ export default function AdminLogin() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true)
-        console.log("submit")
         try {
             const payload = {
                 method: "POST",

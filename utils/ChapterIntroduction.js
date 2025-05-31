@@ -1,6 +1,6 @@
+"use client"
 import {
     AlertDialog,
-    AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button"
 
 export function ChapterIntroduction({ fileType }) {
     return (
-        <AlertDialog className={"w-full overflow-y-auto"}>
+        <AlertDialog className={"w-full"}>
             <AlertDialogTrigger asChild>
                 <Button variant="outline">নির্দেশিকা
                     {
@@ -21,11 +21,11 @@ export function ChapterIntroduction({ fileType }) {
                     }
                 </Button>
             </AlertDialogTrigger>
-            <AlertDialogContent>
+            <AlertDialogContent className="max-h-[90vh] overflow-y-auto">
                 <AlertDialogHeader>
                     <AlertDialogTitle>চ্যাপ্টার যুক্ত করার নিয়মাবলী দেখুন।</AlertDialogTitle>
                     <AlertDialogDescription>
-                        <div className=" w-full h-[70vh] overflow-y-auto px-3 py-5 bg-white rounded-xl shadow-md space-y-6">
+                        <div className=" w-full h-[450px] overflow-y-auto px-3 py-5 bg-white rounded-xl shadow-md space-y-6">
 
                             <p className="text-gray-700">
                                 আমাদের প্ল্যাটফর্মে সমাধান (xls file) যুক্ত করার সময়, নিচের নিয়ম ও ফরম্যাট অনুযায়ী তথ্য প্রদান করা বাধ্যতামূলক। দয়া করে প্রতিটি পয়েন্ট মনোযোগ দিয়ে পড়ুন:
@@ -52,7 +52,7 @@ export function ChapterIntroduction({ fileType }) {
                                             ["Explanation", "প্রশ্নের ব্যাখ্যা — যেমনঃ 'সূর্য পূর্ব দিকে উঠে'", "❌ না"],
                                             ["Subeject", "সাবজেক্ট নাম — যেমনঃ 'বাংলা , ইংলিশ , গণিত'", "✅ হ্যাঁ"],
                                         ].map(([name, desc, required], index) => (
-                                             <tr key={index} className="odd:bg-white even:bg-gray-50">
+                                            <tr key={index} className="odd:bg-white even:bg-gray-50">
                                                 <td className="border px-4 py-2 font-medium text-gray-900">{name}</td>
                                                 <td className="border px-4 py-2 text-gray-700">{desc}</td>
                                                 <td className="border px-4 py-2 text-center">{required}</td>

@@ -1,10 +1,10 @@
 "use server"
 import { API_URL } from "@/constans";
-import getToken from "../getToken/getToken";
+import getAdminToken from "../getToken/getAdminToken";
 
 export const deleteAction = async (api) => {
 
-    const token = await getToken();
+    const token = await getAdminToken();
 
 
     const res = await fetch(API_URL + api, {

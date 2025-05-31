@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
 export default function SlideScale() {
   const [api, setApi] = React.useState();
   const [current, setCurrent] = React.useState(0);
-  console.log("current :", current);
 
   React.useEffect(() => {
     if (!api) {

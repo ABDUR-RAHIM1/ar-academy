@@ -4,9 +4,10 @@ import { deleteAction } from '../admins/deleteAction';
 import { contextD } from '@/contextApi/DashboardState';
 import { Button } from '@/components/ui/button';
 import { LoaderIcon } from "lucide-react";
+import { useRouter } from 'next/navigation';
 
 export default function DeleteActionButton({ btnText, deleteRoute }) {
-
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(false)
     const { showToast } = useContext(contextD)
 
@@ -16,6 +17,7 @@ export default function DeleteActionButton({ btnText, deleteRoute }) {
             const { status, data } = await deleteAction(deleteRoute);
 
             showToast(status, data)
+            router.refresh()
 
         } catch (error) {
             console.log(error)

@@ -134,7 +134,6 @@ const ChapterAdd = () => {
             if (status === 200) {
                 const filteredSubCategories = data.filter(subC => subC.categorieId === categoriId)
                 set_SubCategorie(filteredSubCategories);
-                console.log(filteredSubCategories)
             }
 
         };
@@ -203,8 +202,7 @@ const ChapterAdd = () => {
             setLoading(false)
         }
     }
-
-
+ 
     return (
         <div className=" w-[95%] md:w-[80%] m-auto my-10 bg-gray-100 p-4 rounded-md">
 

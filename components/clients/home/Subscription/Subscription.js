@@ -1,6 +1,5 @@
 import React from 'react';
 import SubScribeButton from './SubScribeButton';
-import { plans } from '@/LocalDatabase/Subcriptions';
 
 import {
   Card,
@@ -9,9 +8,21 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"; 
+} from "@/components/ui/card";
+import NoData from '@/utils/NoData';
+import { getAllPlans } from '@/app/apiActions/public/getAllPlan';
 
-export default function Subscription() {
+export default async function Subscription() {
+  const { status, data } = await getAllPlans();
+
+
+  if (status !== 200) {
+    return <NoData text={"Plans not found!"} />
+  };
+
+
+
+
   return (
     <div className='my-10 px-3 md:px-5 py-10 rounded-md bg2'>
       <div className='py-10 rounded-md'>
@@ -21,12 +32,11 @@ export default function Subscription() {
         </div>
 
         <div className="flex flex-wrap justify-center gap-6">
-          {plans.map((plan, index) => (
+          {data?.map((plan, index) => (
             <Card
               key={index}
-              className={`w-full sm:w-[48%] md:w-[22%] transition-all hover:shadow-xl border-2 ${
-                plan.isPopular ? 'border-yellow-500' : 'border-gray-200'
-              }`}
+              className={`w-full sm:w-[48%] md:w-[22%] transition-all hover:shadow-xl border-2 ${plan.isPopular ? 'border-yellow-500' : 'border-gray-200'
+                }`}
             >
               <CardHeader className="text-center">
                 <div className="text-4xl mb-2">{plan.emoji}</div>

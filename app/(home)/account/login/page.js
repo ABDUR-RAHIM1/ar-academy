@@ -18,6 +18,7 @@ export default function LoginAccount() {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
+        role: "user"
     });
 
     const handleChange = (e) => {
@@ -60,7 +61,7 @@ export default function LoginAccount() {
     return (
         <div className="min-h-screen bg-gradient-to-r from-[#F9FAFB] to-[#EFF6FF] flex items-center justify-center px-4">
             <div className="w-full max-w-6xl bg-white rounded-2xl shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
-                
+
                 {/* Left Side - Branding */}
                 <div className="bg-blue-100 p-10 flex flex-col justify-center items-center text-center">
                     <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">অনুশীলন একাডেমি</h2>
