@@ -57,23 +57,36 @@ tasks : => {
 
    }
 
-
-  { 
-
-   admin token o apiAction gulo adala alada vabe handle korte hbe   
-  };
-
+  
 
   DeleteAction button a user o admin er jonno alada korte hobe.
  
-=> plans edit in dashboard
+   [
+      => React Data table component ti reusable kora jay o style akoi hoy .
+       <div className="p-4 bg-gray-100 min-h-screen">
+            <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg p-6">
+                <h2 className="text-xl font-bold text-gray-800 mb-4">🧑‍💼 অ্যাডমিন টিম তালিকা</h2>
+                <DataTable
+                    columns={columns}
+                    data={admin}
+                    pagination
+                    highlightOnHover
+                    striped
+                    responsive
+                />
+            </div>
+        </div>
+   ]
+
+=> dashboard overview te sales ammount dekhabe , advance hisebe monthly basis a dekhano jete pare .
 => plans gulote free trail (1,2,3 din) korte hbe , seta backend a check kore bkash api call korte hbe. sei shathe manualy admin theke plan active kore dewa jabe.
     => top result dhari user der list home page a dekhate hbe 
    => Top performer ber korar jonno backend a util file a ordhek kaj kora ace.
     => User Cookies set , get er nam change korte hbe - ar_academy_session theke onushilon_academy_seasion korte hobe.
     = job soluution page a questions gulo dekhano jete pare
    => questions Update form ti edit korte hbe 
-   => profile edit form a gender , dob ti sothik format  a pacce na
+   => profile edit form a gender , dob ti sothik format  a pacce na 
+   => admin token o apiAction gulo adala alada vabe handle korte hbe   
      
      =>. user profile  
 
@@ -107,10 +120,12 @@ tasks : => {
 
  admin : [
        1. user Managment : {
-          user er status (active , pending , reject) suhdu admin update korte parbe admin token verify er maddhome.
+          user er status (active , pending , reject) suhdu admin update korte parbe admin token verify er maddhome. ok
        };
 
-       2. admin account Create
+       2. admin account Create korar shomoy role admin hole admin Secret Key diye tarpor create korte hobe. ok
+
+       => admin Delete : admin delete korar somoy chech korte hbe jodi admin er songka 1 er theke beshi hoy tahole ar kono account delete hobe na .
  ]
  
  

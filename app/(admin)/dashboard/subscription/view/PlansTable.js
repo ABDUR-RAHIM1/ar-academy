@@ -21,6 +21,19 @@ const customStyles = {
     },
 };
 
+// ✅ Custom Expandable Component
+const ExpandedComponent = ({ data }) => (
+    <div className="p-4 bg-gray-50 rounded-md">
+        <h4 className="font-bold mb-2">ফিচারসমূহ:</h4>
+        <ul className="list-disc list-inside space-y-1">
+            {data.features.map((feature, idx) => (
+                <li key={idx}>{feature}</li>
+            ))}
+        </ul>
+    </div>
+);
+
+
 // টেবিল কলাম ডিফাইন
 const columns = [
     {
@@ -51,19 +64,8 @@ const columns = [
         sortable: true,
     },
     {
-        name: "ফিচারসমূহ",
-        cell: row => (
-            <ul className="list-disc list-inside space-y-1 my-4">
-                {row.features.map((feature, idx) => (
-                    <li key={idx}>{feature}</li>
-                ))}
-            </ul>
-        ),
-        grow: 3,
-    },
-    {
         name: "এডিট",
-        selector: row => <EditActionButton />,
+        selector: row => <EditActionButton data={row} path={"/dashboard/subscription/add"} />,
         sortable: true,
     },
     {
@@ -94,6 +96,8 @@ export default function PlansTable({ plansData }) {
                 highlightOnHover
                 striped
                 customStyles={customStyles}
+                expandableRows
+                expandableRowsComponent={ExpandedComponent}
             />
         </div>
     );

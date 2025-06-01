@@ -1,6 +1,5 @@
-import { MdSpaceDashboard, MdLibraryBooks, MdSettings, MdOutlineQuiz, MdOutlinePeopleAlt } from "react-icons/md";
-import { FaUsers, FaUserCog, FaUserShield } from "react-icons/fa";
-import { IoMdLogOut } from "react-icons/io";
+import { MdSpaceDashboard, MdLibraryBooks, MdSettings, MdOutlineQuiz } from "react-icons/md";
+import { FaUsers, FaUserCog, FaUserShield } from "react-icons/fa"; 
 import { BsViewList } from "react-icons/bs";
 import { RiTeamLine } from "react-icons/ri";
 import { GiBookshelf } from "react-icons/gi";
@@ -122,13 +121,19 @@ const sidebarItems = [
         icon: <RiTeamLine />,
         children: [
             {
+                item: "Add Subscription",
+                path: "subscription/add",
+                icon: <FiUserCheck />
+            },
+            {
                 item: "View Subscription",
                 path: "subscription/view",
                 icon: <FaUserCog />
             },
+
             {
-                item: "Add Subscription",
-                path: "subscription/add",
+                item: "Sales History",
+                path: "subscription/salesHistory",
                 icon: <FiUserCheck />
             },
         ],

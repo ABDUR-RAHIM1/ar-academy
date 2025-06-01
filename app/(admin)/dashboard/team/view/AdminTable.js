@@ -9,7 +9,7 @@ export default function AdminTable({ adminList }) {
 
     useEffect(() => {
         setAdmin(adminList)
-    }, [admin])
+    }, [adminList])
 
     const columns = [
         {
