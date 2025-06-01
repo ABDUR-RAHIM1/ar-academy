@@ -87,7 +87,7 @@ tasks : => {
    => questions Update form ti edit korte hbe 
    => profile edit form a gender , dob ti sothik format  a pacce na 
    => admin token o apiAction gulo adala alada vabe handle korte hbe   
-     
+   => questions (mcq exam form) er dan pase sidebar hbe , sekhane je exam running thakbe tar related questions gulo show korbe
      =>. user profile  
 
      => plan er price jodi 0 er theke beshi hoy tahole bkash api call hbe noyto automatic free tei thakbe
