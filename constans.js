@@ -1,7 +1,6 @@
 
-// const API_URL = process.env.NEXT_PUBLIC_API_URL; 
-// const API_URL = "http://localhost:5000"   //local
-const API_URL = "https://onushilon-academy.onrender.com"  // deploy
+const API_URL = process.env.NEXT_PUBLIC_API_URL;  //local 
+
 // export const secretKey = process.env.NETX_PUBLIC_SECRET_KEY
 export const COMMON_ALT_TEXT = "Onushilon Academy - Empowering Your Learning Journey";
 
@@ -45,6 +44,7 @@ export const chapterDelete = process.env.NEXT_PUBLIC_CHAPTERS_DELETE
 export const questionsCreate = process.env.NEXT_PUBLIC_QUESTIONS_CREATE
 export const questionsGetAll = process.env.NEXT_PUBLIC_QUESTIONS_GET_ALL
 export const questionGetSingel = process.env.NEXT_PUBLIC_QUESTIONS_GET_ONE
+export const questionReletedByTitle = process.env.NEXT_PUBLIC_QUESTIONS_GET_RELATED_TITLE
 export const questionGetByChapter = process.env.NEXT_PUBLIC_QUESTIONS_GET_BY_CHAPTER
 export const questionUpdate = process.env.NEXT_PUBLIC_QUESTIONS_UPDATE
 export const questionDelete = process.env.NEXT_PUBLIC_QUESTIONS_DELETE

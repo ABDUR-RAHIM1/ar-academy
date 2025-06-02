@@ -1,5 +1,5 @@
 import { getsActions } from "@/actions/users/getActions";
-import { questionGetByChapter, questionGetSingel, questionsGetAll } from "@/constans";
+import { questionGetByChapter, questionGetSingel, questionReletedByTitle, questionsGetAll } from "@/constans";
 
 //  get all questions for user and admin
 export const getAllQuestions = async () => {
@@ -17,4 +17,11 @@ export const getQuestionByChapterId = async (chapterId) => {
     const questionsById = await getsActions(questionGetByChapter + chapterId);
 
     return questionsById;
+}
+
+// ata controller create kore thik korte hbe
+export const getQuestionsByIsAllTitle = async (isAllTitle) => {
+    const reletedQuestions = await getsActions(questionReletedByTitle + isAllTitle);
+
+    return reletedQuestions;
 }

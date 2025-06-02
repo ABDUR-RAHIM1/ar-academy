@@ -80,9 +80,12 @@ tasks : => {
 
 => dashboard overview te sales ammount dekhabe , advance hisebe monthly basis a dekhano jete pare .
 => plans gulote free trail (1,2,3 din) korte hbe , seta backend a check kore bkash api call korte hbe. sei shathe manualy admin theke plan active kore dewa jabe.
-    => top result dhari user der list home page a dekhate hbe 
+
+   => top result dhari user der list home page a dekhate hbe 
    => Top performer ber korar jonno backend a util file a ordhek kaj kora ace.
+
     => User Cookies set , get er nam change korte hbe - ar_academy_session theke onushilon_academy_seasion korte hobe.
+    
     = job soluution page a questions gulo dekhano jete pare
    => questions Update form ti edit korte hbe 
    => profile edit form a gender , dob ti sothik format  a pacce na 
@@ -113,6 +116,12 @@ tasks : => {
              =>  add/update : subject Shchema (sub_categories) te type (paid/ free) ache . chapter add korar shomoy jokhn subject data fetch kore subjectId store kora hoy tokhn e chapter schema te subject er type o automatic add hocce . taholei suhdu subject a type add korlei tar odhine sob chapter a type add hocce . mane add chapter theke automatic vabe sub_categories er type chapter er moddhe add hocce
 
              => verify : subject a suhdu paid unpaid dekhabe, subject a click korle user chapter list gulo dekhte parbe (jate free user o bujhte pare je akhene ki ki ace - agroher jonno) . kintu chapterName diye content get korar shomoy user paid na free setar shathe chapter paid na free seta match kore data dite hobe.
+      }
+
+      => . exam page sidebar releted questions list : {
+            jodi isAll === true . tahole isAllTitle diye api getQuestionsByIsAllTitle(data.isAllTitle);
+        er maddhome word matching kore reletd question dekhano hocce . 
+            ar jodi isAll === false . tahole chapterId getQuestionByChapterId(data.chapter._id); diye related Question gulo dekhano hocce . 
       }
 
    ]
