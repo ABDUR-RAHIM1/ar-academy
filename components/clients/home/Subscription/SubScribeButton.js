@@ -52,7 +52,7 @@ export default function SubScribeButton({ planInfoData }) {
     return (
         <button
             onClick={handleClickSubScription}
-            className={`${loading ? "btnBg2" : "btnBg "} text-sm`}>
+            className={`${loading ? "btnBg2" : "btnBg "} text-sm w-full`}>
             {
                 loading ? "অপেক্ষা করুন..." : " সাবস্ক্রাইব করুন"
             }

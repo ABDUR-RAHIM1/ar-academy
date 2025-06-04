@@ -1,3 +1,5 @@
+import logo from "@/public/Images/logo.png"
+
 import bookIcon from "@/public/Images/bookIcon.png";
 import bookCover from "@/public/Images/Cover.png"
 import coverPhoto from "@/public/Images/Cover.png"
@@ -34,13 +36,14 @@ import gl4 from "@/public/Images/gallary/gl4.jpg"
 // Gallaary End
 
 export {
+    logo,
     bookIcon, bookCover, coverPhoto,
     followArrowr, followArrowl,
     arrow,
     demoProfilePhoto,
 
     heroImage,
- 
+
 
     f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12,
     gl1, gl2, gl3, gl4

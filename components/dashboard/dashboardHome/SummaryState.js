@@ -11,6 +11,7 @@ const iconMap = {
     "Chapters": <Book className="text-green-500 w-6 h-6" />,
     "Questions": <HelpCircle className="text-orange-500 w-6 h-6" />,
     "Job Posts": <Briefcase className="text-pink-500 w-6 h-6" />,
+    "Sold": <Briefcase className="text-pink-500 w-6 h-6" />,
     "Answered Length": <ClipboardCheck className="text-indigo-500 w-6 h-6" />,
 };
 
@@ -24,7 +25,7 @@ export default async function SummaryState() {
     return (
         <div className='p-4 bg-white my-5 rounded-md'>
             <Heading text={"Courses Summary"} />
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 ">
                 {data.map((item, index) => (
                     <Card key={index} className="shadow-md hover:shadow-lg transition-shadow duration-300">

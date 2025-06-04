@@ -24,6 +24,7 @@ import { decodedToken } from '@/helpers/token-decoded/tokenDecoded'
 import getToken from '@/actions/getToken/getToken'
 import Cookies from 'js-cookie'
 import { FiChevronDown, FiUser } from 'react-icons/fi'
+import { LogIn } from 'lucide-react'
 
 export default function AccountBtn({ menuClick, setMenuClick }) {
     const router = useRouter()
@@ -116,18 +117,15 @@ export default function AccountBtn({ menuClick, setMenuClick }) {
                     </DropdownMenuContent>
                 </DropdownMenu>
             ) : (
-                <TooltipProvider>
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button asChild>
-                                <Link href={userLogin}>একাউন্ট</Link>
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                            <p>প্রিমিয়াম সব ফিচারস পেতে লগইন করুন</p>
-                        </TooltipContent>
-                    </Tooltip>
-                </TooltipProvider>
+                <Link href={userLogin}>
+                    <Button
+                        variant="outline"
+                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium border hover:bg-indigo-50 transition-colors duration-200"
+                    >
+                        <LogIn className="w-4 h-4" />
+                        একাউন্ট
+                    </Button>
+                </Link>
             )}
         </>
     )

@@ -10,7 +10,7 @@ import React from 'react'
 
 export default function HomePage() {
   return (
-    <div className='relative animateOnLoad'>
+    <div className='relative animateOnLoad '>
       <Hero />
       <Categories />
       <TopScorer />

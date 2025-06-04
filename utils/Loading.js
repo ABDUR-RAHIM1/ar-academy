@@ -13,10 +13,7 @@ export default function Loading() {
                     alt='ar-academy'
                     className=' w-44 h-44'
                 />
-                <p className=' text-xl font-bold text-blue-800'>
-                    Loading....
-                </p>
-
+            
             </div>
         </div>
     )

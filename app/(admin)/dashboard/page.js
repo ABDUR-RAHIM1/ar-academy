@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import AdminProfile from '@/components/dashboard/dashboardHome/AdminProfile'
 import SummaryState from '@/components/dashboard/dashboardHome/SummaryState'
 import UsersSummary from '@/components/dashboard/dashboardHome/UsersSummary'
+import SoldCourseOVerview from '@/components/dashboard/dashboardHome/SoldCourseOverview'
 
 export default function DashboardHomePage() {
 
@@ -11,6 +12,7 @@ export default function DashboardHomePage() {
     <div className="p-4 md:p-8">
       {/* Profile Informartion of admin */}
       <AdminProfile />
+      <SoldCourseOVerview />
       <SummaryState />
       <UsersSummary />
 

@@ -101,9 +101,9 @@ body {
 @layer components {
 
   /* client Start */
-  /* .bg1 {
-    @apply bg-[#1e708a]
-  } */
+   /* .wrapBg {
+  @apply bg-gradient-to-br from-blue-50 via-white to-emerald-50;
+} */
   .bg1 {
     @apply bg-[#0891b2]
   }

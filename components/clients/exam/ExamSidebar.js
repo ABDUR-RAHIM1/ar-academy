@@ -30,7 +30,13 @@ export default async function ExamSidebar({ data }) {
                             key={q._id || index}
                             className="border border-gray-300 rounded-lg p-4 hover:shadow-lg transition-shadow duration-300 cursor-pointer"
                         >
-                            <Link href={`/exam/all/${q._id}`}>
+                            <Link
+                                href={
+                                    q.isAll
+                                        ? `/exam/all-subject/${q._id}`
+                                        : `/exam/${q.sub_categorie.identifier}/${q._id}`
+                                }
+                            >
                                 <div className="flex items-center gap-3 mb-2 text-indigo-600 font-semibold">
                                     <BookOpen className="w-6 h-6" />
                                     <h4 className="text-lg truncate font-medium">
