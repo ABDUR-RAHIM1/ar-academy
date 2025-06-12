@@ -16,7 +16,7 @@ export default async function ExamSidebar({ data }) {
     const questions = relatedQuestions?.data || relatedQuestions || [];
 
     return (
-        <aside className="flex-1 bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+        <aside className=" w-full md:flex-1 bg-white p-6 rounded-lg shadow-lg border border-gray-200">
             <h3 className="font-bold text-2xl italic uppercase border-b border-indigo-400 pb-3 mb-6 text-indigo-700">
                 Related Questions
             </h3>
@@ -44,7 +44,7 @@ export default async function ExamSidebar({ data }) {
                                     </h4>
                                 </div>
                                 <p className="text-sm text-gray-600">
-                                    বিষয়ঃ {q.sub_categorie?.sub_name || 'N/A'}
+                                    বিষয়ঃ {q.sub_categorie?.sub_name || 'সব'}
                                 </p>
                                 <p className="text-xs mt-1 text-gray-400">
                                     মোট প্রশ্ন: {q.questions ? q.questions.length : 'N/A'}

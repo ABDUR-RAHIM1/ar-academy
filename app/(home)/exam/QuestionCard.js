@@ -4,6 +4,7 @@ import React from 'react'
 export default function QuestionCard({ exam, index }) {
     const isAll = exam.isAll;
 
+
     return (
         <div className="bg-white shadow-lg rounded-lg p-5 border border-gray-200">
             <div className='my-3 flex items-center justify-between flex-wrap'>
@@ -28,12 +29,12 @@ export default function QuestionCard({ exam, index }) {
 
                 {isAll ? (
                     <>
-                        <p>📝 প্রশ্ন সেট: <span className="font-medium">{exam.isAllTitle}</span></p>
+                        <p>📝 প্রশ্ন সেট: <span className="font-medium">{exam?.isAllTitle}</span></p>
                     </>
                 ) : (
                     <>
-                        <p>📝 বিষয়: <span className="font-medium">{exam.sub_categorie.sub_name}</span></p>
-                        <p>📝 অধ্যায়: <span className="font-medium">{exam.chapter.chapter_name}</span></p>
+                        <p>📝 বিষয়: <span className="font-medium">{exam.sub_categorie?.sub_name}</span></p>
+                        <p>📝 অধ্যায়: <span className="font-medium">{exam.chapter?.chapter_name}</span></p>
                     </>
                 )}
 

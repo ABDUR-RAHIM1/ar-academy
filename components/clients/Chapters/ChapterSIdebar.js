@@ -84,7 +84,7 @@ export default function ChapterSidebar({ subIdentifier }) {
 
             <div className={
                 `${arrowClick ? "scale-x-0" : "scale-x-100"} origin-left transition-all 
-                     h-screen p-5 bg-gray-200 
+                     h-screen p-5 bg-indigo-100 
                     absolute md:static w-[320px]
                     top-[70px] left-0 
                     overflow-y-auto`
@@ -107,7 +107,10 @@ export default function ChapterSidebar({ subIdentifier }) {
                             key={sub._id} className={` ${chapterName === sub.identifier ? "bg1 text-white  hover:bg2" : ""} rounded-sm w-full inline-block my-1 p-2 text-[14px] transition-all duration-300 hover:color1 hover:underline`}>
                             <div className='flex items-center gap-3'>
                                 <span>{index + 1}.</span>
-                                <span className=''>{sub.chapter_name}</span>
+                                <span className=''>{sub.chapter_name}
+                                    <small className='text-sm mx-2 text-red-700'>{sub.position || (- index + 1)}</small>
+                                </span>
+
                             </div>
                         </Link>
                     ))

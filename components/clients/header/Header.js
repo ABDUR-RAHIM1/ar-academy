@@ -7,7 +7,11 @@ import { MdClose, MdMenu, } from 'react-icons/md'
 import { usePathname } from 'next/navigation'
 import AccountBtn from './AccountBtn'
 
-
+/**
+ * job post items ti enable (uncomment korte hobe)
+ * @returns 
+ * 
+ */
 export default function Header() {
 
     const path = usePathname()
@@ -21,10 +25,10 @@ export default function Header() {
             item: "সমস্ত ক্যাটাগরি",
             path: "/categories",
         },
-        {
-            item: "জব পোষ্ট",
-            path: "/job-post",
-        },
+        // {
+        //     item: "জব পোষ্ট",
+        //     path: "/job-post",
+        // },
         {
             item: "পরীক্ষা দিন",
             path: "/exam",

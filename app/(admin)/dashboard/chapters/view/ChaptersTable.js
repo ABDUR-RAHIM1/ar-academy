@@ -132,7 +132,7 @@ export default function ChaptersTable({ chaptersData }) {
 
 
             <DataTable
-                title={"Chapters"}
+                // title={"Chapters"}
                 data={data}
                 columns={columns}
                 pagination

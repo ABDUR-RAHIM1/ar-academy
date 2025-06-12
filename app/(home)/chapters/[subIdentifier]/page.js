@@ -1,13 +1,11 @@
 "use client"
 import { getChapterWithContent } from '@/app/apiActions/client/clientApi';
-import Loading from '@/utils/Loading';
-import Image from 'next/image';
+import Loading from '@/utils/Loading'; 
 import { useSearchParams } from 'next/navigation'
 import React, { useContext, useEffect, useState } from 'react'
 import { CommentSection } from '../Comments';
 import Link from 'next/link';
-import { contextD } from '@/contextApi/DashboardState';
-import CommentList from '../comments/CommentList';
+import { contextD } from '@/contextApi/DashboardState'; 
 import SolutionTable from '../SolutionTable';
 import WrittenSolutions from '../WrittenSolutions';
 
@@ -52,7 +50,6 @@ export default function ChaptersDetails() {
         return <Loading />;
     }
 
-    console.log(chapterDetails)
 
     return (
         <div className='py-10'>

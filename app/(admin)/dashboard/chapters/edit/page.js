@@ -24,6 +24,13 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { getChapterWithContent } from "@/app/apiActions/chapters";
 import { chaptersUpdate } from "@/constans";
 
+/**
+ *  edit korar shomoy dynamicaly categories, subCategories name form a dekhano
+ * filteType === editor hole contents gulo editor a dekahbo
+ * editor a table / photo etc add kora 
+ */
+
+
 const EditChapters = () => {
   const [showContent, setShowContents] = useState(false);
   const [editDataLoading, setEditDataLoading] = useState(false)
@@ -58,7 +65,7 @@ const EditChapters = () => {
         if (isEdit) {
           const { status, data } = await getChapterWithContent(editData.identifier);
           if (status === 200) {
-            const { solutionTable, ...others } = data
+            const { solutionTable, writtenSolution, ...others } = data
             setFormData(others);
           }
         }
@@ -214,14 +221,17 @@ const EditChapters = () => {
   const handleUpdateChapter = async (e) => {
     e.preventDefault();
     setLoading(true)
+
+  
     try {
+
       const payload = {
         method: "PUT",
         api: chaptersUpdate + formData._id,
         body: formData
       }
       const { status, data } = await postActions(payload);
-      showToast(status, data) 
+      showToast(status, data)
 
     } catch (error) {
       // showToast(500, "Failed To Update Chapter")
@@ -336,7 +346,7 @@ const EditChapters = () => {
 
         <div className=" my-4">
           <Label >ধরণ</Label>
-          <Select value={formData.fileType} onValueChange={(value) => setFormData(prev => ({ ...prev, fileType: value }))}>
+          <Select value={formData.fileType} required onValueChange={(value) => setFormData(prev => ({ ...prev, fileType: value }))}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="একটি ধরণ নির্বাচন করুন" />
             </SelectTrigger>
@@ -369,11 +379,11 @@ const EditChapters = () => {
 
       {/*  extra activites for copyes Chapter Contens */}
       {
-        formData.fileType === "editor" &&
+       ( formData.fileType === "editor" || formData.fileType === undefined) &&
         <div className={` ${isEdit ? "flex" : "hidden"} my-3 w-full items-center justify-end`}>
-          <button onClick={() => setShowContents(!showContent)} className="p-2 border border-double border-blue-950 rounded-md shadow-md text-sm hover:shadow-xl transition-all flex items-center gap-2">
+          <button onClick={() => setShowContents(!showContent)} className="p-2 border border-solid border-gray-400 rounded-md  text-sm hover:shadow-xl transition-all flex items-center gap-2">
             {
-              showContent ? "hide Contents" : "Show Contents"
+              showContent ? "hide Contents" : "Previous Contents"
             }
             <span className=" text-2xl">
               {showContent ? <IoIosArrowUp /> : <IoIosArrowDown />}
@@ -391,7 +401,7 @@ const EditChapters = () => {
         }
       </div>
 
-      <div onClick={handleUpdateChapter} className=" my-4">
+      <div onClick={handleUpdateChapter} className=" my-4 inline-block">
         <SubmitButton loadingState={loading} btnText={"Update Chapter"} />
       </div>
 

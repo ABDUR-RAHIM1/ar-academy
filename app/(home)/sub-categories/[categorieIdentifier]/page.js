@@ -1,10 +1,18 @@
 import { getSubCategoieById } from '@/app/apiActions/client/clientApi';
 import Heading from '@/components/clients/globals/Heading';
-import { coverPhoto } from '@/Images/Images';
+import { COMMON_ALT_TEXT } from '@/constans';
+import { coverPhoto, gl2, logo } from '@/Images/Images';
 import Error from '@/utils/Error';
 import NoData from '@/utils/NoData';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+
+/**
+ *  subject er header a dynamicaly image dekhale valo hobe
+ * @param {*} param0 
+ * @returns 
+ */
 
 export default async function SubCategories({ params }) {
     const { categorieIdentifier } = await params;
@@ -39,7 +47,6 @@ export default async function SubCategories({ params }) {
                             :
                             {
                                 pathname: `/chapters/${item.identifier}`,
-                                // query: { coverPhoto: item.coverPhoto || coverPhoto.src },
                             }
 
                         return (
@@ -48,22 +55,34 @@ export default async function SubCategories({ params }) {
                                 href={pathLink}
                                 className="group bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl border"
                             >
-                                
-                                <div className="relative w-full h-48 md:h-40 text-center bg-gray-200 flex items-center justify-center">
 
-                                    <h2 className=' text-xl font-semibold'>
+                                <div className="relative w-full h-48 md:h-40 text-center bg-gray-300 flex items-center justify-center overflow-hidden group-hover:bg1">
+
+                                    {/* বইয়ের ছবি ওভারলে */}
+                                    <Image
+                                        src={logo}  // এখানে নিজের ছবি path দিবেন
+                                        alt={COMMON_ALT_TEXT}
+                                        className="absolute inset-0 mx-auto my-auto w-full h-auto opacity-20 object-contain z-0 "
+                                    />
+
+                                    {/* শিরোনাম */}
+                                    <h2 className="text-xl font-semibold z-10 group-hover:text-white">
                                         {item.sub_name}
                                     </h2>
 
                                     {/* অ্যাক্সেস ব্যাজ */}
-                                    <span className={`absolute top-2 right-2 px-2 py-1 text-xs font-semibold text-white rounded ${item.type === "paid" ? 'bg-red-500' : 'bg-green-500'}`}>
+                                    <span
+                                        className={`absolute top-2 right-2 px-2 py-1 text-xs font-semibold text-white rounded z-10 ${item.type === "paid" ? "bg-red-500" : "bg-green-500"
+                                            }`}
+                                    >
                                         {item.type === "paid" ? "প্রিমিয়াম সদস্যদের জন্য" : "বিনামূল্যে"}
                                     </span>
                                 </div>
 
+
                                 {/* নিচের কনটেন্ট */}
                                 <div className="p-4 text-center">
-                                    <p className="text-sm text-gray-600 my-3">
+                                    <p className="text-sm text-gray-600 my-3 group-hover:font-semibold transition-all ">
                                         {item.description || "কোনো বিবরণ নেই"}
                                     </p>
 

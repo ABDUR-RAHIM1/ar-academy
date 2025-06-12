@@ -15,7 +15,7 @@ export default async function ExamQuestionsPage({ params }) {
 
 
     return (
-        <div className=' bg-gray-100 px-3 md:px-16 py-10 flex items-start justify-between flex-wrap gap-4'>
+        <div className=' bg-gray-100 px-3 md:px-12 py-10 flex items-start justify-between flex-wrap gap-4'>
             <main className="w-full md:w-[65%] p-3 md:p-6 bg-white shadow-md rounded-lg">
 
                 {/* Sub-category Name show only if isAll is false */}

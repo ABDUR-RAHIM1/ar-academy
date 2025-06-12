@@ -34,6 +34,7 @@ export default function AddQuestion() {
         isAllTitle: "",
         questions: []
     });
+ 
 
     // Convert exel sheet to JSON 
     const handleFileChange = (event) => {
@@ -273,7 +274,7 @@ export default function AddQuestion() {
 
                 <div className=' my-4'>
                     <Label >
-                       ফাইল আপলোড  করুন (.xls/.xlsx)
+                        ফাইল আপলোড  করুন (.xls/.xlsx)
                     </Label>
                     <Input onChange={handleFileChange} type="file" accept=".xlsx, .xls" className=' w-full ' />
 

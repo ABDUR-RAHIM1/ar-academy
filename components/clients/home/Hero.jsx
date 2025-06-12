@@ -6,13 +6,16 @@ import React from 'react'
 
 export default function Hero() {
   return (
-    <section className="w-full min-h-[70vh] bg2 text-white py-24 px-6">
-      <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
+    // <section className=" bg2 text-white">
+      <div className="bg2 w-full md:h-[70vh]  flex flex-col-reverse lg:flex-row items-center justify-between gap-12 border-b">
 
         {/* Text Content */}
-        <div className="lg:w-1/2 text-center lg:text-left">
+        <div className="w-full md:w-[55%] text-center lg:text-left px-4 py-10 text-white">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-wide leading-tight drop-shadow-md mb-6">
-            Onushilon Academy – শেখা এখন আরও সহজ ও মজার
+            Onushilon Academy –
+          </h1>
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-wide leading-tight drop-shadow-lg mb-6">
+            শেখা এখন আরও সহজ ও মজার
           </h1>
           <p className="text-lg sm:text-xl text-white/90 mb-10 drop-shadow-sm max-w-lg mx-auto lg:mx-0">
             এক জায়গায় সবকিছু: পড়াশোনা, প্রস্তুতি, পরীক্ষা ও মূল্যায়ন! অনলাইনে ঘরে বসেই শেখো নিজের গতিতে।
@@ -32,7 +35,7 @@ export default function Hero() {
         </div>
 
         {/* Image */}
-        <div className="lg:w-1/2 max-w-md mx-auto lg:mx-0">
+        <div className=" hidden md:flex w-full md:w-[44%] bg-indigo-50 h-full  items-center justify-center">
           <Image
             src={heroImage}
             width={500}
@@ -43,6 +46,6 @@ export default function Hero() {
           />
         </div>
       </div>
-    </section>
+    // </section>
   )
 }
