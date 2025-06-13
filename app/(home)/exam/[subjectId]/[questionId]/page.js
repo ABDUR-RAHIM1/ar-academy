@@ -8,8 +8,9 @@ export default async function ExamQuestionsPage({ params }) {
     const { questionId } = await params;
     const { status, data } = await getSingleQuestion(questionId);
 
+
     if (!status || status !== 200 || !data) {
-        return <NoData text={"কোন প্রশ্ন পাওয়া যায়নি !"} />
+        return <NoData text={data.message || "কোন প্রশ্ন পাওয়া যায়নি !"} />
     }
 
 

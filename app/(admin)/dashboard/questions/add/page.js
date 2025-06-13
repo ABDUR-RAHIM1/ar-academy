@@ -32,9 +32,11 @@ export default function AddQuestion() {
         chapter: "",    // chapter mean chapterId
         isAll: "",
         isAllTitle: "",
-        questions: []
+        questions: [],
+        type: ""
     });
- 
+
+    console.log(formData)
 
     // Convert exel sheet to JSON 
     const handleFileChange = (event) => {
@@ -111,14 +113,16 @@ export default function AddQuestion() {
 
 
     // categories Change handler
-    const handleSubCategorieChange = (SubCategorieId) => {
+    const handleSubCategorieChange = (SubCategorie) => {
+        console.log({ SubCategorie })
         setFormData((prev) => ({
             ...prev,
-            sub_categorie: SubCategorieId
+            sub_categorie: SubCategorie._id,
+            type: SubCategorie.type
         }))
     };
     // Chapter Change handler
-    const handleSubChapterChange = (ChapterId) => {
+    const handleChapterChange = (ChapterId) => {
         setFormData((prev) => ({
             ...prev,
             chapter: ChapterId // chapter mean chapterId
@@ -228,7 +232,7 @@ export default function AddQuestion() {
                                             "not found"
                                         ) : (
                                             subCategories.map((sc) => (
-                                                <SelectItem key={sc._id} value={sc._id}>
+                                                <SelectItem key={sc._id} value={sc}>
                                                     {sc.sub_name}
                                                 </SelectItem>
                                             ))
@@ -240,13 +244,13 @@ export default function AddQuestion() {
                         {/*  filtered chapter (filter with sub categorie) */}
                         {
                             formData.sub_categorie &&
-                            <div className=' w- my-4'>
+                            <div className='my-4'>
                                 <Label >
                                     অধ্যায়ের নাম
                                 </Label>
                                 <Select
                                     name='chapterId'
-                                    onValueChange={handleSubChapterChange}
+                                    onValueChange={handleChapterChange}
                                 >
                                     <SelectTrigger className="w-full">
                                         <SelectValue placeholder="Select Chapter Name" />
@@ -255,7 +259,7 @@ export default function AddQuestion() {
                                         <SelectGroup>
                                             <SelectLabel>Chapters</SelectLabel>
                                             {chapters && chapters.length === 0 ? (
-                                                "not found"
+                                                "জপাওয়া যায়নি!"
                                             ) : (
                                                 chapters.map((ch) => (
                                                     <SelectItem key={ch._id} value={ch._id}>
@@ -266,10 +270,39 @@ export default function AddQuestion() {
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
-                            </div>}
+                            </div>
+                        }
                     </div>
 
                 }
+
+                <div className='my-4'>
+                    <Label >
+                        ধরন
+                    </Label>
+                    <Select
+                        name='chapterId'
+                        onValueChange={handleChapterChange}
+                        value={formData.type}
+                    >
+                        <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select Chapter Name" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>ধরন (free/paid)</SelectLabel>
+
+                                <SelectItem value="paid">
+                                    প্রিমিয়াম
+                                </SelectItem>
+                                <SelectItem value="free">
+                                    ফ্রী
+                                </SelectItem>
+
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
 
 
                 <div className=' my-4'>

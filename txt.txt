@@ -78,6 +78,8 @@ tasks : => {
         </div>
    ]
 
+
+=>  Questions controller a getAllQuestions a questions gulo na pathiye suhdu lenght pathate hobe . (modify korte hobe)
 => dashboard overview te sales ammount dekhabe , advance hisebe monthly basis a dekhano jete pare .
 => plans gulote free trail (1,2,3 din) korte hbe , seta backend a check kore bkash api call korte hbe. sei shathe manualy admin theke plan active kore dewa jabe.
 
