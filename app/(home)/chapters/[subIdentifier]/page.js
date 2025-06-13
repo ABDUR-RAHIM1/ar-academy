@@ -56,7 +56,7 @@ export default function ChaptersDetails() {
 
             {/* যদি subIdentifier থাকে এবং chapter না থাকে, শুধু default cover hisebe দেখাবে */}
             {subIdentifier && !chapter && (
-                <div className="w-full h-screen bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center">
+                <div className="w-full h-screen flex items-center justify-center">
                     <div className="bg-white border-l-8 border-blue-500 shadow-xl rounded-lg px-12 py-16 max-w-lg text-center">
                         <h1 className="text-5xl font-bold text-blue-700 mb-4 leading-tight tracking-wide">
                             {subIdentifier}

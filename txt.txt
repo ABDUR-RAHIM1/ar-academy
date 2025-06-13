@@ -80,7 +80,7 @@ tasks : => {
 
 
 =>  Questions controller a getAllQuestions a questions gulo na pathiye suhdu lenght pathate hobe . (modify korte hobe)
-=> dashboard overview te sales ammount dekhabe , advance hisebe monthly basis a dekhano jete pare .
+
 => plans gulote free trail (1,2,3 din) korte hbe , seta backend a check kore bkash api call korte hbe. sei shathe manualy admin theke plan active kore dewa jabe.
 
    => top result dhari user der list home page a dekhate hbe 
@@ -124,6 +124,13 @@ tasks : => {
             jodi isAll === true . tahole isAllTitle diye api getQuestionsByIsAllTitle(data.isAllTitle);
         er maddhome word matching kore reletd question dekhano hocce . 
             ar jodi isAll === false . tahole chapterId getQuestionByChapterId(data.chapter._id); diye related Question gulo dekhano hocce . 
+      };
+
+
+      => . {
+         --: questionsPage : user login na thakle sob gulo questions e dekhabe , ar user login thakle age je exam gulo te attend korece segulo filter kore bad diye dekhabe.
+
+         --: exam dewar shomoy check korbe free/ paid etc , se onujayi exam dite parbe
       }
 
    ]

@@ -1,5 +1,5 @@
 import { LoaderIcon } from "lucide-react";
 
-export default function SpinnerDemo() {
+export default function LoadingSpinner() {
   return <LoaderIcon className="animate-spin" />;
 }

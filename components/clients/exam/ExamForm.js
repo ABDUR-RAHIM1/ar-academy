@@ -3,15 +3,49 @@ import { postActionUser } from "@/actions/users/postActions";
 import { questionsSubmit, userLogin } from "@/constans";
 import { contextD } from "@/contextApi/DashboardState";
 import { useRouter } from "next/navigation";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-export default function ExamForm({ questions }) {
+export default function ExamForm({ questionsData }) {
+    const { _id, isAll, isAllTitle, sub_categorie, chapter, questions } = questionsData;
+  
     const router = useRouter()
     const [loading, setLoading] = useState(false)
     const { showToast, token } = useContext(contextD)
+
+    const [questionHead, setQuestionHead] = useState({
+        questionId: "",
+        isAll: null,
+        isAllTitle: "",
+        sub_categorie: {},
+        chapter: {}
+    })
+
+
     const [formData, setFormData] = useState(
         questions.map((q) => ({ ...q, selectAns: "" })) // Initial state with empty selectAns
     );
+
+
+    // set subject Head State
+    useEffect(() => {
+        if (isAll) {
+            setQuestionHead((prev) => ({
+                ...prev,
+                questionId: _id,
+                isAll: isAll,
+                isAllTitle: isAllTitle,
+            }))
+        } else {
+            setQuestionHead((prev) => ({
+                ...prev,
+                questionId: _id,
+                isAll: isAll,
+                sub_categorie: sub_categorie,
+                chapter: chapter,
+            }))
+        }
+    }, [questionsData])
+
 
 
     // Function to handle option selection
@@ -56,12 +90,14 @@ export default function ExamForm({ questions }) {
             const totalQuestions = updatedFormData.length;
 
             const resultSheetData = {
+                examInfo: questionHead,
                 results: updatedFormData,
                 correctAns: correctCount,
                 wrongAns: wrongCount,
                 skip: skippedCount,
                 totalQuestions: totalQuestions,
             }
+
 
             const payload = {
                 method: "POST",
@@ -134,7 +170,7 @@ export default function ExamForm({ questions }) {
                 className=" sticky bottom-0 w-full bg1 hover:bg2 transition-all text-white px-4 py-2 rounded-md mt-4"
             >
                 {
-                    loading ? "সাবমিট করা হচ্ছে..." : "সাবমিট করুন"
+                    loading ? "জমা দেওয়া হচ্ছে..." : "সাবমিট করুন"
                 }
             </button>
         </div>

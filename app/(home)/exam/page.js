@@ -11,7 +11,6 @@ export default async function ExamPage() {
         return <NoData text={"কোন প্রশ্ন পাওয়া যায়নি !"} />
     }
 
-    console.log(data)
 
     const dataWithModified = data.map(exam => ({
         ...exam,

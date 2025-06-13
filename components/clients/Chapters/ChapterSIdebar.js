@@ -1,13 +1,16 @@
 "use client"
 import { getChapterByIdentifier } from '@/app/apiActions/client/clientApi';
+import LoadingSpinner from '@/components/spinner-01';
 import { COMMON_ALT_TEXT } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import { arrow } from '@/Images/Images';
 import Error from '@/utils/Error';
+import { SidebarIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react'
+ 
 
 export default function ChapterSidebar({ subIdentifier }) {
     const searchParams = useSearchParams();
@@ -65,57 +68,68 @@ export default function ChapterSidebar({ subIdentifier }) {
     };
 
 
-    if (loading) {
-        return null
-    }
+    // if (loading) {
+    //     return <LoadingSpinner />
+    // }
 
 
     return (
         <>
-            <div onClick={handleArrowClick} className={` block md:hidden  z-30 fixed top-[68px] md:top-[68px] ${arrowClick ? " left-0" : " left-[313px]"} cursor-pointer transition-all`}>
-                <Image
-                    src={arrow}
-                    width={30}
-                    height={30}
-                    className='w-auto h-auto'
-                    alt={COMMON_ALT_TEXT}
-                />
+            <div onClick={handleArrowClick} className={` block md:hidden  z-30 fixed top-[80px] md:top-[68px] ${arrowClick ? " left-0" : " left-[322px]"} cursor-pointer transition-all`}>
+             
+
+                <div className=' bg-indigo-50 p-2 ' title='সাইডবার ওপেন করো
+                '>
+                    <SidebarIcon className=' font-bold text-2xl color1' />
+                </div>
+
             </div>
 
             <div className={
                 `${arrowClick ? "scale-x-0" : "scale-x-100"} origin-left transition-all 
-                     h-screen p-5 bg-indigo-100 
+                     h-screen p-5 bg-indigo-50 
                     absolute md:static w-[320px]
                     top-[70px] left-0 
-                    overflow-y-auto`
+                    overflow-y-auto border-r-blue-500 border-2`
 
             }>
 
-
-                <h2 className=' my-5 text-center'>{paramsName}</h2>
-
                 {
-                    chapterItems && chapterItems.map((sub, index) => (
-                        <Link
-                            href={
-                                {
-                                    pathname: `/chapters/${subIdentifier}`,
-                                    query: { "chapter": sub.identifier }
-                                }
-                            }
-                            onClick={handleMobileViewMenuClick}
-                            key={sub._id} className={` ${chapterName === sub.identifier ? "bg1 text-white  hover:bg2" : ""} rounded-sm w-full inline-block my-1 p-2 text-[14px] transition-all duration-300 hover:color1 hover:underline`}>
-                            <div className='flex items-center gap-3'>
-                                <span>{index + 1}.</span>
-                                <span className=''>{sub.chapter_name}
-                                    <small className='text-sm mx-2 text-red-700'>{sub.position || (- index + 1)}</small>
-                                </span>
+                    (loading || !chapterItems) ?
+                        <div className=' h-full flex items-center justify-center'>
+                            <LoadingSpinner />
+                        </div>
+                        :
+                        <>
+                            <h2 className=' my-5 text-center'>{paramsName}</h2>
 
-                            </div>
-                        </Link>
-                    ))
+                            {
+                                chapterItems && chapterItems.map((sub, index) => (
+                                    <Link
+                                        href={
+                                            {
+                                                pathname: `/chapters/${subIdentifier}`,
+                                                query: { "chapter": sub.identifier }
+                                            }
+                                        }
+                                        onClick={handleMobileViewMenuClick}
+                                        key={sub._id} className={` ${chapterName === sub.identifier ? "bg1 text-white  hover:bg2" : ""} rounded-sm w-full inline-block my-1 p-2 text-[14px] transition-all duration-300 hover:color1 hover:underline`}>
+                                        <div className='flex items-center gap-3'>
+                                            <span>{index + 1}.</span>
+                                            <span className=''>{sub.chapter_name}
+                                                <small className='text-sm mx-2 text-red-700'>{sub.position || (- index + 1)}</small>
+                                            </span>
+
+                                        </div>
+                                    </Link>
+                                ))
+                            }
+                            <div style={{ height: "10px" }}></div>
+                        </>
                 }
-                <div style={{ height: "10px" }}></div>
+
+
+
             </div>
         </>
     )
