@@ -5,6 +5,11 @@ import { accountDelete, updateUserStatus } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import React, { useContext, useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
+import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
+import { Button } from "@/components/ui/button"
+import { ActionDropdown } from './ActionDropdown';
+
+
 
 export default function UserTable({ usersData }) {
     const { showToast } = useContext(contextD);
@@ -61,9 +66,14 @@ export default function UserTable({ usersData }) {
             </div>
         },
         {
-            name: "Delete",
-            selector: row => <DeleteActionButton deleteRoute={accountDelete + row._id} />
-        },
+            name: "Actions",
+            selector: row => <ActionDropdown accountId={row._id} />
+        }
+
+        // {
+        //     name: "Delete",
+        //     selector: row => <DeleteActionButton deleteRoute={accountDelete + row._id} />
+        // },
     ]
 
     return (

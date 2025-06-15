@@ -15,6 +15,58 @@ export default async function ResultDeatils({ params }) {
         <div className=" my-10 max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
             <h1 className="text-3xl font-semibold text-center mb-6">রেজাল্ট শীট</h1>
 
+            {/* Exam Info Section */}
+            <div className="mb-8 bg-white border border-gray-200 rounded-lg p-6 shadow-md">
+                <h2 className="text-xl font-semibold text-center text-indigo-700 mb-6 border-b pb-2">📋 পরীক্ষার তথ্য</h2>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-[15px] text-gray-800">
+
+                    {/* Subject & Chapter */}
+                    {data.examInfo?.isAll ? (
+                        <div className="bg-indigo-50 px-4 py-2 rounded shadow-sm border border-indigo-100">
+                            <strong className="text-indigo-700">বিষয়:</strong> {data.examInfo.isAllTitle || "N/A"}
+                        </div>
+                    ) : (
+                        <>
+                            <div className="bg-indigo-50 px-4 py-2 rounded shadow-sm border border-indigo-100">
+                                <strong className="text-indigo-700">বিষয়:</strong> {data.examInfo?.sub_categorie?.sub_name || "N/A"}
+                            </div>
+                            <div className="bg-violet-50 px-4 py-2 rounded shadow-sm border border-violet-100">
+                                <strong className="text-violet-700">অধ্যায়:</strong> {data.examInfo?.chapter?.chapter_name || "N/A"}
+                            </div>
+                        </>
+                    )}
+
+                    {/* Total Questions */}
+                    <div className="bg-blue-50 px-4 py-2 rounded shadow-sm border border-blue-100">
+                        <strong className="text-blue-700">মোট প্রশ্ন:</strong> {data.results?.length || 0} টি
+                    </div>
+
+                    {/* Correct */}
+                    <div className="bg-green-50 px-4 py-2 rounded shadow-sm border border-green-100">
+                        <strong className="text-green-700">✅ সঠিক উত্তর:</strong> {data?.correctAns} টি
+                    </div>
+
+                    {/* Wrong */}
+                    <div className="bg-red-50 px-4 py-2 rounded shadow-sm border border-red-100">
+                        <strong className="text-red-700">❌ ভুল উত্তর:</strong> {data?.wrongAns} টি
+                    </div>
+
+                    {/* Skipped */}
+                    <div className="bg-yellow-50 px-4 py-2 rounded shadow-sm border border-yellow-100">
+                        <strong className="text-yellow-700">⏭️ স্কিপ:</strong> {data?.skip} টি
+                    </div>
+
+                    {/* Date */}
+                    <div className="bg-gray-50 px-4 py-2 rounded shadow-sm border border-gray-100">
+                        <strong className="text-gray-700">📅 পরীক্ষার তারিখ:</strong> {new Date(data.createdAt).toLocaleDateString('bn-BD')}
+                    </div>
+                </div>
+            </div>
+
+
+
+
             <div className="space-y-4">
                 {data.results.map((result, index) => (
                     <div
@@ -24,7 +76,7 @@ export default async function ResultDeatils({ params }) {
                         <div className="flex justify-between items-center">
                             <span className=" text-[17px] md:text-xl font-semibold">Q{index + 1}: {result.Question}</span>
                             <span className={`text-sm font-bold ${result.status === 'correct' ? 'text-green-600' : result.status === 'skipped' ? 'text-gray-600' : 'text-red-600'}`}>
-                                {result.status === 'correct' ? 'সঠিক' : result.status === 'skipped' ? 'স্কিপ' : 'ভুল'}
+                                {result.status === 'correct' ? '✔️সঠিক' : result.status === 'skipped' ? '⏭️স্কিপ' : '❌ভুল'}
                             </span>
                         </div>
 
