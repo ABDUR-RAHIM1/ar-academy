@@ -35,7 +35,7 @@ export default function AdminLogin() {
       const { status, data } = await postActions(payload);
       showToast(status, data)
 
-    } catch (error) { 
+    } catch (error) {
       showToast(500, "Member add failed")
     } finally {
       setLoading(false)
@@ -84,7 +84,11 @@ export default function AdminLogin() {
           </div>
 
           <div className="mt-6">
-            <SubmitButton loadingState={loading} btnText="যুক্ত করুন" />
+            <SubmitButton
+              loadingState={loading}
+              btnText="যুক্ত করুন"
+              width={ "100px"}
+            />
           </div>
         </form>
       </div>

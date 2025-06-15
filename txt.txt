@@ -59,8 +59,8 @@ tasks : => {
 
   
 
-  DeleteAction button a user o admin er jonno alada korte hobe.
- 
+  => dashboard a sub_categories table a categories diye filter korte hobe
+  => DeleteAction button a width add kora hoyeche , ja parents theke pass kora jabe . tahole loading spinner ti same width a thakbe 
    [
       => React Data table component ti reusable kora jay o style akoi hoy .
        <div className="p-4 bg-gray-100 min-h-screen">

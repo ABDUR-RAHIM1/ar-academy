@@ -1,11 +1,11 @@
 "use server"
-import { API_URL } from "@/constans";
-import getAdminToken from "../getToken/getAdminToken";
+import { API_URL } from "@/constans"; 
+import getToken from "../getToken/getToken";
 
 //  use for admin
-export const deleteAction = async (api) => {
+export const deleteUserAction = async (api) => {
 
-    const token = await getAdminToken();
+    const token = await getToken();
 
 
     const res = await fetch(API_URL + api, {

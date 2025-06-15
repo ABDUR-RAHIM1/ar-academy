@@ -22,9 +22,10 @@ export default async function Categories() {
                     status === 200 && data && data.length <= 0 ?
                         <NoData />
                         :
-                        data.slice(0, 8).map(categorie => (
+                        data.slice(0, 8).map((categorie, index) => (
                             <CategoriesCard key={categorie._id}
                                 categoriesData={categorie}
+                                index={index}
                             />
 
                         ))

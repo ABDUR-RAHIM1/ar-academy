@@ -15,7 +15,7 @@ export const siteMetadata = {
     title: 'Onushilon Academy',
     description: 'A place to learn and grow together.',
     // url: 'http://localhost:3000/',
-    // url: 'https://onushilon-academy.vercel.app/',
+    url: 'https://onushilon-academy.vercel.app/',
     siteName: 'Onushilon Academy',
     images: [
       {

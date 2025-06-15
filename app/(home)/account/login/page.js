@@ -84,7 +84,11 @@ export default function LoginAccount() {
                     </div>
 
                     <div className="mt-6">
-                        <SubmitButton loadingState={loading} btnText="লগইন করুন" />
+                        <SubmitButton
+                            loadingState={loading}
+                            btnText="লগইন করুন"
+                            width={"110px"}
+                        />
                     </div>
 
                     <div className="mt-6 text-center text-sm text-gray-600">

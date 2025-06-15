@@ -2,8 +2,6 @@
 import DeleteActionButton from '@/actions/Buttons/DeleteActionButton';
 import EditActionButton from '@/actions/Buttons/EditActionButton';
 import { subCategoriesDelete } from '@/constans';
-import { bookCover } from '@/Images/Images';
-import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 
@@ -20,14 +18,8 @@ export default function SubjectTable({ sub_categories }) {
 
     const columns = [
         {
-            name: "cover photo",
-            selector: (row) => <Image
-                width={50}
-                height={50}
-                src={row.coverPhoto || bookCover}
-                alt='AR Academy BD'
-                className=' w-20 h-20 rounded-md my-3'
-            />
+            name: "index",
+            selector: (row, index) => index + 1
         },
         {
             name: "sub Categorie",
@@ -35,7 +27,16 @@ export default function SubjectTable({ sub_categories }) {
         },
         {
             name: "Type",
-            selector: (row) => row.type === "paid" ? <p className=' text-red-600 bg-red-200 px-2 py-1 text-sm'>Paid</p> : <p className=' color1 bg2 px-2 py-1 text-sm'>Free</p>
+            selector: (row) =>
+                row.type === "paid" ? (
+                    <span className="px-3 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded-full border border-red-300 shadow-sm">
+                        Paid
+                    </span>
+                ) : (
+                    <span className="px-3 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full border border-green-300 shadow-sm">
+                        Free
+                    </span>
+                )
         },
         {
             name: "Description",

@@ -1,5 +1,4 @@
 import { getCategories } from '@/app/apiActions/client/clientApi';
-import Heading from '@/components/clients/globals/Heading';
 import { CategoriesCard } from '@/components/clients/home/Categories/CategorieCard';
 import NoData from '@/utils/NoData';
 import PageBanner from '@/utils/PageBanner';
@@ -20,9 +19,10 @@ export default async function AllCategories() {
                     status === 200 && data && data.length <= 0 ?
                         <NoData />
                         :
-                        data.map(categorie => (
+                        data.map((categorie, index) => (
                             <CategoriesCard key={categorie._id}
                                 categoriesData={categorie}
+                                index={index}
                             />
 
                         ))

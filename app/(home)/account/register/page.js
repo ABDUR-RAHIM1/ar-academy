@@ -90,7 +90,11 @@ export default function RegisterAccount() {
                     <InputField name="password" type="password" label={"পাসওয়ার্ড"} placeholder="🔒 পাসওয়ার্ড লিখুন" handler={handleChange} />
 
 
-                    <SubmitButton loadingState={loading} btnText="সাইন আপ করুন" />
+                    <SubmitButton
+                        loadingState={loading}
+                        btnText="সাইন আপ করুন"
+                        width={"130px"}
+                    />
 
                     <div className="mt-6 text-center">
                         <p className="text-gray-600 text-sm">

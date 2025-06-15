@@ -1,13 +1,13 @@
 "use client"
 import React, { useContext, useState } from 'react'
-import { deleteAction } from '../admins/deleteAction';
 import { contextD } from '@/contextApi/DashboardState';
 import { Button } from '@/components/ui/button';
 import { LoaderIcon } from "lucide-react";
 import { useRouter } from 'next/navigation';
+import { deleteUserAction } from '../users/deleteUserAction';
 
-// use for admin
-export default function DeleteActionButton({ btnText, deleteRoute, width }) {
+// use for user
+export default function DeleteUserActionButton({ btnText, deleteRoute, width }) {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false)
     const { showToast } = useContext(contextD)
@@ -15,7 +15,7 @@ export default function DeleteActionButton({ btnText, deleteRoute, width }) {
     const handleDelete = async () => {
         setIsLoading(true)
         try {
-            const { status, data } = await deleteAction(deleteRoute);
+            const { status, data } = await deleteUserAction(deleteRoute);
 
             showToast(status, data)
             router.refresh()
@@ -36,12 +36,9 @@ export default function DeleteActionButton({ btnText, deleteRoute, width }) {
                 </Button>
                 :
                 <Button variant="destructive" style={{ width: width || "auto" }}>
-                    {
-                        btnText || "ডিলিট"
-                    }
+                    {btnText || "ডিলিট"}
                 </Button>
-
             }
         </div>
-    )
+    );
 }

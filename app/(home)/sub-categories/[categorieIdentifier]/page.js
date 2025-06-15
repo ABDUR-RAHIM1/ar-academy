@@ -1,7 +1,7 @@
 import { getSubCategoieById } from '@/app/apiActions/client/clientApi';
 import Heading from '@/components/clients/globals/Heading';
 import { COMMON_ALT_TEXT } from '@/constans';
-import { coverPhoto, gl2, logo } from '@/Images/Images';
+import { logo } from '@/Images/Images';
 import Error from '@/utils/Error';
 import NoData from '@/utils/NoData';
 import Image from 'next/image';
@@ -30,7 +30,7 @@ export default async function SubCategories({ params }) {
     return (
         <div className="py-10 md:py-16 px-4">
             <div className="my-5 text-center">
-                <Heading text="📚 বিষয়াবলি" />
+                <Heading text={`📚${plainCategoriIdentifier || "বিষয়াবলি"}`} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {
@@ -56,7 +56,7 @@ export default async function SubCategories({ params }) {
                                 className="group bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl border"
                             >
 
-                                <div className="relative w-full h-48 md:h-40 text-center bg-gray-300 flex items-center justify-center overflow-hidden group-hover:bg1">
+                                <div className="relative w-full h-48 md:h-40 px-2 text-center bg-gray-300 flex items-center justify-center overflow-hidden group-hover:bg1">
 
                                     {/* বইয়ের ছবি ওভারলে */}
                                     <Image
@@ -81,11 +81,14 @@ export default async function SubCategories({ params }) {
 
 
                                 {/* নিচের কনটেন্ট */}
-                                <div className="p-4 text-center">
-                                    <p className="text-sm text-gray-600 my-3 group-hover:font-semibold transition-all ">
+                                <div className=' bg-blue-50 text-center p-2'>
+                                    <p className="text-sm text-gray-600 my-3 group-hover:text-blue-800 transition-all ">
                                         {item.description || "কোনো বিবরণ নেই"}
                                     </p>
+                                </div>
+                                <hr />
 
+                                <div className="p-4 text-center">
                                     {/* অতিরিক্ত ইনফো */}
                                     <div className="mt-2 text-sm text-gray-500 space-y-2">
                                         <p>📖 {randomReaders}+ জন পড়েছে</p>

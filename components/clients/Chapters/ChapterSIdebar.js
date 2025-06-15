@@ -10,7 +10,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react'
- 
+
 
 export default function ChapterSidebar({ subIdentifier }) {
     const searchParams = useSearchParams();
@@ -76,7 +76,7 @@ export default function ChapterSidebar({ subIdentifier }) {
     return (
         <>
             <div onClick={handleArrowClick} className={` block md:hidden  z-30 fixed top-[80px] md:top-[68px] ${arrowClick ? " left-0" : " left-[322px]"} cursor-pointer transition-all`}>
-             
+
 
                 <div className=' bg-indigo-50 p-2 ' title='সাইডবার ওপেন করো
                 '>
@@ -114,10 +114,10 @@ export default function ChapterSidebar({ subIdentifier }) {
                                         }
                                         onClick={handleMobileViewMenuClick}
                                         key={sub._id} className={` ${chapterName === sub.identifier ? "bg1 text-white  hover:bg2" : ""} rounded-sm w-full inline-block my-1 p-2 text-[14px] transition-all duration-300 hover:color1 hover:underline`}>
-                                        <div className='flex items-center gap-3'>
+                                        <div className='flex items-center gap-3' title={`Position: ${sub.position || (- index + 1)}`}>
                                             <span>{index + 1}.</span>
                                             <span className=''>{sub.chapter_name}
-                                                <small className='text-sm mx-2 text-red-700'>{sub.position || (- index + 1)}</small>
+                                                {/* <small className='text-sm mx-2 text-red-700'>{}</small> */}
                                             </span>
 
                                         </div>

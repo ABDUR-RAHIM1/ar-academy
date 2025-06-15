@@ -97,7 +97,11 @@ export default function AddSubscription() {
                     onChange={handleChange}
                 />
 
-                <SubmitButton loadingState={loading} btnText={isEditMood ? "✅ আপডেট করুন" : "✅ যুক্ত করুন"} />
+                <SubmitButton
+                    loadingState={loading}
+                    btnText={isEditMood ? "✅ আপডেট করুন" : "✅ যুক্ত করুন"}
+                    width={"120px"}
+                />
             </form>
         </div>
     );

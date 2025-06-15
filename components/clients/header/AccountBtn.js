@@ -1,10 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
+ 
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -17,9 +12,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { userLogin } from '@/constans'
 import { usePathname, useRouter } from 'next/navigation'
-import { contextD } from '@/contextApi/DashboardState'
-import { demoProfilePhoto } from '@/Images/Images'
-import Image from 'next/image'
+import { contextD } from '@/contextApi/DashboardState'  
 import { decodedToken } from '@/helpers/token-decoded/tokenDecoded'
 import getToken from '@/actions/getToken/getToken'
 import Cookies from 'js-cookie'
