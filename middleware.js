@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 
 export function middleware(req) {
     try {
-        const userToken = req.cookies.get('ar_academy_session')?.value;
+        const userToken = req.cookies.get('onushilon_academy_session')?.value;
         const adminToken = req.cookies.get('onushilon_access')?.value;
-
+ 
         const { pathname } = req.nextUrl;
 
         // User token না থাকলে /profile এর যেকোনো route এ গেলে login page এ redirect

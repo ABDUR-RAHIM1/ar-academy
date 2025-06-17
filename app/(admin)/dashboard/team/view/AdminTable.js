@@ -29,6 +29,19 @@ export default function AdminTable({ adminList }) {
             cell: row => <span className="capitalize text-blue-600 font-semibold">{row.role}</span>,
         },
         {
+            name: "Verified",
+            selector: row =>
+                row.isVerified ? (
+                    <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+                        Verified
+                    </span>
+                ) : (
+                    <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">
+                        Unverified
+                    </span>
+                )
+        },
+        {
             name: 'Status',
             selector: row => row.status,
             sortable: true,
@@ -48,7 +61,7 @@ export default function AdminTable({ adminList }) {
         },
         {
             name: 'Delete',
-            selector: row => <DeleteActionButton deleteRoute={accountDelete + row._id} /> 
+            selector: row => <DeleteActionButton deleteRoute={accountDelete + row._id} />
         },
     ];
 

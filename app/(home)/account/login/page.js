@@ -9,10 +9,12 @@ import { postActionUser } from '@/actions/users/postActions';
 import { useRouter } from 'next/navigation';
 import { accountLogin } from '@/constans';
 import Cookies from 'js-cookie';
+import ResentEmailVerification from '@/utils/ResentEmailVerification';
 
 export default function LoginAccount() {
     const router = useRouter();
     const { showToast, loginSignal, setLoginSignal } = useContext(contextD);
+    const [verifiedStatus, setVerifiedStatus] = useState(true)
 
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -45,6 +47,10 @@ export default function LoginAccount() {
 
             const { status, data } = await postActionUser(payload);
             showToast(status, data);
+
+            if (status === 403 && data.code === "EMAIL_NOT_VERIFIED") {
+                setVerifiedStatus(false)
+            }
 
             if (data.token) {
                 setLoginSignal(!loginSignal);
@@ -100,6 +106,7 @@ export default function LoginAccount() {
                             একাউন্ট তৈরি করুন
                         </Link>
                     </div>
+                      <ResentEmailVerification verifiedStatus={verifiedStatus} email={formData.email} />
                 </form>
             </div>
         </div>

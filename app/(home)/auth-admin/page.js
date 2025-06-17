@@ -3,6 +3,7 @@ import { postActions } from '@/actions/admins/postActions';
 import { accountLogin } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import { InputField } from '@/utils/InputFIled';
+import ResentEmailVerification from '@/utils/ResentEmailVerification';
 import SubmitButton from '@/utils/SubmitButton';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
@@ -13,8 +14,7 @@ export default function AdminLogin() {
     const router = useRouter();
     const { showToast } = useContext(contextD);
     const [loading, setLoading] = useState(false);
-
-
+    const [verifiedStatus, setVerifiedStatus] = useState(true)
 
 
     const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ export default function AdminLogin() {
         password: "",
         role: "admin"
     })
- 
+
 
 
     const handleChange = (e) => {
@@ -43,6 +43,11 @@ export default function AdminLogin() {
             }
             const { status, data } = await postActions(payload)
             showToast(status, data);
+
+            if (status === 403 && data.code === "EMAIL_NOT_VERIFIED") {
+                setVerifiedStatus(false)
+            }
+
             if (data.token) {
                 Cookies.set("onushilon_access", data.token);
                 router.push("/dashboard")
@@ -84,7 +89,12 @@ export default function AdminLogin() {
                     <SubmitButton loadingState={loading} btnText={" লগইন করুন ⮞"} />
                 </form>
                 <p className="text-sm text-center text-gray-500">পাসওয়ার্ড ভুলে গেছেন? <span className="text-indigo-600 hover:underline cursor-pointer">রিকভার করুন</span></p>
+
+                <ResentEmailVerification verifiedStatus={verifiedStatus} email={formData.email} />
             </div>
+
+
+
         </div>
     );
 }

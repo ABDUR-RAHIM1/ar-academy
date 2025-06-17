@@ -50,6 +50,19 @@ export default function UserTable({ usersData }) {
             selector: row => row = row.email
         },
         {
+            name: "Verified",
+            selector: row =>
+                row.isVerified ? (
+                    <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+                        Verified
+                    </span>
+                ) : (
+                    <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">
+                        Unverified
+                    </span>
+                )
+        },
+        {
             name: "Status",
             selector: row => <div>
                 <select
@@ -70,10 +83,7 @@ export default function UserTable({ usersData }) {
             selector: row => <ActionDropdown accountId={row._id} />
         }
 
-        // {
-        //     name: "Delete",
-        //     selector: row => <DeleteActionButton deleteRoute={accountDelete + row._id} />
-        // },
+
     ]
 
     return (

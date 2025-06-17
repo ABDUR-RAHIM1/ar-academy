@@ -3,7 +3,7 @@ const { cookies } = require("next/headers");
 
 const getToken = async () => {
     const cookieStore = await cookies();
-    const token = cookieStore.get("ar_academy_session");
+    const token = cookieStore.get("onushilon_academy_session");
 
     if (!token) {
         return null;
