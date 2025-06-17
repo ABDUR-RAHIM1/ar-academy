@@ -32,11 +32,14 @@ const ProfileDashboard = async () => {
 
     const { username, email, profilePhoto, createdAt, updatedAt, dob, address, mobile, favoriteSubject, qualification, instituteName, gender } = data
 
-    const dateOfBirth = new Date(dob).toLocaleDateString('bn-BD', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    });
+    const dateOfBirth = dob
+        ? new Date(dob).toLocaleDateString('bn-BD', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        })
+        : "__";
+
 
     const accountCreateDate = new Date(createdAt).toLocaleDateString('bn-BD', {
         year: 'numeric',
@@ -91,8 +94,8 @@ const ProfileDashboard = async () => {
                         <div>
                             <p className="text-sm text-gray-500">লিঙ্গ</p>
                             <p className="font-medium">
-                                {!gender ? "—" : gender === "male" ? "পুরুষ" : gender === "female" ? "মহিলা" : "অন্যান্য"} 
-                            </p> 
+                                {!gender ? "—" : gender === "male" ? "পুরুষ" : gender === "female" ? "মহিলা" : "অন্যান্য"}
+                            </p>
                         </div>
                         <div>
                             <p className="text-sm text-gray-500">ঠিকানা</p>

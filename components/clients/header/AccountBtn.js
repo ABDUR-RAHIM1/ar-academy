@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
- 
+
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { userLogin } from '@/constans'
 import { usePathname, useRouter } from 'next/navigation'
-import { contextD } from '@/contextApi/DashboardState'  
+import { contextD } from '@/contextApi/DashboardState'
 import { decodedToken } from '@/helpers/token-decoded/tokenDecoded'
 import getToken from '@/actions/getToken/getToken'
 import Cookies from 'js-cookie'
@@ -74,7 +74,7 @@ export default function AccountBtn({ menuClick, setMenuClick }) {
                     {/* Avatar কে DropdownTrigger বানানো হয়েছে */}
                     <DropdownMenuTrigger asChild>
 
-                        <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md bg1 hover:bg2 md:bg-gray-100 md:hover:bg-gray-200 transition text-sm font-medium">
+                        <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md bg-gray-100hover:bg-gray-200 transition text-sm font-medium">
                             <FiUser className="text-xl" />
                             <span>{username}</span>
                             <FiChevronDown className="text-lg" />
@@ -110,7 +110,7 @@ export default function AccountBtn({ menuClick, setMenuClick }) {
                     </DropdownMenuContent>
                 </DropdownMenu>
             ) : (
-                <Link href={userLogin}>
+                <Link href={userLogin} onClick={() => setMenuClick(!menuClick)}>
                     <Button
                         variant="outline"
                         className="flex items-center gap-2 px-4 py-2 text-sm font-medium border hover:bg-indigo-50 transition-colors duration-200"

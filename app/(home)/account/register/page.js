@@ -52,13 +52,7 @@ export default function RegisterAccount() {
 
             const { status, data } = await postActionUser(payload);
             showToast(status, data);
-
-            if (data.token) {
-                setLoginSignal(!loginSignal);
-                Cookies.set("ar_academy_session", data.token);
-                router.push("/profile");
-            }
-
+ 
         } catch (error) {
             console.log(error);
             showToast(500, "Register Failed");

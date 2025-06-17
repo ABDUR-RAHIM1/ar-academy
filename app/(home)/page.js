@@ -4,8 +4,9 @@ import Faq from '@/components/clients/home/FAQ/Faq'
 import Features from '@/components/clients/home/Features/Features'
 import Gallary from '@/components/clients/home/Gallary/Gallary'
 import Hero from '@/components/clients/home/Hero'
-import Subscription from '@/components/clients/home/Subscription/Subscription'
-import TopScorer from '@/components/clients/home/TopScorer/TopScorer'
+import Reviews from '@/components/clients/home/reviews/Reviews'
+import Subscription from '@/components/clients/home/Subscription/Subscription'  
+import TopScorer from '@/components/clients/home/TopScorer/TopSchorer'
 import React from 'react'
 
 export default function HomePage() {
@@ -14,6 +15,7 @@ export default function HomePage() {
       <Hero />
       <Categories />
       <TopScorer />
+      <Reviews />
       <Features />
       <Gallary />
       <Subscription />
