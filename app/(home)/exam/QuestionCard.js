@@ -8,9 +8,9 @@ import {
 
 
 
-export default  function QuestionCard({ exam, index }) {
+export default function QuestionCard({ exam, index }) {
 
-    const isAll =  exam.isAll;
+    const isAll = exam.isAll;
 
 
     return (
@@ -73,6 +73,7 @@ export default  function QuestionCard({ exam, index }) {
 
                 <p>👥 অংশগ্রহণকারী: <span className="font-medium">{exam?.participantCount}</span></p>
                 <p>🔍 প্রশ্ন ধরন: <span className="font-medium">MCQ</span></p>
+                <p>⌚ সময়: <span className="font-medium">{exam.duration || Math.floor(exam.questionsCount / 2)} মিনিট </span></p>
             </div>
 
             <Link

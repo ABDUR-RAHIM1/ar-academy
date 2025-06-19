@@ -7,7 +7,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 export default function ExamForm({ questionsData }) {
     const { _id, isAll, isAllTitle, sub_categorie, chapter, questions } = questionsData;
-  
+
     const router = useRouter()
     const [loading, setLoading] = useState(false)
     const { showToast, token } = useContext(contextD)
@@ -118,7 +118,7 @@ export default function ExamForm({ questionsData }) {
 
 
     return (
-        <div>
+        <div> 
             {formData.map((question, index) => (
                 <div key={question.ID} className="mb-6 p-4 border border-gray-300 rounded-lg">
                     <h2 className="text-lg font-semibold text-gray-700 mb-3">

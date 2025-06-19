@@ -49,45 +49,69 @@ const ChapterAdd = () => {
     const defaultSelectCategoriePlaceHolder = !categories.some(() => true) ? "loading...  " : ` ক্যাটাগরি সমূহ (${categories?.length})`;
     const defaultSelectPlaceHolder = !sub_Categorie.some(() => true) ? "কোন ক্যাটাগরি পাওয়া যায়নি " : ` সাব ক্যাটাগরি সমূহ (${sub_Categorie?.length})`;
 
-    // onChange handler
-
+    //  onChange handler
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value
-        }));
+        // fileType পরিবর্তন হলে contents ফিল্ড ক্লিয়ার করো
+        if (name === "fileType") {
+            setFormData({
+                ...formData,
+                fileType: value,
+                contents: "", // একসাথে clear
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value,
+            });
+        }
     };
 
-      // Convert exel sheet to JSON 
-        const handleFileChange = (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-    
-                reader.onload = (e) => {
-                    const data = e.target.result;
-                    const workbook = XLSX.read(data, { type: 'binary' });
-    
-                    // Assuming the data is in the first sheet
-                    const sheetName = workbook.SheetNames[0];
-                    const worksheet = workbook.Sheets[sheetName];
-    
-                    // Convert the sheet data to JSON
-                    const questionsJson = XLSX.utils.sheet_to_json(worksheet);
-                    const cleanedData = questionsJson.map(({ __rowNum__, ...rest }) => rest);
-    
-                    setFormData((prev) => ({
-                        ...prev,
-                        contents: cleanedData
-                    }));
-                    setMessage("প্রশ্ন প্রস্তুত হয়েছে")
-                };
-    
-                reader.readAsBinaryString(file);
-            }
-        };
+
+
+
+    //  clear formData.contents value when fileType Chnage
+    // useEffect(() => {
+    //     console.log("filetype change")
+    //     setFormData((prev) => ({
+    //         ...prev,
+    //         contents: ""
+    //     }))
+    // }, [formData.fileType])
+
+    console.log(formData)
+
+
+
+    // Convert exel sheet to JSON 
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                const data = e.target.result;
+                const workbook = XLSX.read(data, { type: 'binary' });
+
+                // Assuming the data is in the first sheet
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+
+                // Convert the sheet data to JSON
+                const questionsJson = XLSX.utils.sheet_to_json(worksheet);
+                const cleanedData = questionsJson.map(({ __rowNum__, ...rest }) => rest);
+
+                setFormData((prev) => ({
+                    ...prev,
+                    contents: cleanedData
+                }));
+                setMessage("প্রশ্ন প্রস্তুত হয়েছে")
+            };
+
+            reader.readAsBinaryString(file);
+        }
+    };
 
     // categories Change handler
     const handleCategorieChange = (categorie) => {
@@ -258,32 +282,13 @@ const ChapterAdd = () => {
 
             {/* Markdown Preview */}
             {
-                formData.fileType === "editor" &&
+                formData.fileType === "editor" && typeof formData.contents === "string" &&
+                
                 <div className="markdown prose p-4 border border-gray-200 rounded bg-white shadow-sm mb-6 max-h-[350px] overflow-y-auto overflow-x-hidden">
                     <ReactMarkdown
                         remarkPlugins={[remarkGfm, remarkMath]}
                         rehypePlugins={[rehypeKatex, rehypeRaw]}
-                    // components={{
-                    //     table: ({ node, ...props }) => (
-                    //         <table
-                    //             style={{ borderCollapse: "collapse", width: "100%", margin: "10px 0px" }}
-                    //             {...props}
-                    //         />
-                    //     ),
-                    //     th: ({ node, ...props }) => (
-                    //         <th
-                    //             style={{
-                    //                 border: "1px solid #ddd",
-                    //                 padding: "8px",
-                    //                 backgroundColor: "#f3f4f6",
-                    //                 textAlign: "left",
-                    //             }}
-                    //             {...props}
-                    //         />
-                    //     ),
 
-
-                    // }}
                     >
                         {formData.contents}
                     </ReactMarkdown>
