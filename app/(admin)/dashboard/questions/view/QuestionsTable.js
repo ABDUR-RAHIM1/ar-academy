@@ -21,11 +21,11 @@ export default function QuestionsTable({ questionsData }) {
         },
         {
             name: "সাবজেক্ট",
-            selector: row => row.isAll ? row.isAllTitle : row.sub_categorie.sub_name
+            selector: row => row.isAll ? row.isAllTitle : row.sub_categorie?.sub_name
         },
         {
             name: "ধরণ",
-            selector: row => row.isAll ? "Free trail (premium)" : row.sub_categorie.type
+            selector: row => row.isAll ? "Free trail (premium)" : row.sub_categorie?.type
         },
         {
             name: "মোট প্রশ্ন",

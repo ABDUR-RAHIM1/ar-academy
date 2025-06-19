@@ -23,7 +23,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { getCategories } from "@/app/apiActions/categories";
 import * as XLSX from 'xlsx';
-import { ChapterIntroduction } from "@/utils/ChapterIntroduction";
+import ChapterIntroduction from "@/utils/ChapterIntroduction";
 
 const ChapterAdd = () => {
     const { showToast } = useContext(contextD)
@@ -202,15 +202,15 @@ const ChapterAdd = () => {
             setLoading(false)
         }
     }
- 
+
     return (
         <div className=" w-[95%] md:w-[80%] m-auto my-10 bg-gray-100 p-4 rounded-md">
 
             <div>
                 <div className=" flex items-center justify-between flex-wrap">
                     <h2 className=" my-5">Add Chapters</h2>
-                    {/*  modal */}
-                    <ChapterIntroduction fileType={formData.fileType} />
+
+                    {/* <ChapterIntroduction fileType={formData.fileType} /> */}
                 </div>
 
                 {/*  Categories Select */}

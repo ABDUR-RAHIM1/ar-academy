@@ -86,7 +86,11 @@ export default function AdminLogin() {
                         />
                     </div>
 
-                    <SubmitButton loadingState={loading} btnText={" লগইন করুন ⮞"} />
+                    <SubmitButton
+                        loadingState={loading}
+                        btnText={" লগইন করুন ⮞"}
+                        width={"120px"}
+                    />
                 </form>
                 <p className="text-sm text-center text-gray-500">পাসওয়ার্ড ভুলে গেছেন? <span className="text-indigo-600 hover:underline cursor-pointer">রিকভার করুন</span></p>
 

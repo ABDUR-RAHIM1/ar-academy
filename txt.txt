@@ -1,5 +1,6 @@
- 
-
+https://www.hostseba.com/cart.php?a=add&domain=register&currency=2
+https://hosthad.com/#hosting-pricing
+ admin88888888
  API -[
 
     API_URL = https://ar-academy.vercel.app
@@ -58,9 +59,8 @@ tasks : => {
    }
 
   
-
-  => dashboard a sub_categories table a categories diye filter korte hobe
-  => DeleteAction button a width add kora hoyeche , ja parents theke pass kora jabe . tahole loading spinner ti same width a thakbe 
+  => dashboard a sub_categories table a categories diye filter korte hobe 
+  => email verify korar por profile/ dahsboard a jabe button a click kore . porobortite register /login form a asle auto navigate kore profile / dahsboard a niye jabe 
 
   => protita dashboard page a refresh button dite hbe click korle router.refresh call korbe
    [

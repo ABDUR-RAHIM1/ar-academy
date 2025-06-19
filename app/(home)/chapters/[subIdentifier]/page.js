@@ -1,20 +1,21 @@
 "use client"
 import { getChapterWithContent } from '@/app/apiActions/client/clientApi';
-import Loading from '@/utils/Loading'; 
+import Loading from '@/utils/Loading';
 import { useSearchParams } from 'next/navigation'
 import React, { useContext, useEffect, useState } from 'react'
 import { CommentSection } from '../Comments';
 import Link from 'next/link';
-import { contextD } from '@/contextApi/DashboardState'; 
+import { contextD } from '@/contextApi/DashboardState';
 import SolutionTable from '../SolutionTable';
 import WrittenSolutions from '../WrittenSolutions';
+import EditorSolutions from '../EditorSolutions';
 
 export default function ChaptersDetails() {
     const { subIdentifier } = useContext(contextD);
     const [loading, setLoading] = useState(false);
     const searchParams = useSearchParams();
     const chapter = searchParams.get("chapter");
-    
+
     const [chapterNessage, setChapterMessage] = useState("")
     const [chapterDetails, setChapterDetails] = useState(null);
 
@@ -100,7 +101,8 @@ export default function ChaptersDetails() {
                                     : chapterDetails.fileType === "written" ?
                                         <WrittenSolutions writtenData={chapterDetails.writtenSolution} />
                                         :
-                                        < div dangerouslySetInnerHTML={{ __html: chapterDetails.contents }} />
+                                        <EditorSolutions markdownContent={chapterDetails.contents} />
+                                // < div dangerouslySetInnerHTML={{ __html: chapterDetails.contents }} />
                             }
 
                         </div>

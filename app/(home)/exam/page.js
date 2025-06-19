@@ -10,7 +10,7 @@ export default async function ExamPage() {
     if (!status || status !== 200 || !data || data.length <= 0) {
         return <NoData text={"কোন প্রশ্ন পাওয়া যায়নি !"} />
     }
-
+ 
 
     const dataWithModified = data.map(exam => ({
         ...exam,

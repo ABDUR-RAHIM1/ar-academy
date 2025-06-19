@@ -8,8 +8,9 @@ import {
 
 
 
-export default function QuestionCard({ exam, index }) {
-    const isAll = exam.isAll;
+export default  function QuestionCard({ exam, index }) {
+
+    const isAll =  exam.isAll;
 
 
     return (
@@ -18,39 +19,39 @@ export default function QuestionCard({ exam, index }) {
                 <h3 className="text-lg font-semibold text-gray-900">প্রশ্ন নংঃ {index + 1}</h3>
 
                 {!isAll ? (
- 
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <button className={` ${exam.type === "free" ? "bg-green-800 hover:bg-green-700" : "bg-red-700 hover:bg-red-600"} px-3 py-1 text-sm rounded-md text-white font-normal transition-all`}>
-                                    {exam.type === "free" ? "ফ্রি" : "প্রিমিয়াম"}
-                                </button>
-                            </TooltipTrigger>
-                            <TooltipContent style={{ backgroundColor: 'white', border: '1px solid gray', color: 'black' }}>
-                                <p>পরিক্ষা দেওয়ার জন্য অবশ্যই লগিন থাকতে হবে
-                                    {
-                                        exam.type === "paid" &&
-                                        <span className=' text-red-800 ml-2'>
-                                            এবং প্রিমিয়াম সদস্য হতে হবে!
-                                        </span>
-                                    }
-                                </p>
-                            </TooltipContent>
-                        </Tooltip> 
+
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <button className={` ${exam.type === "free" ? "bg-green-800 hover:bg-green-700" : "bg-red-700 hover:bg-red-600"} px-3 py-1 text-sm rounded-md text-white font-normal transition-all`}>
+                                {exam.type === "free" ? "ফ্রি" : "প্রিমিয়াম"}
+                            </button>
+                        </TooltipTrigger>
+                        <TooltipContent style={{ backgroundColor: 'white', border: '1px solid gray', color: 'black' }}>
+                            <p>পরিক্ষা দেওয়ার জন্য অবশ্যই লগিন থাকতে হবে
+                                {
+                                    exam.type === "paid" &&
+                                    <span className=' text-red-800 ml-2'>
+                                        এবং প্রিমিয়াম সদস্য হতে হবে!
+                                    </span>
+                                }
+                            </p>
+                        </TooltipContent>
+                    </Tooltip>
 
                 )
                     :
-                    ( 
+                    (
 
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <button className={` bg-yellow-700 hover:bg-yellow-500 px-3 py-1 text-sm rounded-md text-white font-normal`}>
-                                        ফ্রি ট্রায়াল (প্রিমিয়াম)
-                                    </button>
-                                </TooltipTrigger>
-                                <TooltipContent style={{ backgroundColor: 'white', border: '1px solid gray', color: 'black' }}>
-                                    <p>পরিক্ষা দেওয়ার জন্য অবশ্যই লগিন থাকতে হবে</p>
-                                </TooltipContent>
-                            </Tooltip> 
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <button className={` bg-yellow-700 hover:bg-yellow-500 px-3 py-1 text-sm rounded-md text-white font-normal`}>
+                                    ফ্রি ট্রায়াল (প্রিমিয়াম)
+                                </button>
+                            </TooltipTrigger>
+                            <TooltipContent style={{ backgroundColor: 'white', border: '1px solid gray', color: 'black' }}>
+                                <p>পরিক্ষা দেওয়ার জন্য অবশ্যই লগিন থাকতে হবে</p>
+                            </TooltipContent>
+                        </Tooltip>
                     )
                 }
             </div>
@@ -69,7 +70,7 @@ export default function QuestionCard({ exam, index }) {
                 )}
 
                 <p>📊 মোট প্রশ্ন: <span className="font-medium">{exam?.questionsCount || 0}</span></p>
-               
+
                 <p>👥 অংশগ্রহণকারী: <span className="font-medium">{exam?.participantCount}</span></p>
                 <p>🔍 প্রশ্ন ধরন: <span className="font-medium">MCQ</span></p>
             </div>
@@ -78,7 +79,7 @@ export default function QuestionCard({ exam, index }) {
                 href={
                     isAll
                         ? `/exam/all-subject/${exam._id}`
-                        : `/exam/${exam.sub_categorie.identifier}/${exam._id}`
+                        : `/exam/${exam?.sub_categorie?.identifier}/${exam._id}`
                 }
                 className="inline-block mt-4 px-3 py-2 bg2 text-white rounded-lg text-sm hover:bg1   transition"
             >

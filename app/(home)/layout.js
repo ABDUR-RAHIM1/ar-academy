@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast';
 import Footer from '@/components/clients/Footer/Footer';
 import { siteMetadata } from '@/seo/siteMetadata';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import 'katex/dist/katex.min.css';
 
 export const metadata = siteMetadata
 

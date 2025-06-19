@@ -15,10 +15,10 @@ export default function DashboardLayout({ children }) {
             <body cz-shortcut-listen="true">
 
                 <Toaster />
-                <div className='flex'>
+                <div className='flex h-screen'>
                     <DashboardState>
                         <Sidebar />
-                        <main className=' w-full md:flex-1 h-screen bg-gray-200 overflow-y-auto'>
+                        <main className=' w-full md:flex-1 bg-gray-200 overflow-y-auto'>
                             <DashboardHeader />
                             <div className='p-3'>
                                 {children}
