@@ -43,7 +43,7 @@ const columns = [
         name: "দাম",
         selector: row => row.price === 0 ? "ফ্রি" : `৳ ${row.price}`,
         sortable: true,
-    },  
+    },
     {
         name: "মেয়াদ শেষ",
         selector: row => new Date(row.endDate).toLocaleDateString(),
@@ -51,20 +51,51 @@ const columns = [
     },
     {
         name: "অবস্থা",
-        selector: row => row.status === "active" ? "✅ Active" : "❌ Inactive",
+        selector: row => {
+            if (row.status === "active") return "✅ Active";
+            if (row.status === "expired") return "⏳ Expired";
+            if (row.status === "cancelled") return "❌ Cancelled";
+            return "❌ Inactive";
+        },
         sortable: true,
     },
 ];
 
 // ✅ Expanded Component for extra plan details
-const ExpandedComponent = ({ data }) => (
+const ExpandedComponent = ({ data }) => {
+  const formattedDate = data.updatedAt
+    ? new Date(data.updatedAt).toLocaleString('bn-BD')
+    : "তথ্য নেই";
+
+  // Status-wise updated label
+  const getStatusLabel = (status) => {
+    if (status === "cancelled") return "বাতিলের তারিখ:";
+    if (status === "expired") return "মেয়াদ শেষের তারিখ:";
+    if (status === "active") return "সক্রিয়করণের তারিখ:";
+    return "আপডেটের তারিখ:";
+  };
+
+  return (
     <div className="p-4 bg-gray-50 rounded-md text-sm space-y-2">
-        <div><strong>প্ল্যান নাম:</strong> {data.planName}</div>
-        <div><strong>প্ল্যান লেবেল:</strong> {data.planLabel}</div>
-        <div><strong>ক্রয়ের তারিখ:</strong> {new Date(data.purchaseDate).toLocaleString()}</div>
-        <div><strong>স্ট্যাটাস:</strong> {data.status === "active" ? "✅ Active" : "❌ Inactive"}</div>
+      <div><strong>প্ল্যান নাম:</strong> {data.planName}</div>
+      <div><strong>প্ল্যান লেবেল:</strong> {data.planLabel}</div>
+      <div><strong>ক্রয়ের তারিখ:</strong> {new Date(data.purchaseDate).toLocaleString('bn-BD')}</div>
+      <div>
+        <strong>{getStatusLabel(data.status)}</strong> {formattedDate}
+      </div>
+      <div>
+        <strong>স্ট্যাটাস:</strong> {
+          data.status === "active" ? "✅ সক্রিয়" :
+          data.status === "expired" ? "⏳ মেয়াদ শেষ" :
+          data.status === "cancelled" ? "❌ বাতিল" :
+          "❌ অজানা"
+        }
+      </div>
     </div>
-);
+  );
+};
+
+
 
 export default function SalesTable({ soldsData }) {
     const [sales, setSales] = useState([]);

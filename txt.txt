@@ -57,8 +57,8 @@ tasks : => {
        get all admin dashboard
 
    }
-    
-    => examTImer a duration alada vabe o countdown alada vabe dekhate hobe
+     
+ => purchasePlan gulo suhdu admin delete korte parbe (controler create korte hbe)
 
   => dashboard a sub_categories table a categories diye filter korte hobe 
   => email verify korar por profile/ dahsboard a jabe button a click kore . porobortite register /login form a asle auto navigate kore profile / dahsboard a niye jabe 

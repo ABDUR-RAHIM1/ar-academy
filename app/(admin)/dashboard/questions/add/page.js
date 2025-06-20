@@ -33,9 +33,11 @@ export default function AddQuestion() {
         isAll: "",
         isAllTitle: "",
         questions: [],
-        type: ""
+        type: "",
+        duration:""
     });
- 
+
+    console.log(formData)
 
     // Convert exel sheet to JSON 
     const handleFileChange = (event) => {
@@ -170,7 +172,7 @@ export default function AddQuestion() {
 
             <div className=' w-full md:w-[80%] m-auto bg-white p-5 rounded-md'>
                 <h2 className=' text-xl font-bold my-5'>
-                    সাবজেক্ট অনুযায়ী প্রশ্ন যুক্ত করুন
+                    প্রশ্ন যুক্ত করুন
                 </h2>
 
                 <div className=' my-4'>
@@ -275,6 +277,7 @@ export default function AddQuestion() {
 
                 }
 
+                {/* type */}
                 <div className='my-4'>
                     <Label >
                         ধরন
@@ -301,6 +304,19 @@ export default function AddQuestion() {
                             </SelectGroup>
                         </SelectContent>
                     </Select>
+                </div>
+
+                {/* duration*/}
+                <div className='my-4'>
+                    <div className=' my-4'>
+                        <InputField
+                            name={"duration"}
+                            label={"পরীক্ষার সময়সীমা (মিনিট)"}
+                            value={formData.duration}
+                            placeholder={"সময়সীমা"}
+                            handler={(e) => setFormData((prev) => ({ ...prev, duration: e.target.value }))}
+                        />
+                    </div>
                 </div>
 
 

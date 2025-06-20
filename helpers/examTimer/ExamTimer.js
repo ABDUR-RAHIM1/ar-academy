@@ -81,6 +81,7 @@ function ExamTimer(props) {
           <span>:</span>
           <span>{String(seconds).padStart(2, "0")}</span>
         </div>
+        <p className="text-sm mt-1">নির্ধারিত সময়ঃ {timeParse} মিনিট </p>
       </div>
 
       {/* 📊 Question Stats */}

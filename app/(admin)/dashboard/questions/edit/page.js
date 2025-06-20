@@ -14,7 +14,7 @@ import SubmitButton from '@/utils/SubmitButton';
 import * as XLSX from 'xlsx';
 import { Input } from '@/components/ui/input';
 import { postActions } from '@/actions/admins/postActions';
-import {   questionUpdate } from '@/constans';
+import { questionUpdate } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import { getAllChapters } from '@/app/apiActions/chapters';
 import { InputField } from '@/utils/InputFIled';
@@ -33,18 +33,19 @@ export default function EditQuestion() {
         isAll: "",
         isAllTitle: "",
         questions: [],
-        type: ""
+        type: "",
+        duration: ""
     });
- 
 
-// set editable FormData
+
+    // set editable FormData
     useEffect(() => {
         if (editData) {
             setFormData(editData)
         }
     }, [editData]);
 
-//  get all categories
+    //  get all categories
     useEffect(() => {
         const getCategorieData = async () => {
             const { status, data } = await getSubCategorie();
@@ -85,7 +86,7 @@ export default function EditQuestion() {
     };
 
 
-    
+
     //  get all sub Categories and set for Select Field
     useEffect(() => {
         const getCategorieData = async () => {
@@ -132,7 +133,7 @@ export default function EditQuestion() {
     }
 
 
-    
+
     // categories Change handler
     const handleSubCategorieChange = (SubCategorie) => {
         console.log({ SubCategorie })
@@ -183,7 +184,7 @@ export default function EditQuestion() {
 
             <div className=' w-full md:w-[80%] m-auto bg-white p-5 rounded-md'>
                 <h2 className=' text-xl font-bold my-5'>
-                    সাবজেক্ট অনুযায়ী প্রশ্ন যুক্ত করুন
+                    প্রশ্ন আপডেট করুন
                 </h2>
 
                 <div className=' my-4'>
@@ -326,6 +327,20 @@ export default function EditQuestion() {
                             </SelectGroup>
                         </SelectContent>
                     </Select>
+                </div>
+
+
+                {/* duration*/}
+                <div className='my-4'>
+                    <div className=' my-4'>
+                        <InputField
+                            name={"duration"}
+                            label={"পরীক্ষার সময়সীমা (মিনিট)"}
+                            value={formData.duration}
+                            placeholder={"সময়সীমা"}
+                            handler={(e) => setFormData((prev) => ({ ...prev, duration: e.target.value }))}
+                        />
+                    </div>
                 </div>
 
 
