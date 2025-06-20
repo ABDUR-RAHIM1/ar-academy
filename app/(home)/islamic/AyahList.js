@@ -38,20 +38,12 @@ export default function AyahList(props) {
 
                     {/* "শুনুন" বাটন */}
                     <button
-                        className="mt-4 px-3 py-2 bg1 text-white rounded hover:bg2 transition"
+                        className="mt-4 px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 transition-all"
                         onClick={() => handleAudioChange(ayah.audio)}
                     >
                         🔊
                     </button>
 
-                    <Link
-                        className=" text-sm inline-block py-2 px-3 bg1 text-white mx-2 rounded-sm shadow-sm hover:bg2 transition-all"
-                        href={{
-                            pathname: `/islamic/tafsir/${"আল-কোরআন"}`,
-                            query: { surahNumber: id, ayahNumber: ayah.id }
-                        }}>
-                        তাফসীর দেখুন
-                    </Link>
 
                     {/* অতিরিক্ত তথ্য */}
                     <div className="mt-4 text-sm text-gray-600 flex flex-wrap gap-3">
