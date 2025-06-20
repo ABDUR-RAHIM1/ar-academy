@@ -14,7 +14,7 @@ export default function ExamForm({ questionsData }) {
     const [loading, setLoading] = useState(false)
     const { showToast, token, usedTime } = useContext(contextD)
     const [loginModalOpen, setLoginModalOpen] = useState(false);
-
+    const [isSubmit, setIsSubmit] = useState(false);
     const [questionHead, setQuestionHead] = useState({
         questionId: "",
         isAll: null,
@@ -123,6 +123,9 @@ export default function ExamForm({ questionsData }) {
             const { status, data } = await postActionUser(payload);
 
             showToast(status, data)
+            if (status === 200 || status === 201) {
+                setIsSubmit(true)
+            }
 
         } catch (error) {
             console.log(error);
@@ -143,6 +146,7 @@ export default function ExamForm({ questionsData }) {
                 <ExamTimer
                     token={token}
                     durationInMinutes={duration}
+                    isSubmit={isSubmit}
                     handleSubmitQuestion={handleSubmitQuestion}
                     totalQuestions={formData.length || 0}
                     selectedCount={selectedCount}

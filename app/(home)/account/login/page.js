@@ -13,7 +13,7 @@ import ResentEmailVerification from '@/utils/ResentEmailVerification';
 
 export default function LoginAccount() {
     const router = useRouter();
-    const { showToast, loginSignal, setLoginSignal } = useContext(contextD);
+    const { showToast, loginSignal, setLoginSignal, setToken } = useContext(contextD);
     const [verifiedStatus, setVerifiedStatus] = useState(true)
 
     const [loading, setLoading] = useState(false);
@@ -55,6 +55,7 @@ export default function LoginAccount() {
             if (data.token) {
                 setLoginSignal(!loginSignal);
                 Cookies.set("onushilon_academy_session", data.token, { expires: 7 });
+                setToken(data.token);
                 router.push("/profile");
             }
         } catch (error) {

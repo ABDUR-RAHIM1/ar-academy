@@ -101,7 +101,7 @@ export default function DashboardState({ children }) {
 
 
     const value = {
-        token,
+        token, setToken,
         loginSignal, setLoginSignal,
         imgUrl, uploadResponse, uploader,
         usedTime, setUsedTime,

@@ -29,7 +29,7 @@ export default function QuestionsTable({ questionsData }) {
         },
         {
             name: "মোট প্রশ্ন",
-            selector: row => row.questions?.length || 0
+            selector: row => row.questionsCount || 0
         },
         {
             name: "আপডেট করুন",

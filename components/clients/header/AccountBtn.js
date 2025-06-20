@@ -41,7 +41,7 @@ export default function AccountBtn({ menuClick, setMenuClick }) {
     }, [loginSignal])
 
     const handleLougout = () => {
-        Cookies.remove("ar_academy_session")
+        Cookies.remove("onushilon_academy_session")
         setToken(null)
         router.push("/")
     }

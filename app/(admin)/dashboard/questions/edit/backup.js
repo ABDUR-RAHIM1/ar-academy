@@ -14,29 +14,68 @@ import SubmitButton from '@/utils/SubmitButton';
 import * as XLSX from 'xlsx';
 import { Input } from '@/components/ui/input';
 import { postActions } from '@/actions/admins/postActions';
-import { questionUpdate } from '@/constans';
+import { questionsCreate, questionUpdate } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
+import { getAllChapters } from '@/app/apiActions/chapters';
+import { InputField } from '@/utils/InputFIled';
 import { Label } from '@/components/ui/label';
+
 
 export default function EditQuestion() {
     const { showToast, editData } = useContext(contextD);
-    const [message, setMessage] = useState("")
+    const [message, setMessage] = useState("");
     const [subCategories, setSubCategories] = useState([]);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [chapters, setChapters] = useState([])
     const [formData, setFormData] = useState({
-        sub_categorie: "",  //  subCategoire mean subject (_id)
-        questions: []
+        sub_categorie: "",  //  subCategoire mean subject
+        chapter: "",    // chapter mean chapterId
+        isAll: "",
+        isAllTitle: "",
+        questions: [],
+        type: ""
     });
 
-    // edit data set in the formData State
+    console.log(formData)
+
+
+    // useEffect(() => {
+    //     if (editData) {
+    //         // setFormData({
+    //         //     sub_categorie: editData?.sub_categorie?._id || "",
+    //         //     questions: [],
+    //         // });
+    //         // setFormData(editData)
+    //         setFormData((prev) => ({
+    //             ...prev,
+    //             isAll: editData.isAll ? "all" : "subject"
+    //         }))
+    //     }
+    // }, [editData]);
+
     useEffect(() => {
-        if (editData) {
-            setFormData((prev) => ({
-                ...prev,
-                sub_categorie: editData.sub_categorie._id
-            }))
-        }
-    }, [])
+    if (editData) {
+        setFormData({
+            isAll: editData.isAll ? "all" : "subject",
+            sub_categorie: editData?.sub_categorie?._id || "",
+            chapter: editData?.chapter?._id || "",
+            questions: editData?.questions || [],
+            type: editData?.type || "free", // এখানে মূল বিষয়
+        });
+    }
+}, [editData]);
+
+
+
+    useEffect(() => {
+        const getCategorieData = async () => {
+            const { status, data } = await getSubCategorie();
+            if (status === 200 && data) {
+                setSubCategories(data);
+            }
+        };
+        getCategorieData();
+    }, []);
 
 
     // Convert exel sheet to JSON 
@@ -67,12 +106,27 @@ export default function EditQuestion() {
         }
     };
 
+    useEffect(() => {
+        const getChapters = async () => {
+            const { status, data } = await getAllChapters();
+            if (status === 200) {
+                // Filter chapters based on selected sub category
+                const filteredChapters = data.filter(
+                    chapter => chapter.sub_categorie_id === formData.sub_categorie
+                );
+                setChapters(filteredChapters);
+            }
+        };
+        if (formData.sub_categorie) {
+            getChapters();
+        }
+    }, [formData.sub_categorie]);
+
 
     //  get all sub Categories and set for Select Field
     useEffect(() => {
         const getCategorieData = async () => {
             const { status, data } = await getSubCategorie();
-
             if (status === 200 && data) {
                 setSubCategories(data)
             }
@@ -82,38 +136,65 @@ export default function EditQuestion() {
         getCategorieData()
     }, []);
 
+
+    const handleQuestionType = (value) => {
+        if (value === "chapter") {
+            setFormData((prev) => ({
+                ...prev,
+                isAll: false
+            }))
+        } else {
+            setFormData((prev) => ({
+                ...prev,
+                isAll: true
+            }))
+        }
+    }
+
     // categories Change handler
-    const handleSubCategorieChange = (SubCategorieId) => {
+    const handleSubCategorieChange = (SubCategorie) => {
+        console.log({ SubCategorie })
         setFormData((prev) => ({
             ...prev,
-            sub_categorie: SubCategorieId
+            sub_categorie: SubCategorie._id,
+            type: SubCategorie.type
         }))
     };
 
 
-    //  submit handler
+    // Chapter Change handler
+    const handleChapterChange = (ChapterId) => {
+        setFormData((prev) => ({
+            ...prev,
+            chapter: ChapterId // chapter mean chapterId
+        }))
+    };
+
+
+    // update submit handler
     const handleUpdateQuestions = async (e) => {
         e.preventDefault();
-        setLoading(true)
-        try {
+        if (!formData.questions.length) {
+            showToast(400, "প্রশ্ন ফাইল যুক্ত করুন");
+            return;
+        }
 
+        setLoading(true);
+        try {
             const payload = {
                 method: "PUT",
-                api: questionUpdate + editData._id,
-                body: formData
-            }
-
+                api: questionUpdate + editData?._id,
+                body: formData,
+            };
             const { status, data } = await postActions(payload);
-            showToast(status, data)
-
+            showToast(status, data);
         } catch (error) {
-            console.log(error)
-            showToast(500, "Failed to Add Question")
+            console.log(error);
+            showToast(500, "Failed to update question");
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
-
+    };
 
     return (
         <div className=' my-10'>
@@ -122,38 +203,154 @@ export default function EditQuestion() {
                 <h2 className=' text-xl font-bold my-5'>
                     সাবজেক্ট অনুযায়ী প্রশ্ন যুক্ত করুন
                 </h2>
-                <div className='my-4 w-full'>
+
+                <div className=' my-4'>
                     <Label >
-                        পূর্বের সাবজেক্ট
+                        প্রশ্নের ধরন
+                        <small className=' ml-2 text-gray-400'>
+                            ( {formData.isAll ? "সব" : "অধ্যায় ভিত্তিক"} )
+
+                        </small>
                     </Label>
-                    <Input value={editData ? editData?.sub_categorie?.sub_name : "N/A"} disabled />
-                </div>
-                <div className=' w-full'>
                     <Select
-                        name='categorieId'
-                        onValueChange={handleSubCategorieChange}
+                        name='questionType'
+                        onValueChange={handleQuestionType}
                     >
                         <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select New Subject (optional)" />
+                            <SelectValue placeholder="Select Question Type" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                <SelectLabel>Subjects</SelectLabel>
-                                {subCategories && subCategories.length === 0 ? (
-                                    "Loading . . ."
-                                ) : (
-                                    subCategories.map((sc) => (
-                                        <SelectItem key={sc._id} value={sc._id}>
-                                            {sc.sub_name}
-                                        </SelectItem>
-                                    ))
-                                )}
+                                <SelectLabel>Chapters</SelectLabel>
+
+                                <SelectItem value="chapter">অধ্যায় ভিত্তিক</SelectItem>
+                                <SelectItem value="all">সব</SelectItem>
+
                             </SelectGroup>
                         </SelectContent>
                     </Select>
                 </div>
 
+
+                {
+                    formData.isAll &&
+                    <div className=' my-4'>
+                        <InputField
+                            name={"isAllTitle"}
+                            label={"শিরোনাম"}
+                            value={formData.isAllTitle}
+                            placeholder={"শিরোনাম লিখুন"}
+                            handler={(e) => setFormData((prev) => ({ ...prev, isAllTitle: e.target.value }))}
+                        />
+                    </div>
+                }
+
+                {
+                    formData.isAll !== true &&
+                    <div>
+                        <div className=' w-full'>
+                            <Label >
+                                সাবজেক্টের নাম
+                                <small className=' ml-2 text-gray-400'>
+                                    ( {formData.sub_categorie.sub_name} )
+
+                                </small>
+                            </Label>
+                            <Select
+                                name='categorieId'
+                                onValueChange={handleSubCategorieChange}
+                            >
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Select Subject Name" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>Subjects</SelectLabel>
+                                        {subCategories && subCategories.length === 0 ? (
+                                            "not found"
+                                        ) : (
+                                            subCategories.map((sc) => (
+                                                <SelectItem key={sc._id} value={sc}>
+                                                    {sc.sub_name}
+                                                </SelectItem>
+                                            ))
+                                        )}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        {/*  filtered chapter (filter with sub categorie) */}
+                        {
+                            formData.sub_categorie &&
+                            <div className='my-4'>
+                                <Label >
+                                    অধ্যায়ের নাম
+                                    <small className=' ml-2 text-gray-400'>
+                                        ( {formData.chapter.chapter_name} )
+
+                                    </small>
+                                </Label>
+                                <Select
+                                    name='chapterId'
+                                    onValueChange={handleChapterChange}
+                                >
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Select Chapter Name" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            <SelectLabel>Chapters</SelectLabel>
+                                            {chapters && chapters.length === 0 ? (
+                                                "পাওয়া যায়নি!"
+                                            ) : (
+                                                chapters.map((ch) => (
+                                                    <SelectItem key={ch._id} value={ch._id}>
+                                                        {ch.identifier}
+                                                    </SelectItem>
+                                                ))
+                                            )}
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        }
+                    </div>
+
+                }
+
+                <div className='my-4'>
+                    <Label >
+                        ধরন
+                    </Label>
+                    <Select
+                        name='chapterId'
+                        onValueChange={handleChapterChange}
+                        value={formData.type}
+                    >
+                        <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select Chapter Name" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>ধরন (free/paid)</SelectLabel>
+
+                                <SelectItem value="paid">
+                                    প্রিমিয়াম
+                                </SelectItem>
+                                <SelectItem value="free">
+                                    ফ্রী
+                                </SelectItem>
+
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
+
+
                 <div className=' my-4'>
+                    <Label >
+                        ফাইল আপলোড  করুন (.xls/.xlsx)
+                    </Label>
                     <Input onChange={handleFileChange} type="file" accept=".xlsx, .xls" className=' w-full ' />
 
                     <small className={"text-blue-500 my-2"}>
@@ -163,13 +360,13 @@ export default function EditQuestion() {
                 </div>
 
 
-                <div onClick={handleUpdateQuestions} className=' my-5'>
-                    <SubmitButton loadingState={loading} btnText={"Update Questions"} />
+                <div onClick={handleUpdateQuestions} className=' my-5 inline-block'>
+                    <SubmitButton loadingState={loading} btnText={"Update Questions"} width={"150px"} />
                 </div>
 
 
             </div>
 
         </div>
-    )
+    );
 }

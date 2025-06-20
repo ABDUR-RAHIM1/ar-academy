@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { useTimer } from 'react-timer-hook';
 
 function ExamTimer(props) {
-  const { token, durationInMinutes, handleSubmitQuestion, totalQuestions, selectedCount } = props;
+  const { token, isSubmit, durationInMinutes, handleSubmitQuestion, totalQuestions, selectedCount } = props;
 
   const { setUsedTime } = useContext(contextD)
 
@@ -20,20 +20,25 @@ function ExamTimer(props) {
     minutes,
     hours,
     restart,
+    pause
   } = useTimer({
     expiryTimestamp: time,
     onExpire: () => {
       if (token) {
 
-        setExamFinisdTime(formatted);
         handleSubmitQuestion();
         toast.dismiss();
       }
     },
     autoStart: Boolean(token),
   });
- 
 
+  // ✅ isSubmit হলে timer pause করে দাও
+  useEffect(() => {
+    if (isSubmit) {
+      pause();
+    }
+  }, [isSubmit]);
 
   useEffect(() => {
     if (token) {
@@ -41,26 +46,26 @@ function ExamTimer(props) {
     }
   }, [token]);
 
-useEffect(() => {
-  if (!token) return;
+  useEffect(() => {
+    if (!token) return;
 
-  const h = Number(hours) || 0;
-  const m = Number(minutes) || 0;
-  const s = Number(seconds) || 0;
+    const h = Number(hours) || 0;
+    const m = Number(minutes) || 0;
+    const s = Number(seconds) || 0;
 
-  const totalDurationMs = timeParse * 60 * 1000;
-  const remainingMs = (h * 60 * 60 + m * 60 + s) * 1000;
-  const usedMs = totalDurationMs - remainingMs;
+    const totalDurationMs = timeParse * 60 * 1000;
+    const remainingMs = (h * 60 * 60 + m * 60 + s) * 1000;
+    const usedMs = totalDurationMs - remainingMs;
 
-  const usedMin = Math.floor(usedMs / 1000 / 60);
-  const usedSec = Math.floor((usedMs / 1000) % 60);
+    const usedMin = Math.floor(usedMs / 1000 / 60);
+    const usedSec = Math.floor((usedMs / 1000) % 60);
 
-  // Optional: দুই সংখ্যার ফরম্যাট চাইলে
-  const formatted = `${String(usedMin).padStart(2, '0')} মিনিট ${String(usedSec).padStart(2, '0')} সেকেন্ড`;
+    // Optional: দুই সংখ্যার ফরম্যাট চাইলে
+    const formatted = `${String(usedMin).padStart(2, '0')} মিনিট ${String(usedSec).padStart(2, '0')} সেকেন্ড`;
 
-  setUsedTime(formatted);
+    setUsedTime(formatted);
 
-}, [seconds]);
+  }, [seconds]);
 
 
   return (

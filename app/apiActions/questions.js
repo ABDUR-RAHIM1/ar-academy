@@ -1,12 +1,15 @@
-import { getsActions } from "@/actions/users/getActions";
+ 
+import { getsActions } from "@/actions/users/getActions"; 
 import { questionGetByChapter, questionGetSingel, questionReletedByTitle, questionsGetAll } from "@/constans";
 
-//  get all questions for user and admin
+//  get all questions for user 
 export const getAllQuestions = async () => {
     const questions = await getsActions(questionsGetAll);
 
     return questions;
 }
+
+
 
 export const getSingleQuestion = async (questionId) => {
     const singleQuestion = await getsActions(questionGetSingel + questionId);

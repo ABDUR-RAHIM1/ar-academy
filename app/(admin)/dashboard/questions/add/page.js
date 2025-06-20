@@ -35,8 +35,7 @@ export default function AddQuestion() {
         questions: [],
         type: ""
     });
-
-    console.log(formData)
+ 
 
     // Convert exel sheet to JSON 
     const handleFileChange = (event) => {
@@ -318,8 +317,8 @@ export default function AddQuestion() {
                 </div>
 
 
-                <div onClick={handleSubmitQuestions} className=' my-5'>
-                    <SubmitButton loadingState={loading} btnText={"Add Questions"} />
+                <div onClick={handleSubmitQuestions} className=' my-5 inline-block'>
+                    <SubmitButton loadingState={loading} btnText={"Add Questions"} width={"120px"} />
                 </div>
 
 

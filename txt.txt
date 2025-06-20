@@ -57,12 +57,8 @@ tasks : => {
        get all admin dashboard
 
    }
-
-=> edit chapter
-=> questions sheet er moddhe time set / defult hisebe questions lenght onujayi (summary)
-=> exam dewar shoy timer setup o result sheet a koto minutes a exam diyeche , auto submit etc
-=> chapters contents value problems
-
+    
+    => examTImer a duration alada vabe o countdown alada vabe dekhate hobe
 
   => dashboard a sub_categories table a categories diye filter korte hobe 
   => email verify korar por profile/ dahsboard a jabe button a click kore . porobortite register /login form a asle auto navigate kore profile / dahsboard a niye jabe 
