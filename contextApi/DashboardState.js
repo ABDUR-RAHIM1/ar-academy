@@ -19,10 +19,13 @@ export default function DashboardState({ children }) {
         status: 0,
     });
 
+    //  use ExamForm.js / ExamTimer.js
+    const [usedTime, setUsedTime] = useState(0)
+
 
     useEffect(() => {
         const getTokens = async () => {
-            const tokenValue = await getToken(); 
+            const tokenValue = await getToken();
             setToken(tokenValue)
         };
         getTokens()
@@ -101,6 +104,7 @@ export default function DashboardState({ children }) {
         token,
         loginSignal, setLoginSignal,
         imgUrl, uploadResponse, uploader,
+        usedTime, setUsedTime,
         showToast,
         subIdentifier, setSubIdentifer,
         showSearchBar, setShowSearchBar,

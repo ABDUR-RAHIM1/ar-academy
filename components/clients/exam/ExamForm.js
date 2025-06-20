@@ -2,29 +2,32 @@
 import { postActionUser } from "@/actions/users/postActions";
 import { questionsSubmit, userLogin } from "@/constans";
 import { contextD } from "@/contextApi/DashboardState";
+import ExamTimer from "@/helpers/examTimer/ExamTimer";
+import LoginAlertModal from "@/utils/LoginAlertModal";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 
 export default function ExamForm({ questionsData }) {
-    const { _id, isAll, isAllTitle, sub_categorie, chapter, questions } = questionsData;
+    const { _id, isAll, isAllTitle, sub_categorie, chapter, duration, questions } = questionsData;
 
     const router = useRouter()
     const [loading, setLoading] = useState(false)
-    const { showToast, token } = useContext(contextD)
+    const { showToast, token, usedTime } = useContext(contextD)
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
 
     const [questionHead, setQuestionHead] = useState({
         questionId: "",
         isAll: null,
         isAllTitle: "",
         sub_categorie: {},
-        chapter: {}
+        chapter: {},
+        duration: "",
+        usedTime: 0
     })
-
 
     const [formData, setFormData] = useState(
         questions.map((q) => ({ ...q, selectAns: "" })) // Initial state with empty selectAns
     );
-
 
     // set subject Head State
     useEffect(() => {
@@ -34,6 +37,7 @@ export default function ExamForm({ questionsData }) {
                 questionId: _id,
                 isAll: isAll,
                 isAllTitle: isAllTitle,
+                duration: duration || (questions?.length / 2)
             }))
         } else {
             setQuestionHead((prev) => ({
@@ -42,14 +46,26 @@ export default function ExamForm({ questionsData }) {
                 isAll: isAll,
                 sub_categorie: sub_categorie,
                 chapter: chapter,
+                duration: duration || (questions?.length / 2)
             }))
         }
     }, [questionsData])
 
+    //  set usedTime (for Exam) from useContext
+    useEffect(() => {
+        setQuestionHead(prev => ({
+            ...prev,
+            usedTime: usedTime
+        }));
+    }, [usedTime]);
 
 
     // Function to handle option selection
     const handleOptionChange = (question, selectedOption) => {
+        if (!token) {
+            setLoginModalOpen(true);
+            return;
+        }
 
         const questionId = Number(question.ID);
 
@@ -60,14 +76,13 @@ export default function ExamForm({ questionsData }) {
         );
     };
 
-    const handleSubmitQuestion = async (e) => {
-        e.preventDefault();
+    const handleSubmitQuestion = async (e = null) => {
+        if (e?.preventDefault) e.preventDefault();
+
 
         if (!token) {
-            showToast(400, `আপনি এখনো লগইন করেননি
-পরীক্ষা দিতে আগে লগইন করুন। `)
-            router.push(userLogin)
-            return
+            setLoginModalOpen(true);
+            return;
         }
 
         setLoading(true)
@@ -104,6 +119,7 @@ export default function ExamForm({ questionsData }) {
                 api: questionsSubmit,
                 body: resultSheetData
             }
+
             const { status, data } = await postActionUser(payload);
 
             showToast(status, data)
@@ -116,9 +132,40 @@ export default function ExamForm({ questionsData }) {
         }
     };
 
+    // koto gulu select kora hoyeche
+    const selectedCount = formData.filter(q => q.selectAns).length;
+
+
 
     return (
-        <div> 
+        <div>
+            <div className='  w-full sticky top-16 md:top-24 left-0 z-20'>
+                <ExamTimer
+                    token={token}
+                    durationInMinutes={duration}
+                    handleSubmitQuestion={handleSubmitQuestion}
+                    totalQuestions={formData.length || 0}
+                    selectedCount={selectedCount}
+                />
+            </div>
+
+            <div className=" my-6 ">
+                {/* Sub-category Name show only if isAll is false */}
+                {!isAll && sub_categorie && (
+                    <h1 className="text-2xl font-bold mb-4">
+                        বিষয়ঃ {sub_categorie.sub_name}
+                    </h1>
+                )}
+
+                {/* Title for isAll */}
+                {isAll && isAllTitle && (
+                    <h1 className="text-2xl font-bold mb-4 color2">
+                        {isAllTitle}
+                    </h1>
+                )}
+
+            </div>
+
             {formData.map((question, index) => (
                 <div key={question.ID} className="mb-6 p-4 border border-gray-300 rounded-lg">
                     <h2 className="text-lg font-semibold text-gray-700 mb-3">
@@ -173,6 +220,17 @@ export default function ExamForm({ questionsData }) {
                     loading ? "জমা দেওয়া হচ্ছে..." : "সাবমিট করুন"
                 }
             </button>
+
+            <LoginAlertModal
+                open={loginModalOpen}
+                setOpen={setLoginModalOpen}
+                text={"আপনি এখনো লগইন করেননি। পরীক্ষায় অংশগ্রহণ করতে লগইন করতে হবে।"}
+                onRedirect={() => {
+                    setLoginModalOpen(false);
+                    router.push(userLogin);
+                }}
+            />
+
         </div>
     );
 }

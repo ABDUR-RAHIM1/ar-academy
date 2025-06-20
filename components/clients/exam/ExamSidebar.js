@@ -5,6 +5,7 @@ import React from 'react'
 
 export default async function ExamSidebar({ data }) {
     let relatedQuestions = [];
+  
 
     if (!data.isAll) {
         relatedQuestions = await getQuestionByChapterId(data.chapter._id);

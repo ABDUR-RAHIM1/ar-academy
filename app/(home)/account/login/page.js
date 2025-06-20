@@ -54,7 +54,7 @@ export default function LoginAccount() {
 
             if (data.token) {
                 setLoginSignal(!loginSignal);
-                Cookies.set("ar_academy_session", data.token);
+                Cookies.set("onushilon_academy_session", data.token, { expires: 7 });
                 router.push("/profile");
             }
         } catch (error) {
@@ -106,7 +106,7 @@ export default function LoginAccount() {
                             একাউন্ট তৈরি করুন
                         </Link>
                     </div>
-                      <ResentEmailVerification verifiedStatus={verifiedStatus} email={formData.email} />
+                    <ResentEmailVerification verifiedStatus={verifiedStatus} email={formData.email} />
                 </form>
             </div>
         </div>
