@@ -27,6 +27,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
 import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 
 const ChapterAdd = () => {
     const { showToast } = useContext(contextD);
@@ -36,7 +37,7 @@ const ChapterAdd = () => {
     const [formData, setFormData] = useState({
         position: "",
         chapter_name: "",
-        contents: "",       // এখানে Markdown লেখা থাকবে
+        contents: "",
         sub_categorie_id: "",
         type: "",
         fileType: "editor"
@@ -45,42 +46,45 @@ const ChapterAdd = () => {
 
     const [categories, setCategories] = useState([]);
     const [sub_Categorie, set_SubCategorie] = useState([]);
+  const [preview, setPreview] = useState(false);
 
     const defaultSelectCategoriePlaceHolder = !categories.some(() => true) ? "loading...  " : ` ক্যাটাগরি সমূহ (${categories?.length})`;
     const defaultSelectPlaceHolder = !sub_Categorie.some(() => true) ? "কোন ক্যাটাগরি পাওয়া যায়নি " : ` সাব ক্যাটাগরি সমূহ (${sub_Categorie?.length})`;
+
+
 
     //  onChange handler
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        // fileType পরিবর্তন হলে contents ফিল্ড ক্লিয়ার করো
-        if (name === "fileType") {
-            setFormData({
-                ...formData,
-                fileType: value,
-                contents: "", // একসাথে clear
-            });
-        } else {
-            setFormData({
-                ...formData,
-                [name]: value,
-            });
-        }
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+
     };
 
 
 
+    const handleFileTypeChange = (value) => {
 
-    //  clear formData.contents value when fileType Chnage
-    // useEffect(() => {
-    //     console.log("filetype change")
-    //     setFormData((prev) => ({
-    //         ...prev,
-    //         contents: ""
-    //     }))
-    // }, [formData.fileType])
+        // fileType পরিবর্তন হলে contents ফিল্ড ক্লিয়ার করো
+        if (value === "editor") {
+            console.log("editor change")
+            setFormData({
+                ...formData,
+                fileType: value,
+                contents: " লিখুন (markdown editor)", // একসাথে clear
+            });
 
-    console.log(formData)
+        } else {
+            setFormData((prev) => ({
+                ...prev,
+                fileType: value
+            }))
+        }
+
+    }
 
 
 
@@ -113,10 +117,14 @@ const ChapterAdd = () => {
         }
     };
 
+
+
     // categories Change handler
     const handleCategorieChange = (categorie) => {
         setCategoriId(categorie);
     };
+
+
 
     // Categories get
     useEffect(() => {
@@ -128,6 +136,8 @@ const ChapterAdd = () => {
         };
         getCategoriesData();
     }, []);
+
+
 
     // get all Sub Categories and set Select Field
     useEffect(() => {
@@ -141,6 +151,8 @@ const ChapterAdd = () => {
         getCategorieData();
     }, [categoriId]);
 
+
+
     // sub categories Change handler
     const handleSubCategorieChange = (subCategorie) => {
         setFormData((prev) => ({
@@ -149,6 +161,8 @@ const ChapterAdd = () => {
             type: subCategorie?.type
         }));
     };
+
+
 
     // submit Chapter
     const handleSubmitChapter = async (e) => {
@@ -242,7 +256,7 @@ const ChapterAdd = () => {
 
                 <div className="my-4">
                     <Label>ধরণ</Label>
-                    <Select onValueChange={(value) => setFormData(prev => ({ ...prev, fileType: value }))}>
+                    <Select onValueChange={handleFileTypeChange}>
                         <SelectTrigger className="w-full">
                             <SelectValue placeholder="একটি ধরণ নির্বাচন করুন" />
                         </SelectTrigger>
@@ -283,20 +297,32 @@ const ChapterAdd = () => {
             {/* Markdown Preview */}
             {
                 formData.fileType === "editor" && typeof formData.contents === "string" &&
-                
-                <div className="markdown prose p-4 border border-gray-200 rounded bg-white shadow-sm mb-6 max-h-[350px] overflow-y-auto overflow-x-hidden">
-                    <ReactMarkdown
-                        remarkPlugins={[remarkGfm, remarkMath]}
-                        rehypePlugins={[rehypeKatex, rehypeRaw]}
 
-                    >
-                        {formData.contents}
-                    </ReactMarkdown>
-                </div>
+                <>
+                    {
+                        formData.contents !== "" &&
+                        <div className=" w-full py-5 bg-gray-50 color1 font-medium text-center">
+                            <Button onClick={() => setPreview(!preview)} variant={"outline"} className="">
+                                {
+                                    preview ? "প্রিভিউ বন্ধ ⛔" : "প্রিভিউ দেখুন 👁️"
+                                }
+                            </Button>
+                        </div>
+                    }
+                    <div className={` ${preview ? "block" : "hidden"} transition-all markdown prose p-4 border border-gray-200 rounded bg-white shadow-sm mb-6 max-h-[350px] overflow-y-auto overflow-x-hidden`}>
+
+                        <ReactMarkdown
+                            remarkPlugins={[remarkGfm, remarkMath]}
+                            rehypePlugins={[rehypeKatex, rehypeRaw]}
+
+                        >
+                            {formData.contents}
+                        </ReactMarkdown>
+                    </div>
+                </>
             }
-
             <div onClick={handleSubmitChapter} className="my-4">
-                <SubmitButton loadingState={loading} btnText={"Add Chapter"} />
+                <SubmitButton loadingState={loading} btnText={"Add Chapter"} width={"w-[100px]"} />
             </div>
         </div>
     );
