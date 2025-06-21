@@ -82,7 +82,7 @@ export default function QuestionCard({ exam, index }) {
                         ? `/exam/all-subject/${exam._id}`
                         : `/exam/${exam?.sub_categorie?.identifier}/${exam._id}`
                 }
-                className="inline-block mt-4 px-3 py-2 bg2 text-white rounded-lg text-sm hover:bg1   transition"
+                className="inline-block mt-4 px-3 py-2 bg1 text-white rounded-lg text-sm hover:bg1   transition"
             >
                 পরীক্ষা দিন ➣
             </Link>

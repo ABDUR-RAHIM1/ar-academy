@@ -19,7 +19,7 @@ const performers = [
 
 export default function TopScorer() {
     return (
-        <div className="max-w-6xl mx-auto px-4 py-8">
+        <div id='top-performar' className="max-w-6xl mx-auto px-4 py-8">
 
             <Heading text={"🎓 টপ পারফর্মারস"} />
 

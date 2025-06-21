@@ -1,20 +1,22 @@
-import Link from 'next/link';
+
 import React from 'react';
 import DeletePlanButton from './DeletePlanButton';
 
 export default function PlanDetails({ plan }) {
 
+    
     if (!plan) {
         return (
             <div className="w-full bg-gray-100 p-8 text-center rounded-lg shadow-md my-6">
                 <h2 className="text-2xl font-bold text-red-500 mb-4">আপনি এখনও কোনো প্ল্যান কেনেননি</h2>
                 <p className="text-gray-700 mb-6">প্ল্যান কিনে আমাদের প্রিমিয়াম সুবিধা উপভোগ করুন।</p>
-                <Link
-                    href={"/"}
+
+                <a
                     className=" inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
-                >
+                    href="/#plans">
                     এখনই প্ল্যান কিনুন
-                </Link>
+                </a>
+
             </div>
         );
     }

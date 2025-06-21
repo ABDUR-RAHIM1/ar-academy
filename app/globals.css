@@ -3,6 +3,9 @@
 @tailwind utilities;
 /* @import 'katex/dist/katex.min.css'; */
 
+html {
+  scroll-behavior: smooth;
+}
 body {
   font-family: Arial, Helvetica, sans-serif;
   color: rgb(66, 64, 64);
@@ -209,7 +212,7 @@ body {
   }
 
   .bg2 {
-    @apply bg-[#1e40af]
+    @apply bg-indigo-100 text-cyan-600
   }
 
   .color1 {

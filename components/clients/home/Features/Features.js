@@ -6,7 +6,7 @@ import { followArrowl, followArrowr } from '@/Images/Images';
 
 export default function Features() {
     return (
-        <div className=' w-full md:w-[80%] m-auto my-10 md:my-20 px-5 md:px-10 bg-white '>
+        <div id='features' className=' w-full md:w-[80%] m-auto my-10 md:my-20 px-5 md:px-10 bg-white '>
             <Heading text={"ফিচারস সমূহ"} />
             <div className='w-full md:w-[60%] m-auto font-[400] text-center'>
                 <p>

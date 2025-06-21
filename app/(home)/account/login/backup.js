@@ -66,26 +66,22 @@ export default function LoginAccount() {
     };
 
     return (
-        <div className='w-full flex flex-col md:flex-row items-stretch justify-center bg-gradient-to-r from-[#F0F4FF] to-[#E6F0FA] min-h-screen'>
+        <div className="min-h-screen bg-gradient-to-r from-[#F9FAFB] to-[#EFF6FF] flex items-center justify-center px-4">
+            <div className="w-full max-w-6xl bg-white rounded-2xl shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
 
-            {/* Left Section */}
-            <div className='bg-blue-100 hidden md:flex md:w-1/2 items-center justify-center p-10'>
-                <div className='text-center max-w-sm'>
+                {/* Left Side - Branding */}
+                <div className="bg-blue-100 p-10 flex flex-col justify-center items-center text-center">
                     <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">অনুশীলন একাডেমি</h2>
                     <p className="text-gray-700 max-w-sm">
                         আমাদের মাধ্যমে অনুশীলন করুন এবং নিজেকে তৈরি করুন আপনার কাঙ্ক্ষিত ভবিষ্যতের জন্য।
                     </p>
+
                 </div>
-            </div>
 
-
-
-
-            <div className='w-full md:w-1/2 px-4 md:px-10 py-8 flex items-center justify-center'>
                 {/* Right Side - Login Form */}
                 <form
                     onSubmit={handleSubmit}
-                    className='w-full p-6 bg-white  rounded-xl shadow-lg max-w-md'
+                    className='w-full p-10'
                 >
                     <h2 className='text-2xl font-semibold text-gray-800 mb-6 text-center'>লগইন করুন</h2>
 

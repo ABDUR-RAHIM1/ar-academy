@@ -41,7 +41,10 @@ export default function EditQuestion() {
     // set editable FormData
     useEffect(() => {
         if (editData) {
-            setFormData(editData)
+            setFormData((prev) => ({
+                ...editData,
+                participant: null
+            }))
         }
     }, [editData]);
 
@@ -157,12 +160,14 @@ export default function EditQuestion() {
     // update submit handler
     const handleUpdateQuestions = async (e) => {
         e.preventDefault();
-        if (!formData.questions.length) {
+
+        if (Array.isArray(formData.questions) && formData.questions.length === 0) {
             showToast(400, "প্রশ্ন ফাইল যুক্ত করুন");
             return;
         }
 
         setLoading(true);
+        
         try {
             const payload = {
                 method: "PUT",

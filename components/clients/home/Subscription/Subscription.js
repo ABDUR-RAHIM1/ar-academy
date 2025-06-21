@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import NoData from '@/utils/NoData';
 import { getAllPlans } from '@/app/apiActions/public/getAllPlan';
+import Heading from '../../globals/Heading';
 
 export default async function Subscription() {
   const { status, data } = await getAllPlans();
@@ -24,10 +25,11 @@ export default async function Subscription() {
 
 
   return (
-    <div className='my-10 px-3 md:px-5 py-10 rounded-md bg2'>
+    <div id='plans' className='my-10 px-3 md:px-5 py-10 rounded-md bg2'>
       <div className='py-10 rounded-md'>
-        <div className="max-w-5xl mx-auto text-center text-white">
-          <h2 className="text-3xl font-bold mb-6">সাবস্ক্রিপশন প্ল্যান বেছে নিন</h2>
+        <div className="max-w-5xl mx-auto text-center">
+          {/* <h2 className="text-3xl font-bold mb-6">সাবস্ক্রিপশন প্ল্যান বেছে নিন</h2> */}
+          <Heading text={"সাবস্ক্রিপশন প্ল্যান বেছে নিন"} />
           <p className="mb-8 text-lg">আপনার প্রয়োজন অনুযায়ী আমাদের সাবস্ক্রিপশন প্ল্যান বেছে নিন</p>
         </div>
 

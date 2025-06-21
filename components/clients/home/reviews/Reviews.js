@@ -62,7 +62,7 @@ export default function Reviews() {
     }, [api]);
 
     return (
-        <div className="px-12 m-auto md:w-full py-12 bg-gray-50">
+        <div id="reviews" className="px-12 m-auto md:w-full py-12 bg-gray-50">
             <Heading text="👩‍🎓 শিক্ষার্থীদের রিভিউ" />
 
             <Carousel

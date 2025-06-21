@@ -6,7 +6,7 @@ export default function Gallary() {
     const gallaryImage = [gl1, gl2, gl3, gl4]
 
     return (
-        <div className=' px-3 my-10 flex items-center justify-between flex-wrap'>
+        <div id='gallary' className=' px-3 my-10 flex items-center justify-between flex-wrap'>
             {
                 gallaryImage.map((image, index) => (
                     <div  key={index} className='w-[49%] h-auto md:h-[470px] rounded-md my-4 '>

@@ -8,7 +8,7 @@ export default function Hero() {
   return (
 
     //  <div className="bg-gradient-to-r from-indigo-900 via-indigo-500 to-blue-200 text-white w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-10 px-5 md:px-10 py-10 md:py-20 border-b"> 
-    <div className="w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-10 px-5 md:px-10 py-10 md:py-20 border-b bg-indigo-100"
+    <div className="w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-10 px-5 md:px-10 py-10 md:py-20 border-b bg2"
     >
 
       {/* Text Content */}

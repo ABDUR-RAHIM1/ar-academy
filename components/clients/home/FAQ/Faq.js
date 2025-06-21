@@ -9,7 +9,7 @@ import { faqData } from "@/LocalDatabase/faqData";
 
 export default function Faq() {
     return (
-        <div className="w-full md:w-[90%] xl:w-[80%] m-auto px-5 my-16">
+        <div id="faq" className="w-full md:w-[90%] xl:w-[80%] m-auto px-5 my-16">
             <Heading text={"প্রশ্নোত্তর (FAQ)"} />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
@@ -18,7 +18,7 @@ export default function Faq() {
                         key={index}
                         type="single"
                         collapsible
-                        className="border rounded-md"
+                        className="border rounded-md px-2"
                     >
                         <AccordionItem value={`item-${index}`}>
                             <AccordionTrigger>{question}</AccordionTrigger>
