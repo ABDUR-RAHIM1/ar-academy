@@ -9,7 +9,7 @@ import arrow from "@/public/Images/arrow.png"
 import demoProfilePhoto from "@/public/Images/profile.png"
 
 
-import heroImage from "@/public/Images/heroBg.png"
+import heroImage from "@/public/Images/heroImg.png"
 
 
 

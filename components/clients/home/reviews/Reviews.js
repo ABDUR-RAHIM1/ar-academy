@@ -62,7 +62,7 @@ export default function Reviews() {
     }, [api]);
 
     return (
-        <div className="w-full py-12 bg-gray-50">
+        <div className="px-12 m-auto md:w-full py-12 bg-gray-50">
             <Heading text="👩‍🎓 শিক্ষার্থীদের রিভিউ" />
 
             <Carousel
@@ -73,7 +73,7 @@ export default function Reviews() {
                 <CarouselContent className="py-4">
                     {reviews.map((person, index) => (
                         <CarouselItem
-                            key={person.id}
+                            key={person.id || index}
                             className={cn("px-4 sm:basis-1/2 md:basis-1/3")}
                         >
                             <Card

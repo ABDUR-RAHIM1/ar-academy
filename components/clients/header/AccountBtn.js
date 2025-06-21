@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { userLogin } from '@/constans'
+import { userLogin, userRegister } from '@/constans'
 import { usePathname, useRouter } from 'next/navigation'
 import { contextD } from '@/contextApi/DashboardState'
 import { decodedToken } from '@/helpers/token-decoded/tokenDecoded'
@@ -110,15 +110,31 @@ export default function AccountBtn({ menuClick, setMenuClick }) {
                     </DropdownMenuContent>
                 </DropdownMenu>
             ) : (
-                <Link href={userLogin} onClick={() => setMenuClick(!menuClick)}>
-                    <Button
-                        variant="outline"
-                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium border hover:bg-indigo-50 transition-colors duration-200"
-                    >
-                        <LogIn className="w-4 h-4" />
-                        একাউন্ট
-                    </Button>
-                </Link>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button
+                            variant="outline"
+                            className="flex items-center gap-2 px-4 py-2 text-sm font-medium border hover:bg-indigo-50 transition-colors duration-200"
+                        >
+                            <LogIn className="w-4 h-4" />
+                            একাউন্ট
+                        </Button>
+                    </DropdownMenuTrigger>
+
+                    <DropdownMenuContent align="end" className="w-44">
+                        <DropdownMenuItem asChild>
+                            <Link href={userLogin} onClick={() => setMenuClick(!menuClick)}>
+                                লগইন করুন
+                            </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                            <Link href={userRegister} onClick={() => setMenuClick(!menuClick)}>
+                                রেজিস্টার করুন
+                            </Link>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+
             )}
         </>
     )
