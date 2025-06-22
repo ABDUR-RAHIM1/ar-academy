@@ -37,6 +37,10 @@ export default function Header() {
             path: "/exam",
         },
         {
+            item: "প্রশ্ন খুঁজুন",
+            path: "/find-question",
+        },
+        {
             item: "আমাদের সম্পর্কে",
             path: "/about-us",
         },

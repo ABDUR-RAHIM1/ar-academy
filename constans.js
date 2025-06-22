@@ -59,10 +59,12 @@ export const resultMy = process.env.NEXT_PUBLIC_RESULT_MY
 //  results End here ============================
 
 
-//  summay start here
+//  Utils start here
 export const getAllCourseSumary = "/api/utils/getSummary/"
 export const getAllUsersSumary = "/api/utils/getUserSummary/"
-//  summay End here
+
+export const getMergeAllQuestionsWithSearch = "/api/utils/get-margeQuestions?search="
+//  Utils End here
 
 // subscription Plan Start 
 export const createPlan = "/api/plan/create/"
