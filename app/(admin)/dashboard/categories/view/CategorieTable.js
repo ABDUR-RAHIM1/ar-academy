@@ -17,15 +17,23 @@ export default function CategorieTable({ categories }) {
     const columns = [
         {
             name: "Position",
-            selector: (row, index) => row.position || 0
+            selector: (row, index) => row.position || 0,
+            width: "120px"
         },
         {
             name: "Categorie",
-            selector: (row) => row.categorie
+            selector: (row) => <div className=' my-3' title={row.identifier}>
+                {row.categorie}
+            </div>,
+            width: "200px"
         },
         {
-            name: "Identifier",
-            selector: (row) => row.identifier
+            name: "Description",
+            selector: (row) => <div className=' my-3'>
+                {row.description}
+            </div>,
+            width: "250px",
+            wrap: true
         },
         {
             name: "Edit",

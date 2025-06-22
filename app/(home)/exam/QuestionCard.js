@@ -12,7 +12,6 @@ export default function QuestionCard({ exam, index }) {
 
     const isAll = exam.isAll;
 
-
     return (
         <div className="bg-white shadow-lg rounded-lg p-5 border border-gray-200">
             <div className='my-3 flex items-center justify-between flex-wrap'>

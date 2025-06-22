@@ -56,15 +56,21 @@ export default function ChaptersTable({ chaptersData }) {
     const columns = [
         {
             name: "#",
-            selector: (row, index) => index + 1
+            selector: (row, index) => index + 1,
+            width: "50px"
         },
         {
             name: "Position",
-            selector: (row, index) => row.position || "-" + (index + 1)
+            selector: (row, index) => row.position || "-" + (index + 1),
+            width: "100px"
         },
         {
             name: "Chapter",
-            selector: (row) => row.chapter_name
+            selector: (row) => <div className=' my-3' title={row.identifier}>
+                {row.chapter_name}
+            </div>,
+            wrap: true,
+            width: "180px",
         },
         {
             name: "access type",
@@ -90,10 +96,6 @@ export default function ChaptersTable({ chaptersData }) {
                 ) : (
                     <p className="text-green-700 bg-green-100 px-2 py-1 text-sm rounded-full w-fit">Editor</p>
                 )
-        },
-        {
-            name: "Identifier",
-            selector: (row) => row.identifier
         },
         {
             name: "Edit",

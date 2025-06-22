@@ -1,7 +1,6 @@
 import { getSingleQuestion } from '@/app/apiActions/questions';
 import ExamForm from '@/components/clients/exam/ExamForm';
 import ExamSidebar from '@/components/clients/exam/ExamSidebar';
-import ExamTimer from '@/helpers/examTimer/ExamTimer';
 import NoData from '@/utils/NoData';
 import React from 'react';
 
@@ -23,7 +22,7 @@ export default async function ExamQuestionsPage({ params }) {
 
                     <ExamForm questionsData={data} />
                 </main>
-                {/*  sidbar ti alada component korte hobe */}
+                {/*  related questions */}
                 <ExamSidebar data={data} />
             </div>
 

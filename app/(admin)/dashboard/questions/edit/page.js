@@ -138,8 +138,7 @@ export default function EditQuestion() {
 
 
     // categories Change handler
-    const handleSubCategorieChange = (SubCategorie) => {
-        console.log({ SubCategorie })
+    const handleSubCategorieChange = (SubCategorie) => { 
         setFormData((prev) => ({
             ...prev,
             sub_categorie: SubCategorie._id,
@@ -156,6 +155,13 @@ export default function EditQuestion() {
         }))
     };
 
+    //  handle type change
+    const handleTypeChange = (typeValue) => {
+        setFormData((prev) => ({
+            ...prev,
+            type: typeValue
+        }))
+    }
 
     // update submit handler
     const handleUpdateQuestions = async (e) => {
@@ -167,7 +173,7 @@ export default function EditQuestion() {
         }
 
         setLoading(true);
-        
+
         try {
             const payload = {
                 method: "PUT",
@@ -311,8 +317,8 @@ export default function EditQuestion() {
                         ধরন
                     </Label>
                     <Select
-                        name='chapterId'
-                        onValueChange={handleChapterChange}
+                        name='type'
+                        onValueChange={handleTypeChange}
                         value={formData.type}
                     >
                         <SelectTrigger className="w-full">

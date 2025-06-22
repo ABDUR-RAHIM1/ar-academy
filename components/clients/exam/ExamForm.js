@@ -156,9 +156,14 @@ export default function ExamForm({ questionsData }) {
             <div className=" my-6 ">
                 {/* Sub-category Name show only if isAll is false */}
                 {!isAll && sub_categorie && (
-                    <h1 className="text-2xl font-bold mb-4">
-                        বিষয়ঃ {sub_categorie.sub_name}
-                    </h1>
+                    <div className=" my-4 space-y-2 text-center">
+                        <h1 className="text-xl font-normal text-gray-800">
+                            বিষয়ঃ {sub_categorie.sub_name}
+                        </h1>
+                        <h1 className="text-base font-normal text-gray-800 ">
+                            অধ্যায়ঃ {chapter.chapter_name}
+                        </h1>
+                    </div>
                 )}
 
                 {/* Title for isAll */}

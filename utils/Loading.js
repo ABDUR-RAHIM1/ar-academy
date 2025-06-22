@@ -12,7 +12,7 @@ export default function Loading() {
                     width={100}
                     height={100}
                     alt={COMMON_ALT_TEXT}
-                    className=' w-44 h-44'
+                    className=' w-36 h-36'
                 />
             
             </div>

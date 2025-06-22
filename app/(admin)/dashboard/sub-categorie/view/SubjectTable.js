@@ -18,12 +18,16 @@ export default function SubjectTable({ sub_categories }) {
 
     const columns = [
         {
-            name: "index",
-            selector: (row, index) => index + 1
+            name: "#",
+            selector: (row, index) => index + 1,
+            width: "50px"
         },
         {
             name: "sub Categorie",
-            selector: (row) => row.sub_name
+            selector: (row) => <div className=' my-3' title={row.identifier}>
+                {row.sub_name}
+            </div>,
+            wrap: true
         },
         {
             name: "Type",
@@ -36,19 +40,18 @@ export default function SubjectTable({ sub_categories }) {
                     <span className="px-3 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full border border-green-300 shadow-sm">
                         Free
                     </span>
-                )
+                ),
+            width: "100px"
         },
         {
             name: "Description",
             selector: (row) => row.description ? <span className=' text-blue-800'>
                 {row.description}
             </span> : <p className=' text-red-900'>
-                কোন টেক্সট নাই
-            </p>
-        },
-        {
-            name: "identifier",
-            selector: (row) => row.identifier
+                Description নাই
+            </p>,
+            wrap: true,
+            width: "240px"
         },
         {
             name: "Edit",

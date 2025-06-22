@@ -34,10 +34,9 @@ export default function AddQuestion() {
         isAllTitle: "",
         questions: [],
         type: "",
-        duration:""
+        duration: ""
     });
 
-    console.log(formData)
 
     // Convert exel sheet to JSON 
     const handleFileChange = (event) => {
@@ -115,7 +114,6 @@ export default function AddQuestion() {
 
     // categories Change handler
     const handleSubCategorieChange = (SubCategorie) => {
-        console.log({ SubCategorie })
         setFormData((prev) => ({
             ...prev,
             sub_categorie: SubCategorie._id,
@@ -129,6 +127,15 @@ export default function AddQuestion() {
             chapter: ChapterId // chapter mean chapterId
         }))
     };
+
+
+    //  handle type change
+    const handleTypeChange = (typeValue) => { 
+        setFormData((prev) => ({
+            ...prev,
+            type: typeValue
+        }))
+    }
 
 
     //  submit handler
@@ -166,6 +173,7 @@ export default function AddQuestion() {
             setLoading(false)
         }
     }
+ 
 
     return (
         <div className=' my-10'>
@@ -260,7 +268,7 @@ export default function AddQuestion() {
                                         <SelectGroup>
                                             <SelectLabel>Chapters</SelectLabel>
                                             {chapters && chapters.length === 0 ? (
-                                                "জপাওয়া যায়নি!"
+                                                "পাওয়া যায়নি!"
                                             ) : (
                                                 chapters.map((ch) => (
                                                     <SelectItem key={ch._id} value={ch._id}>
@@ -283,8 +291,8 @@ export default function AddQuestion() {
                         ধরন
                     </Label>
                     <Select
-                        name='chapterId'
-                        onValueChange={handleChapterChange}
+                        name='type'
+                        onValueChange={handleTypeChange}
                         value={formData.type}
                     >
                         <SelectTrigger className="w-full">

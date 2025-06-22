@@ -17,15 +17,33 @@ export default function QuestionsTable({ questionsData }) {
     const columns = [
         {
             name: "নং",
-            selector: (row, index) => index + 1
+            selector: (row, index) => index + 1,
+            width: "50px"
         },
         {
             name: "সাবজেক্ট",
-            selector: row => row.isAll ? row.isAllTitle : row.sub_categorie?.sub_name
+            selector: row => row.isAll ? row.isAllTitle : <div className='my-3'>
+                <p>{row.sub_categorie?.sub_name}</p>
+                <p>{row.chapter?.chapter_name}</p>
+            </div>,
+            wrap: true
         },
         {
             name: "ধরণ",
-            selector: row => row.isAll ? "Free trail (premium)" : row.sub_categorie?.type
+            selector: row =>
+                row.isAll ? (
+                    <span className="py-1 px-2 bg-yellow-200 text-yellow-800 rounded-lg text-sm font-medium">
+                        Free Trial
+                    </span>
+                ) : row.type === "free" ? (
+                    <span className="py-1 px-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium">
+                        Free
+                    </span>
+                ) : (
+                    <span className="py-1 px-2 bg-purple-100 text-purple-700 rounded-lg text-sm font-medium">
+                        Premium
+                    </span>
+                )
         },
         {
             name: "মোট প্রশ্ন",
