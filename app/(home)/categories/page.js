@@ -1,11 +1,17 @@
-import { getCategories } from '@/app/apiActions/client/clientApi';
+// import { getCategories } from '@/app/apiActions/client/clientApi'; ata delete korte hobe
+import { getCategories } from '@/app/apiActions/categories';
 import { CategoriesCard } from '@/components/clients/home/Categories/CategorieCard';
 import NoData from '@/utils/NoData';
 import PageBanner from '@/utils/PageBanner';
 import React from 'react'
 
+
+export const metadata = {
+    title: "Categories",
+};
+
 export default async function AllCategories() {
-    const { status, data } = await getCategories();
+    const { status, data } = await getCategories(60);
 
     if (!status || !data) {
         return <Error />

@@ -3,6 +3,9 @@ import QuestionClient from './chapter/QuestionClient'; // 👈 client component
 import { getAllQuestions } from '@/app/apiActions/questions';
 import PageBanner from '@/utils/PageBanner';
 
+export const metadata = {
+    title: "Live Job Exam",
+};
 
 export default async function ExamPage() {
     const { status, data } = await getAllQuestions();
@@ -10,7 +13,7 @@ export default async function ExamPage() {
     if (!status || status !== 200 || !data || data.length <= 0) {
         return <NoData text={"কোন প্রশ্ন পাওয়া যায়নি !"} />
     }
- 
+
 
     const dataWithModified = data.map(exam => ({
         ...exam,

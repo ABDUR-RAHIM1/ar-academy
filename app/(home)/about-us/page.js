@@ -1,6 +1,12 @@
- 
+
 import PageBanner from '@/utils/PageBanner';
 import React from 'react';
+
+ 
+export const metadata = {
+    title: "About Us",
+};
+
 
 export default function AboutUs() {
 

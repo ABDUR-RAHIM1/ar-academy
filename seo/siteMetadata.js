@@ -6,11 +6,6 @@ export const siteMetadata = {
   description: 'Onushilon Academy is a learning platform to enhance your skills.',
   keywords: ['Onushilon', 'Academy', 'Learning', 'Education'],
   authors: [{ name: 'Onushilon Academy Team' }],
-  icons: {
-    icon: '/images/favicon/favicon.png',
-    shortcut: '/images/favicon/favicon.png',
-    apple: '/images/favicon/favicon.png',
-  },
   openGraph: {
     title: 'Onushilon Academy',
     description: 'A place to learn and grow together.',

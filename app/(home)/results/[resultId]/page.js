@@ -3,6 +3,12 @@ import { getResultById } from '@/app/apiActions/results';
 import NoData from '@/utils/NoData';
 import React from 'react'
 
+
+export const metadata = {
+    title: "Results",
+};
+
+
 export default async function ResultDeatils({ params }) {
     const { resultId } = await params;
     const { status, data } = await getResultById(resultId);

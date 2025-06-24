@@ -1,5 +1,7 @@
 import React from 'react'
 
+ 
+
 export default function FindInfo() {
     return (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-gray-700 text-sm mt-4 leading-relaxed">

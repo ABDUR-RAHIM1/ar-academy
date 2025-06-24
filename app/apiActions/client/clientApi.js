@@ -3,11 +3,11 @@ import { categorieGetAll, chaptersGetAll, chapterWithContent, chapterWithoutCont
 
 
 //  dorikar hocce na 
-export const getToken = async () => {
-    const token = await getsActions(getTokenApi);
+// export const getToken = async () => {
+//     const token = await getsActions(getTokenApi);
 
-    return token
-}
+//     return token
+// }
 
 
 export const getCategories = async () => {

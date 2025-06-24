@@ -4,9 +4,10 @@ import ExamSidebar from '@/components/clients/exam/ExamSidebar';
 import NoData from '@/utils/NoData';
 import React from 'react';
 
+
 export default async function ExamQuestionsPage({ params }) {
     const { questionId } = await params;
-    const { status, data } = await getSingleQuestion(questionId);
+    const { status, data } = await getSingleQuestion(questionId, 60);
 
 
     if (!status || status !== 200 || !data) {

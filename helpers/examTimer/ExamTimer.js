@@ -69,29 +69,29 @@ function ExamTimer(props) {
 
 
   return (
-    <div className="w-full grid md:grid-cols-2 gap-2 bg1 text-white px-5 py-2 md:py-4 text-center border-b rounded-md">
+    <div className="w-full grid grid-cols-2 gap-x-* gap-2 bg1 text-white px-2 md:px-5 py-2 md:py-4  border-b rounded-md">
 
       {/* ⏰ Timer Countdown */}
       <div>
-        <p className="text-lg mb-2 font-semibold tracking-widest uppercase">পরীক্ষার সময় 🕒</p>
-        <div className="flex justify-center items-center space-x-2 text-xl md:text-3xl font-mono">
+        <p className=" text-[15px] md:text-lg mb-2 font-semibold tracking-widest uppercase">পরীক্ষার সময় 🕒</p>
+        <div className="flex  items-center space-x-2 text-[16px] md:text-3xl font-mono">
           <span>{String(hours).padStart(2, "0")}</span>
           <span>:</span>
           <span>{String(minutes).padStart(2, "0")}</span>
           <span>:</span>
           <span>{String(seconds).padStart(2, "0")}</span>
         </div>
-        <p className="text-sm mt-1">নির্ধারিত সময়ঃ {timeParse} মিনিট </p>
+        <p className="md:text-[12px]  text-sm mt-1">নির্ধারিত সময়ঃ {timeParse} মিনিট </p>
       </div>
 
       {/* 📊 Question Stats */}
-      <div>
-        <p className="text-lg mb-2 font-semibold tracking-widest uppercase">প্রশ্নের অগ্রগতি 📊</p>
-        <p className="text-xl md:text-3xl font-mono">
+      <div className=' text-right'>
+        <p className=" text-[15px] md:text-lg mb-2 font-semibold tracking-widest uppercase">📊 প্রশ্নের অগ্রগতি </p>
+        <p className="text-[16px] md:text-3xl font-mono">
           {selectedCount} / {totalQuestions}
 
         </p>
-        <p className="text-sm mt-1">উত্তর দেওয়া / মোট প্রশ্ন</p>
+        <p className="md:text-[12px]  text-sm mt-1">উত্তর দেওয়া / মোট প্রশ্ন</p>
       </div>
     </div>
   );

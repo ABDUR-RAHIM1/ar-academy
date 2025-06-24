@@ -3,12 +3,13 @@ import { API_URL } from "@/constans";
 import getToken from "../getToken/getToken";
 
 //  for User
-export const getsActions = async (endpoint) => {
+export const getsActions = async (endpoint, revalidateTime = 5) => {
     const token = await getToken();
-
+    // revalidateTime  => pass from page
+    
     const res = await fetch(API_URL + endpoint, {
         method: "GET",
-        cache: "no-store",
+        next: { revalidate: revalidateTime },
         headers: {
             "Content-Type": "application/json",
             "authorization": `Bearer ${token}`
@@ -17,7 +18,7 @@ export const getsActions = async (endpoint) => {
     });
 
     const data = await res.json();
-     
+
 
     return { status: res.status, data }
 }

@@ -2,6 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import surahList from '@/public/al-quran/allSurah.json';
 
+export const metadata = {
+    title: "Islamic",
+};
 export default async function IslamicDynamicPage({ params }) {
     const { islamicId } = await params;
 

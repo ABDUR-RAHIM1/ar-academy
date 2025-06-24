@@ -6,6 +6,7 @@ import Heading from "@/components/clients/globals/Heading";
 import { getsActions } from "@/actions/users/getActions";
 import { getMergeAllQuestionsWithSearch } from "@/constans";
 import FindInfo from "./FIndInfo";
+import { Label } from "@/components/ui/label";
 
 export default function FindQuestions() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -58,7 +59,7 @@ export default function FindQuestions() {
 
         fetchQuestions();
     }, [debouncedTerm]);
- 
+
 
     return (
         <div className="min-h-screen bg-white px-4 py-10">
@@ -66,12 +67,18 @@ export default function FindQuestions() {
 
             <div className="max-w-xl mx-auto mb-8">
                 <Input
+                    name="search"
                     type="text"
                     placeholder="🔍 প্রশ্ন লিখুন যেমন: 'Noun', 'ক্রিয়া'"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    autoComplete="on"
                     className="p-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
+                <Label className="text-[12px] text-gray-500 mt-2 block text-center">
+                    আপনি প্রশ্ন, বিষয়, অপশন বা ব্যাখ্যা লিখে অনুসন্ধান করতে পারেন। যেমনঃ <span className="italic text-indigo-600">"Noun"</span>, <span className="italic text-indigo-600">"বাংলার ইতিহাস"</span>, <span className="italic text-indigo-600">"সঠিক উত্তর"</span> ইত্যাদি।
+                </Label>
+
             </div>
 
             {loading ? (
@@ -80,7 +87,7 @@ export default function FindQuestions() {
                 <div className="max-w-6xl mx-auto">
                     <div className="max-w-6xl mx-auto">
                         {questions.length > 0 && (
-                            <h3 className="my-4 text-lg font-medium">
+                            <h3 className="my-4 text-lg font-medium underline">
                                 {questionCount} টি প্রশ্ন পাওয়া গিয়েছে
                             </h3>
                         )}

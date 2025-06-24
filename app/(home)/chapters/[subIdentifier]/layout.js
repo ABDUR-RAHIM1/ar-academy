@@ -3,6 +3,11 @@ import ChapterSidebar from '../../../../components/clients/Chapters/ChapterSIdeb
 import { getChapterByIdentifier } from '@/app/apiActions/client/clientApi';
 import Error from '@/utils/Error';
 
+
+export const metadata = {
+    title: "Chapters",
+};
+
 export default async function ChapterDetailsLayout({ children, params }) {
     const { subIdentifier } = await params;
 
@@ -20,7 +25,7 @@ export default async function ChapterDetailsLayout({ children, params }) {
 
             <main className=' flex-1 h-screen overflow-y-auto scrollbarHide'>
                 {children}
-               
+
             </main>
         </div>
     )
