@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 export default function SolutionTable({ solutionTable }) {
     const [selectedSubject, setSelectedSubject] = useState('সব');
+    const [openAnswers, setOpenAnswers] = useState({}); // keyed by question ID
 
     // Unique subject list
     const subjects = ['সব', ...new Set(solutionTable.map(item => item.Subject))];
@@ -11,11 +12,18 @@ export default function SolutionTable({ solutionTable }) {
         ? solutionTable
         : solutionTable.filter(item => item.Subject === selectedSubject);
 
+    // Toggle answer visibility
+    const toggleAnswer = (id) => {
+        setOpenAnswers(prev => ({ ...prev, [id]: !prev[id] }));
+    };
+
     return (
-        <div className="mt-4">
+        <div className="mt-4 max-w-4xl mx-auto px-4">
             {/* Subject Filter */}
-            <div className="mb-6">
-                <label htmlFor="subject" className="block mb-2 text-sm font-medium text-gray-700">বিষয় বেছে নিন:</label>
+            <div className="mb-6 flex items-center gap-4 flex-wrap">
+                <label htmlFor="subject" className="block mb-2 text-sm font-medium text-gray-700">
+                    বিষয় বেছে নিন:
+                </label>
                 <select
                     id="subject"
                     className="border p-2 rounded-md"
@@ -23,11 +31,13 @@ export default function SolutionTable({ solutionTable }) {
                     onChange={(e) => setSelectedSubject(e.target.value)}
                 >
                     {subjects.map((subject, idx) => (
-                        <option key={idx} value={subject}>{subject}</option>
+                        <option key={idx} value={subject}>
+                            {subject}
+                        </option>
                     ))}
                 </select>
-                <span className='py-2 px-4 bg-gray-100 rounded-md mx-2'>
-                    {filteredQuestions?.length}
+                <span className="py-1 px-3 bg-gray-100 rounded-md text-gray-700 font-semibold">
+                    মোট: {filteredQuestions.length}
                 </span>
             </div>
 
@@ -36,47 +46,55 @@ export default function SolutionTable({ solutionTable }) {
                 <p className="text-gray-500">এই বিষয়ের অধীনে কোনো প্রশ্ন পাওয়া যায়নি।</p>
             ) : (
                 <div className="space-y-6">
-                    {filteredQuestions.map((item, index) => (
+                    {filteredQuestions.map((item) => (
                         <div
-                            key={index}
-                            className="p-4 bg-white border rounded-md shadow-sm flex justify-between flex-wrap group hover:bg-gray-50 hover:shadow-lg transition-all duration-200"
+                            key={item.ID}
+                            className="p-5 bg-white border rounded-md shadow-sm hover:shadow-lg transition-shadow duration-300"
                         >
-                            {/* Left: Question & Options */}
-                            <div className="w-full md:w-4/5">
-                                <p className="font-medium mt-2 mb-2 underline group-hover:text-blue-500 transition-colors duration-200">
-                                    <span className="mr-2">প্রশ্ন {item.ID} /</span>
-                                    {item.Question}
-                                </p>
+                            {/* Question */}
+                            <p className="font-semibold text-lg mb-3 underline text-gray-800">
+                                প্রশ্ন {item.ID} / {item.Question}
+                            </p>
 
-                                <ul className="ml-4 space-y-1">
-                                    <li>⏺ ক) {item.Option1}</li>
-                                    <li>⏺ খ) {item.Option2}</li>
-                                    <li>⏺ গ) {item.Option3}</li>
-                                    {item.Option4 && <li>⏺ ঘ) {item.Option4}</li>}
-                                </ul>
+                            {/* Options */}
+                            <ul className="ml-4 space-y-1 text-gray-700">
+                                <li>⏺ ক) {item.Option1}</li>
+                                <li>⏺ খ) {item.Option2}</li>
+                                <li>⏺ গ) {item.Option3}</li>
+                                {item.Option4 && <li>⏺ ঘ) {item.Option4}</li>}
+                            </ul>
 
-                                <p className="mt-2 font-medium color1">
-                                    ✔️ সঠিক উত্তর: {item.CorrectAnswer}
-                                </p>
-                            </div>
+                            {/* Toggle Answer Button */}
+                            <button
+                                onClick={() => toggleAnswer(item.ID)}
+                                className=" border px-2 py-1 rounded-md mt-4 text-blue-600 hover:text-blue-800 font-medium focus:outline-none"
+                            >
+                                {openAnswers[item.ID] ? '➖ উত্তর লুকাও' : '➕ উত্তর দেখাও'}
+                            </button>
 
-                            {/* Right: Meta Info */}
-                            <div className="w-full md:w-1/5 text-right mt-4 md:mt-0">
-                                <p className="text-sm color2 italic group-hover:text-blue-500 transition-colors duration-200">
-                                    বিষয়: {item?.Subject}
-                                </p>
-                                {item.Explanation ? (
-                                    <p className="text-xs text-gray-400 mt-1 italic group-hover:text-gray-700">
-                                       📝 ব্যাখ্যা : {item.Explanation}
+                            {/* Answer & Explanation */}
+                            {openAnswers[item.ID] && (
+                                <div className="mt-3 bg-blue-50 p-4 rounded-md border border-blue-200">
+                                    <p className="font-semibold text-green-700">
+                                        ✔️ সঠিক উত্তর: {item.CorrectAnswer}
                                     </p>
-                                ) : (
-                                    <p className="text-xs text-red-600 mt-1 italic">
-                                        ব্যাখ্যা : আপডেট করা হচ্ছে
-                                    </p>
-                                )}
-                            </div>
+                                    {item.Explanation ? (
+                                        <p className="mt-2 text-gray-700 leading-relaxed">
+                                            <span className=' text-green-700 font-bold'>📝 ব্যাখ্যা: </span> {item.Explanation}
+                                        </p>
+                                    ) : (
+                                        <p className="mt-2 text-red-700 italic">
+                                            <span className=' text-green-700 font-bold'>📝 ব্যাখ্যা: </span> আপডেট করা হচ্ছে
+                                        </p>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Subject info */}
+                            <p className="mt-4 text-sm italic text-gray-500 text-right">
+                                বিষয়: {item.Subject}
+                            </p>
                         </div>
-
                     ))}
                 </div>
             )}

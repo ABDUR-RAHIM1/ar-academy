@@ -6,7 +6,7 @@ import DashboardState from '@/contextApi/DashboardState';
 import { Toaster } from 'react-hot-toast';
 import { siteMetadata } from '@/seo/siteMetadata';
 
-export const metadata = siteMetadata
+// export const metadata = siteMetadata
 
 export default function DashboardLayout({ children }) {
     return (

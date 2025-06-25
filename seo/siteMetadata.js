@@ -14,9 +14,10 @@ export const siteMetadata = {
     siteName: 'Onushilon Academy',
     images: [
       {
-        url: '/images/og-image.png', // OpenGraph image
+        url: '/og-image.png',
         width: 1200,
         height: 630,
+        alt: 'Onushilon Academy OG Image',
       },
     ],
     locale: 'en_US',
@@ -27,6 +28,6 @@ export const siteMetadata = {
     title: 'Onushilon Academy',
     description: 'Learn and grow with Onushilon Academy.',
     creator: '@onushilon',
-    images: ['/images/og-image.png'],
+    images: ['/og-image.png'],
   },
 };
