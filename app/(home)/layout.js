@@ -8,6 +8,7 @@ import Footer from '@/components/clients/Footer/Footer';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import 'katex/dist/katex.min.css';
 import { API_URL } from '@/constans';
+import LiveSupportChat from '@/components/clients/liveSupport/LiveSupport';
 
 export const metadata = {
   title: {
@@ -51,6 +52,8 @@ export default function RootLayout({ children }) {
             <Search />     {/*  dynamicaly Show and hide , when click header Search Input */}
             <Header />
             <main className=' min-h-screen'>
+
+              <LiveSupportChat />
               {children}
             </main>
             <Footer />
