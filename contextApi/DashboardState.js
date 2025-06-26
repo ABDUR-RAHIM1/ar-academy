@@ -79,6 +79,19 @@ export default function DashboardState({ children }) {
         }
     };
 
+
+    //  user information save in localhost (user login or edit profile)
+    const handleProfileEditActivity = (profileInfo) => {
+
+        const { plan, password, role, status, ...others } = profileInfo
+
+        const jsonString = JSON.stringify(others); // Step 1: object → string
+        const base64Encoded = btoa(unescape(encodeURIComponent(jsonString)));
+
+        localStorage.setItem("ONUSHILON_USER_CACHE", base64Encoded);
+    }
+
+
     //  user Content end here
 
 
@@ -105,7 +118,7 @@ export default function DashboardState({ children }) {
         loginSignal, setLoginSignal,
         imgUrl, uploadResponse, uploader,
         usedTime, setUsedTime,
-        showToast,
+        showToast, handleProfileEditActivity,
         subIdentifier, setSubIdentifer,
         showSearchBar, setShowSearchBar,
         isOpen, setIsOpen,

@@ -4,9 +4,39 @@ import React from 'react'
 import DashboardHeader from '@/components/dashboard/Header';
 import DashboardState from '@/contextApi/DashboardState';
 import { Toaster } from 'react-hot-toast';
-import { siteMetadata } from '@/seo/siteMetadata';
+import { API_URL } from '@/constans';
 
-// export const metadata = siteMetadata
+export const metadata = {
+    title: {
+        default: 'Onushilon Academy - Learn & Grow',
+        template: '%s -- Onushilon Academy - Learn & Grow',
+    },
+    description: `Onushilon Academy is a leading Bangladeshi platform for complete job preparation, live exams, previous job exam solutions, and skill development. সরকারি-বেসরকারি চাকরির জন্য প্রস্তুতি নিন, এক্সপার্ট-গাইডেড কোর্স এবং রিয়েল-টাইম লাইভ এক্সাম এর মাধ্যমে ক্যারিয়ারে এগিয়ে যান।`,
+    openGraph: {
+        title: 'Onushilon Academy - Learn & Grow',
+        description: `Onushilon Academy is a leading Bangladeshi platform for complete job preparation, live exams, previous job exam solutions, and skill development. সরকারি-বেসরকারি চাকরির জন্য প্রস্তুতি নিন, এক্সপার্ট-গাইডেড কোর্স এবং রিয়েল-টাইম লাইভ এক্সাম এর মাধ্যমে ক্যারিয়ারে এগিয়ে যান।`,
+        url: API_URL,
+        images: [
+            {
+                url: '/og-image.png',
+                width: 1200,
+                height: 630,
+                alt: 'Onushilon Academy OG Image',
+            },
+        ],
+        siteName: 'Onushilon Academy',
+        type: 'website',
+        locale: 'bn_BD',
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Onushilon Academy - Learn & Grow',
+        description: `Onushilon Academy is a leading Bangladeshi platform for complete job preparation, live exams, previous job exam solutions, and skill development. সরকারি-বেসরকারি চাকরির জন্য প্রস্তুতি নিন, এক্সপার্ট-গাইডেড কোর্স এবং রিয়েল-টাইম লাইভ এক্সাম এর মাধ্যমে ক্যারিয়ারে এগিয়ে যান।`,
+        images: ['/og-image.png'],
+    },
+};
+
+
 
 export default function DashboardLayout({ children }) {
     return (

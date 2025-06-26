@@ -5,11 +5,10 @@ import DashboardState from '@/contextApi/DashboardState';
 import Search from '@/components/clients/globals/search/Search';
 import { Toaster } from 'react-hot-toast';
 import Footer from '@/components/clients/Footer/Footer';
-import { siteMetadata } from '@/seo/siteMetadata';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import 'katex/dist/katex.min.css';
+import { API_URL } from '@/constans';
 
-// export const metadata = siteMetadata
 export const metadata = {
   title: {
     default: 'Onushilon Academy - Learn & Grow',
@@ -19,7 +18,7 @@ export const metadata = {
   openGraph: {
     title: 'Onushilon Academy - Learn & Grow',
     description: `Onushilon Academy is a leading Bangladeshi platform for complete job preparation, live exams, previous job exam solutions, and skill development. সরকারি-বেসরকারি চাকরির জন্য প্রস্তুতি নিন, এক্সপার্ট-গাইডেড কোর্স এবং রিয়েল-টাইম লাইভ এক্সাম এর মাধ্যমে ক্যারিয়ারে এগিয়ে যান।`,
-    // url: "https://onushilon-academy.vercel.app/",  domain name diye change korte hbe
+    url: API_URL,
     images: [
       {
         url: '/og-image.png',

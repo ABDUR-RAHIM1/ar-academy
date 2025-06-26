@@ -1,11 +1,13 @@
 "use client"
 import { postActionUser } from '@/actions/users/postActions';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { updateUserAllInformation } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import { InputField } from '@/utils/InputFIled'
+import SubmitButton from '@/utils/SubmitButton';
 import { uploaderStyle } from '@/utils/uploadStyle';
 import React, { useContext, useEffect, useState } from 'react'
 
@@ -37,7 +39,7 @@ export default function ProfileEditForm() {
         if (userRawData) {
             try {
                 const decoded = JSON.parse(decodeURIComponent(escape(atob(userRawData))));
-                setFormData(decoded)  
+                setFormData(decoded)
             } catch (err) {
                 console.error("Failed to decode user data:", err);
             }
@@ -226,13 +228,11 @@ export default function ProfileEditForm() {
                 </div>
 
 
-                <button type='submit' className=' my-5 py-4 px-5 bg2 text-white rounded-md'>
-                    {
-                        loading ? " আপডেট করা হচ্ছে..." : " আপডেট"
-                    }
-                </button>
-
-
+                <SubmitButton
+                    loadingState={loading}
+                    btnText={"আপডেট"}
+                    width={"120px"}
+                />
             </form>
         </div>
     )

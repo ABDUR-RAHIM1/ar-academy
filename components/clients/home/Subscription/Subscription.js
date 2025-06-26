@@ -28,9 +28,10 @@ export default async function Subscription() {
     <div id='plans' className='my-10 px-3 md:px-5 py-10 rounded-md bg2'>
       <div className='py-10 rounded-md'>
         <div className="max-w-5xl mx-auto text-center">
-          {/* <h2 className="text-3xl font-bold mb-6">সাবস্ক্রিপশন প্ল্যান বেছে নিন</h2> */}
+
           <Heading text={"সাবস্ক্রিপশন প্ল্যান বেছে নিন"} />
-          <p className="mb-8 text-lg">আপনার প্রয়োজন অনুযায়ী আমাদের সাবস্ক্রিপশন প্ল্যান বেছে নিন</p>
+          <p className="mb-8 text-lg">আপনার প্রয়োজন অনুযায়ী সাবস্ক্রিপশন প্ল্যান বেছে নিন</p>
+
         </div>
 
         <div className="flex flex-wrap justify-center gap-6">
@@ -52,6 +53,16 @@ export default async function Subscription() {
 
 
               <CardContent>
+
+                <div className=' text-center mb-2'>
+                  <del className=' inline-block text-center font-bold text-xl text-red-600'>
+                    {
+                      plan.price === 0 ? " ৳ 0 টাকা" : `৳  ${Math.floor(plan.price * 1.3)} টাকা`
+                    }
+                    {/* " ৳ 100 টাকা" */}
+                  </del>
+                </div>
+
                 <p className="text-2xl font-bold text-center text-cyan-600 mb-4">
                   {plan.price === 0 ? "ফ্রি" : `৳ ${plan.price} টাকা`}
                 </p>
