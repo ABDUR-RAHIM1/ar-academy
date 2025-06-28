@@ -1,0 +1,26 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "onushilon-academy.vercel.app"
+        }
+      ],
+      "destination": "https://www.onushilonacademy.com",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "onushilon-academy.vercel.app"
+        }
+      ],
+      "destination": "https://www.onushilonacademy.com/:path",
+      "permanent": true
+    }
+  ]
+}

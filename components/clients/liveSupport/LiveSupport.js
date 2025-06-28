@@ -1,51 +1,69 @@
-"use client"
-import { demoProfilePhoto } from "@/Images/Images";
-import Image from "next/image";
-import React, { useState, useEffect } from "react";
-import Cookies from "js-cookie";
+"use client";
+import React, { useState } from "react";
+
+const dummyQA = [
+    {
+        question: "কোর্স কত টাকা | price | course price",
+        answer: "আমাদের কোর্সের মূল্য বিভিন্ন রকম, বিস্তারিত জানতে ওয়েবসাইটের কোর্স পেইজ ভিজিট করুন।"
+    },
+    {
+        question: "কিভাবে সাবস্ক্রিপশন  কিনবো | how to purchase subscription | kivabe subscription kinbo",
+        answer: "আমাদের ওয়েবসাইটে সাবস্ক্রিপশন প্ল্যান থেকে আপনার পছন্দ মতো প্ল্যান বেছে নিয়ে সাবস্ক্রিপশন কিনতে পারবেন।"
+    },
+    {
+        question: "কি কি বিষয় আছে | available subjects | course list | ki ki bisoy ache",
+        answer: "আমাদের প্ল্যাটফর্মে BCS, Bank Job, সকল চাকরির প্রস্তুতি, অনলাইন লাইভ পরীক্ষা, এবং একাডেমিক কোর্স সমূহ পাওয়া যায়।"
+    },
+    {
+        question: "পেমেন্ট মেথড কি কি | payment methods | kivabe payment korbo",
+        answer: "আপনি বিকাশ, নগদ, রকেট অথবা ব্যাংক ট্রান্সফার এর মাধ্যমে পেমেন্ট করতে পারবেন।"
+    },
+];
+
+
 
 export default function LiveSupportChat() {
     const [isOpen, setIsOpen] = useState(false);
     const [message, setMessage] = useState("");
     const [chat, setChat] = useState([]);
-    const [firstMessageSent, setFirstMessageSent] = useState(false);
-
-    useEffect(() => {
-        const savedChat = Cookies.get("live_support_chat");
-        if (savedChat) {
-            setChat(JSON.parse(savedChat));
-            setFirstMessageSent(true);
-        }
-    }, []);
-
-    useEffect(() => {
-        if (chat.length > 0) {
-            Cookies.set("live_support_chat", JSON.stringify(chat), { expires: 1 / 24 }); // 1 hour expiry
-        }
-    }, [chat]);
 
     const toggleChat = () => setIsOpen(!isOpen);
+
+    const findAnswer = (msg) => {
+        const userMsg = msg.toLowerCase();
+
+        for (const qa of dummyQA) {
+            const keywords = qa.question.toLowerCase().split("|").map(k => k.trim());
+
+            for (const word of keywords) {
+                if (userMsg.includes(word)) {
+                    return qa.answer;
+                }
+            }
+        }
+
+        return "আপনার প্রশ্নটি বুঝতে পারিনি। দয়া করে আরেকবার স্পষ্টভাবে লিখুন।";
+    };
+
+
 
     const handleSend = () => {
         if (message.trim() === "") return;
 
-        const updatedChat = [...chat, { text: message, sender: "user" }];
-        setChat(updatedChat);
+        const userMsg = message.trim();
+
+        // Show user message
+        setChat((prev) => [...prev, { text: userMsg, sender: "user" }]);
+
+        // Find answer from dummyQA
+        const ans = findAnswer(userMsg);
+
+        // Show answer after short delay (optional)
+        setTimeout(() => {
+            setChat((prev) => [...prev, { text: ans, sender: "system" }]);
+        }, 500);
+
         setMessage("");
-
-        if (!firstMessageSent) {
-            setFirstMessageSent(true);
-
-            setTimeout(() => {
-                setChat((prevChat) => [
-                    ...prevChat,
-                    {
-                        text: "স্বাগতম! আমাদের সাপোর্ট টিম খুব দ্রুত আপনার সাথে যোগাযোগ করবে। দয়া করে আপনার প্রশ্নের জন্য অপেক্ষা করুন।",
-                        sender: "system",
-                    },
-                ]);
-            }, 2000);
-        }
     };
 
     return (
@@ -54,16 +72,7 @@ export default function LiveSupportChat() {
                 <div className="w-80 h-[450px] bg-white rounded-lg shadow-lg flex flex-col overflow-hidden">
                     {/* Header */}
                     <div className="bg-blue-600 text-white flex justify-between items-center px-4 py-2 rounded-t-lg">
-                        <div className="flex items-center space-x-2">
-                            <Image
-                                width={100}
-                                height={100}
-                                src={demoProfilePhoto}
-                                alt="Profile"
-                                className="w-8 h-8 rounded-full"
-                            />
-                            <h4 className="font-semibold text-lg">Onushilon Academy</h4>
-                        </div>
+                        <h4 className="font-semibold text-lg">Onushilon Academy Support</h4>
                         <button
                             onClick={toggleChat}
                             className="text-white text-xl hover:text-gray-300"
@@ -76,16 +85,16 @@ export default function LiveSupportChat() {
                     {/* Chat Body */}
                     <div className="flex-1 p-4 text-gray-700 overflow-y-auto space-y-2 bg-gray-50">
                         {chat.length === 0 ? (
-                            <p className="text-gray-500">আপনার প্রশ্ন লিখুন, আমরা দ্রুত উত্তর দেব।</p>
+                            <p className="text-gray-500">
+                                আপনার প্রশ্ন লিখুন, আমরা দ্রুত উত্তর দেব।
+                            </p>
                         ) : (
                             chat.map((msg, index) => (
                                 <div
                                     key={index}
                                     className={`text-sm p-2 rounded-lg max-w-[80%] ${msg.sender === "user"
                                         ? "bg-blue-100 self-end ml-auto"
-                                        : msg.sender === "system"
-                                            ? "bg-green-100 self-start"
-                                            : "bg-gray-200"
+                                        : "bg-green-100 self-start"
                                         }`}
                                 >
                                     {msg.text}
@@ -115,13 +124,16 @@ export default function LiveSupportChat() {
             )}
 
             {/* Toggle Button */}
-            <button
-                onClick={toggleChat}
-                className="bg-blue-600 text-white rounded-full px-5 py-3 shadow-md hover:bg-blue-700 transition"
-                aria-label="Toggle live support chat"
-            >
-                {isOpen ? "Close Chat" : "Live Support"}
-            </button>
+            {
+                !isOpen &&
+                <button
+                    onClick={toggleChat}
+                    className="bg-blue-600 text-white rounded-full px-5 py-3 shadow-md hover:bg-blue-700 transition"
+                    aria-label="Toggle live support chat"
+                >
+                    Live Support
+                </button>
+            }
         </div>
     );
 }

@@ -1,10 +1,12 @@
- 
+
 import React from "react";
 import ContactForm from "./ContactForm";
+import { SEO_KEYWORDS } from "@/seo/keywords";
 
 
 export const metadata = {
     title: "Contact",
+    keywords: SEO_KEYWORDS.about
 };
 
 const ContactPage = () => {

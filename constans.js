@@ -1,5 +1,6 @@
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+export const BASE_URL = process.env.NEXT_BASE_URL
 
 // export const secretKey = process.env.NETX_PUBLIC_SECRET_KEY
 export const COMMON_ALT_TEXT = "Onushilon Academy - Empowering Your Learning Journey";

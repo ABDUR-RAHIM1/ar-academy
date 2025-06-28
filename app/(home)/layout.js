@@ -7,19 +7,22 @@ import { Toaster } from 'react-hot-toast';
 import Footer from '@/components/clients/Footer/Footer';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import 'katex/dist/katex.min.css';
-import { API_URL } from '@/constans';
+import { BASE_URL } from '@/constans';
 import LiveSupportChat from '@/components/clients/liveSupport/LiveSupport';
+import { SEO_KEYWORDS } from '@/seo/keywords';
 
 export const metadata = {
+  metadataBase: new URL(BASE_URL),
   title: {
     default: 'Onushilon Academy - Learn & Grow',
     template: '%s -- Onushilon Academy - Learn & Grow',
   },
   description: `Onushilon Academy is a leading Bangladeshi platform for complete job preparation, live exams, previous job exam solutions, and skill development. সরকারি-বেসরকারি চাকরির জন্য প্রস্তুতি নিন, এক্সপার্ট-গাইডেড কোর্স এবং রিয়েল-টাইম লাইভ এক্সাম এর মাধ্যমে ক্যারিয়ারে এগিয়ে যান।`,
+  keywords: SEO_KEYWORDS.home,
   openGraph: {
     title: 'Onushilon Academy - Learn & Grow',
     description: `Onushilon Academy is a leading Bangladeshi platform for complete job preparation, live exams, previous job exam solutions, and skill development. সরকারি-বেসরকারি চাকরির জন্য প্রস্তুতি নিন, এক্সপার্ট-গাইডেড কোর্স এবং রিয়েল-টাইম লাইভ এক্সাম এর মাধ্যমে ক্যারিয়ারে এগিয়ে যান।`,
-    url: API_URL,
+    url: BASE_URL,
     images: [
       {
         url: '/og-image.png',

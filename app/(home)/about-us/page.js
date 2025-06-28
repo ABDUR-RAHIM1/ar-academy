@@ -1,10 +1,12 @@
 
+import { SEO_KEYWORDS } from '@/seo/keywords';
 import PageBanner from '@/utils/PageBanner';
 import React from 'react';
 
- 
+
 export const metadata = {
     title: "About Us",
+    keywords: SEO_KEYWORDS.home,
 };
 
 
