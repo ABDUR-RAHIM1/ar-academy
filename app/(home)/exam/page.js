@@ -1,11 +1,11 @@
 import NoData from '@/utils/NoData';
 import QuestionClient from './chapter/QuestionClient'; // 👈 client component
 import { getAllQuestions } from '@/app/apiActions/questions';
-import PageBanner from '@/utils/PageBanner';
+import PageBanner from '@/utils/PageBanner'; 
+import { examMetaData } from '@/seo/examMetaData';
 
-export const metadata = {
-    title: "Live Job Exam",
-};
+ 
+export const metadata = examMetaData;
 
 export default async function ExamPage() {
     const { status, data } = await getAllQuestions();

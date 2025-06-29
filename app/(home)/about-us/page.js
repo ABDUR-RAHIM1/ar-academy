@@ -1,14 +1,11 @@
-
-import { SEO_KEYWORDS } from '@/seo/keywords';
+ 
+import { aboutMetadata } from '@/seo/aboutMetadata'; 
 import PageBanner from '@/utils/PageBanner';
 import React from 'react';
 
 
-export const metadata = {
-    title: "About Us",
-    keywords: SEO_KEYWORDS.home,
-};
 
+export const metadata = aboutMetadata
 
 export default function AboutUs() {
 

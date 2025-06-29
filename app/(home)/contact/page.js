@@ -1,17 +1,12 @@
 
 import React from "react";
 import ContactForm from "./ContactForm";
-import { SEO_KEYWORDS } from "@/seo/keywords";
+import { contactMetadata } from "@/seo/contactMetadata";
 
 
-export const metadata = {
-    title: "Contact",
-    keywords: SEO_KEYWORDS.about
-};
+export const metadata = contactMetadata
 
 const ContactPage = () => {
-
-
 
 
     return (
@@ -29,7 +24,7 @@ const ContactPage = () => {
                     <p>আপনার যেকোনো প্রশ্ন বা মতামতের জন্য আমাদের সাথে যোগাযোগ করুন। নিচের তথ্য ব্যবহার করেও যোগাযোগ করতে পারেন।</p>
                     <div>
                         <p className="font-semibold">📞 ফোন:</p>
-                        <p>+৮৮০ ০১৩২১০৪০২৭৩</p>
+                        <p>+৮৮০ ০১৩৪৩২৩২১৭৯</p>
                     </div>
                     <div>
                         <p className="font-semibold">📧 ইমেইল:</p>

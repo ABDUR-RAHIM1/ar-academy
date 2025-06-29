@@ -1,5 +1,8 @@
+import { privecyPolicyMetaData } from "@/seo/privecyPolicyMetaData";
 import Link from "next/link";
 import React from "react";
+
+export const metadata = privecyPolicyMetaData;
 
 const PrivacyPolicy = () => {
   return (
