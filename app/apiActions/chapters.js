@@ -21,5 +21,6 @@ export const getChapterByIdentifier = async (identifier, cacheTime = 5) => {
 export const getChapterWithContent = async (chapterName, cacheTime = 5) => {
     const api = chapterWithContent + chapterName
     const chapters = await getsActions(api, cacheTime);
+    console.log({ chapters })
     return chapters
 }

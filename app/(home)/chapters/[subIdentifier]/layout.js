@@ -2,11 +2,10 @@ import React from 'react'
 import ChapterSidebar from '../../../../components/clients/Chapters/ChapterSIdebar'
 import { getChapterByIdentifier } from '@/app/apiActions/client/clientApi';
 import Error from '@/utils/Error';
+import { chapterMetadata } from '@/seo/chapterMetadata';
 
 
-export const metadata = {
-    title: "Chapters",
-};
+export const metadata = chapterMetadata
 
 export default async function ChapterDetailsLayout({ children, params }) {
     const { subIdentifier } = await params;
