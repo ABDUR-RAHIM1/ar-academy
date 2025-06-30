@@ -41,7 +41,7 @@ export default async function ChapterDetails({ params }) {
                                         <WrittenSolutions writtenData={chapterDetails.writtenSolution} />
                                         :
                                         <EditorSolutions markdownContent={chapterDetails.contents} />
-                                // < div dangerouslySetInnerHTML={{ __html: chapterDetails.contents }} />
+                            
                             }
 
                         </div>
