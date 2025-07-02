@@ -12,8 +12,10 @@ export const metadata = {
         default: 'অনুশীলন একাডেমী: চাকরির প্রস্তুতি, লাইভ এক্সাম ও স্কিল ডেভেলপমেন্ট',
         template: '%s -- অনুশীলন একাডেমী',
     },
-    // description: `Onushilon Academy is a leading Bangladeshi platform for complete job preparation, live exams, previous job exam solutions, and skill development. সরকারি-বেসরকারি চাকরির জন্য প্রস্তুতি নিন, এক্সপার্ট-গাইডেড কোর্স এবং রিয়েল-টাইম লাইভ এক্সাম এর মাধ্যমে ক্যারিয়ারে এগিয়ে যান।`,
     description: `অনুশীলন একাডেমী: সরকারি-বেসরকারি চাকরির সম্পূর্ণ প্রস্তুতি, প্রতিদিন লাইভ এক্সাম, বিগত বছরের প্রশ্ন সমাধান, এবং একাডেমিক, ভর্তি ও পেশাদার স্কিল ডেভেলপমেন্টের জন্য বাংলাদেশের সেরা অনলাইন প্ল্যাটফর্ম। এখানে পাবেন বিশাল প্রশ্ন ডেটাবেস, অধ্যায়ভিত্তিক ও মডেল টেস্ট, তাৎক্ষণিক ফলাফল ও লিডারবোর্ডের সুবিধা। স্মার্ট প্রস্তুতির মাধ্যমে আপনার উজ্জ্বল ভবিষ্যৎ নিশ্চিত করুন।`,
+    alternates: {
+        canonical: `${BASE_URL}/dashboard`,
+    },
     icons: {
         icon: '/favicon.ico',
         shortcut: '/favicon.ico',

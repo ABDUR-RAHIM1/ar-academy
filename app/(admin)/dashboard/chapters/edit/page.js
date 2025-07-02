@@ -36,6 +36,7 @@ const ChapterEdit = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [categoriId, setCategoriId] = useState("");
+   
   const [formData, setFormData] = useState({
     position: "",
     chapter_name: "",

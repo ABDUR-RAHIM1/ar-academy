@@ -1,6 +1,6 @@
 import { getSubCategoieById } from '@/app/apiActions/client/clientApi';
 import Heading from '@/components/clients/globals/Heading';
-import { COMMON_ALT_TEXT } from '@/constans';
+import { BASE_URL, COMMON_ALT_TEXT } from '@/constans';
 import { logo } from '@/Images/Images';
 import Error from '@/utils/Error';
 import NoData from '@/utils/NoData';
@@ -13,6 +13,37 @@ import React from 'react';
  * @param {*} param0 
  * @returns 
  */
+
+
+export async function generateMetadata({ params }) {
+    const paramsName = await params
+    const plainCategoriIdentifier = paramsName.categorieIdentifier ? decodeURIComponent(paramsName.categorieIdentifier) : "";
+
+
+    return {
+        title: `${plainCategoriIdentifier || "বিষয়াবলি"}`,
+        description: `${plainCategoriIdentifier} সম্পর্কিত অধ্যায়সমূহ এবং সাব ক্যাটাগরির তালিকা দেখুন।`,
+        alternates: {
+            canonical: `${BASE_URL}/${plainCategoriIdentifier}`,
+        },
+       openGraph: {
+            title: `${plainCategoriIdentifier} | অনুশীলন একাডেমি`,
+            description: `${plainCategoriIdentifier} এর বিস্তারিত সাবজেক্ট লিস্ট।`,
+            url: `${BASE_URL}/${plainCategoriIdentifier}`,
+            siteName: "অনুশীলন একাডেমি",
+            images: [
+                {
+                    url: `${BASE_URL}/og-image.png`,
+                    width: 800,
+                    height: 600,
+                },
+            ], 
+            locale: "bn_BD",
+            type: "website",
+        },
+    };
+}
+
 
 export default async function SubCategories({ params }) {
     const { categorieIdentifier } = await params;

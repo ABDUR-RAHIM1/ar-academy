@@ -1,4 +1,4 @@
-import { getChapterWithContent } from '@/app/apiActions/chapters'; 
+import { getChapterWithContent } from '@/app/apiActions/chapters';
 import React from 'react'
 import { CommentSection } from '../../Comments';
 import Link from 'next/link';
@@ -6,6 +6,53 @@ import WrittenSolutions from '../../WrittenSolutions';
 import EditorSolutions from '../../EditorSolutions';
 import SolutionTable from '../../SolutionTable';
 import NoData from '@/utils/NoData';
+import { BASE_URL } from '@/constans';
+
+export async function generateMetadata({ params }) {
+    const subIdentifier = decodeURIComponent(params.subIdentifier);
+    const chapterIdentifier = decodeURIComponent(params.chapterIdentifier);
+
+    const { status, data: chapterDetails } = await getChapterWithContent(chapterIdentifier);
+
+    if (status !== 200 || !chapterDetails) {
+        return {
+            title: "অধ্যায় খুঁজে পাওয়া যায়নি - অনুশীলন একাডেমি",
+            description: "আপনি যে অধ্যায়টি খুঁজছেন তা পাওয়া যায়নি। অনুগ্রহ করে সঠিক লিঙ্ক ব্যবহার করুন।",
+        }
+    }
+
+    return {
+        title: `${chapterDetails.chapter_name} - অধ্যায় সমাধান`,
+        description: `${chapterDetails.chapter_name} অধ্যায়ের বিস্তারিত সমাধান এবং প্রশ্নোত্তর এখানে পাবেন।`,
+        alternates: {
+            canonical: `${BASE_URL}/chapters/${subIdentifier}/${chapterIdentifier}`,
+        },
+        openGraph: {
+            title: `${chapterDetails.chapter_name} - অধ্যায় সমাধান | অনুশীলন একাডেমি`,
+            description: `${chapterDetails.chapter_name} অধ্যায়ের প্রশ্ন সমাধান এবং প্রয়োজনীয় তথ্য এখানে রয়েছে।`,
+            url: `${BASE_URL}/chapters/${subIdentifier}/${chapterIdentifier}`,
+            siteName: "অনুশীলন একাডেমি",
+            images: [
+                {
+                    url: `${BASE_URL}/og-image.png`,
+                    width: 1200,
+                    height: 630,
+                    alt: 'অধ্যায় সমাধান অনুশীলন একাডেমি',
+                },
+            ],
+            locale: "bn_BD",
+            type: "article",
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `${chapterDetails.chapter_name} - অধ্যায় সমাধান`,
+            description: `${chapterDetails.chapter_name} অধ্যায়ের প্রশ্ন সমাধান অনুশীলন একাডেমি থেকে জেনে নিন।`,
+            images: [`${BASE_URL}/og-image.png`],
+        },
+    }
+}
+
+
 
 export default async function ChapterDetails({ params }) {
     const chapter = await params;
@@ -13,8 +60,9 @@ export default async function ChapterDetails({ params }) {
 
     const { status, data: chapterDetails } = await getChapterWithContent(chapterIdentifier);
 
+
     if (status !== 200) {
-        return <NoData text={data?.message} />
+        return <NoData text={chapterDetails?.message} />
     }
 
     return (
@@ -41,7 +89,7 @@ export default async function ChapterDetails({ params }) {
                                         <WrittenSolutions writtenData={chapterDetails.writtenSolution} />
                                         :
                                         <EditorSolutions markdownContent={chapterDetails.contents} />
-                            
+
                             }
 
                         </div>
