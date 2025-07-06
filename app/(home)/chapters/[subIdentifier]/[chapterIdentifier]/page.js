@@ -9,8 +9,9 @@ import NoData from '@/utils/NoData';
 import { BASE_URL } from '@/constans';
 
 export async function generateMetadata({ params }) {
-    const subIdentifier = decodeURIComponent(params.subIdentifier);
-    const chapterIdentifier = decodeURIComponent(params.chapterIdentifier);
+    const paramsName = await params;
+    const subIdentifier = decodeURIComponent(paramsName.subIdentifier);
+    const chapterIdentifier = decodeURIComponent(paramsName.chapterIdentifier);
 
     const { status, data: chapterDetails } = await getChapterWithContent(chapterIdentifier);
 
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }) {
     }
 
     return {
-        title: `${chapterDetails.chapter_name} - অধ্যায় সমাধান`,
+        title: `${chapterDetails.chapter_name || "অধ্যায়"} - অধ্যায় সমাধান`,
         description: `${chapterDetails.chapter_name} অধ্যায়ের বিস্তারিত সমাধান এবং প্রশ্নোত্তর এখানে পাবেন।`,
         alternates: {
             canonical: `${BASE_URL}/chapters/${subIdentifier}/${chapterIdentifier}`,

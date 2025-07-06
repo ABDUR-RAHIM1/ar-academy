@@ -26,9 +26,9 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
 import { Textarea } from "@/components/ui/textarea";
-import { getChapterWithContent } from "@/app/apiActions/chapters";
 import { chaptersUpdate } from "@/constans";
 import { Button } from "@/components/ui/button";
+import { getChapterWithContentbyAdmin } from "@/app/apiActions/admin/chapters";
 
 const ChapterEdit = () => {
   const { showToast, editData } = useContext(contextD);
@@ -36,7 +36,7 @@ const ChapterEdit = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [categoriId, setCategoriId] = useState("");
-   
+
   const [formData, setFormData] = useState({
     position: "",
     chapter_name: "",
@@ -83,14 +83,15 @@ const ChapterEdit = () => {
       setEditDataLoading(true);
       try {
         if (isEdit) {
-          const { status, data } = await getChapterWithContent(editData.identifier);
+          const { status, data } = await getChapterWithContentbyAdmin(editData.identifier);
+          console.log(status, data)
           if (status === 200) {
             const { solutionTable, writtenSolution, ...others } = data
             setFormData(others);
           }
         }
       } catch (error) {
-        console.log("failed to fetch Chapter Data");
+        console.log(error , "failed to fetch Chapter Data");
       } finally {
         setEditDataLoading(false);
       }
