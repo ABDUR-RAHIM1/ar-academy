@@ -14,19 +14,25 @@ export default function SidebarClient({ chapterItems, paramsName, subIdentifier 
     const parts = pathname.split("/").filter(Boolean);
     const lastSegment = decodeURIComponent(parts[parts.length - 1]);
 
-
+    const handleItemClick = () => {
+        if (window.innerWidth < 768) {
+            setIsOpen(false);
+        }
+    };
 
     return (
         <>
-            {/* Mobile Toggle Button */}
-            <div onClick={toggleSidebar} className='block md:hidden z-30 fixed top-[80px] cursor-pointer transition-all'>
-                <div className='bg-indigo-50 p-2' title='সাইডবার ওপেন করো'>
-                    <SidebarIcon className='font-bold text-2xl color1' />
+            {/* Sidebar Toggle Button - show only when sidebar is hidden */}
+            {!isOpen && (
+                <div onClick={toggleSidebar} className='z-30 fixed top-[80px] md:top-[95px] left-2 cursor-pointer transition-all'>
+                    <div className='bg-indigo-50 p-2' title='সাইডবার ওপেন করো'>
+                        <SidebarIcon className='font-bold text-2xl color1' />
+                    </div>
                 </div>
-            </div>
+            )}
 
             {/* Sidebar */}
-            <div className={`${isOpen ? "scale-x-0" : "scale-x-100"} origin-left transition-all 
+            <div className={`${isOpen ? "scale-x-100" : "scale-x-0"} origin-left transition-all 
                 h-screen p-5 bg-indigo-50 
                 absolute md:static w-[250px]
                 top-[70px] left-0 
@@ -41,8 +47,9 @@ export default function SidebarClient({ chapterItems, paramsName, subIdentifier 
                         <Link
                             href={`/chapters/${subIdentifier}/${sub.identifier}`}
                             key={sub._id}
+                            onClick={handleItemClick}
                             className={`rounded-sm w-full inline-block my-1 p-2 text-[14px] transition-all duration-300 hover:color1 hover:underline 
-                ${isActive ? "text-blue-500 font-bold border-b border-blue-500" : " text-gray-800"}`}
+                                ${isActive ? "text-blue-500 font-bold border-b border-blue-500" : " text-gray-800"}`}
                         >
                             <div className="flex items-center gap-2">
                                 <span>{index + 1}.</span>
@@ -51,7 +58,6 @@ export default function SidebarClient({ chapterItems, paramsName, subIdentifier 
                         </Link>
                     );
                 })}
-
 
                 <div style={{ height: "50px" }}></div>
             </div>
