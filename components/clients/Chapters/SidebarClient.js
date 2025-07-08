@@ -6,7 +6,7 @@ import { SidebarIcon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 export default function SidebarClient({ chapterItems, paramsName, subIdentifier }) {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
 
     const toggleSidebar = () => setIsOpen(!isOpen);
 
