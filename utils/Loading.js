@@ -15,17 +15,5 @@ export default function Loading() {
             </div>
         </div>
 
-        // <div className=' bg-white w-full h-screen flex items-center justify-center p-5'>
-        //     <div className=' text-center'>
-        //         <Image
-        //             src={LoadingGif}
-        //             width={100}
-        //             height={100}
-        //             alt={COMMON_ALT_TEXT}
-        //             className=' w-36 h-36'
-        //         />
-
-        //     </div>
-        // </div>
     )
 }

@@ -9,7 +9,7 @@ export const getAllResults = async () => {
     return resulls
 }
 
-//  get single result for details  (for all )
+//  get single result for details  (for admin / users )
 export const getResultById = async (resultId) => {
     const api = resultDetails + resultId
     const resposne = await getsActions(api);
@@ -18,8 +18,8 @@ export const getResultById = async (resultId) => {
 }
 
 //  exam result for users Profile (logged in users result)
-export const getMyResultData = async () => {
-    const myResults = await getsActions(resultMy);
+export const getMyResultData = async (cacheTime = 0) => {
+    const myResults = await getsActions(resultMy, cacheTime);
 
     return myResults
 }
