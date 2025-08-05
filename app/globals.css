@@ -16,6 +16,32 @@ body {
     user-select: none;  
 }
 
+@media print {
+  body * {
+    visibility: hidden;  /* সব লুকাও */
+  }
+  #printableArea, #printableArea * {
+    visibility: visible; /* শুধু printableArea আর তার child গুলো দেখাও */
+  }
+  .a4-page {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 20mm;
+  margin: auto;
+  background: white;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+  #printableArea {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;       
+  }
+}
+
+
 @layer base {
   :root {
     --radius: 0.5rem;

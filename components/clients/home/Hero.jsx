@@ -7,12 +7,12 @@ import { FiArrowRight } from 'react-icons/fi';
 export default function Hero() {
   return (
 
-    //  <div className="bg-gradient-to-r from-indigo-900 via-indigo-500 to-blue-200 text-white w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-10 px-5 md:px-10 py-10 md:py-20 border-b"> 
+
     <div className="w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-10 px-5 md:px-10 py-10 md:py-20 border-b bg2"
     >
 
       {/* Text Content */}
-      <div className="w-full lg:w-[55%] text-center lg:text-left space-y-6">
+      <div className="w-full lg:w-[50%] text-center lg:text-left space-y-6">
         <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight drop-shadow-md">
           অনুশীলন একাডেমী
         </h1>
@@ -39,17 +39,15 @@ export default function Hero() {
       </div>
 
       {/* Image Section */}
-      <div className="w-full lg:w-[45%] flex justify-center items-center">
-        <div className="w-full max-w-md rounded-xl overflow-hidden">
-          <Image
-            src={heroImage}
-            width={500}
-            height={500}
-            alt={COMMON_ALT_TEXT}
-            className="w-full h-auto object-cover"
-            priority
-          />
-        </div>
+      <div className="w-full lg:w-[50%] flex justify-center items-center">
+        <Image
+          src={heroImage}
+          width={1000}
+          height={1000}
+          alt={COMMON_ALT_TEXT}
+          className="w-full h-auto object-cover"
+          priority
+        />
       </div>
 
       {/* <div className="w-full lg:w-[45%] flex justify-center items-center">
