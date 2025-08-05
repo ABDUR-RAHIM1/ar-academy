@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react';
+import { Youtube, FileText, FileDown } from 'lucide-react';
 
 export default function SolutionTable({ solutionTable }) {
     const [selectedSubject, setSelectedSubject] = useState('সব');
@@ -66,12 +67,44 @@ export default function SolutionTable({ solutionTable }) {
                             </ul>
 
                             {/* Toggle Answer Button */}
-                            <button
+                            {/* <button
                                 onClick={() => toggleAnswer(item.ID)}
                                 className=" border px-2 py-1 rounded-md mt-4 text-blue-600 hover:text-blue-800 font-medium focus:outline-none"
                             >
                                 {openAnswers[item.ID] ? '➖ উত্তর লুকাও' : '➕ উত্তর দেখাও'}
-                            </button>
+                            </button> */}
+
+                            {/* Extra Reference Buttons (Always Shown) */}
+                            <div className='mt-4 flex flex-wrap gap-3'>
+
+                                {/* Detailed Explanation */}
+                                <button
+                                    onClick={() => toggleAnswer(item.ID)}
+                                    className="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 rounded hover:bg-green-200 transition"
+                                >
+                                    <FileText size={18} />
+                                    বিস্তারিত ব্যাখ্যা
+                                </button>
+
+
+                                {/* YouTube Video */}
+                                <button
+                                    onClick={() => alert("এই প্রশ্নের জন্য কোন ভিডিও নেই")}
+                                    className="flex items-center gap-2 px-4 py-2 bg-red-100 text-red-800 rounded hover:bg-red-200 transition"
+                                >
+                                    <Youtube size={18} />
+                                    ভিডিও দেখুন
+                                </button>
+
+                                {/* PDF Download */}
+                                <button
+                                  onClick={() => alert("এই প্রশ্নের জন্য কোন PDF নেই")}
+                                    className="flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-800 rounded hover:bg-blue-200 transition"
+                                >
+                                    <FileDown size={18} />
+                                    PDF ডাউনলোড
+                                </button>
+                            </div>
 
                             {/* Answer & Explanation */}
                             {openAnswers[item.ID] && (
@@ -88,6 +121,8 @@ export default function SolutionTable({ solutionTable }) {
                                             <span className=' text-green-700 font-bold'>📝 ব্যাখ্যা: </span> আপডেট করা হচ্ছে
                                         </p>
                                     )}
+
+
                                 </div>
                             )}
 
