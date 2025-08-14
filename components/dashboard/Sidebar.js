@@ -5,7 +5,6 @@ import sidebarItems from './SidebarItems';
 import Link from 'next/link';
 import Logo from '@/utils/Logo';
 import { usePathname } from 'next/navigation';
-import { IoMdLogOut } from 'react-icons/io';
 import AdminLogOutButton from './AdminLogOutButton';
 
 export default function Sidebar() {
@@ -18,6 +17,8 @@ export default function Sidebar() {
     const toggleItem = (index) => {
         setOpenItem(openItem === index ? null : index);
     };
+
+    
     return (
         <>
             {/* Desktop Sidebar */}

@@ -107,6 +107,40 @@ export const purchasePlanGetAll = process.env.NEXT_PUBLIC_MY_PLAN_ALL
 export const purchaseMyPlanDelete = process.env.NEXT_PUBLIC_MY_PLAN_DELETE
 //  Purchase Plan End
 
+
+
+// questions sheet start here
+
+export const classListCreate = process.env.NEXT_PUBLIC_CREATE_CLASSLIST
+export const classListGetAll = process.env.NEXT_PUBLIC_GET_ALL_CLASSLIST
+export const clasListupdate = process.env.NEXT_PUBLIC_UPDATE_CLASSLIST
+export const classListeDelete = process.env.NEXT_PUBLIC_DELETE_CLASSLIST
+
+export const subjectListCreate = process.env.NEXT_PUBLIC_CREATE_SUBJECT
+export const subjectListGetAll = process.env.NEXT_PUBLIC_SUBJECT_GET_ALL
+export const subjectListGetByQuery = process.env.NEXT_PUBLIC_SUBJECT_GET_BY_QUERY
+export const subjectListupdate = process.env.NEXT_PUBLIC_UPDATE_SUBJECT
+export const subjectListeDelete = process.env.NEXT_PUBLIC_DELETE_SUBJECT
+
+
+export const chapterListCreate = process.env.NEXT_PUBLIC_CREATE_CHAPTER
+export const chapterListGetAll = process.env.NEXT_PUBLIC_CHAPTER_GET_ALL
+export const chapterListGetByQuery = process.env.NEXT_PUBLIC_CHAPTER_GET_BY_QUERY
+export const chapterListupdate = process.env.NEXT_PUBLIC_UPDATE_CHAPTER
+export const chapterListDelete = process.env.NEXT_PUBLIC_DELETE_CHAPTER
+
+
+export const questionSheetCreate = process.env.NEXT_PUBLIC_CREATE_QUESTIONSHEET
+export const questionSheetGetAll = process.env.NEXT_PUBLIC_QUESTIONSHEET_GET_ALL
+export const questionSheetGetByQuery = process.env.NEXT_PUBLIC_QUESTIONSHEET_GET_BY_QUERY
+export const questionSheetupdate = process.env.NEXT_PUBLIC_UPDATE_QUESTIONSHEET
+export const questionSheetListDelete = process.env.NEXT_PUBLIC_DELETE_QUESTIONSHEET
+
+
+
+
+// questions sheet end here
+
 //  User End Here ===============================================================
 
 

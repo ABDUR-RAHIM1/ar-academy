@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Preview from "./Preview";
 
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,8 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { chaptersList, classes, questionsList, subjects } from "@/LocalDatabase/dummyQuestion";
+import QuestionModal from "./QuestionModal";
 
 export default function MakeQuestion() {
     const [form, setForm] = useState({
@@ -72,6 +74,48 @@ export default function MakeQuestion() {
     };
 
     const bulletPoint = questionTypeOfbulletPoint[form.type || []];
+
+    //  classess, subject ,chapters , questioons
+    const [classId, setClassId] = useState("");
+    const [subjectList, setSubjectList] = useState([]);
+
+    const [subjecId, setSubjectId] = useState("")
+    const [chapterList, setChapterList] = useState([]);
+
+    const [chapterId, setChapterId] = useState("")
+    const [questionList, setQuestionList] = useState([])
+
+    const handleClassListChange = (e) => {
+        setClassId(e.target.value)
+    }
+
+    //  set subject in state
+    useEffect(() => {
+        const filterdSubject = subjects.filter((sub) => sub.classId === classId);
+        setSubjectList(filterdSubject)
+    }, [classId])
+
+
+    const handleSubjectChange = (e) => {
+        setSubjectId(e.target.value)
+    }
+
+
+    //  ste chapter in state 
+    useEffect(() => {
+        const filteredChapter = chaptersList.filter((cl, i) => cl.subjectId === subjecId);
+        setChapterList(filteredChapter)
+    }, [subjecId])
+
+    //  set question in the state
+    useEffect(() => {
+        const filterdQUestions = questionsList.filter((ql, i) => ql.chapterId === chapterId);
+        setQuestionList(filterdQUestions)
+    }, [chapterId])
+
+
+
+    const selectStyle = 'border border-1 rounded-md'
 
     return (
         <div className="p-6 max-w-6xl mx-auto space-y-10">
@@ -174,14 +218,50 @@ export default function MakeQuestion() {
                         </SelectContent>
                     </Select>
                 </div>
-                <div className="space-y-1">
-                    <Label htmlFor="searchQuestion">প্রশ্ন খুজুন</Label>
-                    <Input
-                        type="search"
-                        name="searchQuestion"
-                        placeholder={"ডাটাবেজ থেকে প্রশ্ন খুঁজুন"}
-                    />
+
+                <div className=" space-y-1">
+                    <Input />
                 </div>
+
+
+                <div className="space-y-1">
+                    <Label htmlFor="classList">Class list</Label>
+                    <select value={classId} name="subjectList" onChange={handleClassListChange} className={` w-full p-3 ${selectStyle}`}>
+                        {
+                            classes.map((cl, i) => (
+                                <option key={i} value={cl._id}>{cl.name}</option>
+                            ))
+                        }
+                    </select>
+                </div>
+                <div className="space-y-1">
+                    <Label htmlFor="classList">Subject lists</Label>
+                    <select value={subjecId} name="subjectList" onChange={handleSubjectChange} className={` w-full p-3 ${selectStyle}`}>
+                        {
+                            subjectList.map((sl, i2) => (
+                                <option key={i2} value={sl._id}>{sl.name}</option>
+                            ))
+                        }
+                    </select>
+                </div>
+
+                <div className="space-y-1">
+                    <Label htmlFor="chapterList">Chapter lists</Label>
+                    <select value={chapterId} name="chapterList" onChange={(e) => setChapterId(e.target.value)} className={` w-full p-3 ${selectStyle}`}>
+                        {
+                            chapterList.map((cl, i2) => (
+                                <option key={i2} value={cl._id}>{cl.name}</option>
+                            ))
+                        }
+                    </select>
+                </div>
+
+                <div className="space-y-4">
+                    <QuestionModal questions={questionList} />
+                </div>
+
+
+
             </div>
 
             {/* প্রশ্ন যোগ করুন */}

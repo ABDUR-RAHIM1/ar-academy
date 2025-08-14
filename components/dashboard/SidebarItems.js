@@ -1,5 +1,5 @@
 import { MdSpaceDashboard, MdLibraryBooks, MdSettings, MdOutlineQuiz } from "react-icons/md";
-import { FaUsers, FaUserCog, FaUserShield } from "react-icons/fa"; 
+import { FaUsers, FaUserCog, FaUserShield } from "react-icons/fa";
 import { BsViewList } from "react-icons/bs";
 import { RiTeamLine } from "react-icons/ri";
 import { GiBookshelf } from "react-icons/gi";
@@ -79,6 +79,38 @@ const sidebarItems = [
             {
                 item: "Add Questions",
                 path: "questions/add",
+                icon: <MdOutlineQuiz />
+            },
+
+        ]
+    },
+    {
+        item: "Questions Sheet",
+        icon: <MdOutlineQuiz />,
+        children: [
+            {
+                item: "Class List",
+                path: "questions-sheet/classList",
+                icon: <BsViewList />
+            },
+            {
+                item: "Subject List",
+                path: "questions-sheet/subjectList",
+                icon: <BsViewList />
+            },
+            {
+                item: "Chapter List",
+                path: "questions-sheet/chapterList",
+                icon: <BsViewList />
+            },
+            {
+                item: "Add Questions Sheet",
+                path: "questions-sheet/add",
+                icon: <MdOutlineQuiz />
+            },
+            {
+                item: "View Questions Sheet",
+                path: "questions-sheet/view",
                 icon: <MdOutlineQuiz />
             },
 

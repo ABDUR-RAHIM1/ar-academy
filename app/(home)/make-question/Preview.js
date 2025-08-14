@@ -8,14 +8,28 @@ export default function Preview({ form, questions, bulletPoint }) {
     const firstColumn = questions.slice(0, mid);
     const secondColumn = questions.slice(mid);
 
+
+    const dummyQuestions = Array.from({ length: 500 }, (_, i) => ({
+        position: i + 1,
+        question: `প্রশ্ন নম্বর ${i + 1}`,
+        option1: `বিকল্প ১`,
+        option2: `বিকল্প ২`,
+        option3: `বিকল্প ৩`,
+        option4: `বিকল্প ৪`,
+    }));
+
+
+
     return (
         <>
             <Button
                 onClick={() => window.print()}
                 className="mb-4 hover:bg-black bg-gray-800 text-white rounded flex items-center justify-center gap-2"
             >
-              <PrinterIcon/>  প্রিন্ট করুন
+                <PrinterIcon />  প্রিন্ট করুন
             </Button>
+
+
 
             <div className="bg-gray-100 border p-3 px-5 rounded-xl overflow-auto">
                 <div
@@ -43,62 +57,33 @@ export default function Preview({ form, questions, bulletPoint }) {
                             এখনো কোন প্রশ্ন যোগ করা হয়নি।
                         </p>
                     ) : (
-                        <div className="flex gap-8 items-center justify-center">
-                            {/* প্রথম কলাম */}
-                            <div className="flex-1 space-y-4 ">
-                                {firstColumn.map((q, index) => (
-                                    <div
-                                        key={index}
-                                        className={`break-inside-avoid`}
-                                        style={{ fontSize: form.fontSize, marginTop: "0px" }}
-                                    >
-                                        <p className="font-semibold">
-                                            {q.position || index + 1}. {q.question}
-                                        </p>
-                                        <ul className="ml-6 text-gray-700 space-y-[0.5] grid grid-cols-2">
-                                            {[q.option1, q.option2, q.option3, q.option4].map(
-                                                (opt, i) => (
-                                                    <li key={i}>
-                                                        <span className="font-bold mr-2">
-                                                            {bulletPoint?.[i] || ""}
-                                                        </span>
-                                                        {opt}
-                                                    </li>
-                                                )
-                                            )}
-                                        </ul>
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/* দ্বিতীয় কলাম */}
-                            <div className="flex-1 space-y-4">
-                                {secondColumn.map((q, index) => (
-                                    <div
-                                        key={mid + index}
-                                        className={`break-inside-avoid`}
-                                        style={{ fontSize: form.fontSize, marginTop: "0px" }}
-                                    >
-                                        <p className="font-semibold">
-                                            {q.position || mid + index + 1}. {q.question}
-                                        </p>
-                                        <ul className="ml-6 text-gray-700 space-y-[0.5] grid grid-cols-2">
-                                            {[q.option1, q.option2, q.option3, q.option4].map(
-                                                (opt, i) => (
-                                                    <li key={i}>
-                                                        <span className="font-bold mr-2">
-                                                            {bulletPoint?.[i] || ""}
-                                                        </span>
-                                                        {opt}
-                                                    </li>
-                                                )
-                                            )}
-                                        </ul>
-                                    </div>
-                                ))}
-                            </div>
+                        <div
+                            style={{ columnCount: 2, columnGap: "20px" }}
+                            className="break-inside-avoid p-10"
+                        >
+                            {questions.map((q, index) => (
+                                <div
+                                    key={index}
+                                    style={{ fontSize: form.fontSize, marginTop: "0px", }}
+                                >
+                                    <p className="font-semibold">
+                                        {q.position || index + 1}. {q.question}
+                                    </p>
+                                    <ul className="ml-6 text-gray-700 space-y-[0.5] grid grid-cols-2">
+                                        {[q.option1, q.option2, q.option3, q.option4].map((opt, i) => (
+                                            <li key={i}>
+                                                <span className="font-bold mr-2">
+                                                    {bulletPoint?.[i] || ""}
+                                                </span>
+                                                {opt}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
                         </div>
                     )}
+
                 </div>
             </div>
         </>

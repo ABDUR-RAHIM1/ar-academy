@@ -7,7 +7,7 @@ import { LoaderIcon } from "lucide-react";
 import { useRouter } from 'next/navigation';
 
 // use for admin
-export default function DeleteActionButton({ btnText, deleteRoute, width }) {
+export default function DeleteActionButton({ btnText = "ডিলিট", deleteRoute, width }) {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false)
     const { showToast } = useContext(contextD)

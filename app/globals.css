@@ -23,7 +23,7 @@ body {
   #printableArea, #printableArea * {
     visibility: visible; /* শুধু printableArea আর তার child গুলো দেখাও */
   }
-  .a4-page {
+  /* .a4-page {
   width: 210mm;
   min-height: 297mm;
   padding: 20mm;
@@ -31,7 +31,7 @@ body {
   background: white;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
   overflow: hidden;
-}
+} */
 
   #printableArea {
     position: absolute;
