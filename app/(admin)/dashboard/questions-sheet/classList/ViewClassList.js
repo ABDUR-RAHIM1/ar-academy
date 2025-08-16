@@ -28,10 +28,10 @@ export default function ViewClassList({ data }) {
             name: "শ্রেণী",
             selector: (row) => row.name,
         },
-        // {
-        //     name: "Edit",
-        //     selector: (row) => <EditActionButton data={row} path={"/dashboard/questions-sheet/classList"} />
-        // },
+        {
+            name: "Edit",
+            selector: (row) => <EditActionButton data={row} path={"/dashboard/questions-sheet/classList"} />
+        },
         {
             name: "ডিলিট",
             selector: (row) => <DeleteActionButton

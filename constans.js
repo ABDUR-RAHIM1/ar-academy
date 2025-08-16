@@ -131,8 +131,9 @@ export const chapterListDelete = process.env.NEXT_PUBLIC_DELETE_CHAPTER
 
 
 export const questionSheetCreate = process.env.NEXT_PUBLIC_CREATE_QUESTIONSHEET
-export const questionSheetGetAll = process.env.NEXT_PUBLIC_QUESTIONSHEET_GET_ALL
-export const questionSheetGetByQuery = process.env.NEXT_PUBLIC_QUESTIONSHEET_GET_BY_QUERY
+export const questionSheetGetAll = process.env.NEXT_PUBLIC_QUESTIONSHEET_GET_ALL  // just overview
+export const questionSheetGetById = process.env.NEXT_PUBLIC_QUESTIONSHEET_GET_BY_ID  // single for details by _id
+export const questionSeetGetByQuery = process.env.NEXT_PUBLIC_QUESTIONSHEET_GET_BY_QUERY
 export const questionSheetupdate = process.env.NEXT_PUBLIC_UPDATE_QUESTIONSHEET
 export const questionSheetListDelete = process.env.NEXT_PUBLIC_DELETE_QUESTIONSHEET
 
