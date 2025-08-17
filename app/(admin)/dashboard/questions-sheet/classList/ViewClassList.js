@@ -29,7 +29,7 @@ export default function ViewClassList({ data }) {
             selector: (row) => row.name,
         },
         {
-            name: "Edit",
+            name: "আপডেট",
             selector: (row) => <EditActionButton data={row} path={"/dashboard/questions-sheet/classList"} />
         },
         {

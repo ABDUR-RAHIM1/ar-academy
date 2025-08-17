@@ -17,29 +17,34 @@ body {
 }
 
 @media print {
-  body * {
-    visibility: hidden;  /* সব লুকাও */
+  @page {
+    margin: 10mm; 
   }
-  #printableArea, #printableArea * {
-    visibility: visible; /* শুধু printableArea আর তার child গুলো দেখাও */
+  .exam-wrapper {
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
-  /* .a4-page {
-  width: 210mm;
-  min-height: 297mm;
-  padding: 20mm;
-  margin: auto;
-  background: white;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  overflow: hidden;
-} */
+ body {
+    margin: 0;
+    padding: 0;
+  }
 
-  #printableArea {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;       
+  .print-container {
+    padding: 20px;  
+  }
+  .header {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .question-block {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 10px;
   }
 }
+
+
 
 
 @layer base {

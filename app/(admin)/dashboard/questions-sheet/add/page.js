@@ -42,7 +42,6 @@ export default function QuestionSheetAdd() {
         questions: null
     });
 
-    console.log(formData)
     // handleChange
     const handleChange = (name, value) => {
         setFormData((prev) => ({

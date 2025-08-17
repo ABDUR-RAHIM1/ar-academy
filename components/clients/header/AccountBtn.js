@@ -60,6 +60,11 @@ export default function AccountBtn({ menuClick, setMenuClick }) {
             path: "results",
         },
         {
+            item: "make-question",
+            itemBN: "প্রশ্ন পত্র তৈরি করুন",
+            path: "make-question",
+        },
+        {
             item: "settings",
             itemBN: "সেটিংস",
             path: "settings",
