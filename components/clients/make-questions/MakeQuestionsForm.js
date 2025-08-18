@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { InputField } from "@/utils/InputFIled";
 import QuestionSheetPreview from "./QuestionSheetPreview";
+import { Label } from "@/components/ui/label";
+import DatabaseQuestionModal from "./QuestionModal";
 
 export default function MakeQuestionsForm() {
 
@@ -19,7 +20,12 @@ export default function MakeQuestionsForm() {
         duration: "",
         marks: "",
         details: "",  // optional
-        subject: ""
+        subject: "",
+        fontSize: "",
+        type: "bangla",
+        questionFormat: "",
+        isExplanation: "no",
+        isDeleteButton: "no"
     })
 
     const [questionSheetForm, setQuestionSheetForm] = useState({
@@ -31,6 +37,7 @@ export default function MakeQuestionsForm() {
         Option4: "",
         CorrectAnswer: "",
         Explanation: "",
+        QuestionMark: ""
     })
 
 
@@ -92,16 +99,133 @@ export default function MakeQuestionsForm() {
                     প্রশ্নপত্র তৈরি করুন
                 </h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <Input onChange={handleSheetHeadChange} name={"subject"} placeholder="বিষয়ঃ" />
-                <Input onChange={handleSheetHeadChange} name={"duration"} placeholder="সময়ঃ (মিনিট)" />
-                <Input onChange={handleSheetHeadChange} name={"marks"} placeholder="মার্কসঃ" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <InputField
+                    handler={handleSheetHeadChange}
+                    name={"subject"}
+                    placeholder="বিষয়ঃ"
+                    label={"বিষয়ঃ"}
+                />
+                <InputField
+                    handler={handleSheetHeadChange}
+                    name={"duration"}
+                    placeholder="সময়ঃ (মিনিট)"
+                    label={"মোট সময়"}
+                />
+                <InputField
+                    handler={handleSheetHeadChange}
+                    name={"marks"}
+                    placeholder="মার্কসঃ"
+                    label={"মার্কসঃ"}
+                />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                <Input onChange={handleSheetHeadChange} name={"institute"} placeholder="ইনস্টিটিউটের নামঃ" />
-                <Input onChange={handleSheetHeadChange} name={"examName"} placeholder="পরীক্ষার নামঃ" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <InputField
+                    handler={handleSheetHeadChange}
+                    name={"institute"}
+                    placeholder="ইনস্টিটিউটের নামঃ"
+                    label={"ইনস্টিটিউটের নাম"}
+                />
+                <InputField
+                    handler={handleSheetHeadChange}
+                    name={"examName"}
+                    placeholder="পরীক্ষার নামঃ"
+                    label={"পরীক্ষার নাম"}
+                />
 
+            </div>
+
+            <div className=" my-2">
+                <Label className={"mb-2"}>বিবরণঃ (ঐচ্ছিক)</Label>
                 <Textarea onChange={handleSheetHeadChange} name={"details"} placeholder="বিবরণঃ (ঐচ্ছিক)" className="md:col-span-2" />
+            </div>
+
+            {/*  utilities */}
+            <div className=" my-3 p-5 border rounded-2xl shadow-sm">
+                <h2 className=" font-medium my-2 text-sm">ফরম্যাট</h2>
+                <div className=" grid grid-cols-3 gap-x-2 gap-y-3">
+                    <div>
+                        <label className="block text-sm font-medium mb-1">ফন্ট সাইজ</label>
+                        <Select onValueChange={(value) => handleSheetHeadChange({ target: { name: "fontSize", value } })}>
+                            <SelectTrigger>
+                                <SelectValue placeholder="ফন্ট সাইজ নির্বাচন করুন" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="10px">10 px</SelectItem>
+                                <SelectItem value="11px">11 px</SelectItem>
+                                <SelectItem value="12px">12 px</SelectItem>
+                                <SelectItem value="13px">13 px</SelectItem>
+                                <SelectItem value="14px">14 px</SelectItem>
+                                <SelectItem value="15px">15 px</SelectItem>
+                                <SelectItem value="16px">16 px</SelectItem>
+                                <SelectItem value="18px">18 px</SelectItem>
+                                <SelectItem value="20px">20 px</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium mb-1">ধরন</label>
+                        <Select onValueChange={(value) => handleSheetHeadChange({ target: { name: "type", value } })}>
+                            <SelectTrigger>
+                                <SelectValue placeholder="ধরন নির্বাচন করুন" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="bangla">বাংলা</SelectItem>
+                                <SelectItem value="english">ইংরেজি</SelectItem>
+                                <SelectItem value="math">গণিত</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium mb-1">প্রশ্নের ধরন</label>
+                        <Select
+                            onValueChange={(value) =>
+                                handleSheetHeadChange({ target: { name: "questionFormat", value } })
+                            }
+                        >
+                            <SelectTrigger>
+                                <SelectValue placeholder="MCQ / Written" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="mcq">MCQ</SelectItem>
+                                <SelectItem value="written">Written</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium mb-1">প্রশ্নের উত্তরসহ ব্যাখ্যা</label>
+                        <Select
+                            onValueChange={(value) =>
+                                handleSheetHeadChange({ target: { name: "isExplanation", value } })
+                            }
+                        >
+                            <SelectTrigger>
+                                <SelectValue placeholder="MCQ / Written" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="yes">হ্যাঁ</SelectItem>
+                                <SelectItem value="no">না</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium mb-1">প্রশ্নের ডিলিট</label>
+                        <Select
+                            onValueChange={(value) =>
+                                handleSheetHeadChange({ target: { name: "isDeleteButton", value } })
+                            }
+                        >
+                            <SelectTrigger>
+                                <SelectValue placeholder="MCQ / Written" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="yes">হ্যাঁ</SelectItem>
+                                <SelectItem value="no">না</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                </div>
             </div>
 
 
@@ -111,18 +235,19 @@ export default function MakeQuestionsForm() {
                 <div className="p-5 border rounded-2xl shadow-sm">
                     <div className="flex justify-between items-center mb-3">
                         <h2 className="font-semibold text-lg">প্রশ্ন</h2>
-                        <Button variant="outline" size="sm" onClick={() => console.log("Add to DB modal")}>
+                        {/* <Button variant="outline" size="sm" onClick={() => console.log("Add to DB modal")}>
                             ডাটাবেজ থেকে যোগ করুন
-                        </Button>
+                        </Button> */}
+                        <DatabaseQuestionModal/>
                     </div>
 
 
                     <div className=" grid grid-cols-1 md:grid-cols-2 gap-x-2">
                         <InputField
-                            name={"ID"}
+                            name={"QuestionMark"}
                             handler={handleSheetMainChange}
-                            placeholder={"Serial Number"}
-                            label={"Serial Number"}
+                            placeholder={"প্রশ্ন প্রতি মার্কস"}
+                            label={"মার্কস"}
 
                         />
                         <InputField

@@ -1,5 +1,6 @@
 "use client"
 import { Button } from "@/components/ui/button";
+import { questionFormatTypes } from "@/LocalDatabase/questionsFormat";
 import { PrinterIcon } from "lucide-react";
 import React, { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
@@ -8,13 +9,17 @@ export default function QuestionSheetPreview({ questionSheetHead, questions, set
     const contentRef = useRef(null);
     const reactToPrintFn = useReactToPrint({ contentRef });
 
-    const { institute, duration, examName, marks, details, subject } = questionSheetHead;
+    const { institute, duration, examName, marks, details, subject, fontSize, type, questionFormat, isExplanation: showExplanation, isDeleteButton: showMinusBtn } = questionSheetHead;
 
-    const bulletPoint = ["ক", "খ", "গ", "ঘ"];
+    const { bullets: bulletPoint, serial } = questionFormatTypes[type]
+
+
+
+    // const bulletPoint = ["ক", "খ", "গ", "ঘ"];
 
     //  dummy 
-    const showExplanation = false;
-    const showMinusBtn = false 
+    // const showExplanation = false;
+    // const showMinusBtn = true
 
     const removeQuestion = (indexToRemove) => {
         setQuestions(prevQuestions =>
@@ -64,25 +69,38 @@ export default function QuestionSheetPreview({ questionSheetHead, questions, set
                                         key={index}
                                         className="question-block"
                                     >
-                                        <div className=" flex items-center gap-2">
-                                            <p className=" text-sm">
-                                                {q.ID || index + 1})
-                                                <span className="mx-2">
-                                                    {q.Question}
-                                                </span>
-                                            </p>
-                                            {/* Minus button */}
-                                            {
-                                                showMinusBtn &&
-                                                <button
-                                                    onClick={() => removeQuestion(index)}
-                                                    className="text-red-600 font-bold ml-4"
-                                                    title="Remove Question"
-                                                >
-                                                    −
-                                                </button>}
+                                        <div className=" flex items-center justify-between ">
+                                            <div className=" flex items-center gap-2"
+                                                style={{ fontSize: fontSize }}
+                                            >
+                                                <p>
+                                                    {serial[index]}
+                                                    <span className="mx-2">
+                                                        {q.Question}
+                                                    </span>
+                                                </p>
+                                                {/* Minus button */}
+                                                {
+                                                    showMinusBtn === "yes" &&
+                                                    <button
+                                                        onClick={() => removeQuestion(index)}
+                                                        className="text-red-600 font-bold ml-4"
+                                                        title="Remove Question"
+                                                    >
+                                                        −
+                                                    </button>}
+
+                                            </div>
+                                            <div className=" text-left mr-5"
+                                                style={{ fontSize: fontSize }}
+                                            >
+                                                {q.QuestionMark}
+                                            </div>
                                         </div>
-                                        <ul className="ml-6 mt-2 text-gray-700 space-y-[0.5] grid grid-cols-2 text-sm">
+
+                                        <ul className="ml-6 mt-2 text-gray-700 space-y-[0.5] grid grid-cols-2"
+                                            style={{ fontSize: fontSize }}
+                                        >
                                             {[q.Option1, q.Option2, q.Option3, q.Option4].map((opt, i) => (
                                                 <li key={i}>
                                                     <span className="mr-2">
@@ -92,9 +110,9 @@ export default function QuestionSheetPreview({ questionSheetHead, questions, set
                                                 </li>
                                             ))}
                                         </ul>
-                                        {showExplanation && q.Explanation && (
+                                        {showExplanation === "yes" && q.Explanation && (
                                             <div className=" p-2 border rounded-sm">
-                                                <p className="mt-2 text-gray-600">
+                                                <p className="mt-2 text-gray-600" style={{ fontSize: fontSize }}>
                                                     <strong>Explanation: </strong> {q.Explanation}
                                                 </p>
                                             </div>
