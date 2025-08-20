@@ -238,7 +238,9 @@ export default function MakeQuestionsForm() {
                         {/* <Button variant="outline" size="sm" onClick={() => console.log("Add to DB modal")}>
                             ডাটাবেজ থেকে যোগ করুন
                         </Button> */}
-                        <DatabaseQuestionModal/>
+                        <DatabaseQuestionModal 
+                            setQuestionSheet={setQuestionSheet}
+                        />
                     </div>
 
 
