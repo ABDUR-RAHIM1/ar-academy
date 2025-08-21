@@ -15,12 +15,6 @@ export default function QuestionSheetPreview({ questionSheetHead, questions, set
 
 
 
-    // const bulletPoint = ["ক", "খ", "গ", "ঘ"];
-
-    //  dummy 
-    // const showExplanation = false;
-    // const showMinusBtn = true
-
     const removeQuestion = (indexToRemove) => {
         setQuestions(prevQuestions =>
             prevQuestions.filter((_, index) => index !== indexToRemove)
@@ -62,7 +56,7 @@ export default function QuestionSheetPreview({ questionSheetHead, questions, set
                         ) : (
                             <div
                                 style={{ columnCount: 2, columnGap: "20px" }}
-                                className="questions py-10"
+                                className="questions pt-5 pb-10"
                             >
                                 {questions.map((q, index) => (
                                     <div
@@ -111,11 +105,14 @@ export default function QuestionSheetPreview({ questionSheetHead, questions, set
                                             ))}
                                         </ul>
                                         {showExplanation === "yes" && q.Explanation && (
-                                            <div className=" p-2 border rounded-sm">
-                                                <p className="mt-2 text-gray-600" style={{ fontSize: fontSize }}>
-                                                    <strong>Explanation: </strong> {q.Explanation}
+                                            <blockquote className="my-4 ml-4 border-l-4 border-blue-400 bg-blue-50 px-4 py-3 rounded-md shadow-sm">
+                                                <p className="text-gray-700 mt-1" style={{ fontSize: fontSize }}>
+                                                    ✅ উত্তর: <span className="font-normal">{q.CorrectAnswer}</span>
                                                 </p>
-                                            </div>
+                                                <p className="text-gray-600 mt-2 leading-relaxed" style={{ fontSize: fontSize }}>
+                                                    📖 ব্যাখ্যা: <span className="font-normal">{q.Explanation}</span>
+                                                </p>
+                                            </blockquote>
                                         )}
                                     </div>
                                 ))}

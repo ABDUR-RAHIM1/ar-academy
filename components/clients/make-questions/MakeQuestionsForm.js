@@ -8,6 +8,7 @@ import { InputField } from "@/utils/InputFIled";
 import QuestionSheetPreview from "./QuestionSheetPreview";
 import { Label } from "@/components/ui/label";
 import DatabaseQuestionModal from "./QuestionModal";
+import { EyeIcon } from "lucide-react";
 
 export default function MakeQuestionsForm() {
 
@@ -91,7 +92,7 @@ export default function MakeQuestionsForm() {
 
 
     return (
-        <div className="max-w-5xl mx-auto p-6 bg-white rounded-2xl shadow-lg my-10">
+        <div className="max-w-5xl mx-auto p-4 md:p-6 bg-white rounded-2xl shadow-lg my-10">
             {/* Header Section */}
 
             <div className={"my-5"}>
@@ -99,7 +100,7 @@ export default function MakeQuestionsForm() {
                     প্রশ্নপত্র তৈরি করুন
                 </h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-2">
                 <InputField
                     handler={handleSheetHeadChange}
                     name={"subject"}
@@ -119,7 +120,7 @@ export default function MakeQuestionsForm() {
                     label={"মার্কসঃ"}
                 />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-3 m-0">
                 <InputField
                     handler={handleSheetHeadChange}
                     name={"institute"}
@@ -141,9 +142,9 @@ export default function MakeQuestionsForm() {
             </div>
 
             {/*  utilities */}
-            <div className=" my-3 p-5 border rounded-2xl shadow-sm">
-                <h2 className=" font-medium my-2 text-sm">ফরম্যাট</h2>
-                <div className=" grid grid-cols-3 gap-x-2 gap-y-3">
+            <div className=" my-3 p-2 md:p-5 border rounded-2xl shadow-sm">
+                <h2 className=" font-bold my-2 text-sm">ফরম্যাট</h2>
+                <div className=" grid grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-3">
                     <div>
                         <label className="block text-sm font-medium mb-1">ফন্ট সাইজ</label>
                         <Select onValueChange={(value) => handleSheetHeadChange({ target: { name: "fontSize", value } })}>
@@ -194,14 +195,14 @@ export default function MakeQuestionsForm() {
                         </Select>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium mb-1">প্রশ্নের উত্তরসহ ব্যাখ্যা</label>
+                        <label className="block text-sm font-medium mb-1">উত্তরসহ ব্যাখ্যা</label>
                         <Select
                             onValueChange={(value) =>
                                 handleSheetHeadChange({ target: { name: "isExplanation", value } })
                             }
                         >
                             <SelectTrigger>
-                                <SelectValue placeholder="MCQ / Written" />
+                                <SelectValue placeholder="উত্তরসহ ব্যাখ্যা দেখা" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="yes">হ্যাঁ</SelectItem>
@@ -217,7 +218,7 @@ export default function MakeQuestionsForm() {
                             }
                         >
                             <SelectTrigger>
-                                <SelectValue placeholder="MCQ / Written" />
+                                <SelectValue placeholder="প্রশ্ন ডিলিট করবেন" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="yes">হ্যাঁ</SelectItem>
@@ -235,11 +236,9 @@ export default function MakeQuestionsForm() {
                 <div className="p-5 border rounded-2xl shadow-sm">
                     <div className="flex justify-between items-center mb-3">
                         <h2 className="font-semibold text-lg">প্রশ্ন</h2>
-                        {/* <Button variant="outline" size="sm" onClick={() => console.log("Add to DB modal")}>
-                            ডাটাবেজ থেকে যোগ করুন
-                        </Button> */}
-                        <DatabaseQuestionModal 
+                        <DatabaseQuestionModal
                             setQuestionSheet={setQuestionSheet}
+                            questionType={sheetHead.type}
                         />
                     </div>
 
@@ -255,30 +254,33 @@ export default function MakeQuestionsForm() {
                         <InputField
                             name={"Question"}
                             handler={handleSheetMainChange}
-                            placeholder={"question Text"}
-                            label={"Question"}
+                            placeholder={"এখানে প্রশ্ন লিখুন"}
+                            label={"প্রশ্ন"}
 
                         />
                         <InputField
                             name={"options"}
                             handler={handleOptions}
-                            placeholder={"Option1, Option2,Option3,Option4"}
-                            label={"options"}
+                            placeholder={"প্রতিটি কমা দিয়ে লিখুন"}
+                            label={"অপশন গুলো"}
 
                         />
                         <InputField
                             name={"CorrectAnswer"}
                             handler={handleSheetMainChange}
-                            placeholder={"Correct Answer"}
-                            label={"Correct Answer"}
+                            placeholder={"সঠিক উত্তর"}
+                            label={"সঠিক উত্তর টি এখানে লিখুন"}
 
                         />
                     </div>
                     <div className=" my-3">
+                        <Label className={"mb-2"}>
+                            ব্যাখ্যা
+                        </Label>
                         <Textarea
                             name={"Explanation"}
                             onChange={handleSheetMainChange}
-                            placeholder={"Explanation"}
+                            placeholder={"উত্তরে ব্যাখ্যা লিখুন"}
                             className={"h-[200px] w-full"}
                         />
 
@@ -291,7 +293,9 @@ export default function MakeQuestionsForm() {
                 <div className="flex justify-between mt-6">
                     <Button onClick={addNewQuestion}>নতুন প্রশ্ন যোগ করুন</Button>
                     <Button variant="secondary" onClick={() => setShowPreview(!showPreview)}>
-                        প্রিভিউ দেখুন
+                        <EyeIcon /> {
+                            showPreview ? "প্রিভিউ বন্ধ করুন" : "প্রিভিউ দেখুন"
+                        }
                     </Button>
                 </div>
             </div>

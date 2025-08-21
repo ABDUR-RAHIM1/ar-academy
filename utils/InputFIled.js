@@ -11,7 +11,7 @@ export function InputField({ width, type, name, value, required, label, placehol
         switch (type) {
             case "textarea":
                 return (
-                    <div style={{ margin: "15px 0px" }} className={`${width || "w-full"}`}>
+                    <div  className={`${width || "w-full"} my-[10px] md:my-[15px] `}>
                         <Label htmlFor={name}>{label || name}</Label>
                         <Textarea
                             name={name}
@@ -25,7 +25,7 @@ export function InputField({ width, type, name, value, required, label, placehol
                 );
             default:
                 return (
-                    <div style={{ margin: "15px 0px" }} className={`${width || "w-full"}`}>
+                    <div   className={`${width || "w-full"} my-2 md:my-5 `}>
                         <Label htmlFor={name}>{label || name}</Label>
                         <Input
                             type={type || "text"}

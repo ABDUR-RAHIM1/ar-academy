@@ -17,20 +17,20 @@ import { COMMON_ALT_TEXT } from "@/constans";
 const reviews = [
     {
         id: 1,
-        name: "রাকিব হোসেন",
-        image: "https://i.pravatar.cc/100?img=1",
+        name: "আব্দুর রহিম",
+        image: "/Images/reviews/abdur.jpg",
         review: "এই প্ল্যাটফর্মের কোর্সগুলো খুবই সহজবোধ্য এবং প্র্যাকটিকাল!",
     },
     {
         id: 2,
-        name: "সাদিয়া আক্তার",
-        image: "https://i.pravatar.cc/100?img=2",
+        name: "নুরুজ্জামান",
+        image: "/Images/reviews/monir.png",
         review: "আমি প্রথমে ভয় পাচ্ছিলাম, কিন্তু এখন আত্মবিশ্বাসী হয়ে উঠেছি। ধন্যবাদ!",
     },
     {
         id: 3,
-        name: "তারিক রহমান",
-        image: "https://i.pravatar.cc/100?img=8",
+        name: "রবিউল ইসলাম",
+        image: "/Images/reviews/rabiul.png",
         review: "লাইভ সাপোর্ট আর কুইজগুলো আমাকে অনেক হেল্প করেছে শিখতে।",
     },
     {
@@ -87,7 +87,7 @@ export default function Reviews() {
                                         height={100}
                                         src={person.image}
                                         alt={COMMON_ALT_TEXT}
-                                        className="w-20 h-20 rounded-full object-cover border-2 border-gray-300 mb-4"
+                                        className="w-20 h-20 rounded-full border-2 border-gray-300 mb-4"
                                     />
                                     <h3 className="text-lg font-semibold text-gray-800 mb-2">{person.name}</h3>
                                     <p className="text-sm text-gray-600 italic">"{person.review}"</p>

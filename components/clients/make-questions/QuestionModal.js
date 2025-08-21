@@ -9,6 +9,7 @@ import {
     DialogTitle,
     DialogTrigger,
     DialogFooter,
+    DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,9 +23,10 @@ import { getAllClassList } from "@/app/apiActions/classList";
 import { getSubjectByQuery } from "@/app/apiActions/subjectList";
 import { getChapterByQuery } from "@/app/apiActions/chapterList";
 import { getQuestionsSheetByQuery } from "@/app/apiActions/questionSheet";
+import { questionFormatTypes } from "@/LocalDatabase/questionsFormat";
 
 
-export default function DatabaseQuestionModal({ setQuestionSheet }) {
+export default function DatabaseQuestionModal({ setQuestionSheet, questionType }) {
     const [checkedIds, setCheckedIds] = useState([]);
     const [loading, setLoading] = useState(false);
     const [chapterLoading, setChapterLoading] = useState(false);
@@ -34,6 +36,9 @@ export default function DatabaseQuestionModal({ setQuestionSheet }) {
     const [chapterList, setChapterList] = useState([]);
     const [questionsSheetList, setQuestionSheetList] = useState(null)
 
+
+    // bulletPoints , Serial No:
+    const { bullets: bulletPoint, serial } = questionFormatTypes[questionType]
 
 
     const [formData, setFormData] = useState({
@@ -242,9 +247,9 @@ export default function DatabaseQuestionModal({ setQuestionSheet }) {
 
                     {questionsSheetList !== null &&
                         <div className=" my-3 border rounded-md p-3 text-center space-y-1">
-                            <h2 className=" font-medium text-2xl">শ্রেণি: {questionsSheetList.classId?.name}</h2>
-                            <h2 className=" font-medium text-xl">বিষয়: {questionsSheetList.subjectId?.name}</h2>
-                            <h2 className=" font-medium text-xl">অধ্যায়: {questionsSheetList.chapterId?.name}</h2>
+                            <h2 className=" font-medium text-xl md:text-2xl">শ্রেণি: {questionsSheetList.classId?.name}</h2>
+                            <h2 className=" font-medium text-[18px] md:text-xl">বিষয়: {questionsSheetList.subjectId?.name}</h2>
+                            <h2 className=" font-medium text-[18px] md:text-xl">অধ্যায়: {questionsSheetList.chapterId?.name}</h2>
                             <h4>{questionsSheetList.chapterId?.title}</h4>
                         </div>}
 
@@ -252,7 +257,7 @@ export default function DatabaseQuestionModal({ setQuestionSheet }) {
                         questionsSheetList?.questions?.map((q, index) => (
                             <div
                                 key={index}
-                                className="border p-3 rounded-md mb-3"
+                                className="border p-2 md:p-3 rounded-md mb-3"
                             >
                                 <div className="flex items-center mb-2">
                                     <input
@@ -262,17 +267,18 @@ export default function DatabaseQuestionModal({ setQuestionSheet }) {
                                         className="mr-2"
                                     />
                                     {
-                                        index + 1 + ") "
+                                        serial[index] || ""
                                     }
                                     <span className="font-medium mx-2">{q.Question}</span>
                                 </div>
 
                                 {/* Options গুলো */}
                                 <div className="ml-6 space-y-1 grid grid-cols-2">
-                                    <p>1. {q.Option1}</p>
-                                    <p>2. {q.Option2}</p>
-                                    <p>3. {q.Option3}</p>
-                                    <p>4. {q.Option4}</p>
+                                    {[q.Option1, q.Option2, q.Option3, q.Option4].map((opt, index) => (
+                                        <p key={index}>
+                                            <span className="mr-1">{bulletPoint[index] || ""}</span> {opt}
+                                        </p>
+                                    ))}
                                 </div>
                             </div>
                         ))
@@ -287,16 +293,11 @@ export default function DatabaseQuestionModal({ setQuestionSheet }) {
                 </div>
 
                 <DialogFooter className="mt-4 shrink-0">
-                    <Button
-                        onClick={() => {
-                            alert(
-                                `Selected question IDs:\n${checkedIds.length > 0 ? checkedIds.join(", ") : "None"
-                                }`
-                            );
-                        }}
-                    >
-                        বন্ধকরুন
-                    </Button>
+                    <DialogClose asChild>
+                        <Button>
+                            বন্ধ করুন
+                        </Button>
+                    </DialogClose>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
