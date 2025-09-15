@@ -68,17 +68,27 @@ const sidebarItems = [
         ]
     },
     {
-        item: "Questions",
+        item: "Course",
         icon: <MdOutlineQuiz />,
         children: [
             {
+                item: "add course",
+                path: "course/add",
+                icon: <BsViewList />
+            },
+            {
+                item: "view course",
+                path: "course/view",
+                icon: <BsViewList />
+            },
+            {
                 item: "all Questions",
-                path: "questions/view",
+                path: "course/questions/view",
                 icon: <BsViewList />
             },
             {
                 item: "Add Questions",
-                path: "questions/add",
+                path: "course/questions/add",
                 icon: <MdOutlineQuiz />
             },
 

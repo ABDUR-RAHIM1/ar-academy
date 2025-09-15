@@ -84,14 +84,14 @@ const ChapterEdit = () => {
       try {
         if (isEdit) {
           const { status, data } = await getChapterWithContentbyAdmin(editData.identifier);
-          console.log(status, data)
+       
           if (status === 200) {
             const { solutionTable, writtenSolution, ...others } = data
             setFormData(others);
           }
         }
       } catch (error) {
-        console.log(error , "failed to fetch Chapter Data");
+        console.log(error, "failed to fetch Chapter Data");
       } finally {
         setEditDataLoading(false);
       }
@@ -119,7 +119,7 @@ const ChapterEdit = () => {
 
     // fileType পরিবর্তন হলে contents ফিল্ড ক্লিয়ার  
     if (value === "editor") {
-      console.log("editor change")
+     
       setFormData({
         ...formData,
         fileType: value,
@@ -229,9 +229,9 @@ const ChapterEdit = () => {
       }
       const { status, data } = await postActions(payload);
       showToast(status, data)
-
+   
     } catch (error) {
-      // showToast(500, "Failed To Update Chapter")
+      showToast(500, "Failed To Update Chapter")
     } finally {
       setLoading(false)
     }

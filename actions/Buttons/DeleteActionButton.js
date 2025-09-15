@@ -13,6 +13,12 @@ export default function DeleteActionButton({ btnText = "ডিলিট", delete
     const { showToast } = useContext(contextD)
 
     const handleDelete = async () => {
+
+        const access = confirm("আপনি কি ডিলিট করতে চান?");
+        if (!access) {
+            return
+        }
+
         setIsLoading(true)
         try {
             const { status, data } = await deleteAction(deleteRoute);
@@ -44,4 +50,5 @@ export default function DeleteActionButton({ btnText = "ডিলিট", delete
             }
         </div>
     )
-}
+}; 
+

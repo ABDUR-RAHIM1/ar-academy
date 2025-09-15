@@ -58,64 +58,107 @@ export default function QuestionSheetPreview({ questionSheetHead, questions, set
                                 style={{ columnCount: 2, columnGap: "20px" }}
                                 className="questions pt-5 pb-10"
                             >
-                                {questions.map((q, index) => (
-                                    <div
-                                        key={index}
-                                        className="question-block"
-                                    >
-                                        <div className=" flex items-center justify-between ">
-                                            <div className=" flex items-center gap-2"
-                                                style={{ fontSize: fontSize }}
+                                {
+
+                                    questionFormat === "mcq" ?
+                                        questions.map((q, index) => (
+                                            <div
+                                                key={index}
+                                                className="question-block"
                                             >
-                                                <p>
-                                                    {serial[index]}
-                                                    <span className="mx-2">
-                                                        {q.Question}
-                                                    </span>
-                                                </p>
-                                                {/* Minus button */}
-                                                {
-                                                    showMinusBtn === "yes" &&
-                                                    <button
-                                                        onClick={() => removeQuestion(index)}
-                                                        className="text-red-600 font-bold ml-4"
-                                                        title="Remove Question"
+                                                <div className=" flex items-center justify-between ">
+                                                    <div className=" flex items-center gap-2"
+                                                        style={{ fontSize: fontSize }}
                                                     >
-                                                        −
-                                                    </button>}
+                                                        <p>
+                                                            {serial[index]}
+                                                            <span className="mx-2">
+                                                                {q.Question}
+                                                            </span>
+                                                        </p>
+                                                        {/* Minus button */}
+                                                        {
+                                                            showMinusBtn === "yes" &&
+                                                            <button
+                                                                onClick={() => removeQuestion(index)}
+                                                                className="text-red-600 font-bold ml-4"
+                                                                title="Remove Question"
+                                                            >
+                                                                −
+                                                            </button>}
 
+                                                    </div>
+                                                    <div className=" text-left mr-5"
+                                                        style={{ fontSize: fontSize }}
+                                                    >
+                                                        {q.QuestionMark}
+                                                    </div>
+                                                </div>
+
+                                                <ul className="ml-6 mt-2 text-gray-700 space-y-[0.5] grid grid-cols-2"
+                                                    style={{ fontSize: fontSize }}
+                                                >
+                                                    {[q.Option1, q.Option2, q.Option3, q.Option4].map((opt, i) => (
+                                                        <li key={i}>
+                                                            <span className="mr-2">
+                                                                {bulletPoint?.[i] || ""}.
+                                                            </span>
+                                                            {opt}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                                {showExplanation === "yes" && q.Explanation && (
+                                                    <blockquote className="my-4 ml-4 border-l-4 border-blue-400 bg-blue-50 px-4 py-3 rounded-md shadow-sm">
+                                                        <p className="text-gray-700 mt-1" style={{ fontSize: fontSize }}>
+                                                            ✅ উত্তর: <span className="font-normal">{q.CorrectAnswer}</span>
+                                                        </p>
+                                                        <p className="text-gray-600 mt-2 leading-relaxed" style={{ fontSize: fontSize }}>
+                                                            📖 ব্যাখ্যা: <span className="font-normal">{q.Explanation}</span>
+                                                        </p>
+                                                    </blockquote>
+                                                )}
                                             </div>
-                                            <div className=" text-left mr-5"
-                                                style={{ fontSize: fontSize }}
+                                        ))
+
+                                        :
+                                        questions.map((q, index) => (
+                                            <div
+                                                key={index}
+                                                className="question-block"
                                             >
-                                                {q.QuestionMark}
-                                            </div>
-                                        </div>
+                                                <div className=" flex items-center justify-between ">
+                                                    <div className=" flex items-center gap-2"
+                                                        style={{ fontSize: fontSize }}
+                                                    >
+                                                        <p>
+                                                            {serial[index]}
+                                                            <span className="mx-2">
+                                                                {q.Question}
+                                                            </span>
+                                                        </p>
+                                                        {/* Minus button */}
+                                                        {
+                                                            showMinusBtn === "yes" &&
+                                                            <button
+                                                                onClick={() => removeQuestion(index)}
+                                                                className="text-red-600 font-bold ml-4"
+                                                                title="Remove Question"
+                                                            >
+                                                                −
+                                                            </button>}
 
-                                        <ul className="ml-6 mt-2 text-gray-700 space-y-[0.5] grid grid-cols-2"
-                                            style={{ fontSize: fontSize }}
-                                        >
-                                            {[q.Option1, q.Option2, q.Option3, q.Option4].map((opt, i) => (
-                                                <li key={i}>
-                                                    <span className="mr-2">
-                                                        {bulletPoint?.[i] || ""}.
-                                                    </span>
-                                                    {opt}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                        {showExplanation === "yes" && q.Explanation && (
-                                            <blockquote className="my-4 ml-4 border-l-4 border-blue-400 bg-blue-50 px-4 py-3 rounded-md shadow-sm">
-                                                <p className="text-gray-700 mt-1" style={{ fontSize: fontSize }}>
-                                                    ✅ উত্তর: <span className="font-normal">{q.CorrectAnswer}</span>
-                                                </p>
-                                                <p className="text-gray-600 mt-2 leading-relaxed" style={{ fontSize: fontSize }}>
-                                                    📖 ব্যাখ্যা: <span className="font-normal">{q.Explanation}</span>
-                                                </p>
-                                            </blockquote>
-                                        )}
-                                    </div>
-                                ))}
+                                                    </div>
+                                                    <div className=" text-left mr-5"
+                                                        style={{ fontSize: fontSize }}
+                                                    >
+                                                        {q.QuestionMark}
+                                                    </div>
+                                                </div>
+
+                                              
+                                            </div>
+                                        ))
+                                }
                             </div>
                         )}
                     </div>

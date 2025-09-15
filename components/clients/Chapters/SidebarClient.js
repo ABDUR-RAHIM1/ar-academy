@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { SidebarIcon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import { IoClose } from 'react-icons/io5';
 
 export default function SidebarClient({ chapterItems, paramsName, subIdentifier }) {
     const [isOpen, setIsOpen] = useState(true);
@@ -22,22 +23,28 @@ export default function SidebarClient({ chapterItems, paramsName, subIdentifier 
 
     return (
         <>
-            {/* Sidebar Toggle Button - show only when sidebar is hidden */}
-            {!isOpen && (
-                <div onClick={toggleSidebar} className='z-30 fixed top-[80px] md:top-[95px] left-2 cursor-pointer transition-all'>
-                    <div className='bg-indigo-50 p-2' title='সাইডবার ওপেন করো'>
-                        <SidebarIcon className='font-bold text-2xl color1' />
-                    </div>
+            {/* Sidebar Toggle Button - শুধুমাত্র mobile এ show করবে */}
+            <div
+                onClick={toggleSidebar}
+                className={`z-30 fixed top-[80px] md:top-[110px]  cursor-pointer transition-all ${isOpen ? "left-[240px]" : "left-2 "}`}
+            >
+                <div className='bg-indigo-50 p-2 rounded shadow' title={isOpen ? 'সাইডবার ক্লোজ করো' : 'সাইডবার ওপেন করো'}>
+
+                    {
+                        isOpen ? <IoClose className='font-bold text-2xl text-red-500 md:hidden'  /> : <SidebarIcon className='font-bold text-2xl color1' />
+                    }
                 </div>
-            )}
+            </div>
 
             {/* Sidebar */}
-            <div className={`${isOpen ? "scale-x-100" : "scale-x-0"} origin-left transition-all 
+            <div
+                className={`${isOpen ? "scale-x-100" : "scale-x-0"} origin-left transition-all 
                 h-screen p-5 bg-indigo-50 
                 absolute md:static w-[250px]
-                top-[70px] left-0 
-                overflow-y-auto border-r-blue-500 border-2`}>
-
+                top-[70px] md:top-[80px] 
+                md:right-0 md:left-auto 
+                overflow-y-auto border-l-2 border-blue-500 md:border-r-0`}
+            >
                 <h2 className='my-5 text-center'>{paramsName}</h2>
 
                 {chapterItems && chapterItems.map((sub, index) => {

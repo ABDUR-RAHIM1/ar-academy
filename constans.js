@@ -16,6 +16,16 @@ export const adminLogin = "/auth-admin"
 //  get token api // akhn use hocce na , delete korte hbe pore
 export const getTokenApi = "/api/get-token/"
 
+//  Course Start Here
+export const courseCreate = process.env.NEXT_PUBLIC_COURSE_CREATE
+export const courseGetAll = process.env.NEXT_PUBLIC_COURSE_GET_ALL
+export const courseGetSingle = process.env.NEXT_PUBLIC_COURSE_GET_SINGLE
+export const courseUpdate = process.env.NEXT_PUBLIC_COURSE_UPDATE
+export const courseDelete = process.env.NEXT_PUBLIC_COURSE_DELETE
+//  Course End Here
+
+
+
 // 1 Categories Start
 export const categorieGetAll = process.env.NEXT_PUBLIC_CATEGORIE_GET;
 export const categoriePost = process.env.NEXT_PUBLIC_CATEGORIE_POST;

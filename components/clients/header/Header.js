@@ -28,10 +28,10 @@ export default function Header() {
             item: "সমস্ত ক্যাটাগরি",
             path: "/categories",
         },
-        // {
-        //     item: "জব পোষ্ট",
-        //     path: "/job-post",
-        // },
+        {
+            item: "কোর্স সমূহ",
+            path: "/courses",
+        },
         {
             item: "পরীক্ষা দিন",
             path: "/exam",

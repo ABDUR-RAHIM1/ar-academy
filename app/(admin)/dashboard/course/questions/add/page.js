@@ -34,7 +34,9 @@ export default function AddQuestion() {
         isAllTitle: "",
         questions: [],
         type: "",
-        duration: ""
+        duration: "",
+        startDate: "",
+        startTime: ""
     });
 
 
@@ -130,7 +132,7 @@ export default function AddQuestion() {
 
 
     //  handle type change
-    const handleTypeChange = (typeValue) => { 
+    const handleTypeChange = (typeValue) => {
         setFormData((prev) => ({
             ...prev,
             type: typeValue
@@ -173,7 +175,8 @@ export default function AddQuestion() {
             setLoading(false)
         }
     }
- 
+
+
 
     return (
         <div className=' my-10'>
@@ -316,15 +319,33 @@ export default function AddQuestion() {
 
                 {/* duration*/}
                 <div className='my-4'>
-                    <div className=' my-4'>
+                    <div className=' grid grid-cols-2 gap-2'>
                         <InputField
-                            name={"duration"}
-                            label={"পরীক্ষার সময়সীমা (মিনিট)"}
+                            type={"date"}
+                            name={"startDate"}
+                            label={"পরীক্ষা শুরুর তারিখ"}
                             value={formData.duration}
                             placeholder={"সময়সীমা"}
-                            handler={(e) => setFormData((prev) => ({ ...prev, duration: e.target.value }))}
+                            handler={(e) => setFormData((prev) => ({ ...prev, startDate: e.target.value }))}
+                        />
+                        <InputField
+                            type={"time"}
+                            name={"startTime"}
+                            label={"পরীক্ষার শুরুর সময়"}
+                            value={formData.duration}
+                            placeholder={"সময়সীমা"}
+                            handler={(e) => setFormData((prev) => ({ ...prev, startTime: e.target.value }))}
                         />
                     </div>
+
+                    <InputField
+                        name={"duration"}
+                        label={"পরীক্ষার সময়সীমা (মিনিট)"}
+                        value={formData.duration}
+                        placeholder={"সময়সীমা"}
+                        handler={(e) => setFormData((prev) => ({ ...prev, duration: e.target.value }))}
+                    />
+
                 </div>
 
 

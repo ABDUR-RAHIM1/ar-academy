@@ -9,6 +9,7 @@ import QuestionSheetPreview from "./QuestionSheetPreview";
 import { Label } from "@/components/ui/label";
 import DatabaseQuestionModal from "./QuestionModal";
 import { EyeIcon } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 export default function MakeQuestionsForm() {
 
@@ -24,7 +25,7 @@ export default function MakeQuestionsForm() {
         subject: "",
         fontSize: "",
         type: "bangla",
-        questionFormat: "",
+        questionFormat: "mcq",
         isExplanation: "no",
         isDeleteButton: "no"
     })
@@ -244,13 +245,27 @@ export default function MakeQuestionsForm() {
 
 
                     <div className=" grid grid-cols-1 md:grid-cols-2 gap-x-2">
-                        <InputField
-                            name={"QuestionMark"}
-                            handler={handleSheetMainChange}
-                            placeholder={"প্রশ্ন প্রতি মার্কস"}
-                            label={"মার্কস"}
 
-                        />
+
+                        {
+                            sheetHead.questionFormat === "mcq" ?
+                                <div className="mt-2">
+                                    <Label className={"text-red-500"}>মার্কস (শুধুমাত্র লিখিত পরিক্ষার জন্য প্রযোজ্য) </Label>
+                                    <Input
+                                        disabled
+                                        placeholder={"প্রশ্ন প্রতি মার্কস"}
+                                    />
+                                </div>
+                                :
+                                <InputField
+                                    name={"QuestionMark"}
+                                    handler={handleSheetMainChange}
+                                    placeholder={"প্রশ্ন প্রতি মার্কস"}
+                                    label={"মার্কস"}
+                                    value={sheetHead.QuestionMark}
+                                />
+                        }
+
                         <InputField
                             name={"Question"}
                             handler={handleSheetMainChange}
@@ -309,6 +324,6 @@ export default function MakeQuestionsForm() {
                 />
             }
 
-        </div>
+        </div >
     );
 }

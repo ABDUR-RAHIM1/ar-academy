@@ -54,7 +54,7 @@ export default function SolutionTable({ solutionTable }) {
                             className="p-5 bg-white border rounded-md shadow-sm hover:shadow-lg transition-shadow duration-300"
                         >
                             {/* Question */}
-                            <p className="font-semibold text-lg mb-3 underline text-gray-800">
+                            <p className="font-semibold text-lg mb-3  text-blue-800">
                                 প্রশ্ন {item.ID} / {item.Question}
                             </p>
 
@@ -66,21 +66,14 @@ export default function SolutionTable({ solutionTable }) {
                                 {item.Option4 && <li>⏺ ঘ) {item.Option4}</li>}
                             </ul>
 
-                            {/* Toggle Answer Button */}
-                            {/* <button
-                                onClick={() => toggleAnswer(item.ID)}
-                                className=" border px-2 py-1 rounded-md mt-4 text-blue-600 hover:text-blue-800 font-medium focus:outline-none"
-                            >
-                                {openAnswers[item.ID] ? '➖ উত্তর লুকাও' : '➕ উত্তর দেখাও'}
-                            </button> */}
-
+                         
                             {/* Extra Reference Buttons (Always Shown) */}
                             <div className='mt-4 flex flex-wrap gap-3'>
 
                                 {/* Detailed Explanation */}
                                 <button
                                     onClick={() => toggleAnswer(item.ID)}
-                                    className="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 rounded hover:bg-green-200 transition"
+                                    className="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 rounded-full hover:bg-green-200 transition text-sm"
                                 >
                                     <FileText size={18} />
                                     বিস্তারিত ব্যাখ্যা
@@ -90,20 +83,14 @@ export default function SolutionTable({ solutionTable }) {
                                 {/* YouTube Video */}
                                 <button
                                     onClick={() => alert("এই প্রশ্নের জন্য কোন ভিডিও নেই")}
-                                    className="flex items-center gap-2 px-4 py-2 bg-red-100 text-red-800 rounded hover:bg-red-200 transition"
+                                    className="flex items-center gap-2 px-4 py-2 bg-red-100 text-red-800 rounded-full hover:bg-red-200 transition text-sm"
                                 >
                                     <Youtube size={18} />
                                     ভিডিও দেখুন
                                 </button>
 
                                 {/* PDF Download */}
-                                <button
-                                  onClick={() => alert("এই প্রশ্নের জন্য কোন PDF নেই")}
-                                    className="flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-800 rounded hover:bg-blue-200 transition"
-                                >
-                                    <FileDown size={18} />
-                                    PDF ডাউনলোড
-                                </button>
+
                             </div>
 
                             {/* Answer & Explanation */}
