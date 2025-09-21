@@ -3,6 +3,22 @@ https://hosthad.com/#hosting-pricing
  admin88888888
 
 
+{
+   modify korte hobe: 
+   1. user athentication er jonno simple model,
+     [
+      model alada kora hoyece,
+      register , login kaj korteche
+      ----
+       baki ace : profile model update, get, etc 
+      ----
+     ]
+
+   =>. purchasePlan model change kore purchaseCoourse rakhte hbe 
+   2. user profile er jonno alada model.
+   3. user model a purchaseCoourse Field , userType.
+   4. 
+}
 
  
  API -[

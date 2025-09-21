@@ -1,8 +1,8 @@
 import { getAllCourse } from "@/app/apiActions/Course";
 import NoData from "@/utils/NoData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import Heading from "@/components/clients/globals/Heading";
+import CoursePreview from "@/components/courseActions/CoursePreview";
 
 export default async function Courses() {
 
@@ -27,15 +27,15 @@ export default async function Courses() {
                                 {course.title}
                             </CardTitle>
                             <p className="text-sm text-gray-600 font-bold underline">
-                                যে বিষয়গুলোর উপর পরিক্ষা হবেঃ 
+                                যে বিষয়গুলোর উপর পরিক্ষা হবেঃ
                             </p>
                             <ul className={" ml-4 list-disc"}>
                                 {
                                     course.shortDesc && course.shortDesc.split(",").map((item, index) => (
-                                        <li key={index}>  
-                                            {item} 
-                                        </li>   
-                                    ))  
+                                        <li key={index}>
+                                            {item}
+                                        </li>
+                                    ))
                                 }
                             </ul>
                         </CardHeader>
@@ -50,7 +50,7 @@ export default async function Courses() {
                                 </p>
                             </div>
 
-                            <Button className="w-full rounded-xl bg-blue-700 hover:bg-blue-500">কোর্স কিনুন</Button>
+                            <CoursePreview courseId={course._id} />
                         </CardContent>
                     </Card>
                 ))}

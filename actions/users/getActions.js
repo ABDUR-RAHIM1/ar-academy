@@ -6,7 +6,8 @@ import getToken from "../getToken/getToken";
 export const getsActions = async (endpoint, revalidateTime = 5) => {
     const token = await getToken();
     // revalidateTime  => pass from page
-    
+    console.log({ endpoint })
+
     const res = await fetch(API_URL + endpoint, {
         method: "GET",
         next: { revalidate: revalidateTime },

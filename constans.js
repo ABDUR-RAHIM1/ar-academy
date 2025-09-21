@@ -111,10 +111,10 @@ export const commentDelete = process.env.NEXT_PUBLIC_COMMENT_DELETE
 
 
 //  Purchase Plan Start
-export const purchasePlan = process.env.NEXT_PUBLIC_PLAN_PURCHASE;
-export const assignPurchasePlan = process.env.NEXT_PUBLIC_PLAN_PURCHASE_BY_ADMIN;
-export const purchasePlanGetAll = process.env.NEXT_PUBLIC_MY_PLAN_ALL
-export const purchaseMyPlanDelete = process.env.NEXT_PUBLIC_MY_PLAN_DELETE
+export const purchaseCourse = process.env.NEXT_PUBLIC_PLAN_PURCHASE;
+export const assignPurchaseCourse = process.env.NEXT_PUBLIC_PLAN_PURCHASE_BY_ADMIN;
+export const purchaseCourseGetAll = process.env.NEXT_PUBLIC_MY_PLAN_ALL
+export const purchaseMyCourseDelete = process.env.NEXT_PUBLIC_MY_PLAN_DELETE
 //  Purchase Plan End
 
 
@@ -142,7 +142,7 @@ export const chapterListDelete = process.env.NEXT_PUBLIC_DELETE_CHAPTER
 
 export const questionSheetCreate = process.env.NEXT_PUBLIC_CREATE_QUESTIONSHEET
 export const questionSheetGetAll = process.env.NEXT_PUBLIC_QUESTIONSHEET_GET_ALL  // just overview
-export const questionSheetGetById = process.env.NEXT_PUBLIC_QUESTIONSHEET_GET_BY_ID  
+export const questionSheetGetById = process.env.NEXT_PUBLIC_QUESTIONSHEET_GET_BY_ID
 export const questionSeetGetByQuery = process.env.NEXT_PUBLIC_QUESTIONSHEET_GET_BY_QUERY // single for details by _id
 export const questionSheetupdate = process.env.NEXT_PUBLIC_UPDATE_QUESTIONSHEET
 export const questionSheetListDelete = process.env.NEXT_PUBLIC_DELETE_QUESTIONSHEET

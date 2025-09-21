@@ -97,8 +97,7 @@ export default function DashboardState({ children }) {
 
     //  admin Context
     const [isOpen, setIsOpen] = useState(true);
-    const [editData, setEditData] = useState({});
-    const [planInfo, setPlanInfo] = useState({});
+    const [editData, setEditData] = useState({}); 
 
     // Function to show toast
     // const showToast = (status, data) => {
@@ -179,7 +178,6 @@ export default function DashboardState({ children }) {
         showSearchBar, setShowSearchBar,
         isOpen, setIsOpen,
         editData, setEditData,
-        planInfo, setPlanInfo,
     }
 
 

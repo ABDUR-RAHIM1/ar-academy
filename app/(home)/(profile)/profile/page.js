@@ -1,6 +1,5 @@
 import React from 'react';
-import { FiClock } from 'react-icons/fi';
-import { BsPatchCheckFill } from 'react-icons/bs';
+import { FiClock } from 'react-icons/fi'; 
 import { getUserAccount } from '@/app/apiActions/userInformantion';
 import Image from 'next/image';
 import ProfileEditButton from '@/components/clients/profile/ProfileEditButton';
@@ -8,23 +7,10 @@ import PlanDetails from '@/components/clients/profile/PlanDetails';
 
 //  profile home page
 const ProfileDashboard = async () => {
-    const user = {
-        name: "Rahim Uddin",
-        email: "rahim@example.com",
-        joined: "January 2024",
-        lastLogin: "May 4, 2025",
-        photo: "",
-        coursesBought: 5,
-        examsTaken: 12,
-        avgResult: 84,
-        recentCourses: [
-            { title: "BCS Special", progress: 75 },
-            { title: "Bank Job", progress: 45 },
-        ],
-        achievements: ["Top Contributor", "Top Scorer"],
-    };
 
     const { status, data } = await getUserAccount();
+
+    console.log(data) 
 
     if (status !== 200 || !data) {
         return "no data found"

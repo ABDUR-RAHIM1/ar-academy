@@ -1,11 +1,11 @@
 "use client"
 import DeleteUserActionButton from '@/actions/Buttons/DeleteUserActionButton'
-import { purchaseMyPlanDelete } from '@/constans'
+import { purchaseMyCourseDelete } from '@/constans'
 import React from 'react'
 
 export default function DeletePlanButton({ planId }) {
 
     return (
-        <DeleteUserActionButton btnText={" আপনার প্লান ডিলিট করুন"} deleteRoute={purchaseMyPlanDelete + planId} width={"200px"} />
+        <DeleteUserActionButton btnText={" আপনার প্লান ডিলিট করুন"} deleteRoute={purchaseMyCourseDelete + planId} width={"200px"} />
     )
 }

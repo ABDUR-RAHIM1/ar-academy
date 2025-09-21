@@ -1,7 +1,7 @@
 "use client"
 import getToken from '@/actions/getToken/getToken';
 import { postActionUser } from '@/actions/users/postActions';
-import { purchasePlan, userRegister } from '@/constans';
+import { purchaseCourse, userRegister } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState'
 import { useRouter } from 'next/navigation'
 import React, { useContext, useState } from 'react'
@@ -28,7 +28,7 @@ export default function SubScribeButton({ planInfoData }) {
 
             const payload = {
                 method: "POST",
-                api: purchasePlan,
+                api: purchaseCourse,
                 body: {
                     plan: planInfoData
                 }
