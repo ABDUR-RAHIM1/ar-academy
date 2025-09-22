@@ -16,7 +16,7 @@ export default function CoursePurchaseButton({ courseId }) {
     //  submit 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true)
+
         const token = await getToken();
 
         if (!token) {
@@ -28,7 +28,7 @@ export default function CoursePurchaseButton({ courseId }) {
             showToast(404, "কোর্স কিনতে ব্যর্থ!");
             return
         }
-
+        setLoading(true)
         try {
 
             setLoading(true);

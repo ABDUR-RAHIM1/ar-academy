@@ -1,9 +1,21 @@
 import React from 'react';
-import DeletePlanButton from './DeletePlanButton';
+import { getMyPurchaseCourse } from '@/app/apiActions/purchase';
+import NoData from '@/utils/NoData';
 
-export default function PlanDetails({ plan }) {
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Calendar, CreditCard, Link as LinkIcon, Tag } from "lucide-react";
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+export default async function PlanDetails({ userId }) {
 
-    if (!plan) {
+    const { status, data: purchasedCourses } = await getMyPurchaseCourse();
+  
+
+    if (status !== 200 || !purchasedCourses) {
+        return <NoData />
+    }
+
+    if (!userId || purchasedCourses?.length < 1) {
         return (
             <div className="w-full bg-gradient-to-r from-blue-100 to-indigo-100 p-4 md:p-8 text-center rounded-xl shadow-lg my-6">
                 <h2 className="text-2xl md:text-3xl font-bold text-red-500 mb-4">আপনি এখনও কোনো প্ল্যান কেনেননি</h2>
@@ -19,43 +31,100 @@ export default function PlanDetails({ plan }) {
         );
     }
 
-    const purchaseDate = new Date(plan.purchaseDate).toLocaleDateString('bn-BD', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    });
-
-    const endDate = new Date(plan.endDate).toLocaleDateString('bn-BD', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    });
 
     return (
-        <div className="w-full bg-gradient-to-br from-gray-100 to-blue-50 p-4 md:p-8 shadow-xl rounded-xl my-6">
-            <h2 className="text-3xl font-bold mb-6 text-center text-indigo-700">{plan.planLabel}</h2>
+        <div className="max-w-4xl mx-auto p-6 space-y-4">
+            <h1 className="text-2xl font-bold text-center mb-6">
+                🎓 আমার কোর্স সমূহ
+            </h1>
 
-            <div className="flex flex-col md:flex-row md:justify-around md:items-center gap-6 mb-8">
-                <p className="text-lg text-gray-800">দাম: <span className="font-bold text-blue-800">৳{plan.price}</span></p>
-                <p className="text-blue-700">কেনার তারিখ: <span className="font-medium">{purchaseDate}</span></p>
-                <p className="text-indigo-700">মেয়াদ শেষ হবে: <span className="font-medium">{endDate}</span></p>
-            </div>
+            {purchasedCourses.map((item) => (
+                <Card
+                    key={item._id}
+                    className="shadow-md rounded-2xl border border-gray-200"
+                >
+                    <CardHeader>
+                        <CardTitle className="flex justify-between items-center">
+                            <span>{item.course.title}</span>
+                            <div className="text-right">
+                                <p className="text-sm line-through text-gray-400">
+                                    ৳ {item.course.regularPrice}
+                                </p>
+                                <p className="text-lg font-bold text-green-600">
+                                    ৳ {item.course.offerPrice}
+                                </p>
+                            </div>
+                        </CardTitle>
+                    </CardHeader>
 
-            <div className="bg-white p-3 md:p-6 rounded-lg shadow-inner max-w-4xl mx-auto border border-blue-100">
-                <h3 className="font-semibold mb-4 text-lg text-blue-700">পেমেন্ট তথ্য</h3>
-                <p className="mb-2"><strong>ট্রানজেকশন আইডি:</strong> {plan.paymentDetails.transactionId}</p>
-                <p className="mb-2"><strong>পেমেন্ট মাধ্যম:</strong> {plan.paymentDetails.paymentMethod}</p>
-                <p><strong>পেমেন্ট স্ট্যাটাস:</strong> {plan.paymentDetails.paymentStatus}</p>
-            </div>
+                    <div className=' my-4 flex items-center justify-center'>
+                        <Button asChild className={" rounded-full w-[250px] bg-blue-500 text-white"}>
+                            <Link href={"/exam"}>
+                                প্রশ্ন গুলো দেখুন
+                            </Link>
+                        </Button>
+                    </div>
 
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-6">
+                    <CardContent className="space-y-3 text-sm text-gray-700">
+                        {/* Short Desc */}
+                        <p className="whitespace-pre-line">{item.course.shortDesc}</p>
 
-                <p className={` text-[16px] md:text-xl font-bold ${plan.status === 'active' ? 'text-green-600' : 'text-red-600'}`}>
-                    স্ট্যাটাস: {plan.status === 'active' ? 'সক্রিয়' : plan.status}
-                </p>
+                        {/* Description */}
+                        <div>
+                            <h3 className="font-semibold mb-1">📖 কোর্সের বিস্তারিত:</h3>
+                            <p className="whitespace-pre-line">{item.course.description}</p>
+                        </div>
 
-                <DeletePlanButton planId={plan._id} />
-            </div>
+                        {/* Links */}
+                        <div>
+                            <h3 className="font-semibold mb-1 flex items-center gap-2">
+                                <LinkIcon className="h-4 w-4" /> রিসোর্স সমূহ:
+                            </h3>
+                            <ul className="list-disc list-inside space-y-1">
+                                {item.course.links.map((link) => (
+                                    <li key={link._id}>
+                                        <a
+                                            href={link.path}
+                                            target="_blank"
+                                            className="text-blue-600 hover:underline"
+                                        >
+                                            {link.itemName || "N/A"}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Payment Info */}
+                        <div className="flex items-center gap-2">
+                            <CreditCard className="h-4 w-4" />
+                            <span>
+                                Payment: {item.paymentDetails.paymentMethod} (Txn:{" "}
+                                {item.paymentDetails.transactionId})
+                            </span>
+                        </div>
+
+                        {/* Created / Updated */}
+                        <div className="flex justify-between text-xs text-gray-500">
+                            <span>
+                                কিনেছেন:{" "}
+                                {new Date(item.course.createdAt).toLocaleDateString("bn-BD")}
+                            </span>
+                            {/* End Date */}
+                            <div className="flex items-center gap-2 text-red-500">
+                                <Calendar className="h-4 w-4" />
+                                <span>
+                                    মেয়াদ শেষ হবে:{" "}
+                                    {new Date(item.endDate).toLocaleDateString("bn-BD")}
+                                </span>
+                            </div>
+                        </div>
+
+
+
+                    </CardContent>
+                </Card>
+            ))}
         </div>
     );
 }

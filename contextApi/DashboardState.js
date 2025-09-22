@@ -97,7 +97,7 @@ export default function DashboardState({ children }) {
 
     //  admin Context
     const [isOpen, setIsOpen] = useState(true);
-    const [editData, setEditData] = useState({}); 
+    const [editData, setEditData] = useState({});
 
     // Function to show toast
     // const showToast = (status, data) => {
@@ -120,7 +120,7 @@ export default function DashboardState({ children }) {
         if (status === 200 || status === 201) {
             toast.success(message, {
                 duration: finalAutoClose ? 3000 : Infinity,
-                position: "bottom-left",
+                position: "top-right",
                 style: {
                     border: '1px solid #4caf50',
                     padding: '12px 16px',
@@ -163,7 +163,7 @@ export default function DashboardState({ children }) {
                         ✖
                     </button>
                 </div>
-            ), { duration: 15000, position: "bottom-left", });
+            ), { duration: 10000, position: "top-right", });
         }
     };
 

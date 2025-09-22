@@ -26,6 +26,7 @@ export default function CourseAdd() {
         offerPrice: 0
     });
 
+    console.log(formData)
 
 
     const handleChange = (e) => {

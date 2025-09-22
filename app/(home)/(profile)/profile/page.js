@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiClock } from 'react-icons/fi'; 
+import { FiClock } from 'react-icons/fi';
 import { getUserAccount } from '@/app/apiActions/userInformantion';
 import Image from 'next/image';
 import ProfileEditButton from '@/components/clients/profile/ProfileEditButton';
@@ -10,7 +10,6 @@ const ProfileDashboard = async () => {
 
     const { status, data } = await getUserAccount();
 
-    console.log(data) 
 
     if (status !== 200 || !data) {
         return "no data found"
@@ -108,7 +107,7 @@ const ProfileDashboard = async () => {
                 </div>
             </div>
 
-            <PlanDetails plan={data?.plan} />
+            <PlanDetails userId={data?._id} />
 
             {/* extra information add  next time */}
 

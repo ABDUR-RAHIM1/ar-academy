@@ -5,6 +5,7 @@ https://hosthad.com/#hosting-pricing
 
 {
    modify korte hobe: 
+   admin model ke alad korte hbe 
    1. user athentication er jonno simple model,
      [
       model alada kora hoyece,

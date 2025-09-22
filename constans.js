@@ -113,6 +113,7 @@ export const commentDelete = process.env.NEXT_PUBLIC_COMMENT_DELETE
 //  Purchase Plan Start
 export const purchaseCourse = process.env.NEXT_PUBLIC_PLAN_PURCHASE;
 export const assignPurchaseCourse = process.env.NEXT_PUBLIC_PLAN_PURCHASE_BY_ADMIN;
+export const purchaseCourseGetMe = process.env.NEXT_PUBLIC_MY_PLAN_ME
 export const purchaseCourseGetAll = process.env.NEXT_PUBLIC_MY_PLAN_ALL
 export const purchaseMyCourseDelete = process.env.NEXT_PUBLIC_MY_PLAN_DELETE
 //  Purchase Plan End
