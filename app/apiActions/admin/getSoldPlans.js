@@ -1,7 +1,7 @@
 import { getsActions } from "@/actions/admins/getsAction"
-import { purchasePlanGetAll } from "@/constans";
+import { purchaseCourseGetAll } from "@/constans";
 
 export const getSoldPlans = async () => {
-    const solds = await getsActions(purchasePlanGetAll)
+    const solds = await getsActions(purchaseCourseGetAll)
     return solds;
 }

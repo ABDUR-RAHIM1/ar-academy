@@ -86,6 +86,9 @@ export const planUpdate = "/api/plan/update/"
 
 //  user Start here ============================================================
 
+export const adminAccountregister = "/api/account/admin/register"
+export const adminAccountLogin = "/api/account/admin/login/"
+
 export const accountRegister = "/api/account/register"
 export const resentVerificationEmail = "/api/account/resend-verification-email"
 export const accountLogin = "/api/account/login"

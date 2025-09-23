@@ -10,6 +10,7 @@ export default async function CoursePreview({ params }) {
 
     const { status, data: course } = await getSignleCourse(courseId);
 
+
     if (status !== 200 || !course) {
         return <NoData />
     }
@@ -34,9 +35,16 @@ export default async function CoursePreview({ params }) {
                     <h3 className=' color2 text-lg font-bold my-2 underline '>
                         বিস্তারিতঃ
                     </h3>
-                    <p className="text-gray-600 whitespace-pre-line leading-relaxed">
+                    {/* <p className="text-gray-600 whitespace-pre-line leading-relaxed">
                         {course.description}
-                    </p>
+                    </p> */}
+                    <ul className="text-gray-600 ml-3 list-disc">
+                        {course.description &&
+                            course.description.split(",").map((item, index) => (
+                                <li key={index}> {item}</li>
+                            ))
+                        }
+                    </ul>
                 </div>
 
 

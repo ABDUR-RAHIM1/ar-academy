@@ -1,6 +1,6 @@
 "use client"
 import { postActions } from '@/actions/admins/postActions';
-import { accountLogin } from '@/constans';
+import { accountLogin, adminAccountLogin } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import { InputField } from '@/utils/InputFIled';
 import ResentEmailVerification from '@/utils/ResentEmailVerification';
@@ -20,7 +20,7 @@ export default function AdminLogin() {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
-        role: "admin"
+        role: "superAdmin"
     })
 
 
@@ -39,7 +39,7 @@ export default function AdminLogin() {
             const payload = {
                 method: "POST",
                 body: formData,
-                api: accountLogin
+                api: adminAccountLogin
             }
             const { status, data } = await postActions(payload)
             showToast(status, data);
@@ -60,7 +60,7 @@ export default function AdminLogin() {
     };
 
 
-
+    console.log(formData)
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-indigo-200 to-purple-200 px-4">
@@ -84,6 +84,11 @@ export default function AdminLogin() {
                             placeholder="🔒 পাসওয়ার্ড লিখুন"
                             handler={handleChange}
                         />
+                        <select name={'role'} value={formData.role} onChange={handleChange} className='p-2 border w-full my-3 rounded-md'>
+                            <option value="admin">রোল বাছাই করুন</option>
+                            <option value="superAdmin">এডমিন</option>
+                            <option value="moderator">মডারেটর</option>
+                        </select>
                     </div>
 
                     <SubmitButton
