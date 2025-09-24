@@ -26,18 +26,7 @@ export default function CourseTable({ data }) {
             selector: row => row.title,
             wrap: true
         },
-        {
-            name: "Short Desc",
-            selector: row => <ul className='ml-3 space-y-2 list-disc my-4'>
-                {
-                    row.shortDesc && row.shortDesc.split(",")
-                        .map((item, index) => (
-                            <li key={index}>{item}</li>
-                        ))
-                }
-            </ul>,
-            wrap: true
-        },
+
         {
             name: "Links",
             selector: row => <ul className='ml-3 space-y-2 list-disc my-4'>
@@ -70,6 +59,33 @@ export default function CourseTable({ data }) {
         },
     ]
 
+    const ExpandedRows = ({ data }) => {
+        return (
+            <div className=' flex items-start gap-5'>
+                <ul className=' w-full md:w-[30%]  ml-3 space-y-2 list-disc my-4'>
+                    <h3 className='my-2 font-bold'> Short Description:</h3>
+                    {
+                        data.shortDesc && data.shortDesc.split(",")
+                            .map((item, index) => (
+                                <li key={index}>{item}</li>
+                            ))
+                    }
+                </ul>
+                <ul className=' w-full md:w-[68%] ml-3 space-y-2 list-disc my-4'>
+                    <h3 className='my-2 font-bold'>  Description:</h3>
+                    {
+                        data.description && data.description.split(",")
+                            .map((item, index) => (
+                                <li key={index}>{item}</li>
+                            ))
+                    }
+                </ul>
+            </div>
+        )
+    }
+
+
+
     return (
         <div className=' bg-white rounded-md p-2'>
             <Heading text={"কোর্স তালিকা"} />
@@ -79,6 +95,8 @@ export default function CourseTable({ data }) {
                 responsive
                 pagination
                 highlightOnHover
+                expandableRows
+                expandableRowsComponent={ExpandedRows}
             />
         </div>
     )

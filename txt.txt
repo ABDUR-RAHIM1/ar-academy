@@ -5,7 +5,7 @@ https://hosthad.com/#hosting-pricing
 
 {
    modify korte hobe: 
-   admin model ke alad korte hbe 
+   kalke exam page er moddhe time coutDown modify korte hbe ebong passFaild, sothik TIme a exam dite pereche kina etc checker
    1. user athentication er jonno simple model,
      [
       model alada kora hoyece,
