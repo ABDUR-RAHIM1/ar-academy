@@ -1,7 +1,6 @@
 import { getChapterWithContent } from '@/app/apiActions/chapters';
 import React from 'react'
-import { CommentSection } from '../../Comments';
-import Link from 'next/link';
+import { CommentSection } from '../../Comments'; 
 import WrittenSolutions from '../../WrittenSolutions';
 import EditorSolutions from '../../EditorSolutions';
 import SolutionTable from '../../SolutionTable';
@@ -96,16 +95,7 @@ export default async function ChapterDetails({ params }) {
                         </div>
                     </div>
 
-                    <div className='my-5 text-center px-2'>
-                        <Link
-                            href={`/exam/chapter/${chapterDetails._id}`}
-                            className='inline-block py-3 px-5 bg1 text-white font-semibold text-lg rounded-md shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg'>
-
-                            {`পরীক্ষা দিন 🚀`}
-                            {/* {`📖 ${subIdentifier}  বিষয়ের উপর পরীক্ষা দিন 🚀`} */}
-                        </Link>
-                    </div>
-
+            
                     <CommentSection chapterId={chapterDetails._id} />
                 </div>
 

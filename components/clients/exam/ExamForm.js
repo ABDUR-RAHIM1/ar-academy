@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 
 export default function ExamForm({ questionsData }) {
-    const { _id, isAll, isAllTitle, sub_categorie, chapter, duration, questions } = questionsData;
+    const { _id, duration, questions } = questionsData;
 
     const router = useRouter()
     const [loading, setLoading] = useState(false)
@@ -30,26 +30,26 @@ export default function ExamForm({ questionsData }) {
     );
 
     // set subject Head State
-    useEffect(() => {
-        if (isAll) {
-            setQuestionHead((prev) => ({
-                ...prev,
-                questionId: _id,
-                isAll: isAll,
-                isAllTitle: isAllTitle,
-                duration: duration || (questions?.length / 2)
-            }))
-        } else {
-            setQuestionHead((prev) => ({
-                ...prev,
-                questionId: _id,
-                isAll: isAll,
-                sub_categorie: sub_categorie,
-                chapter: chapter,
-                duration: duration || (questions?.length / 2)
-            }))
-        }
-    }, [questionsData])
+    // useEffect(() => {
+    //     if (isAll) {
+    //         setQuestionHead((prev) => ({
+    //             ...prev,
+    //             questionId: _id,
+    //             isAll: isAll,
+    //             isAllTitle: isAllTitle,
+    //             duration: duration || (questions?.length / 2)
+    //         }))
+    //     } else {
+    //         setQuestionHead((prev) => ({
+    //             ...prev,
+    //             questionId: _id,
+    //             isAll: isAll,
+    //             sub_categorie: sub_categorie,
+    //             chapter: chapter,
+    //             duration: duration || (questions?.length / 2)
+    //         }))
+    //     }
+    // }, [questionsData])
 
     //  set usedTime (for Exam) from useContext
     useEffect(() => {
@@ -120,12 +120,14 @@ export default function ExamForm({ questionsData }) {
                 body: resultSheetData
             }
 
-            const { status, data } = await postActionUser(payload);
+            // const { status, data } = await postActionUser(payload);
 
-            showToast(status, data)
-            if (status === 200 || status === 201) {
-                setIsSubmit(true)
-            }
+            // showToast(status, data)
+            // if (status === 200 || status === 201) {
+            //     setIsSubmit(true)
+            // }
+
+            alert("মান উন্নায়নের কাজ চলছে")
 
         } catch (error) {
             console.log(error);
@@ -154,24 +156,7 @@ export default function ExamForm({ questionsData }) {
             </div>
 
             <div className=" my-6 ">
-                {/* Sub-category Name show only if isAll is false */}
-                {!isAll && sub_categorie && (
-                    <div className=" my-4 space-y-2 text-center">
-                        <h1 className="text-xl font-normal text-gray-800">
-                            বিষয়ঃ {sub_categorie.sub_name}
-                        </h1>
-                        <h1 className="text-base font-normal text-gray-800 ">
-                            অধ্যায়ঃ {chapter.chapter_name}
-                        </h1>
-                    </div>
-                )}
 
-                {/* Title for isAll */}
-                {isAll && isAllTitle && (
-                    <h1 className="text-2xl font-bold mb-4 color2">
-                        {isAllTitle}
-                    </h1>
-                )}
 
             </div>
 

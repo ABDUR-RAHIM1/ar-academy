@@ -4,6 +4,8 @@ import EditActionButton from '@/actions/Buttons/EditActionButton';
 import { questionDelete } from '@/constans';
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
+import dayjs from 'dayjs';
+import { getExamStatus } from '@/utils/getExamStatus';
 
 export default function QuestionsTable({ questionsData }) {
     const [questions, setQuestions] = useState([]);
@@ -14,6 +16,23 @@ export default function QuestionsTable({ questionsData }) {
         }
     }, [questionsData]);
 
+    // Expandable row component
+    const ExpandedComponent = ({ data }) => {
+        return (
+            <div className="p-3 bg-gray-50 rounded-md">
+                <p>⏰ Duration: <strong>{data.duration} মিনিট</strong></p>
+                <p>📌 Pass Mark: <strong>{data.passMark}</strong></p>
+                <p>❌ Negative Mark: <strong>{data.nagetiveMark || 0}</strong></p>
+                <p>🔖 Question Type: <strong>{data.questionType.toUpperCase()}</strong></p>
+                <p>📅 Start Date: <strong>{dayjs(data.startDate).format("DD/MM/YYYY")}</strong></p>
+                <p>🕒 Start Time: <strong>{data.startTime}</strong></p>
+                <p>✅ Allow Retake: <strong>{data.allowRetake ? "Yes" : "No"}</strong></p>
+                <p>🔓 Published: <strong>{data.isPublished ? "Yes" : "No"}</strong></p>
+                <p>👥 Participants: <strong>{data.participant?.length || 0}</strong></p>
+            </div>
+        )
+    }
+
     const columns = [
         {
             name: "নং",
@@ -21,33 +40,46 @@ export default function QuestionsTable({ questionsData }) {
             width: "50px"
         },
         {
-            name: "সাবজেক্ট",
-            selector: row => row.isAll ? row.isAllTitle : <div className='my-3'>
-                <p>{row.sub_categorie?.sub_name}</p>
-                <p>{row.chapter?.chapter_name}</p>
-            </div>,
+            name: "কোর্স",
+            selector: row => row?.course?.name || "N/A",
             wrap: true
         },
         {
-            name: "ধরণ",
-            selector: row =>
-                row.isAll ? (
-                    <span className="py-1 px-2 bg-yellow-200 text-yellow-800 rounded-lg text-sm font-medium">
-                        Free Trial
-                    </span>
-                ) : row.type === "free" ? (
-                    <span className="py-1 px-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium">
-                        Free
-                    </span>
-                ) : (
-                    <span className="py-1 px-2 bg-purple-100 text-purple-700 rounded-lg text-sm font-medium">
-                        Premium
-                    </span>
-                )
+            name: "বিষয়",
+            selector: row => row.subjectName,
+            wrap: true
         },
         {
             name: "মোট প্রশ্ন",
             selector: row => row.questionsCount || 0
+        },
+        {
+            name: "শুরুর তারিখ",
+            selector: row => dayjs(row.startDate).format("DD/MM/YYYY")
+        },
+        {
+            name: "শুরুর সময়",
+            selector: row => row.startTime
+        },
+        {
+            name: "সময়",
+            selector: row => `${row.duration || 0} মিনিট`
+        },
+        {
+            name: "স্ট্যাটাস",
+            selector: row => getExamStatus(row),
+            wrap: true,
+            cell: row => {
+                const status = getExamStatus(row);
+                let color = "gray";
+
+                if (status === "চলছে") color = "green";
+                else if (status === "শুরু হয়নি") color = "orange";
+                else if (status === "শেষ হয়ে গেছে") color = "red";
+
+                return <span className={`font-medium text-white px-2 py-1 rounded-full`} style={{ backgroundColor: color }}>{status}</span>
+            },
+            width:"150px"
         },
         {
             name: "আপডেট করুন",
@@ -67,6 +99,8 @@ export default function QuestionsTable({ questionsData }) {
                 data={questions}
                 pagination
                 highlightOnHover
+                expandableRows
+                expandableRowsComponent={ExpandedComponent}
             />
         </div>
     )

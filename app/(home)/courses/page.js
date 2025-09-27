@@ -24,6 +24,7 @@ export default async function Courses() {
                         className="rounded-2xl shadow-md hover:shadow-xl transition"
                     >
                         <CardHeader>
+
                             <CardTitle className="text-lg font-semibold">
                                 <div className=" flex items-center justify-between flex-wrap">
                                     <div className=" flex items-center gap-2 text-blue-600">
@@ -37,10 +38,19 @@ export default async function Courses() {
                                         <span>সময়কালঃ {course.duration} মাস</span>
                                     </div>
                                 </div>
-                             
+                                <div className={`my-2 text-sm font-semibold flex items-center gap-2`}>
+                                    কোর্সের ধরনঃ {
+                                        course?.offerPrice <= 0 ? <p className="text-blue-500">ফ্রী</p> : <p className=" text-red-500">
+                                            প্রিমিয়াম
+                                        </p>
+                                    }
+                                </div>
+
                                 <p className=" my-2">
                                     {course.title}
                                 </p>
+
+
 
                             </CardTitle>
 
