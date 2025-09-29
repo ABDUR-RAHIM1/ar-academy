@@ -15,14 +15,15 @@ export const getSingleQuestion = async (courseId, cacheTime = 5) => {
     const singleQuestion = await getsActions(questionGetSingel + courseId, cacheTime);
 
     return singleQuestion;
-}
-export const getQuestionByChapterId = async (chapterId, cacheTime = 5) => {
-    const questionsById = await getsActions(questionGetByChapter + chapterId, cacheTime);
+};
 
-    return questionsById;
-}
+// export const getQuestionByChapterId = async (chapterId, cacheTime = 5) => {
+//     const questionsById = await getsActions(questionGetByChapter + chapterId, cacheTime);
 
-// ata controller create kore thik korte hbe
+//     return questionsById;
+// }
+
+
 export const getReletedQuestionsByCourseName = async (isAllTitle, cacheTime = 5) => {
     const reletedQuestions = await getsActions(questionReletedByCourseName + isAllTitle, cacheTime);
 

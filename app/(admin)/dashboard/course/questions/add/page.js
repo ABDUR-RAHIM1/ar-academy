@@ -317,24 +317,6 @@ export default function AddQuestion() {
                             </select>
                         </div>
 
-                        {/* <div className='w-full'>
-                            <label
-                                htmlFor="isPremium"
-                                className="block font-medium text-sm"
-                            >
-                                ফ্রী / প্রিমিয়াম
-                            </label>
-                            <select
-                                name="isPremium"
-                                id="isPremium"
-                                onChange={handleControllChange}
-                                className="p-2 border rounded-md w-full text-sm"
-                            >
-                                <option value="">বাছাই করুন</option>
-                                <option value="true">প্রিমিয়াম</option>
-                                <option value="false">ফ্রী</option>
-                            </select>
-                        </div> */}
 
                     </div>
                 </div>
@@ -354,7 +336,7 @@ export default function AddQuestion() {
 
 
                 <div onClick={handleSubmitQuestions} className=' my-5 inline-block'>
-                    <SubmitButton loadingState={loading} btnText={"Add Questions"} width={"120px"} />
+                    <SubmitButton loadingState={loading} btnText={"প্রশ্ন যুক্ত করুন"} width={"120px"} />
                 </div>
 
 

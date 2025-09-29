@@ -7,7 +7,9 @@ export const postActions = async (payload) => {
 
     const token = await getAdminToken(); 
 
-    const { method, api, body } = payload
+    const { method, api, body } = payload;
+    
+    console.log(API_URL+api) 
 
     const res = await fetch(API_URL + api, {
         method: method, // pass from components

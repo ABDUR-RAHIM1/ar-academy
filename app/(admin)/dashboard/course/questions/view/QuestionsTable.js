@@ -79,11 +79,11 @@ export default function QuestionsTable({ questionsData }) {
 
                 return <span className={`font-medium text-white px-2 py-1 rounded-full`} style={{ backgroundColor: color }}>{status}</span>
             },
-            width:"150px"
+            width: "150px"
         },
         {
             name: "আপডেট করুন",
-            selector: row => <EditActionButton data={row} path={"/dashboard/questions/edit"} />
+            selector: row => <EditActionButton data={row._id || undefined} path={"/dashboard/course/questions/edit"} />
         },
         {
             name: "ডিলেট করুন",

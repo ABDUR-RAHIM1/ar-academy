@@ -55,6 +55,7 @@ export const chapterDelete = process.env.NEXT_PUBLIC_CHAPTERS_DELETE
 export const questionsCreate = process.env.NEXT_PUBLIC_QUESTIONS_CREATE
 export const questionsGetAll = process.env.NEXT_PUBLIC_QUESTIONS_GET_ALL
 export const questionGetSingel = process.env.NEXT_PUBLIC_QUESTIONS_GET_ONE
+export const questionGetSingelByAdmin = process.env.NEXT_PUBLIC_QUESTIONS_GET_ONE_BY_ADMIN
 export const questionReletedByCourseName = process.env.NEXT_PUBLIC_QUESTIONS_GET_RELATED_COURSENAME
 export const questionGetByChapter = process.env.NEXT_PUBLIC_QUESTIONS_GET_BY_CHAPTER
 export const questionUpdate = process.env.NEXT_PUBLIC_QUESTIONS_UPDATE

@@ -1,64 +1,101 @@
 "use client"
 import React, { useContext, useEffect, useState } from 'react'
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-import { getSubCategorie } from '@/app/apiActions/admin/adminApi';
 import SubmitButton from '@/utils/SubmitButton';
 import * as XLSX from 'xlsx';
 import { Input } from '@/components/ui/input';
 import { postActions } from '@/actions/admins/postActions';
 import { questionUpdate } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
-import { getAllChapters } from '@/app/apiActions/chapters';
 import { InputField } from '@/utils/InputFIled';
 import { Label } from '@/components/ui/label';
-
+import { getAllCourse } from '@/app/apiActions/Course';
+import { formatDate } from '@/utils/FormatDate';
+import { getSingelQuestionsForAdmin } from '@/app/apiActions/admin/questions';
 
 export default function EditQuestion() {
-    const { showToast, editData } = useContext(contextD);
-    const [message, setMessage] = useState("");
-    const [subCategories, setSubCategories] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [chapters, setChapters] = useState([])
+
+
+    const [courseLoading, setCourseLoading] = useState(false)
+    const { showToast, editData: questionId } = useContext(contextD);
+    const [message, setMessage] = useState("")
+    const [course, setCourse] = useState([])
+    const [questionComing, setQuestionComing] = useState(false)
+
+    const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
-        sub_categorie: "",  //  subCategoire mean subject
-        chapter: "",    // chapter mean chapterId
-        isAll: "",
-        isAllTitle: "",
+        courseId: "",
+        subjectName: "",
         questions: [],
-        type: "",
-        duration: ""
+        questionType: "",
+        duration: "",
+        startDate: "",
+        startTime: "",
+        passMark: 0,
+        nagetiveMark: 0,
+        allowRetake: true,
+        isPublished: true,
     });
 
 
-    // set editable FormData
+    //  single question get for set Data in form State
     useEffect(() => {
-        if (editData) {
-            setFormData((prev) => ({
-                ...editData,
-                participant: null
-            }))
-        }
-    }, [editData]);
+        const getSingleQuestion = async () => {
+            try {
 
-    //  get all categories
-    useEffect(() => {
-        const getCategorieData = async () => {
-            const { status, data } = await getSubCategorie();
-            if (status === 200 && data) {
-                setSubCategories(data);
+                if (!questionId) {
+                    return <h1 className=' text-lg font-medium my-5'>
+                        কোর্স পাওয়া যায়নি
+                    </h1>
+                }
+                setQuestionComing(true)
+                const { status, data } = await getSingelQuestionsForAdmin(questionId);
+               
+                if (status === 200) {
+                    setFormData(() => ({
+                        ...data,
+                        courseId: data.course,
+                        startDate: formatDate(data.startDate)
+                    }))
+                }
+
+            } catch (error) {
+                console.log(error)
+            } finally {
+                setQuestionComing(false)
             }
         };
-        getCategorieData();
-    }, []);
 
+        getSingleQuestion()
+    }, [])
+
+
+
+    //  get All Courses
+    useEffect(() => {
+        const getData = async () => {
+            setCourseLoading(true)
+            try {
+                const { status, data } = await getAllCourse();
+                if (status === 200) {
+                    setCourse(data)
+                };
+            } catch (error) {
+                console.log(error)
+            } finally {
+                setCourseLoading(false)
+            }
+        };
+
+        getData();
+    }, [])
+
+    //  handle Course Change
+    const handleCourseChange = (e) => {
+        setFormData((prev) => ({
+            ...prev,
+            courseId: e.target.value
+        }))
+    }
 
     // Convert exel sheet to JSON 
     const handleFileChange = (event) => {
@@ -89,106 +126,54 @@ export default function EditQuestion() {
     };
 
 
-
-    //  get all sub Categories and set for Select Field
-    useEffect(() => {
-        const getCategorieData = async () => {
-            const { status, data } = await getSubCategorie();
-            if (status === 200 && data) {
-                setSubCategories(data)
-            }
-        };
-        getCategorieData()
-    }, []);
-
-
-
-    //  get all chapters and filtering
-    useEffect(() => {
-        const getChapters = async () => {
-            const { status, data } = await getAllChapters();
-            if (status === 200) {
-                // Filter chapters based on selected sub category
-                const filteredChapters = data.filter(
-                    chapter => chapter.sub_categorie_id === formData.sub_categorie
-                );
-                setChapters(filteredChapters);
-            }
-        };
-        if (formData.sub_categorie) {
-            getChapters();
-        }
-    }, [formData.sub_categorie]);
-
-
-    const handleQuestionType = (value) => {
-        if (value === "chapter") {
-            setFormData((prev) => ({
-                ...prev,
-                isAll: false
-            }))
-        } else {
-            setFormData((prev) => ({
-                ...prev,
-                isAll: true
-            }))
-        }
-    }
-
-
-
-    // categories Change handler
-    const handleSubCategorieChange = (SubCategorie) => { 
+    const handleQuestionType = (e) => {
         setFormData((prev) => ({
             ...prev,
-            sub_categorie: SubCategorie._id,
-            type: SubCategorie.type
-        }))
-    };
-
-
-    // Chapter Change handler
-    const handleChapterChange = (ChapterId) => {
-        setFormData((prev) => ({
-            ...prev,
-            chapter: ChapterId // chapter mean chapterId
-        }))
-    };
-
-    //  handle type change
-    const handleTypeChange = (typeValue) => {
-        setFormData((prev) => ({
-            ...prev,
-            type: typeValue
+            questionType: e.target.value
         }))
     }
 
-    // update submit handler
-    const handleUpdateQuestions = async (e) => {
+    //  handle Controller Changer 
+    const handleControllChange = (e) => {
+        const { name, value } = e.target;
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value
+        }))
+
+    }
+
+    //  submit handler (update)
+    const handleSubmitQuestions = async (e) => {
         e.preventDefault();
-
-        if (Array.isArray(formData.questions) && formData.questions.length === 0) {
-            showToast(400, "প্রশ্ন ফাইল যুক্ত করুন");
-            return;
-        }
-
-        setLoading(true);
-
+        setLoading(true)
         try {
+
             const payload = {
                 method: "PUT",
-                api: questionUpdate + editData?._id,
-                body: formData,
-            };
+                api: questionUpdate + formData._id,
+                body: formData
+            }
             const { status, data } = await postActions(payload);
-            showToast(status, data);
+            showToast(status, data)
+
         } catch (error) {
-            console.log(error);
-            showToast(500, "Failed to update question");
+            console.log(error)
+            showToast(500, "Failed to Add Question")
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
-    };
+    }
+
+
+    if (questionComing) {
+        return <div className=' w-full md:w-[80%] min-h-screen m-auto bg-white p-5 rounded-md'>
+            <p className='p-10'>
+                প্রস্নপত্র মিলানো হচ্ছে.........
+            </p>
+        </div>
+    }
 
     return (
         <div className=' my-10'>
@@ -198,162 +183,165 @@ export default function EditQuestion() {
                     প্রশ্ন আপডেট করুন
                 </h2>
 
-                <div className=' my-4'>
-                    <Label >
-                        প্রশ্নের ধরন
-                        <small className=' ml-2 text-gray-400'>
-                            ( {formData.isAll ? "সব" : "অধ্যায় ভিত্তিক"} )
+                <div className=' grid grid-cols-2 gap-2'>
+                    <div>
+                        <Label >
+                            প্রশ্নের ধরন
+                        </Label>
+                        <select
+                            name="questionType" id="questionType"
+                            className='p-2 border w-full text-sm'
+                            onChange={handleQuestionType}
+                            value={formData.questionType}
+                        >
+                            {/* <option value="">প্রশ্নের ধরন বাছাই করুন</option> */}
+                            <option value="mcq">MCQ</option>
+                            <option value="written">লিখিত</option>
+                        </select>
 
-                        </small>
-                    </Label>
-                    <Select
-                        name='questionType'
-                        onValueChange={handleQuestionType}
-                    >
-                        <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select Question Type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectLabel>Chapters</SelectLabel>
+                    </div>
+                    <div>
+                        <Label >
+                            কোর্স
+                        </Label>
+                        <select
+                            name="courseId" id="courseId"
+                            className='p-2 border w-full text-sm'
+                            onChange={handleCourseChange}
+                            value={formData.courseId}
+                        >
+                            <option value="">কোর্স বাছাই করুন</option>
+                            {
+                                courseLoading ? "লোড হচ্ছে..."
+                                    :
+                                    course && course.map(cItem => (
+                                        <option key={cItem._id} value={cItem._id}>{cItem.name}</option>
+                                    ))
+                            }
+                        </select>
 
-                                <SelectItem value="chapter">অধ্যায় ভিত্তিক</SelectItem>
-                                <SelectItem value="all">সব</SelectItem>
-
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
+                    </div>
                 </div>
 
 
-                {
-                    formData.isAll &&
-                    <div className=' my-4'>
-                        <InputField
-                            name={"isAllTitle"}
-                            label={"শিরোনাম"}
-                            value={formData.isAllTitle}
-                            placeholder={"শিরোনাম লিখুন"}
-                            handler={(e) => setFormData((prev) => ({ ...prev, isAllTitle: e.target.value }))}
-                        />
-                    </div>
-                }
-
-                {
-                    formData.isAll !== true &&
-                    <div>
-                        <div className=' w-full'>
-                            <Label >
-                                সাবজেক্টের নাম
-                                <small className=' ml-2 text-gray-400'>
-                                    ( {formData.sub_categorie.sub_name} )
-
-                                </small>
-                            </Label>
-                            <Select
-                                name='categorieId'
-                                onValueChange={handleSubCategorieChange}
-                            >
-                                <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Select Subject Name" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectGroup>
-                                        <SelectLabel>Subjects</SelectLabel>
-                                        {subCategories && subCategories.length === 0 ? (
-                                            "not found"
-                                        ) : (
-                                            subCategories.map((sc) => (
-                                                <SelectItem key={sc._id} value={sc}>
-                                                    {sc.sub_name}
-                                                </SelectItem>
-                                            ))
-                                        )}
-                                    </SelectGroup>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                        {/*  filtered chapter (filter with sub categorie) */}
-                        {
-                            formData.sub_categorie &&
-                            <div className='my-4'>
-                                <Label >
-                                    অধ্যায়ের নাম
-                                    <small className=' ml-2 text-gray-400'>
-                                        ( {formData.chapter.chapter_name} )
-
-                                    </small>
-                                </Label>
-                                <Select
-                                    name='chapterId'
-                                    onValueChange={handleChapterChange}
-                                >
-                                    <SelectTrigger className="w-full">
-                                        <SelectValue placeholder="Select Chapter Name" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectGroup>
-                                            <SelectLabel>Chapters</SelectLabel>
-                                            {chapters && chapters.length === 0 ? (
-                                                "পাওয়া যায়নি!"
-                                            ) : (
-                                                chapters.map((ch) => (
-                                                    <SelectItem key={ch._id} value={ch._id}>
-                                                        {ch.identifier}
-                                                    </SelectItem>
-                                                ))
-                                            )}
-                                        </SelectGroup>
-                                    </SelectContent>
-                                </Select>
-                            </div>
-                        }
-                    </div>
-
-                }
-
-                <div className='my-4'>
-                    <Label >
-                        ধরন
-                    </Label>
-                    <Select
-                        name='type'
-                        onValueChange={handleTypeChange}
-                        value={formData.type}
-                    >
-                        <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select Chapter Name" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectLabel>ধরন (free/paid)</SelectLabel>
-
-                                <SelectItem value="paid">
-                                    প্রিমিয়াম
-                                </SelectItem>
-                                <SelectItem value="free">
-                                    ফ্রী
-                                </SelectItem>
-
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
+                <div className='w-full'>
+                    <InputField
+                        name={"subjectName"}
+                        value={formData.subjectName}
+                        placeholder={"সাবজেক্টের নাম"}
+                        label={"সাবজেক্টের নাম"}
+                        handler={(e) => setFormData((prev) => ({
+                            ...prev,
+                            subjectName: e.target.value
+                        }))}
+                    />
                 </div>
 
 
                 {/* duration*/}
                 <div className='my-4'>
-                    <div className=' my-4'>
+                    <div className=' grid grid-cols-2 gap-2'>
+                        <InputField
+                            type={"date"}
+                            name={"startDate"}
+                            label={"পরীক্ষা শুরুর তারিখ"}
+                            value={formData.startDate}
+                            placeholder={"সময়সীমা"}
+                            handler={(e) => setFormData((prev) => ({ ...prev, startDate: e.target.value }))}
+                        />
+                        <InputField
+                            type={"time"}
+                            name={"startTime"}
+                            label={"পরীক্ষার শুরুর সময়"}
+                            value={formData.startTime}
+                            placeholder={"সময়সীমা"}
+                            handler={(e) => setFormData((prev) => ({ ...prev, startTime: e.target.value }))}
+                        />
+                    </div>
+
+                    <div className='grid grid-cols-3 gap-2'>
                         <InputField
                             name={"duration"}
                             label={"পরীক্ষার সময়সীমা (মিনিট)"}
                             value={formData.duration}
                             placeholder={"সময়সীমা"}
+                            required={true}
                             handler={(e) => setFormData((prev) => ({ ...prev, duration: e.target.value }))}
                         />
+                        <InputField
+                            type={"number"}
+                            name={"passMark"}
+                            label={"পাশ মার্ক লিখুন"}
+                            value={formData.passMark}
+                            required={true}
+                            placeholder={"পাশের নাম্বার"}
+                            handler={(e) => setFormData((prev) => ({ ...prev, passMark: e.target.value }))}
+                        />
+                        <InputField
+                            type={"number"}
+                            name={"nagetiveMark"}
+                            label={"নেগেটিভ মার্ক লিখুন"}
+                            value={formData.nagetiveMark}
+                            required={true}
+                            placeholder={"ভুলের জন্য কাটা মার্ক লিখুন"}
+                            handler={(e) => setFormData((prev) => ({ ...prev, nagetiveMark: e.target.value }))}
+                        />
+
                     </div>
+
                 </div>
 
+                {/*  Controller */}
+                <div className='my-3 border rounded-md p-2'>
+                    <h3 className=' font-bold text-lg mb-3 capitalize'>
+                        কন্ট্রোল
+                    </h3>
+
+                    <div className='grid grid-cols-2 gap-2'>
+
+                        <div className='w-full'>
+                            <label
+                                htmlFor="allowRetake"
+                                className="block font-medium text-sm"
+                            >
+                                রিটেক অনুমতি
+                            </label>
+                            <select
+                                name="allowRetake"
+                                id="allowRetake"
+                                value={formData.allowRetake}
+                                onChange={handleControllChange}
+                                className="p-2 border rounded-md w-full text-sm"
+                            >
+                                <option value="">বাছাই করুন</option>
+                                <option value="true">হ্যাঁ</option>
+                                <option value="false">না</option>
+                            </select>
+                        </div>
+
+                        <div className='w-full'>
+                            <label
+                                htmlFor="isPublished"
+                                className="block font-medium text-sm"
+                            >
+                                পাবলিশ
+                            </label>
+                            <select
+                                name="isPublished"
+                                id="isPublished"
+                                value={formData.isPublished}
+                                onChange={handleControllChange}
+                                className="p-2 border rounded-md w-full text-sm"
+                            >
+                                <option value="">এখনি পাবলিশ করুন</option>
+                                <option value="true">হ্যাঁ</option>
+                                <option value="false">না</option>
+                            </select>
+                        </div>
+
+
+                    </div>
+                </div>
 
                 <div className=' my-4'>
                     <Label >
@@ -361,20 +349,19 @@ export default function EditQuestion() {
                     </Label>
                     <Input onChange={handleFileChange} type="file" accept=".xlsx, .xls" className=' w-full ' />
 
-                    <small className={"text-blue-500 my-2"}>
-                        {message}
-                    </small>
-
+                    <p className={"text-blue-500 my-2 text-sm"}>
+                        <span>{formData?.questions?.length || 0} টি প্রশ্ন </span> {message || "আছে"}
+                    </p>
                 </div>
 
 
-                <div onClick={handleUpdateQuestions} className=' my-5 inline-block'>
-                    <SubmitButton loadingState={loading} btnText={"Update Questions"} width={"150px"} />
+
+
+                <div onClick={handleSubmitQuestions} className=' my-5 inline-block'>
+                    <SubmitButton loadingState={loading} btnText={"আপডেট করুন"} width={"120px"} />
                 </div>
-
-
             </div>
 
         </div>
-    );
+    )
 }

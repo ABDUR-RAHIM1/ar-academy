@@ -1,59 +1,21 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from '@/components/ui/button';
-import dayjs from "dayjs";
 import { formatTime12Hour } from '@/utils/FormatedTime';
 import { InfoIcon } from 'lucide-react';
+import useExamTimer from '@/utils/ExamTimeCountDown';
 
 export default function QuestionCard({ exam, index }) {
-    const [status, setStatus] = useState("upcoming"); // upcoming / ongoing / finished
-    const [timeLeft, setTimeLeft] = useState("");     // countdown string
 
-    // Countdown formatter
-    const formatDuration = (ms) => {
-        const totalSeconds = Math.floor(ms / 1000);
-        const hours = Math.floor(totalSeconds / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = totalSeconds % 60;
+    const { status, timeLeft } = useExamTimer({
+        startDate: exam.startDate,
+        startTime: exam.startTime,
+        duration: exam.duration
+    });
 
-        return `${hours.toString().padStart(2, "0")}:${minutes
-            .toString()
-            .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-    };
-
-    // Status + countdown logic
-    useEffect(() => {
-        if (!exam.startDate || !exam.startTime || !exam.duration) {
-            setStatus("ongoing");
-            return;
-        }
-
-        const datePart = dayjs(exam.startDate).format("YYYY-MM-DD");
-        const examStart = dayjs(`${datePart} ${exam.startTime}`, "YYYY-MM-DD HH:mm");
-        const examEnd = examStart.add(exam.duration, "minute");
-
-        const updateCountdown = () => {
-            const now = dayjs();
-
-            if (now.isBefore(examStart)) {
-                setStatus("upcoming");
-                setTimeLeft(formatDuration(examStart.diff(now)));
-            } else if (now.isAfter(examEnd)) {
-                setStatus("finished");
-                setTimeLeft("00:00:00");
-            } else {
-                setStatus("ongoing");
-                setTimeLeft(formatDuration(examEnd.diff(now)));
-            }
-        };
-
-        updateCountdown();
-        const timer = setInterval(updateCountdown, 1000);
-        return () => clearInterval(timer);
-    }, [exam.startDate, exam.startTime, exam.duration]);
 
     const formattedTime = formatTime12Hour(exam?.startTime);
 
@@ -90,7 +52,7 @@ export default function QuestionCard({ exam, index }) {
 
                 <Tooltip>
                     <TooltipTrigger asChild>
-                        <InfoIcon size={15} className={styles.title}/>
+                        <InfoIcon size={15} className={styles.title} />
                     </TooltipTrigger>
                     <TooltipContent style={{ backgroundColor: 'white', border: '1px solid gray', color: 'black' }}>
                         <p>পরীক্ষা দেওয়ার জন্য অবশ্যই লগিন থাকতে হবে</p>
@@ -132,11 +94,20 @@ export default function QuestionCard({ exam, index }) {
                 <Button className={`inline-block w-full mt-4 px-3 py-2 text-white rounded-full text-sm ${styles.button}`}>
                     পরীক্ষা এখনও শুরু হয়নি
                 </Button>
-            ) : (
-                <Button className={`inline-block w-full mt-4 px-3 py-2 text-white rounded-full text-sm ${styles.button}`}>
-                    পরীক্ষা শেষ হয়ে গেছে
-                </Button>
-            )}
+            ) : exam.allowRetake ?
+                (
+                    <Link
+                        href={`/exam/${exam?.subjectName}/${exam?.course._id}`}
+                        className={`inline-block w-full bg-yellow-600 hover:bg-yellow-500 text-center mt-4 px-5 py-2 text-white rounded-full text-sm transition`}
+                    >
+                        পুনরায় পরীক্ষা দিন
+                    </Link>
+                )
+                : (
+                    <Button className={`inline-block w-full mt-4 px-3 py-2 text-white rounded-full text-sm ${styles.button}`}>
+                        পরীক্ষা শেষ হয়ে গেছে
+                    </Button>
+                )}
         </div>
     );
 }

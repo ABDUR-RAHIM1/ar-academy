@@ -3,12 +3,16 @@ import { postActionUser } from "@/actions/users/postActions";
 import { questionsSubmit, userLogin } from "@/constans";
 import { contextD } from "@/contextApi/DashboardState";
 import ExamTimer from "@/helpers/examTimer/ExamTimer";
+import useExamTimer from "@/utils/ExamTimeCountDown";
 import LoginAlertModal from "@/utils/LoginAlertModal";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
+import TestTimer from "./TestTimer";
+import ExamTimerSection from "./ExamTimerSection";
 
 export default function ExamForm({ questionsData }) {
     const { _id, duration, questions } = questionsData;
+
 
     const router = useRouter()
     const [loading, setLoading] = useState(false)
@@ -140,19 +144,37 @@ export default function ExamForm({ questionsData }) {
     // koto gulu select kora hoyeche
     const selectedCount = formData.filter(q => q.selectAns).length;
 
+    const { status, timeLeft } = useExamTimer({
+        startDate: questionsData.startDate,
+        startTime: questionsData.startTime,
+        duration: questionsData.duration
+    });
 
 
     return (
         <div>
             <div className='  w-full sticky top-16 md:top-24 left-0 z-20'>
-                <ExamTimer
+                {/* <ExamTimer
                     token={token}
                     durationInMinutes={duration}
                     isSubmit={isSubmit}
                     handleSubmitQuestion={handleSubmitQuestion}
                     totalQuestions={formData.length || 0}
                     selectedCount={selectedCount}
-                />
+                /> */}
+                {/* <TestTimer exam={questionsData} /> */}
+                <div className="bg-blue-500 text-white">
+                    <ExamTimerSection
+                        token={token}
+                        timeLeft={timeLeft}
+                        status={status}
+                        durationInMinutes={duration}
+                        isSubmit={isSubmit}
+                        handleSubmitQuestion={handleSubmitQuestion}
+                        totalQuestions={formData.length || 0}
+                        selectedCount={selectedCount}
+                    />
+                </div>
             </div>
 
             <div className=" my-6 ">
@@ -206,14 +228,14 @@ export default function ExamForm({ questionsData }) {
             ))}
 
             {/* Submit Button */}
-            <button
+            {/* <button
                 onClick={handleSubmitQuestion} // Later you can send this to API
                 className=" sticky bottom-0 w-full bg1 hover:bg2 transition-all text-white px-4 py-2 rounded-md mt-4"
             >
                 {
                     loading ? "জমা দেওয়া হচ্ছে..." : "সাবমিট করুন"
                 }
-            </button>
+            </button> */}
 
             <LoginAlertModal
                 open={loginModalOpen}

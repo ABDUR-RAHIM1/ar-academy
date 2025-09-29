@@ -8,7 +8,8 @@ import React from 'react';
 export default async function ExamQuestionsPage({ params }) {
     const { courseId } = await params;
     const { status, data } = await getSingleQuestion(courseId, 60);
-    
+
+
     if (!status || status !== 200 || !data) {
         return <NoData text={data.message || "কোন প্রশ্ন পাওয়া যায়নি !"} />
     }
