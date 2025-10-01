@@ -15,8 +15,7 @@ export default function QuestionCard({ exam, index }) {
         startTime: exam.startTime,
         duration: exam.duration
     });
-
-
+ 
     const formattedTime = formatTime12Hour(exam?.startTime);
 
     // 🎨 status অনুযায়ী style config
@@ -61,7 +60,11 @@ export default function QuestionCard({ exam, index }) {
             </div>
 
             <div className='flex flex-col gap-2 text-gray-700 text-sm'>
+                <p>📝 কোর্স: <span className="font-medium">{exam?.course?.name || "N/A"}</span></p>
                 <p>📝 বিষয়: <span className="font-medium">{exam.subjectName}</span></p>
+                <p>📝 প্রশ্নের ধরন: <span className="font-medium">
+                    {exam.questionType === "mcq" ? "MCQ" : "WRITTEN"}
+                </span></p>
                 <p>📝 শুরুর তারিখ: <span className="font-medium">{new Date(exam?.startDate).toLocaleDateString("BN") || "N/A"}</span></p>
                 <p>📝 শুরুর সময়: <span className="font-medium">{formattedTime || "N/A"}</span></p>
                 <p>📊 মোট প্রশ্ন: <span className="font-medium">{exam?.questionsCount || 0}</span></p>
@@ -85,7 +88,7 @@ export default function QuestionCard({ exam, index }) {
             {/* Button */}
             {status === "ongoing" ? (
                 <Link
-                    href={`/exam/${exam?.subjectName}/${exam?.course._id}`}
+                    href={`/exam/${exam?.subjectName}/${exam?._id}`}
                     className={`inline-block w-full text-center mt-4 px-5 py-2 text-white rounded-full text-sm transition ${styles.button}`}
                 >
                     পরীক্ষা দিন
@@ -97,7 +100,7 @@ export default function QuestionCard({ exam, index }) {
             ) : exam.allowRetake ?
                 (
                     <Link
-                        href={`/exam/${exam?.subjectName}/${exam?.course._id}`}
+                        href={`/exam/${exam?.subjectName}/${exam?._id}`}
                         className={`inline-block w-full bg-yellow-600 hover:bg-yellow-500 text-center mt-4 px-5 py-2 text-white rounded-full text-sm transition`}
                     >
                         পুনরায় পরীক্ষা দিন

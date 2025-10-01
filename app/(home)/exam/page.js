@@ -1,8 +1,8 @@
-import NoData from '@/utils/NoData';
-import QuestionClient from './chapter/QuestionClient'; // 👈 client component
+import NoData from '@/utils/NoData'; 
 import { getAllQuestions } from '@/app/apiActions/questions';
 import PageBanner from '@/utils/PageBanner'; 
 import { examMetaData } from '@/seo/examMetaData';
+import QuestionClient from './QuestionClient';
 
  
 export const metadata = examMetaData;

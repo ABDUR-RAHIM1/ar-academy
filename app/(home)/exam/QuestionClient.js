@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import QuestionCard from '../QuestionCard';
 import {
     Select,
     SelectContent,
@@ -11,11 +10,12 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import QuestionCard from './QuestionCard';
 
 export default function QuestionClient({ questions }) {
     const [filterType, setFilterType] = useState('all'); // 'free', 'paid', 'all'
 
-    // Filter logic
+    // Filter logiccins
     const filteredQuestions = questions.filter(q =>
         filterType === 'all' ? true : q.type === filterType
     );

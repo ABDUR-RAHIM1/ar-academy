@@ -8,6 +8,6 @@ export const getExamStatus = (exam) => {
     const now = dayjs();
 
     if (now.isBefore(start)) return "শুরু হয়নি";      // Upcoming
-    if (now.isAfter(end)) return "শেষ হয়ে গেছে";     // Finished
+    if (now.isAfter(end)) return "শেষ হয়ে গেছে";     //  Finished
     return "চলছে";                                  // Ongoing
 };

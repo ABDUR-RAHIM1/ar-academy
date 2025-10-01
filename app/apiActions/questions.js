@@ -11,8 +11,9 @@ export const getAllQuestions = async (cacheTime = 5) => {
 
 
 
-export const getSingleQuestion = async (courseId, cacheTime = 5) => {
-    const singleQuestion = await getsActions(questionGetSingel + courseId, cacheTime);
+export const getSingleQuestion = async (questionId, cacheTime = 5) => {
+    
+    const singleQuestion = await getsActions(questionGetSingel + questionId, cacheTime);  
 
     return singleQuestion;
 };

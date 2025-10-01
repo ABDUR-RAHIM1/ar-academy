@@ -7,8 +7,9 @@ import useExamTimer from "@/utils/ExamTimeCountDown";
 import LoginAlertModal from "@/utils/LoginAlertModal";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
-import TestTimer from "./TestTimer";
-import ExamTimerSection from "./ExamTimerSection";
+import ExamTimerSection from "./ExamTimerSection"; 
+import useExamTimerRegular from "./ExamTimerRegular";
+import useExamTimerRetake from "./ExamTimerRetake";
 
 export default function ExamForm({ questionsData }) {
     const { _id, duration, questions } = questionsData;
@@ -144,11 +145,27 @@ export default function ExamForm({ questionsData }) {
     // koto gulu select kora hoyeche
     const selectedCount = formData.filter(q => q.selectAns).length;
 
-    const { status, timeLeft } = useExamTimer({
+    // const { status, timeLeft } = useExamTimer({
+    //     startDate: questionsData.startDate,
+    //     startTime: questionsData.startTime,
+    //     duration: questionsData.duration
+    // });
+    const { status, timeLeft } = useExamTimerRegular({
         startDate: questionsData.startDate,
         startTime: questionsData.startTime,
-        duration: questionsData.duration
+        duration: questionsData.duration,
+        allowRetake: questionsData.allowRetake,
+        onSubmit: handleSubmitQuestion
     });
+    const { status:retakeStatus, timeLeft:retakeTimeLeft } = useExamTimerRetake({
+        startDate: questionsData.startDate,
+        startTime: questionsData.startTime,
+        duration: questionsData.duration,
+        allowRetake: questionsData.allowRetake,
+        onSubmit: handleSubmitQuestion
+    });
+
+
 
 
     return (

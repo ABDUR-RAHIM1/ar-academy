@@ -9,7 +9,7 @@ export const getAllQuestionsForAdmin = async () => {
 }
 
 
-//  get all questions for admin
+//  get  singel questions for admin
 export const getSingelQuestionsForAdmin = async (questionId, cacheTime = 0) => {
     const singleQuestion = await getsActions(questionGetSingelByAdmin + questionId, cacheTime);
 
