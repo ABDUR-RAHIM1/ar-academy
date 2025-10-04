@@ -12,27 +12,18 @@ export default function Resultstable({ resultsData }) {
         }
     }, [resultsData]);
 
+
     const columns = [
         {
-            name: "🧠 বিষয়",
-            cell: row => {
-                const examInfo = row?.examInfo;
-
-                if (examInfo?.isAll) {
-                    return <span className="text-sm font-medium text-gray-800 my-3">{examInfo?.isAllTitle || "N/A"}</span>;
-                } else {
-                    return (
-                        <div className="text-sm text-gray-700 leading-5 my-3">
-                            <p><strong>বিষয়:</strong> {examInfo?.sub_categorie?.sub_name || "N/A"}</p>
-                            <p><strong>অধ্যায়:</strong> {examInfo?.chapter?.chapter_name || "N/A"}</p>
-                        </div>
-                    );
-                }
-            },
+            name: " বিষয়",
+            selector: row => <div className=' flex flex-col gap-2 text-sm'>
+                <p>{row?.question?.subjectName || "N/A"}</p>
+                <p>{row?.question?.questionType || "N/A"}</p>
+            </div>,
             sortable: false
-        },
+        }, 
         {
-            name: "✅ সঠিক উত্তর",
+            name: " সঠিক",
             cell: row => (
                 <span className="bg-green-100 text-green-700 font-semibold py-1 px-2 rounded-md">
                     {row.correctAns}
@@ -41,7 +32,7 @@ export default function Resultstable({ resultsData }) {
             sortable: true
         },
         {
-            name: "❌ ভুল উত্তর",
+            name: "ভুল",
             cell: row => (
                 <span className="bg-red-100 text-red-700 font-semibold py-1 px-2 rounded-md">
                     {row.wrongAns}
@@ -50,7 +41,7 @@ export default function Resultstable({ resultsData }) {
             sortable: true
         },
         {
-            name: "⏭️ স্কিপ",
+            name: " স্কিপ",
             cell: row => (
                 <span className="bg-yellow-100 text-yellow-800 font-semibold py-1 px-2 rounded-md">
                     {row.skip}
@@ -59,18 +50,50 @@ export default function Resultstable({ resultsData }) {
             sortable: true
         },
         {
-            name: "📊 মোট প্রশ্ন",
+            name: "মোট নম্বর",
+            cell: row => (
+                <span className="bg-yellow-100 text-yellow-800 font-semibold py-1 px-2 rounded-md">
+                    {row.totalmark || "N/A"}
+                </span>
+            ),
+            sortable: true,
+            width: "150px"
+        },
+        {
+            name: "মোট প্রশ্ন",
             cell: row => (
                 <span className="bg-blue-100 text-blue-800 font-semibold py-1 px-2 rounded-md">
                     {row.totalQuestions}
                 </span>
             ),
-            sortable: true
+            sortable: true,
+            width: "150px"
+        },
+        {
+            name: "রেজাল্ট",
+            cell: row => (
+                <span className="bg-blue-100 text-blue-800 font-semibold py-1 px-2 rounded-md">
+                    {row.isPass ? "পাশ" : "ফেল"}
+                </span>
+            ),
+            sortable: true,
+            width: "100px"
+        },
+        {
+            name: "প্রতিযোগিতায়",
+            cell: row => (
+                <span className=" inline-block w-full text-center bg-blue-100 text-blue-800 font-semibold py-1 px-2 rounded-md">
+                    {row.isRetake ? "না" : "হ্যাঁ "}
+                </span>
+            ),
+            sortable: true,
+            width: "140px"
         },
         {
             name: "📅 তারিখ",
             selector: row => new Date(row.createdAt).toLocaleDateString('bn-BD'),
-            sortable: true
+            sortable: true,
+            width: "150px"
         },
         {
             name: "🔍 বিস্তারিত",
@@ -82,9 +105,24 @@ export default function Resultstable({ resultsData }) {
                     👁️ দেখুন
                 </Link>
             ),
-            ignoreRowClick: true,
-            allowoverflow: true,
+            width: "150px"
         }
+    ];
+
+    // ✅ Conditional row style
+    const conditionalRowStyles = [
+        {
+            when: row => row.isRetake === true,
+            style: {
+                backgroundColor: 'rgba(255, 200, 200, 0.3)', // light red
+            },
+        },
+        {
+            when: row => row.isPass === false,
+            style: {
+                backgroundColor: 'rgba(255, 220, 220, 0.3)', // light pink fail
+            },
+        },
     ];
 
     return (
@@ -96,7 +134,7 @@ export default function Resultstable({ resultsData }) {
                 pagination
                 highlightOnHover
                 subHeader
-                subHeaderAlign="left"
+                conditionalRowStyles={conditionalRowStyles} // ✅ conditional background
                 customStyles={{
                     headCells: {
                         style: {
@@ -108,7 +146,6 @@ export default function Resultstable({ resultsData }) {
                     },
                     cells: {
                         style: {
-                            backgroundColor: '#f4f4f9',
                             fontSize: '14px',
                             color: '#333',
                         },

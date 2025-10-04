@@ -3,66 +3,28 @@ import { postActionUser } from "@/actions/users/postActions";
 import { questionsSubmit, userLogin } from "@/constans";
 import { contextD } from "@/contextApi/DashboardState";
 import ExamTimer from "@/helpers/examTimer/ExamTimer";
-import useExamTimer from "@/utils/ExamTimeCountDown";
 import LoginAlertModal from "@/utils/LoginAlertModal";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
-import ExamTimerSection from "./ExamTimerSection"; 
+import ExamTimerSection from "./ExamTimerSection";
 import useExamTimerRegular from "./ExamTimerRegular";
 import useExamTimerRetake from "./ExamTimerRetake";
+import ExamSubmitLoading from "./ExamSubmitLoading";
 
 export default function ExamForm({ questionsData }) {
     const { _id, duration, questions } = questionsData;
 
 
     const router = useRouter()
-    const [loading, setLoading] = useState(false)
+
     const { showToast, token, usedTime } = useContext(contextD)
     const [loginModalOpen, setLoginModalOpen] = useState(false);
     const [isSubmit, setIsSubmit] = useState(false);
-    const [questionHead, setQuestionHead] = useState({
-        questionId: "",
-        isAll: null,
-        isAllTitle: "",
-        sub_categorie: {},
-        chapter: {},
-        duration: "",
-        usedTime: 0
-    })
 
     const [formData, setFormData] = useState(
         questions.map((q) => ({ ...q, selectAns: "" })) // Initial state with empty selectAns
     );
 
-    // set subject Head State
-    // useEffect(() => {
-    //     if (isAll) {
-    //         setQuestionHead((prev) => ({
-    //             ...prev,
-    //             questionId: _id,
-    //             isAll: isAll,
-    //             isAllTitle: isAllTitle,
-    //             duration: duration || (questions?.length / 2)
-    //         }))
-    //     } else {
-    //         setQuestionHead((prev) => ({
-    //             ...prev,
-    //             questionId: _id,
-    //             isAll: isAll,
-    //             sub_categorie: sub_categorie,
-    //             chapter: chapter,
-    //             duration: duration || (questions?.length / 2)
-    //         }))
-    //     }
-    // }, [questionsData])
-
-    //  set usedTime (for Exam) from useContext
-    useEffect(() => {
-        setQuestionHead(prev => ({
-            ...prev,
-            usedTime: usedTime
-        }));
-    }, [usedTime]);
 
 
     // Function to handle option selection
@@ -81,6 +43,40 @@ export default function ExamForm({ questionsData }) {
         );
     };
 
+
+
+    // koto gulu select kora hoyeche
+    const selectedCount = formData.filter(q => q.selectAns).length;
+
+    const regular = useExamTimerRegular({
+        startDate: questionsData.startDate,
+        startTime: questionsData.startTime,
+        duration: questionsData.duration,
+        // allowRetake: questionsData.allowRetake,
+        // onSubmit: handleSubmitQuestion
+    });
+
+    const retake = useExamTimerRetake({
+        duration: questionsData.duration,
+        // onSubmit: handleSubmitQuestion
+    });
+
+    // conditionally pick which one to use
+    const isRetakeMode = questionsData.allowRetake && regular.status === "finished";
+
+    const { status, timeLeft } = isRetakeMode ? retake : regular;
+
+    useEffect(() => {
+        if (
+            (status === "finished" || timeLeft === "00:00:00" || timeLeft === "0:0:0")
+        ) {
+            console.log("insuubmit Call from main exam page")
+            handleSubmitQuestion();
+        }
+    }, [status, timeLeft]);
+
+
+
     const handleSubmitQuestion = async (e = null) => {
         if (e?.preventDefault) e.preventDefault();
 
@@ -89,8 +85,7 @@ export default function ExamForm({ questionsData }) {
             setLoginModalOpen(true);
             return;
         }
-
-        setLoading(true)
+        setIsSubmit(true)
         try {
             // মার্কিং করার জন্য নতুন ফর্ম ডাটা তৈরি করা
             const updatedFormData = formData.map((question) => {
@@ -108,14 +103,20 @@ export default function ExamForm({ questionsData }) {
             const wrongCount = updatedFormData.filter(q => q.status === "wrong").length;
             const skippedCount = updatedFormData.filter(q => q.status === "skipped").length;
             const totalQuestions = updatedFormData.length;
+            const totalMark = Number(correctCount) - (Number(wrongCount * Number(questionsData.nagetiveMark)))
+            const isPass = Number(totalMark) > Number(questionsData.passMark)
 
             const resultSheetData = {
-                examInfo: questionHead,
+                question: _id,
                 results: updatedFormData,
                 correctAns: correctCount,
                 wrongAns: wrongCount,
                 skip: skippedCount,
+                totalmark: totalMark,
                 totalQuestions: totalQuestions,
+                nagetiveMark: questionsData.nagetiveMark,
+                isPass: isPass,
+                isRetake: isRetakeMode
             }
 
 
@@ -125,47 +126,31 @@ export default function ExamForm({ questionsData }) {
                 body: resultSheetData
             }
 
-            // const { status, data } = await postActionUser(payload);
-
-            // showToast(status, data)
-            // if (status === 200 || status === 201) {
-            //     setIsSubmit(true)
-            // }
-
-            alert("মান উন্নায়নের কাজ চলছে")
+            // console.log(resultSheetData)
+            const { status, data } = await postActionUser(payload);
+           
+            showToast(status, data)
+            if (status === 200 || status === 201) {
+                setIsSubmit(true)
+            }
+ 
 
         } catch (error) {
             console.log(error);
             showToast(500, "Failed to submit Question")
         } finally {
-            setLoading(false)
+            setIsSubmit(false)
         }
     };
 
-    // koto gulu select kora hoyeche
-    const selectedCount = formData.filter(q => q.selectAns).length;
-
-    // const { status, timeLeft } = useExamTimer({
-    //     startDate: questionsData.startDate,
-    //     startTime: questionsData.startTime,
-    //     duration: questionsData.duration
-    // });
-    const { status, timeLeft } = useExamTimerRegular({
-        startDate: questionsData.startDate,
-        startTime: questionsData.startTime,
-        duration: questionsData.duration,
-        allowRetake: questionsData.allowRetake,
-        onSubmit: handleSubmitQuestion
-    });
-    const { status:retakeStatus, timeLeft:retakeTimeLeft } = useExamTimerRetake({
-        startDate: questionsData.startDate,
-        startTime: questionsData.startTime,
-        duration: questionsData.duration,
-        allowRetake: questionsData.allowRetake,
-        onSubmit: handleSubmitQuestion
-    });
 
 
+
+
+
+    if (isSubmit) {
+        <ExamSubmitLoading />
+    }
 
 
     return (
@@ -179,14 +164,13 @@ export default function ExamForm({ questionsData }) {
                     totalQuestions={formData.length || 0}
                     selectedCount={selectedCount}
                 /> */}
-                {/* <TestTimer exam={questionsData} /> */}
+
                 <div className="bg-blue-500 text-white">
                     <ExamTimerSection
                         token={token}
                         timeLeft={timeLeft}
                         status={status}
                         durationInMinutes={duration}
-                        isSubmit={isSubmit}
                         handleSubmitQuestion={handleSubmitQuestion}
                         totalQuestions={formData.length || 0}
                         selectedCount={selectedCount}

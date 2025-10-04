@@ -4,13 +4,14 @@ import { getResultById } from '@/app/apiActions/results';
 import { resultMetaData } from '@/seo/resultMetadata';
 import NoData from '@/utils/NoData';
 import { CalendarDays, AlarmClock, CheckCircle, XCircle, SkipForward, ListChecks, BookOpenText, HelpCircle } from 'lucide-react';
-import React from 'react'; 
+import React from 'react';
 
 export const metadata = resultMetaData
 
 export default async function ResultDeatils({ params }) {
     const { resultId } = await params;
     const { status, data } = await getResultById(resultId);
+
 
     if (!status || !data) {
         return <NoData text={" কোনও রেজাল্ট পাওয়া যায়নি"} />;
@@ -20,7 +21,7 @@ export default async function ResultDeatils({ params }) {
         <div className='bg-gradient-to-b from-indigo-50 via-indigo-100 to-white min-h-screen overflow-hidden'>
             <div id="result-section" className="my-10 max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
                 <h1 className="text-3xl font-semibold text-center mb-6">রেজাল্ট শীট</h1>
- 
+
 
                 {/* Exam Info Section */}
                 <div className="mb-8 border border-gray-200 rounded-lg p-6 shadow-md bg-white">
@@ -29,50 +30,95 @@ export default async function ResultDeatils({ params }) {
                     </h2>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-[15px] text-gray-800">
-                        {data.examInfo?.isAll ? (
-                            <div className="bg-indigo-50 px-4 py-2 rounded shadow-sm border border-indigo-100">
-                                <strong className="text-indigo-700 flex items-center gap-2"><BookOpenText className="w-4 h-4" /> বিষয়:</strong> {data.examInfo.isAllTitle || "N/A"}
-                            </div>
-                        ) : (
-                            <>
-                                <div className="bg-indigo-50 px-4 py-2 rounded shadow-sm border border-indigo-100">
-                                    <strong className="text-indigo-700 flex items-center gap-2"><BookOpenText className="w-4 h-4" /> বিষয়:</strong> {data.examInfo?.sub_categorie?.sub_name || "N/A"}
-                                </div>
-                                <div className="bg-violet-50 px-4 py-2 rounded shadow-sm border border-violet-100">
-                                    <strong className="text-violet-700 flex items-center gap-2"><HelpCircle className="w-4 h-4" /> অধ্যায়:</strong> {data.examInfo?.chapter?.chapter_name || "N/A"}
-                                </div>
-                            </>
-                        )}
+
+                        <div className="bg-indigo-50 px-4 py-2 rounded shadow-sm border border-indigo-100">
+                            <strong className="text-indigo-700 flex items-center gap-2">
+                                <BookOpenText className="w-4 h-4" /> বিষয়:
+                            </strong>
+                            {data.question?.subjectName || "N/A"}
+                        </div>
+
 
                         <div className="bg-blue-50 px-4 py-2 rounded shadow-sm border border-blue-100">
-                            <strong className="text-blue-700 flex items-center gap-2"><ListChecks className="w-4 h-4" /> মোট প্রশ্ন:</strong> {data.results?.length || 0} টি
+                            <strong className="text-blue-700 flex items-center gap-2">
+                                <ListChecks className="w-4 h-4" /> মোট প্রশ্ন:
+                            </strong>
+                            {data.results?.length || 0} টি
                         </div>
 
                         <div className="bg-green-50 px-4 py-2 rounded shadow-sm border border-green-100">
-                            <strong className="text-green-700 flex items-center gap-2"><CheckCircle className="w-4 h-4" /> সঠিক উত্তর:</strong> {data?.correctAns} টি
+                            <strong className="text-green-700 flex items-center gap-2">
+                                <CheckCircle className="w-4 h-4" /> সঠিক উত্তর:
+                            </strong>
+                            {data?.correctAns} টি
                         </div>
 
                         <div className="bg-red-50 px-4 py-2 rounded shadow-sm border border-red-100">
-                            <strong className="text-red-700 flex items-center gap-2"><XCircle className="w-4 h-4" /> ভুল উত্তর:</strong> {data?.wrongAns} টি
+                            <strong className="text-red-700 flex items-center gap-2">
+                                <XCircle className="w-4 h-4" /> ভুল উত্তর:
+                            </strong>
+                            {data?.wrongAns} টি
                         </div>
 
                         <div className="bg-yellow-50 px-4 py-2 rounded shadow-sm border border-yellow-100">
-                            <strong className="text-yellow-700 flex items-center gap-2"><SkipForward className="w-4 h-4" /> স্কিপ:</strong> {data?.skip} টি
+                            <strong className="text-yellow-700 flex items-center gap-2">
+                                <SkipForward className="w-4 h-4" /> স্কিপ:
+                            </strong>
+                            {data?.skip} টি
                         </div>
 
                         <div className="bg-gray-50 px-4 py-2 rounded shadow-sm border border-gray-100">
-                            <strong className="text-gray-700 flex items-center gap-2"><CalendarDays className="w-4 h-4" /> পরীক্ষার তারিখ:</strong> {new Date(data.createdAt).toLocaleDateString('bn-BD')}
+                            <strong className="text-gray-700 flex items-center gap-2">
+                                <CalendarDays className="w-4 h-4" /> পরীক্ষার তারিখ:
+                            </strong>
+                            {new Date(data.createdAt).toLocaleDateString('bn-BD')}
                         </div>
 
                         <div className="bg-blue-50 px-4 py-2 rounded shadow-sm border border-blue-100">
-                            <strong className="text-blue-700 flex items-center gap-2"><AlarmClock className="w-4 h-4" /> মোট সময়:</strong> {data.examInfo?.duration} মিনিট
+                            <strong className="text-blue-700 flex items-center gap-2">
+                                <AlarmClock className="w-4 h-4" /> মোট সময়:
+                            </strong>
+                            {data.question?.duration} মিনিট
                         </div>
 
                         <div className="bg-green-50 px-4 py-2 rounded shadow-sm border border-green-100">
-                            <strong className="text-green-700 flex items-center gap-2"><AlarmClock className="w-4 h-4" /> ব্যবহৃত সময়:</strong> {data.examInfo?.usedTime}
+                            <strong className="text-green-700 flex items-center gap-2">
+                                <AlarmClock className="w-4 h-4" /> প্রাপ্ত নম্বর:
+                            </strong>
+                            {data?.totalmark || 0}
+                        </div>
+
+                        {/* ✅ নতুন ফিল্ডগুলো */}
+                        <div className="bg-orange-50 px-4 py-2 rounded shadow-sm border border-orange-100">
+                            <strong className="text-orange-700 flex items-center gap-2">
+                                <CheckCircle className="w-4 h-4" /> পাস নম্বর:
+                            </strong>
+                            {data?.question?.passMark || "N/A"} 
+                        </div>
+
+                        <div className="bg-rose-50 px-4 py-2 rounded shadow-sm border border-rose-100">
+                            <strong className="text-rose-700 flex items-center gap-2">
+                                <XCircle className="w-4 h-4" /> নেগেটিভ মার্ক:
+                            </strong>
+                            {data?.nagetiveMark || "N/A"}
+                        </div>
+
+                        <div className="bg-lime-50 px-4 py-2 rounded shadow-sm border border-lime-100">
+                            <strong className="text-lime-700 flex items-center gap-2">
+                                <CheckCircle className="w-4 h-4" /> ফলাফল:
+                            </strong>
+                            {data?.isPass ? "✅ পাশ" : "❌ ফেল"}
+                        </div>
+
+                        <div className="bg-sky-50 px-4 py-2 rounded shadow-sm border border-sky-100">
+                            <strong className="text-sky-700 flex items-center gap-2">
+                                <AlarmClock className="w-4 h-4" /> প্রতিযোগিতার পরীক্ষাঃ
+                            </strong>
+                            {data?.isRetake ? "❌ রিটেক" : "🏆 মূল পরীক্ষা"}
                         </div>
                     </div>
                 </div>
+
 
                 {/* Result Details */}
                 <div className="space-y-4">

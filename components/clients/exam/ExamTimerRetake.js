@@ -1,13 +1,21 @@
 import { useState, useEffect } from "react";
-import dayjs from "dayjs";
 
-export default function useExamTimerRetake({ startDate, startTime, duration }) {
+export default function useExamTimerRetake({ duration, onSubmit }) {
     const [status, setStatus] = useState("upcoming"); // upcoming | ongoing | finished
     const [timeLeft, setTimeLeft] = useState("");
 
-    // helper
+    // useEffect(() => {
+    //     if (
+    //         (status === "finished" || timeLeft === "00:00:00" || timeLeft === "0:0:0")
+    //     ) {
+    //         console.log("insuubmit Call from Regular")
+    //         onSubmit();
+    //     }
+    // }, [status, timeLeft]);
+
+    // helper function: format ms into hh:mm:ss
     const formatDuration = (ms) => {
-        const totalSeconds = Math.floor(ms / 1000);
+        const totalSeconds = Math.max(0, Math.floor(ms / 1000));
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
@@ -18,35 +26,34 @@ export default function useExamTimerRetake({ startDate, startTime, duration }) {
     };
 
     useEffect(() => {
-        if (!startDate || !startTime || !duration) {
-            setStatus("ongoing");
+        if (!duration || duration <= 0) {
+            setStatus("finished");
+            setTimeLeft("00:00:00");
             return;
         }
 
-        const datePart = dayjs(startDate).format("YYYY-MM-DD");
-        const examStart = dayjs(`${datePart} ${startTime}`, "YYYY-MM-DD HH:mm");
-        const examEnd = examStart.add(duration, "minute");
-
+        // exam start now
+        setStatus("ongoing");
+        const examEnd = Date.now() + duration * 60 * 1000;
 
         const updateCountdown = () => {
-            const now = dayjs();
+            const now = Date.now();
+            const remaining = examEnd - now;
 
-            if (now.isBefore(examStart)) {
-                setStatus("upcoming");
-                setTimeLeft(formatDuration(examStart.diff(now)));
-            } else if (now.isAfter(examEnd)) {
+            if (remaining <= 0) {
                 setStatus("finished");
                 setTimeLeft("00:00:00");
+                clearInterval(timer);
             } else {
-                setStatus("ongoing");
-                setTimeLeft(formatDuration(examEnd.diff(now)));
+                setTimeLeft(formatDuration(remaining));
             }
         };
 
-        updateCountdown();
+        updateCountdown(); // call immediately
         const timer = setInterval(updateCountdown, 1000);
+
         return () => clearInterval(timer);
-    }, [startDate, startTime, duration]);
+    }, [duration]);
 
     return { status, timeLeft };
 }
