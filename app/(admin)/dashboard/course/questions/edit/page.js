@@ -39,34 +39,31 @@ export default function EditQuestion() {
 
     //  single question get for set Data in form State
     useEffect(() => {
+
         const getSingleQuestion = async () => {
             try {
+                if (!questionId) return;
 
-                if (!questionId) {
-                    return <h1 className=' text-lg font-medium my-5'>
-                        কোর্স পাওয়া যায়নি
-                    </h1>
-                }
-                setQuestionComing(true)
+                setQuestionComing(true);
                 const { status, data } = await getSingelQuestionsForAdmin(questionId);
-               
+
                 if (status === 200) {
                     setFormData(() => ({
                         ...data,
                         courseId: data.course,
                         startDate: formatDate(data.startDate)
-                    }))
+                    }));
                 }
 
             } catch (error) {
-                console.log(error)
+                console.log(error);
             } finally {
-                setQuestionComing(false)
+                setQuestionComing(false);
             }
         };
 
-        getSingleQuestion()
-    }, [])
+        getSingleQuestion();
+    }, [questionId]);
 
 
 

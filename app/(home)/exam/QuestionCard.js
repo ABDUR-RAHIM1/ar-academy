@@ -5,16 +5,18 @@ import React from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from '@/components/ui/button';
 import { formatTime12Hour } from '@/utils/FormatedTime';
-import { InfoIcon } from 'lucide-react';
-import useExamTimer from '@/utils/ExamTimeCountDown';
+import { InfoIcon } from 'lucide-react'; 
+import useExamTimerRegular from '@/components/clients/exam/ExamTimerRegular';
 
 export default function QuestionCard({ exam, index }) {
 
-    const { status, timeLeft } = useExamTimer({
+
+    const { status, timeLeft } = useExamTimerRegular({
         startDate: exam.startDate,
         startTime: exam.startTime,
         duration: exam.duration
     });
+ 
  
     const formattedTime = formatTime12Hour(exam?.startTime);
 
@@ -82,6 +84,11 @@ export default function QuestionCard({ exam, index }) {
             {status === "ongoing" && (
                 <div className={`text-sm mt-2 ${styles.countdown}`}>
                     ⏳ শেষ হতে বাকি: {timeLeft}
+                </div>
+            )}
+            {status === "finished" && (
+                <div className={`text-sm mt-2 text-red-600 font-bold`}>
+                    ⏳ শেষ হয়েছে! 
                 </div>
             )}
 

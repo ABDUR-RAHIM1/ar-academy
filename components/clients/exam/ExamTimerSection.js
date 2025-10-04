@@ -122,7 +122,7 @@ export default function ExamTimerSection({
                         {/* Submit button */}
                         <Button
                             onClick={handleSubmit}
-                            // disabled={isSubmit || timeLeft === "00:00:00"}
+                            disabled={isSubmit || timeLeft === "00:00:00"}
                             className="w-full mt-3 flex items-center gap-2"
                         >
                             <CheckCircle className="w-4 h-4" />

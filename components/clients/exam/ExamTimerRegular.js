@@ -1,19 +1,10 @@
 import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 
-export default function useExamTimerRegular({ startDate, startTime, duration, onSubmit }) {
+export default function useExamTimerRegular({ startDate, startTime, duration }) {
     const [status, setStatus] = useState("upcoming"); // upcoming | ongoing | finished
     const [timeLeft, setTimeLeft] = useState("");
 
-
-    // useEffect(() => {
-    //     if (
-    //         (status === "finished" || timeLeft === "00:00:00" || timeLeft === "0:0:0")
-    //     ) {
-    //         console.log("insuubmit Call from Regular")
-    //         onSubmit();
-    //     }
-    // }, [status, timeLeft]);
 
     // helper
     const formatDuration = (ms) => {

@@ -1,8 +1,7 @@
 "use client";
 import { postActionUser } from "@/actions/users/postActions";
 import { questionsSubmit, userLogin } from "@/constans";
-import { contextD } from "@/contextApi/DashboardState";
-import ExamTimer from "@/helpers/examTimer/ExamTimer";
+import { contextD } from "@/contextApi/DashboardState"; 
 import LoginAlertModal from "@/utils/LoginAlertModal";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
@@ -17,7 +16,7 @@ export default function ExamForm({ questionsData }) {
 
     const router = useRouter()
 
-    const { showToast, token, usedTime } = useContext(contextD)
+    const { showToast, token } = useContext(contextD)
     const [loginModalOpen, setLoginModalOpen] = useState(false);
     const [isSubmit, setIsSubmit] = useState(false);
 
@@ -52,13 +51,10 @@ export default function ExamForm({ questionsData }) {
         startDate: questionsData.startDate,
         startTime: questionsData.startTime,
         duration: questionsData.duration,
-        // allowRetake: questionsData.allowRetake,
-        // onSubmit: handleSubmitQuestion
     });
 
     const retake = useExamTimerRetake({
         duration: questionsData.duration,
-        // onSubmit: handleSubmitQuestion
     });
 
     // conditionally pick which one to use
@@ -146,8 +142,6 @@ export default function ExamForm({ questionsData }) {
 
 
 
-
-
     if (isSubmit) {
         <ExamSubmitLoading />
     }
@@ -156,32 +150,20 @@ export default function ExamForm({ questionsData }) {
     return (
         <div>
             <div className='  w-full sticky top-16 md:top-24 left-0 z-20'>
-                {/* <ExamTimer
-                    token={token}
-                    durationInMinutes={duration}
-                    isSubmit={isSubmit}
-                    handleSubmitQuestion={handleSubmitQuestion}
-                    totalQuestions={formData.length || 0}
-                    selectedCount={selectedCount}
-                /> */}
-
                 <div className="bg-blue-500 text-white">
                     <ExamTimerSection
                         token={token}
                         timeLeft={timeLeft}
                         status={status}
                         durationInMinutes={duration}
+                        isSubmit={isSubmit}
                         handleSubmitQuestion={handleSubmitQuestion}
                         totalQuestions={formData.length || 0}
                         selectedCount={selectedCount}
                     />
                 </div>
             </div>
-
-            <div className=" my-6 ">
-
-
-            </div>
+       
 
             {formData.map((question, index) => (
                 <div key={question.ID} className="mb-6 p-4 border border-gray-300 rounded-lg">
@@ -227,16 +209,6 @@ export default function ExamForm({ questionsData }) {
 
                 </div>
             ))}
-
-            {/* Submit Button */}
-            {/* <button
-                onClick={handleSubmitQuestion} // Later you can send this to API
-                className=" sticky bottom-0 w-full bg1 hover:bg2 transition-all text-white px-4 py-2 rounded-md mt-4"
-            >
-                {
-                    loading ? "জমা দেওয়া হচ্ছে..." : "সাবমিট করুন"
-                }
-            </button> */}
 
             <LoginAlertModal
                 open={loginModalOpen}
