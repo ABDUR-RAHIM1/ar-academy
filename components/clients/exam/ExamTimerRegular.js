@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 
-export default function useExamTimerRegular({ startDate, startTime, duration }) {
+export default function useExamTimerRegular({ startDate, startTime, duration, stop = false }) {
     const [status, setStatus] = useState("upcoming"); // upcoming | ongoing | finished
     const [timeLeft, setTimeLeft] = useState("");
 
@@ -19,6 +19,9 @@ export default function useExamTimerRegular({ startDate, startTime, duration }) 
     };
 
     useEffect(() => {
+
+         if (stop) return; // submit হলে timer বন্ধ
+
         if (!startDate || !startTime || !duration) {
             setStatus("ongoing");
             return;
@@ -47,7 +50,7 @@ export default function useExamTimerRegular({ startDate, startTime, duration }) 
         updateCountdown();
         const timer = setInterval(updateCountdown, 1000);
         return () => clearInterval(timer);
-    }, [startDate, startTime, duration]);
+    }, [startDate, startTime, duration , stop]);
 
     return { status, timeLeft };
 }

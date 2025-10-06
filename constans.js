@@ -9,8 +9,12 @@ export const COMMON_ALT_TEXT = "Onushilon Academy - Empowering Your Learning Jou
 export const secretKey = "abrahimArAcademy"
 export const adminSecretKey = "@Admin#2024!Secure/17"
 
-export const userRegister = "/account/register"
-export const userLogin = "/account/login"
+export const studentAuth = "/account/student/register"
+export const subAdminAuth = "/account/subAdmin/register"
+export const subAdminLogin = "/account/subAdmin/login"
+
+export const studentRegister = "/account/student/register"
+export const studentLogin = "/account/student/login" 
 export const adminLogin = "/auth-admin"
 
 //  get token api // akhn use hocce na , delete korte hbe pore
@@ -87,7 +91,7 @@ export const planUpdate = "/api/plan/update/"
 
 //  user Start here ============================================================
 
-export const adminAccountregister = "/api/account/admin/register"
+export const adminAccountregister = "/api/account/admin/register"  // admin, moderator, subAdmin register
 export const adminAccountLogin = "/api/account/admin/login/"
 
 export const accountRegister = "/api/account/register"

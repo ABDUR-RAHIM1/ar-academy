@@ -24,7 +24,7 @@ export default function AdminLogOutButton() {
     }
 
     return (
-        <button onClick={handleLogOut} className={"w-full flex items-center text-lg cursor-pointer p-2 bg-red-700 hover:bg-red-600 rounded-md capitalize"}>
+        <button onClick={handleLogOut} className={"w-full flex items-center text-lg cursor-pointer p-2 text-white bg-slate-800 hover:bg-slate-700 rounded-md capitalize"}>
             <IoMdLogOut className=' mr-4' />
             logout</button>
     )

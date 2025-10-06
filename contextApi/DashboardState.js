@@ -9,7 +9,10 @@ export const contextD = createContext()
 export default function DashboardState({ children }) {
     const [token, setToken] = useState("")
     const router = useRouter();
-    const [loginSignal, setLoginSignal] = useState(false)
+    const [loginSignal, setLoginSignal] = useState({
+        signal: false,
+        signalType: ""
+    })
     const [showSearchBar, setShowSearchBar] = useState(false)
     const [subIdentifier, setSubIdentifer] = useState("")
 

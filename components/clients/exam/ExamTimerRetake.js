@@ -1,17 +1,9 @@
 import { useState, useEffect } from "react";
 
-export default function useExamTimerRetake({ duration, onSubmit }) {
+export default function useExamTimerRetake({ duration, stop = false }) {
     const [status, setStatus] = useState("upcoming"); // upcoming | ongoing | finished
     const [timeLeft, setTimeLeft] = useState("");
 
-    // useEffect(() => {
-    //     if (
-    //         (status === "finished" || timeLeft === "00:00:00" || timeLeft === "0:0:0")
-    //     ) {
-    //         console.log("insuubmit Call from Regular")
-    //         onSubmit();
-    //     }
-    // }, [status, timeLeft]);
 
     // helper function: format ms into hh:mm:ss
     const formatDuration = (ms) => {
@@ -26,6 +18,9 @@ export default function useExamTimerRetake({ duration, onSubmit }) {
     };
 
     useEffect(() => {
+
+        if (stop) return; // submit হলে timer বন্ধ
+
         if (!duration || duration <= 0) {
             setStatus("finished");
             setTimeLeft("00:00:00");
@@ -53,7 +48,7 @@ export default function useExamTimerRetake({ duration, onSubmit }) {
         const timer = setInterval(updateCountdown, 1000);
 
         return () => clearInterval(timer);
-    }, [duration]);
+    }, [duration, stop]);
 
     return { status, timeLeft };
 }

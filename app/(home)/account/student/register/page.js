@@ -7,7 +7,7 @@ import { contextD } from '@/contextApi/DashboardState';
 import { validateEmail } from '@/helpers/verfications';
 import Link from 'next/link';
 import { postActionUser } from '@/actions/users/postActions';
-import { accountRegister } from '@/constans';
+import { accountRegister, studentLogin } from '@/constans';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
@@ -75,8 +75,8 @@ export default function RegisterAccount() {
   </div>
 
   {/* Right Section */}
-  <div className='w-full md:w-1/2 px-4 md:px-10 py-8 flex items-center justify-center'>
-    <form onSubmit={handleSubmit} className='bg-white p-6 rounded-xl shadow-lg w-full max-w-md'>
+  <div className='w-full md:w-1/2  px-4 md:px-5 py-8 flex items-center justify-center'>
+    <form onSubmit={handleSubmit} className='bg-white p-6 rounded-xl shadow-lg w-full  '>
       <h3 className='text-xl font-semibold text-center mb-6'>একাউন্ট তৈরী করুন</h3>
 
       <InputField name="username" label={"নাম"} placeholder="👤 আপনার নাম লিখুন" handler={handleChange} />
@@ -93,7 +93,7 @@ export default function RegisterAccount() {
         <p className="text-gray-600 text-sm">
           একাউন্ট আছে?{" "}
           <Link
-            href="/account/login"
+            href={studentLogin}
             className="text-blue-600 hover:underline font-medium"
           >
             লগইন করুন

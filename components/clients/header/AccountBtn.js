@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { userLogin, userRegister } from '@/constans'
+import { studentAuth, subAdminAuth, userLogin, userRegister } from '@/constans'
 import { usePathname, useRouter } from 'next/navigation'
 import { contextD } from '@/contextApi/DashboardState'
 import { decodedToken } from '@/helpers/token-decoded/tokenDecoded'
@@ -27,18 +27,23 @@ export default function AccountBtn({ menuClick, setMenuClick }) {
     const [username, setUsername] = useState(null)
 
     useEffect(() => {
+
         const getTokenData = async () => {
-            const tokenGet = await getToken()
-            const decod = await decodedToken()
-            if (decod?.username) {
-                setToken(tokenGet)
-                const firstLetter = decod.username.charAt(0).toUpperCase();
-                setUsername(firstLetter)
+            if (loginSignal.signalType === "student") {
+                const tokenGet = await getToken()
+                const decod = await decodedToken()
+                if (decod?.username) {
+                    setToken(tokenGet)
+                    const firstLetter = decod.username.charAt(0).toUpperCase();
+                    setUsername(firstLetter)
+                }
+            } else {
+                setUsername("N")
             }
         };
 
         getTokenData()
-    }, [loginSignal])
+    }, [loginSignal.signal])
 
     const handleLougout = () => {
         Cookies.remove("onushilon_academy_session")
@@ -127,14 +132,16 @@ export default function AccountBtn({ menuClick, setMenuClick }) {
                     </DropdownMenuTrigger>
 
                     <DropdownMenuContent align="end" className="w-44">
+                        <p className=' text-sm my-2'> একাউন্ট এর ধরন</p>
+                        <hr />
                         <DropdownMenuItem asChild>
-                            <Link href={userLogin} onClick={() => setMenuClick(!menuClick)}>
-                                লগইন করুন
+                            <Link href={studentAuth} onClick={() => setMenuClick(!menuClick)}>
+                                শিক্ষার্থী
                             </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                            <Link href={userRegister} onClick={() => setMenuClick(!menuClick)}>
-                                রেজিস্টার করুন
+                            <Link href={subAdminAuth} onClick={() => setMenuClick(!menuClick)}>
+                                সাব এডমিন
                             </Link>
                         </DropdownMenuItem>
                     </DropdownMenuContent>

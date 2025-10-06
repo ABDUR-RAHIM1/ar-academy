@@ -1,7 +1,7 @@
 "use client";
 import { postActionUser } from "@/actions/users/postActions";
 import { questionsSubmit, userLogin } from "@/constans";
-import { contextD } from "@/contextApi/DashboardState"; 
+import { contextD } from "@/contextApi/DashboardState";
 import LoginAlertModal from "@/utils/LoginAlertModal";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
@@ -19,6 +19,7 @@ export default function ExamForm({ questionsData }) {
     const { showToast, token } = useContext(contextD)
     const [loginModalOpen, setLoginModalOpen] = useState(false);
     const [isSubmit, setIsSubmit] = useState(false);
+    const [hasSubmittedResult, setHasSubmittedResult] = useState(false); // final result submitted
 
     const [formData, setFormData] = useState(
         questions.map((q) => ({ ...q, selectAns: "" })) // Initial state with empty selectAns
@@ -51,10 +52,12 @@ export default function ExamForm({ questionsData }) {
         startDate: questionsData.startDate,
         startTime: questionsData.startTime,
         duration: questionsData.duration,
+        stop: hasSubmittedResult
     });
 
     const retake = useExamTimerRetake({
         duration: questionsData.duration,
+        stop: hasSubmittedResult
     });
 
     // conditionally pick which one to use
@@ -66,7 +69,7 @@ export default function ExamForm({ questionsData }) {
         if (
             (status === "finished" || timeLeft === "00:00:00" || timeLeft === "0:0:0")
         ) {
-            console.log("insuubmit Call from main exam page")
+
             handleSubmitQuestion();
         }
     }, [status, timeLeft]);
@@ -124,12 +127,12 @@ export default function ExamForm({ questionsData }) {
 
             // console.log(resultSheetData)
             const { status, data } = await postActionUser(payload);
-           
+
             showToast(status, data)
             if (status === 200 || status === 201) {
-                setIsSubmit(true)
+                setHasSubmittedResult(true); // ✅ submit success
             }
- 
+
 
         } catch (error) {
             console.log(error);
@@ -143,7 +146,7 @@ export default function ExamForm({ questionsData }) {
 
 
     if (isSubmit) {
-        <ExamSubmitLoading />
+        return <ExamSubmitLoading />
     }
 
 
@@ -163,7 +166,7 @@ export default function ExamForm({ questionsData }) {
                     />
                 </div>
             </div>
-       
+
 
             {formData.map((question, index) => (
                 <div key={question.ID} className="mb-6 p-4 border border-gray-300 rounded-lg">

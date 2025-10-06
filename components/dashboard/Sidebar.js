@@ -18,11 +18,11 @@ export default function Sidebar() {
         setOpenItem(openItem === index ? null : index);
     };
 
-    
+
     return (
         <>
             {/* Desktop Sidebar */}
-            <aside className={`hidden md:block w-[250px] h-screen bg-gray-800 text-white z-50 relative overflow-y-auto`}>
+            <aside className={`hidden md:block w-[250px] h-screen bg-white shadow-md z-50 relative overflow-y-auto`}>
                 <div className="p-4 my-10">
                     <div className=' mb-5'>
                         <Logo />
@@ -33,7 +33,7 @@ export default function Sidebar() {
                                 {/* Parent Item */}
                                 <div
                                     className={
-                                        ` ${mainPath === (item.item).toLowerCase() ? "bg-gray-900" : ""} flex items-center text-lg cursor-pointer p-2 hover:bg-gray-700 rounded-md`
+                                        ` ${mainPath === (item.item).toLowerCase() ? "bg-gray-200" : ""} flex items-center text-lg cursor-pointer p-2 hover:bg-gray-200 rounded-md`
                                     }
                                     onClick={() => item.children && toggleItem(index)}
                                 >

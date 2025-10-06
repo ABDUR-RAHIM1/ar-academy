@@ -5,11 +5,11 @@ import React, { useContext, useState } from 'react';
 import { contextD } from '@/contextApi/DashboardState';
 import { validateEmail } from '@/helpers/verfications';
 import Link from 'next/link';
-import { postActionUser } from '@/actions/users/postActions';
 import { useRouter } from 'next/navigation';
-import { accountLogin } from '@/constans';
+import { adminAccountLogin, studentRegister, subAdminAuth } from '@/constans';
 import Cookies from 'js-cookie';
 import ResentEmailVerification from '@/utils/ResentEmailVerification';
+import { postActions } from '@/actions/admins/postActions';
 
 export default function LoginAccount() {
     const router = useRouter();
@@ -20,7 +20,7 @@ export default function LoginAccount() {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
-        role: "user"
+        role: "subAdmin"
     });
 
     const handleChange = (e) => {
@@ -40,12 +40,12 @@ export default function LoginAccount() {
             }
 
             const payload = {
-                api: accountLogin,
+                api: adminAccountLogin,
                 method: "POST",
                 body: formData
             };
 
-            const { status, data } = await postActionUser(payload);
+            const { status, data } = await postActions(payload);
             showToast(status, data);
 
             if (status === 403 && data.code === "EMAIL_NOT_VERIFIED") {
@@ -53,10 +53,14 @@ export default function LoginAccount() {
             }
 
             if (data.token) {
-                setLoginSignal(!loginSignal);
-                Cookies.set("onushilon_academy_session", data.token, { expires: 7 });
+                // setLoginSignal(!loginSignal);
+                setLoginSignal((prev) => ({
+                    signal: !prev,
+                    signalType: "subAdmin"
+                }))
+                Cookies.set("onushilon_academy_sub_session", data.token, { expires: 7 });
                 setToken(data.token);
-                router.push("/profile");
+                router.push("/subAdmin");
             }
         } catch (error) {
             console.log(error);
@@ -66,14 +70,14 @@ export default function LoginAccount() {
     };
 
     return (
-        <div className='w-full flex flex-col md:flex-row items-stretch justify-center bg-gradient-to-r from-[#F0F4FF] to-[#E6F0FA] min-h-screen'>
+        <div className='w-full h-screen flex flex-col md:flex-row items-stretch justify-center bg-gradient-to-r from-[#F0F4FF] to-[#E6F0FA] min-h-screen'>
 
             {/* Left Section */}
             <div className='bg-blue-100 hidden md:flex md:w-1/2 items-center justify-center p-10'>
                 <div className='text-center max-w-sm'>
-                    <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">অনুশীলন একাডেমি</h2>
-                    <p className="text-gray-700 max-w-sm">
-                        আমাদের মাধ্যমে অনুশীলন করুন এবং নিজেকে তৈরি করুন আপনার কাঙ্ক্ষিত ভবিষ্যতের জন্য।
+                    <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">SubAdmin একাউন্ট</h2>
+                    <p className='text-gray-700'>
+                        Assigned কোর্সের প্রশ্ন তৈরি ও স্টুডেন্টদের অ্যাক্সেস নিয়ন্ত্রণের জন্য আপনার নিজস্ব একাউন্ট ব্যবহার করুন।
                     </p>
                 </div>
             </div>
@@ -85,7 +89,7 @@ export default function LoginAccount() {
                 {/* Right Side - Login Form */}
                 <form
                     onSubmit={handleSubmit}
-                    className='w-full p-6 bg-white  rounded-xl shadow-lg max-w-md'
+                    className='w-full p-6 bg-white  rounded-xl shadow-lg'
                 >
                     <h2 className='text-2xl font-semibold text-gray-800 mb-6 text-center'>লগইন করুন</h2>
 
@@ -105,7 +109,7 @@ export default function LoginAccount() {
                     <div className="mt-6 text-center text-sm text-gray-600">
                         <span>একাউন্ট নেই?</span>{" "}
                         <Link
-                            href="/account/register"
+                            href={subAdminAuth}
                             className="text-blue-600 hover:underline font-medium"
                         >
                             একাউন্ট তৈরি করুন

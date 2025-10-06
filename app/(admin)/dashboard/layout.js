@@ -56,7 +56,7 @@ export default function DashboardLayout({ children }) {
                 <div className='flex h-screen'>
                     <DashboardState>
                         <Sidebar />
-                        <main className=' w-full md:flex-1 bg-gray-200 overflow-y-auto'>
+                        <main className=' w-full md:flex-1 bg-gray-100 overflow-y-auto'>
                             <DashboardHeader />
                             <div className='p-3'>
                                 {children}
