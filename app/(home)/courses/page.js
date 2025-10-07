@@ -9,6 +9,7 @@ export default async function Courses() {
 
     const { status, data } = await getAllCourse()
 
+
     if (status !== 200 || !data) {
         return <NoData text={"কোন কোর্স পাওয়া যায়নি!"} />
     }
@@ -17,12 +18,17 @@ export default async function Courses() {
         <div className="max-w-7xl mx-auto px-4 py-8">
             <Heading text={"আমাদের কোর্সসমূহ"} />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6">
                 {data.map((course) => (
                     <Card
                         key={course._id}
                         className="rounded-2xl shadow-md hover:shadow-xl transition"
                     >
+                        <div className={"w-full p-2 border text-center"}>
+                            {
+                                course.courseType !== "subAdmin" ? "শিক্ষার্থীদের জন্য" : "সাব এডমিনের জন্য"
+                            }
+                        </div>
                         <CardHeader>
 
                             <CardTitle className="text-lg font-semibold">

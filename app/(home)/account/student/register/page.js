@@ -1,19 +1,16 @@
 "use client";
 import { InputField } from '@/utils/InputFIled';
 import SubmitButton from '@/utils/SubmitButton';
-import React, { useContext, useEffect, useState } from 'react';
-
+import React, { useContext, useState } from 'react';
 import { contextD } from '@/contextApi/DashboardState';
 import { validateEmail } from '@/helpers/verfications';
 import Link from 'next/link';
 import { postActionUser } from '@/actions/users/postActions';
 import { accountRegister, studentLogin } from '@/constans';
-import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
 
 export default function RegisterAccount() {
-    const router = useRouter();
-    const { showToast, loginSignal, setLoginSignal } = useContext(contextD);
+ 
+    const { showToast } = useContext(contextD);
 
 
     const [loading, setLoading] = useState(false);

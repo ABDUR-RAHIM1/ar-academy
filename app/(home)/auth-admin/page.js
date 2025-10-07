@@ -1,6 +1,6 @@
 "use client"
 import { postActions } from '@/actions/admins/postActions';
-import { accountLogin, adminAccountLogin } from '@/constans';
+import { accountLogin, adminAccountLogin, roles } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import { InputField } from '@/utils/InputFIled';
 import ResentEmailVerification from '@/utils/ResentEmailVerification';
@@ -20,7 +20,7 @@ export default function AdminLogin() {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
-        role: "superAdmin"
+        role: roles.admin 
     })
 
 
@@ -60,7 +60,6 @@ export default function AdminLogin() {
     };
 
 
-    console.log(formData)
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-indigo-200 to-purple-200 px-4">

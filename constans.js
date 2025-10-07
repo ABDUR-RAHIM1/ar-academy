@@ -4,7 +4,11 @@ export const BASE_URL = process.env.NEXT_BASE_URL
 
 // export const secretKey = process.env.NETX_PUBLIC_SECRET_KEY
 export const COMMON_ALT_TEXT = "Onushilon Academy - Empowering Your Learning Journey";
-
+export const roles = {
+    admin: "superAdmin",
+    subAdmin: "subAdmin",
+    user: "student"
+}
 
 export const secretKey = "abrahimArAcademy"
 export const adminSecretKey = "@Admin#2024!Secure/17"
@@ -14,7 +18,7 @@ export const subAdminAuth = "/account/subAdmin/register"
 export const subAdminLogin = "/account/subAdmin/login"
 
 export const studentRegister = "/account/student/register"
-export const studentLogin = "/account/student/login" 
+export const studentLogin = "/account/student/login"
 export const adminLogin = "/auth-admin"
 
 //  get token api // akhn use hocce na , delete korte hbe pore
@@ -24,6 +28,8 @@ export const getTokenApi = "/api/get-token/"
 export const courseCreate = process.env.NEXT_PUBLIC_COURSE_CREATE
 export const courseGetAll = process.env.NEXT_PUBLIC_COURSE_GET_ALL
 export const courseGetSingle = process.env.NEXT_PUBLIC_COURSE_GET_SINGLE
+export const courseGetByStudent = process.env.NEXT_PUBLIC_COURSE_GET_STUDENT
+
 export const courseUpdate = process.env.NEXT_PUBLIC_COURSE_UPDATE
 export const courseDelete = process.env.NEXT_PUBLIC_COURSE_DELETE
 //  Course End Here

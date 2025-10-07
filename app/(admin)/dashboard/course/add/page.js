@@ -17,6 +17,7 @@ export default function CourseAdd() {
         itemName: "",
         path: ""
     })
+ 
     const [formData, setFormData] = useState({
         name: "",
         title: "",
@@ -26,6 +27,7 @@ export default function CourseAdd() {
         regularPrice: 0,
         offerPrice: 0,
         duration: 0,
+        courseType: "student"
     });
 
 
@@ -102,8 +104,7 @@ export default function CourseAdd() {
             setLoading(false)
         }
     }
-
-
+ 
 
 
     return (
@@ -229,6 +230,19 @@ export default function CourseAdd() {
                                 <option value="6">৬ মাস</option>
                             </select>
                         </div>
+
+                        <div className=' col-span-1'>
+                            <select className='w-full p-2 border rounded-md text-sm' name="courseType" id="courseType"
+                                onChange={handleChange}
+                                value={formData.courseType}
+                                required
+                            >
+                                <option value="0">কে এক্সেস করতে পারবে? </option> 
+                                <option value="student">শিক্ষার্থী</option>
+                                <option value="subAdmin">সাব অ্যাডমিন</option>
+                            </select>
+                        </div>
+
                     </div>
 
                 </div>

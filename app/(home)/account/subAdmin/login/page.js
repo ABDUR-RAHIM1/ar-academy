@@ -6,7 +6,7 @@ import { contextD } from '@/contextApi/DashboardState';
 import { validateEmail } from '@/helpers/verfications';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { adminAccountLogin, studentRegister, subAdminAuth } from '@/constans';
+import { adminAccountLogin, roles, studentRegister, subAdminAuth } from '@/constans';
 import Cookies from 'js-cookie';
 import ResentEmailVerification from '@/utils/ResentEmailVerification';
 import { postActions } from '@/actions/admins/postActions';
@@ -20,7 +20,7 @@ export default function LoginAccount() {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
-        role: "subAdmin"
+        role: roles.subAdmin
     });
 
     const handleChange = (e) => {

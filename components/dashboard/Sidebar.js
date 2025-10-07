@@ -33,7 +33,7 @@ export default function Sidebar() {
                                 {/* Parent Item */}
                                 <div
                                     className={
-                                        ` ${mainPath === (item.item).toLowerCase() ? "bg-gray-200" : ""} flex items-center text-lg cursor-pointer p-2 hover:bg-gray-200 rounded-md`
+                                        ` ${mainPath === (item.item).toLowerCase() ? "bg-gray-200" : ""} flex items-center text-lg cursor-pointer p-2 hover:bg-gray-300 rounded-md`
                                     }
                                     onClick={() => item.children && toggleItem(index)}
                                 >
@@ -45,8 +45,8 @@ export default function Sidebar() {
                                     <div className="ml-6 mt-2 space-y-2">
                                         {item.children.map((child, idx) => (
                                             <Link href={`/dashboard/${child.path}`} key={idx} className={`
-                                                ${path === "/dashboard/" + child.path ? "bg-gray-700" : ""}
-                                                flex items-center text-sm cursor-pointer p-2 hover:bg-gray-700 rounded-md
+                                                ${path === "/dashboard/" + child.path ? "bg-gray-200" : ""}
+                                                flex items-center text-sm cursor-pointer p-2 hover:bg-gray-300 rounded-md
                                             `}>
 
                                                 <div className="mr-4">{child.icon}</div>
@@ -66,7 +66,7 @@ export default function Sidebar() {
             </aside>
 
             {/* Mobile Sidebar */}
-            <aside className={`${isOpen ? "scale-x-0" : "scale-x-100"} block md:hidden transition-all origin-left w-[250px] h-screen top-0 left-0 bg-gray-800 text-white fixed z-50 overflow-y-auto`}>
+            <aside className={`${isOpen ? "scale-x-0" : "scale-x-100"} block md:hidden transition-all origin-left w-[250px] h-screen top-0 left-0 bg-white fixed z-50 overflow-y-auto`}> 
                 <div className="p-4">
                     <div className=" mb-6">
                         <Logo />
@@ -77,7 +77,7 @@ export default function Sidebar() {
                                 {/* Parent Item */}
                                 <div
                                     className={
-                                        ` ${mainPath === (item.item).toLowerCase() ? "bg-gray-900" : ""} flex items-center text-lg cursor-pointer p-2 hover:bg-gray-700 rounded-md`
+                                        ` ${mainPath === (item.item).toLowerCase() ? "bg-gray-200" : ""} flex items-center text-lg cursor-pointer p-2 hover:bg-gray-300 rounded-md`
                                     }
                                     onClick={() => item.children && toggleItem(index)} // Toggle child visibility
                                 >
@@ -88,7 +88,7 @@ export default function Sidebar() {
                                 {item.children && openItem === index && (
                                     <div className="ml-6 mt-2 space-y-2">
                                         {item.children.map((child, idx) => (
-                                            <Link href={`/dashboard/${child.path}`} key={idx} className="flex items-center text-sm cursor-pointer p-2 hover:bg-gray-700 rounded-md">
+                                            <Link href={`/dashboard/${child.path}`} key={idx} className="flex items-center text-sm cursor-pointer p-2 hover:bg-gray-200 rounded-md">
                                                 <div className="mr-4">{child.icon}</div>
                                                 <div>{child.item}</div>
                                             </Link>

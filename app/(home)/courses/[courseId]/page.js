@@ -2,6 +2,7 @@ import { getSignleCourse } from '@/app/apiActions/Course';
 import React from 'react'
 import NoData from '@/utils/NoData';
 import CoursePurchaseButton from '@/components/courseActions/CoursePurchase';
+import SubAdminCoursePurchaseButton from '@/components/courseActions/SubAdminPurchaseCourse';
 
 //  course Details
 export default async function CoursePreview({ params }) {
@@ -66,6 +67,11 @@ export default async function CoursePreview({ params }) {
             {/* Right side - order/summary card */}
             <div className="md:col-span-1">
                 <div className="p-6 rounded-2xl shadow-lg bg-white sticky top-20 space-y-4">
+                    <div className={"w-full p-2 border text-center"}>
+                        {
+                            course.courseType !== "subAdmin" ? "শিক্ষার্থীদের জন্য" : "সাব এডমিনের জন্য"
+                        }
+                    </div>
                     <h2 className="text-xl font-bold">অর্ডার সারসংক্ষেপ</h2>
 
                     <div className="flex justify-between text-gray-700">
@@ -85,9 +91,17 @@ export default async function CoursePreview({ params }) {
                         <span>{course.offerPrice} ৳</span>
                     </div>
 
-                    <CoursePurchaseButton
-                        courseId={course._id}
-                    />
+                    {
+                        course.courseType !== "student" ?
+                            <SubAdminCoursePurchaseButton
+                                courseId={course._id}
+                            />
+                            :
+                            <CoursePurchaseButton
+                                courseId={course._id}
+                            />
+
+                    }
                 </div>
             </div>
         </div>

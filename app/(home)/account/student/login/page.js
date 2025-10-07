@@ -7,7 +7,7 @@ import { validateEmail } from '@/helpers/verfications';
 import Link from 'next/link';
 import { postActionUser } from '@/actions/users/postActions';
 import { useRouter } from 'next/navigation';
-import { accountLogin, studentRegister } from '@/constans';
+import { accountLogin, roles, studentRegister } from '@/constans';
 import Cookies from 'js-cookie';
 import ResentEmailVerification from '@/utils/ResentEmailVerification';
 
@@ -20,10 +20,10 @@ export default function LoginAccount() {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
-        role: "user"
+        role: roles.user 
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e) => { 
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
