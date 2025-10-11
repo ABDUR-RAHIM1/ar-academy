@@ -15,7 +15,14 @@ body {
     -ms-user-select: none;     /* IE/Edge */
     user-select: none;  
 }
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
 
+/* For Firefox */
+.scrollbar-hide {
+  scrollbar-width: none;
+}
 @media print {
   @page {
     margin: 10mm; 

@@ -63,7 +63,10 @@ export const chapterDelete = process.env.NEXT_PUBLIC_CHAPTERS_DELETE
 
 //  questions start
 export const questionsCreate = process.env.NEXT_PUBLIC_QUESTIONS_CREATE
+export const questionsCreateSubAdmin = process.env.NEXT_PUBLIC_QUESTIONS_CREATE_SUB_ADMIN  
+
 export const questionsGetAll = process.env.NEXT_PUBLIC_QUESTIONS_GET_ALL
+export const questionsGetAllBySubAdmin = process.env.NEXT_PUBLIC_QUESTIONS_GET_ALL_BY_SUBADMIN
 export const questionGetSingel = process.env.NEXT_PUBLIC_QUESTIONS_GET_ONE
 export const questionGetSingelByAdmin = process.env.NEXT_PUBLIC_QUESTIONS_GET_ONE_BY_ADMIN
 export const questionReletedByCourseName = process.env.NEXT_PUBLIC_QUESTIONS_GET_RELATED_COURSENAME
@@ -108,12 +111,14 @@ export const allAdminAccount = "/api/account/all-admin"
 
 export const loginUserAccount = "/api/account/user/"
 export const loginAdminAccount = "/api/account/admin/"
+export const subAdminStudentsAccount = "/api/account/subStudent/"
 
 export const accountDelete = "/api/account/delete/"
 export const updateUserStatus = "/api/account/updateStatus/"
+export const updateStudentStatusBySubAdmin = "/api/account/updateStatusBySubAdmin/"
 export const updateUserAllInformation = "/api/account/updateAll/"
 export const updateAdminAllInformation = "/api/account/updateAdminAccount/"
-
+export const studentDeleteOnlySubAdmin = "/api/account/subDelete/"
 
 //  comment
 export const commentCreate = process.env.NEXT_PUBLIC_COMMENT_CREATE

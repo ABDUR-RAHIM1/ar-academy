@@ -40,18 +40,3 @@ export const getAllAdmin = async () => {
     return resposne;
 }
 
-// //  get single result for details
-// export const getResultById = async (resultId) => {
-//     const api = resultDetailsApi + resultId
-//     const resposne = await getsActions(api);
-
-//     return resposne;
-// }
-
-
-//  get all results (admin)
-// export const getAllResults = async () => {
-//     const resulls = await getsActions(submitQuestions_get_all_result)
-
-//     return resulls
-// }

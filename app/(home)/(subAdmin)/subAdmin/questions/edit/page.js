@@ -1,31 +1,23 @@
 "use client"
 import React, { useContext, useEffect, useState } from 'react'
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
 import SubmitButton from '@/utils/SubmitButton';
 import * as XLSX from 'xlsx';
 import { Input } from '@/components/ui/input';
 import { postActions } from '@/actions/admins/postActions';
-import { questionsCreate } from '@/constans';
+import { questionUpdate } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import { InputField } from '@/utils/InputFIled';
 import { Label } from '@/components/ui/label';
 import { getAllCourse } from '@/app/apiActions/Course';
 
+export default function EditQuestion() {
 
- 
-export default function AddQuestion() {
+
     const [courseLoading, setCourseLoading] = useState(false)
-    const { showToast } = useContext(contextD);
+    const { showToast, editData } = useContext(contextD);
     const [message, setMessage] = useState("")
     const [course, setCourse] = useState([])
+    const [questionComing, setQuestionComing] = useState(false)
 
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
@@ -42,6 +34,40 @@ export default function AddQuestion() {
         isPublished: true,
     });
 
+
+    //  single question get for set Data in form State
+    // useEffect(() => {
+
+    //     const getSingleQuestion = async () => {
+    //         try {
+    //             if (!questionId) return;
+
+    //             setQuestionComing(true);
+    //             const { status, data } = await getSingelQuestionsForAdmin(questionId);
+
+    //             if (status === 200) {
+    //                 setFormData(() => ({
+    //                     ...data,
+    //                     courseId: data.course,
+    //                     startDate: formatDate(data.startDate)
+    //                 }));
+    //             }
+
+    //         } catch (error) {
+    //             console.log(error);
+    //         } finally {
+    //             setQuestionComing(false);
+    //         }
+    //     };
+
+    //     getSingleQuestion();
+    // }, [questionId]);
+
+    useEffect(() => {
+        setFormData(editData)
+    }, []);
+
+    // console.log(editData)
 
     //  get All Courses
     useEffect(() => {
@@ -61,12 +87,12 @@ export default function AddQuestion() {
 
         getData();
     }, [])
-     
+
     //  handle Course Change
-    const handleCourseChange = (value) => {
+    const handleCourseChange = (e) => {
         setFormData((prev) => ({
             ...prev,
-            courseId: value
+            courseId: e.target.value
         }))
     }
 
@@ -99,17 +125,17 @@ export default function AddQuestion() {
     };
 
 
-    const handleQuestionType = (value) => {
+    const handleQuestionType = (e) => {
         setFormData((prev) => ({
             ...prev,
-            questionType: value
+            questionType: e.target.value
         }))
     }
 
     //  handle Controller Changer 
     const handleControllChange = (e) => {
         const { name, value } = e.target;
-      
+
         setFormData((prev) => ({
             ...prev,
             [name]: value
@@ -117,15 +143,15 @@ export default function AddQuestion() {
 
     }
 
-    //  submit handler
+    //  submit handler (update)
     const handleSubmitQuestions = async (e) => {
         e.preventDefault();
         setLoading(true)
         try {
 
             const payload = {
-                method: "POST",
-                api: questionsCreate,
+                method: "PUT",
+                api: questionUpdate + formData._id,
                 body: formData
             }
             const { status, data } = await postActions(payload);
@@ -140,13 +166,20 @@ export default function AddQuestion() {
     }
 
 
+    if (questionComing) {
+        return <div className=' w-full md:w-[80%] min-h-screen m-auto bg-white p-5 rounded-md'>
+            <p className='p-10'>
+                প্রস্নপত্র মিলানো হচ্ছে.........
+            </p>
+        </div>
+    }
 
     return (
         <div className=' my-10'>
 
             <div className=' w-full md:w-[80%] m-auto bg-white p-5 rounded-md'>
                 <h2 className=' text-xl font-bold my-5'>
-                    প্রশ্ন যুক্ত করুন
+                    প্রশ্ন আপডেট করুন
                 </h2>
 
                 <div className=' grid grid-cols-2 gap-2'>
@@ -154,50 +187,38 @@ export default function AddQuestion() {
                         <Label >
                             প্রশ্নের ধরন
                         </Label>
-                        <Select
-                            name='questionType'
-                            onValueChange={handleQuestionType}
+                        <select
+                            name="questionType" id="questionType"
+                            className='p-2 border w-full text-sm'
+                            onChange={handleQuestionType}
+                            value={formData.questionType}
                         >
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="প্রশ্নের ধরন বাছাই করুন" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectLabel>প্রশ্নের ধরন</SelectLabel>
+                            {/* <option value="">প্রশ্নের ধরন বাছাই করুন</option> */}
+                            <option value="mcq">MCQ</option>
+                            <option value="written">লিখিত</option>
+                        </select>
 
-                                    <SelectItem value="mcq">MCQ</SelectItem>
-                                    <SelectItem value="written">লিখিত</SelectItem>
-
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
                     </div>
                     <div>
                         <Label >
                             কোর্স
                         </Label>
-                        <Select
-                            name='courseId'
-                            onValueChange={handleCourseChange}
+                        <select
+                            name="courseId" id="courseId"
+                            className='p-2 border w-full text-sm'
+                            onChange={handleCourseChange}
+                            value={formData.courseId}
                         >
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="কোর্স বাছাই করুন" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectLabel>কোর্স </SelectLabel>
+                            <option value="">কোর্স বাছাই করুন</option>
+                            {
+                                courseLoading ? "লোড হচ্ছে..."
+                                    :
+                                    course && course.map(cItem => (
+                                        <option key={cItem._id} value={cItem._id}>{cItem.name}</option>
+                                    ))
+                            }
+                        </select>
 
-                                    {
-                                        courseLoading ? <small>লোড হচ্ছে</small>
-                                            :
-                                            course && course.map(cItem => (
-                                                <SelectItem key={cItem._id} value={cItem._id}>{cItem.name}</SelectItem>
-                                            ))
-                                    }
-
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
                     </div>
                 </div>
 
@@ -328,7 +349,7 @@ export default function AddQuestion() {
                     <Input onChange={handleFileChange} type="file" accept=".xlsx, .xls" className=' w-full ' />
 
                     <p className={"text-blue-500 my-2 text-sm"}>
-                        <span>{formData?.questions?.length || 0} টি প্রশ্ন </span> {message}
+                        <span>{formData?.questions?.length || 0} টি প্রশ্ন </span> {message || "আছে"}
                     </p>
                 </div>
 
@@ -336,10 +357,8 @@ export default function AddQuestion() {
 
 
                 <div onClick={handleSubmitQuestions} className=' my-5 inline-block'>
-                    <SubmitButton loadingState={loading} btnText={"প্রশ্ন যুক্ত করুন"} width={"120px"} />
+                    <SubmitButton loadingState={loading} btnText={"আপডেট করুন"} width={"120px"} />
                 </div>
-
-
             </div>
 
         </div>

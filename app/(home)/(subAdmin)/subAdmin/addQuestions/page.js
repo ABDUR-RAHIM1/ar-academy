@@ -13,11 +13,12 @@ import SubmitButton from '@/utils/SubmitButton';
 import * as XLSX from 'xlsx';
 import { Input } from '@/components/ui/input';
 import { postActions } from '@/actions/admins/postActions';
-import { questionsCreate } from '@/constans';
+import { questionsCreate, questionsCreateSubAdmin } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import { InputField } from '@/utils/InputFIled';
 import { Label } from '@/components/ui/label';
 import { getAllCourse } from '@/app/apiActions/Course';
+import { postActionsSubAdmin } from '@/actions/subAdmins/postActionsSubAdmin';
 
 
  
@@ -125,10 +126,10 @@ export default function AddQuestion() {
 
             const payload = {
                 method: "POST",
-                api: questionsCreate,
+                api: questionsCreateSubAdmin,
                 body: formData
             }
-            const { status, data } = await postActions(payload);
+            const { status, data } = await postActionsSubAdmin(payload);
             showToast(status, data)
 
         } catch (error) {

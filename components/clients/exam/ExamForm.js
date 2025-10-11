@@ -1,6 +1,6 @@
 "use client";
 import { postActionUser } from "@/actions/users/postActions";
-import { questionsSubmit, userLogin } from "@/constans";
+import { questionsSubmit, studentLogin } from "@/constans";
 import { contextD } from "@/contextApi/DashboardState";
 import LoginAlertModal from "@/utils/LoginAlertModal";
 import { useRouter } from "next/navigation";
@@ -219,7 +219,7 @@ export default function ExamForm({ questionsData }) {
                 text={"আপনি এখনো লগইন করেননি। পরীক্ষায় অংশগ্রহণ করতে লগইন করতে হবে।"}
                 onRedirect={() => {
                     setLoginModalOpen(false);
-                    router.push(userLogin);
+                    router.push(studentLogin);
                 }}
             />
 
