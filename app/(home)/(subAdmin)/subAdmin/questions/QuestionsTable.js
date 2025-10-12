@@ -1,11 +1,11 @@
-"use client"
-import DeleteActionButton from '@/actions/Buttons/DeleteActionButton';
+"use client" 
 import EditActionButton from '@/actions/Buttons/EditActionButton';
-import { questionDelete } from '@/constans';
+import { questionDeleteSubAdmin } from '@/constans';
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import dayjs from 'dayjs';
 import { getExamStatus } from '@/utils/getExamStatus';
+import DeleteActionButtonSubAdmin from '@/actions/Buttons/DeleteActionButtonSubAdmin';
 
 export default function QuestionsTable({ questionsData }) {
     const [questions, setQuestions] = useState([]);
@@ -15,7 +15,7 @@ export default function QuestionsTable({ questionsData }) {
             setQuestions(questionsData)
         }
     }, [questionsData]);
-
+    
     // Expandable row component
     const ExpandedComponent = ({ data }) => {
         return (
@@ -87,7 +87,7 @@ export default function QuestionsTable({ questionsData }) {
         },
         {
             name: "ডিলেট করুন",
-            selector: row => <DeleteActionButton deleteRoute={questionDelete + row._id} />
+            selector: row => <DeleteActionButtonSubAdmin deleteRoute={questionDeleteSubAdmin + row._id} />
         },
     ]
 
@@ -100,7 +100,7 @@ export default function QuestionsTable({ questionsData }) {
                 pagination
                 highlightOnHover
                 expandableRows
-                expandableRowsComponent={ExpandedComponent} 
+                expandableRowsComponent={ExpandedComponent}
             />
         </div>
     )

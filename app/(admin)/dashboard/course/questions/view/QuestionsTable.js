@@ -83,7 +83,7 @@ export default function QuestionsTable({ questionsData }) {
         },
         {
             name: "আপডেট করুন",
-            selector: row => <EditActionButton data={row._id || undefined} path={"/dashboard/course/questions/edit"} />
+            selector: row => <EditActionButton data={row || undefined} path={"/dashboard/course/questions/edit"} />
         },
         {
             name: "ডিলেট করুন",

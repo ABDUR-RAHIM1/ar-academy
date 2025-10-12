@@ -71,8 +71,10 @@ export const questionGetSingel = process.env.NEXT_PUBLIC_QUESTIONS_GET_ONE
 export const questionGetSingelByAdmin = process.env.NEXT_PUBLIC_QUESTIONS_GET_ONE_BY_ADMIN
 export const questionReletedByCourseName = process.env.NEXT_PUBLIC_QUESTIONS_GET_RELATED_COURSENAME
 export const questionGetByChapter = process.env.NEXT_PUBLIC_QUESTIONS_GET_BY_CHAPTER
-export const questionUpdate = process.env.NEXT_PUBLIC_QUESTIONS_UPDATE
+export const questionUpdate = process.env.NEXT_PUBLIC_QUESTIONS_UPDATE 
+export const questionUpdateSubAdmin = process.env.NEXT_PUBLIC_QUESTIONS_UPDATE_SUB_ADMIN 
 export const questionDelete = process.env.NEXT_PUBLIC_QUESTIONS_DELETE
+export const questionDeleteSubAdmin = process.env.NEXT_PUBLIC_QUESTIONS_DELETE_SUB_ADMIN
 //  questions End
 
 

@@ -3,12 +3,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import SubmitButton from '@/utils/SubmitButton';
 import * as XLSX from 'xlsx';
 import { Input } from '@/components/ui/input';
-import { postActions } from '@/actions/admins/postActions';
-import { questionUpdate } from '@/constans';
+import { questionUpdateSubAdmin } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import { InputField } from '@/utils/InputFIled';
 import { Label } from '@/components/ui/label';
 import { getAllCourse } from '@/app/apiActions/Course';
+import { formatDate } from '@/utils/FormatDate';
+import { postActionsSubAdmin } from '@/actions/subAdmins/postActionsSubAdmin';
 
 export default function EditQuestion() {
 
@@ -17,11 +18,10 @@ export default function EditQuestion() {
     const { showToast, editData } = useContext(contextD);
     const [message, setMessage] = useState("")
     const [course, setCourse] = useState([])
-    const [questionComing, setQuestionComing] = useState(false)
 
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
-        courseId: "",
+        course: "",
         subjectName: "",
         questions: [],
         questionType: "",
@@ -35,39 +35,14 @@ export default function EditQuestion() {
     });
 
 
-    //  single question get for set Data in form State
-    // useEffect(() => {
-
-    //     const getSingleQuestion = async () => {
-    //         try {
-    //             if (!questionId) return;
-
-    //             setQuestionComing(true);
-    //             const { status, data } = await getSingelQuestionsForAdmin(questionId);
-
-    //             if (status === 200) {
-    //                 setFormData(() => ({
-    //                     ...data,
-    //                     courseId: data.course,
-    //                     startDate: formatDate(data.startDate)
-    //                 }));
-    //             }
-
-    //         } catch (error) {
-    //             console.log(error);
-    //         } finally {
-    //             setQuestionComing(false);
-    //         }
-    //     };
-
-    //     getSingleQuestion();
-    // }, [questionId]);
-
     useEffect(() => {
-        setFormData(editData)
+        setFormData((prev) => ({
+            ...editData,
+            course: editData?.course?._id,
+            startDate: formatDate(editData.startDate)
+        }))
     }, []);
 
-    // console.log(editData)
 
     //  get All Courses
     useEffect(() => {
@@ -92,7 +67,7 @@ export default function EditQuestion() {
     const handleCourseChange = (e) => {
         setFormData((prev) => ({
             ...prev,
-            courseId: e.target.value
+            course: e.target.value
         }))
     }
 
@@ -144,18 +119,18 @@ export default function EditQuestion() {
     }
 
     //  submit handler (update)
-    const handleSubmitQuestions = async (e) => {
+    const handleUpdateQuestions = async (e) => {
         e.preventDefault();
         setLoading(true)
         try {
 
             const payload = {
                 method: "PUT",
-                api: questionUpdate + formData._id,
+                api: questionUpdateSubAdmin + formData._id,
                 body: formData
             }
-            const { status, data } = await postActions(payload);
-            showToast(status, data)
+            const { status, data } = await postActionsSubAdmin(payload);
+            showToast(status, data) 
 
         } catch (error) {
             console.log(error)
@@ -165,14 +140,6 @@ export default function EditQuestion() {
         }
     }
 
-
-    if (questionComing) {
-        return <div className=' w-full md:w-[80%] min-h-screen m-auto bg-white p-5 rounded-md'>
-            <p className='p-10'>
-                প্রস্নপত্র মিলানো হচ্ছে.........
-            </p>
-        </div>
-    }
 
     return (
         <div className=' my-10'>
@@ -207,7 +174,7 @@ export default function EditQuestion() {
                             name="courseId" id="courseId"
                             className='p-2 border w-full text-sm'
                             onChange={handleCourseChange}
-                            value={formData.courseId}
+                            value={formData.course}
                         >
                             <option value="">কোর্স বাছাই করুন</option>
                             {
@@ -349,14 +316,12 @@ export default function EditQuestion() {
                     <Input onChange={handleFileChange} type="file" accept=".xlsx, .xls" className=' w-full ' />
 
                     <p className={"text-blue-500 my-2 text-sm"}>
-                        <span>{formData?.questions?.length || 0} টি প্রশ্ন </span> {message || "আছে"}
+                        <span>{formData?.questions?.length || formData.questionsCount || 0} টি প্রশ্ন </span> {message || "আছে"}
                     </p>
                 </div>
 
 
-
-
-                <div onClick={handleSubmitQuestions} className=' my-5 inline-block'>
+                <div onClick={handleUpdateQuestions} className=' my-5 inline-block'>
                     <SubmitButton loadingState={loading} btnText={"আপডেট করুন"} width={"120px"} />
                 </div>
             </div>
