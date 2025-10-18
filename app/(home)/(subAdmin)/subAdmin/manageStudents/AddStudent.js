@@ -102,7 +102,7 @@ export default function AddStudent() {
     return (
         <div>
 
-            <form onSubmit={handleSubmit} className='bg-white p-6 rounded-xl shadow-lg w-full  '>
+            <form onSubmit={handleSubmit} className='bg-white p-3 md:p-6 rounded-xl shadow-lg w-full  '>
                 <h3 className='text-xl font-semibold text-center mb-6'>একাউন্ট তৈরী করুন</h3>
 
 
@@ -136,7 +136,7 @@ export default function AddStudent() {
 
                 <SubmitButton
                     loadingState={loading}
-                    btnText="সাইন আপ করুন"
+                    btnText="শিক্ষার্থী যুক্ত করুন"
                     width={"130px"}
                 />
 

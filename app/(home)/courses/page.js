@@ -1,9 +1,6 @@
 import { getAllCourse } from "@/app/apiActions/Course";
-import NoData from "@/utils/NoData";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Heading from "@/components/clients/globals/Heading";
-import CoursePreview from "@/components/courseActions/CoursePreview";
-import { Clock, Star } from "lucide-react"; // ⏱ duration এর icon
+import NoData from "@/utils/NoData"; 
+import Heading from "@/components/clients/globals/Heading"; 
 import CourseCard from "./CourseCard";
 
 export default async function Courses() {

@@ -5,7 +5,7 @@ import UserTable from './UserTable';
 
 export default async function Users() {
     const { status, data } = await getAllAccounts();
- 
+    
     if (!status || !data) {
         return <NoData />
     }

@@ -159,7 +159,7 @@ export default function DashboardState({ children }) {
                         ✖
                     </button>
                 </div>
-            ), { duration: 10000, position: "top-right", });
+            ), { duration: 10000, position: "center", });
         }
     };
 

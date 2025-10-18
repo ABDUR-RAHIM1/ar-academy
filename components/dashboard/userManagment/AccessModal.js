@@ -11,7 +11,6 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
-import { getAllPlans } from '@/app/apiActions/public/getAllPlan'
 import { contextD } from '@/contextApi/DashboardState'
 import {
     Select,
@@ -20,8 +19,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { postActions } from '@/actions/admins/postActions'
-import { assignPurchasePlan } from '@/constans'
+import { postActions } from '@/actions/admins/postActions' 
 import LoadingSpinner from '@/components/spinner-01'
 
 export default function AccessModal({ showModal, setShowModal, userId }) {
@@ -31,16 +29,7 @@ export default function AccessModal({ showModal, setShowModal, userId }) {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        const getPlans = async () => {
-            try {
-                const { status, data } = await getAllPlans();
-                setPlans(data)
-            } catch (error) {
-                console.log(error)
-            }
-        };
-
-        getPlans()
+        setPlans([])
     }, [])
 
     const handleSubmit = async (e) => {

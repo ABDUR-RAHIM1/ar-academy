@@ -86,7 +86,7 @@ export default function StudentTable({ studentData }) {
     ]
 
     return (
-        <div className='my-10 p-4 bg-gray-100 rounded-lg shadow-lg'>
+        <div className='my-10 p-2 md:p-4 bg-gray-100 rounded-lg shadow-lg'>
             <DataTable
                 title={`Student Managment : ${students?.length}`}
                 columns={columns}
