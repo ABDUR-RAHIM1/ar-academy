@@ -8,8 +8,9 @@ export default async function PlanDetails({ userId }) {
     const { status, data: purchasedCourses } = await getMyPurchaseCourse();
 
 
+    // questionsGetAllByPaidStudent
     if (status !== 200 || !purchasedCourses) {
-        return <NoData text={"আপনার অধীনে কোন কোর্স নেই"} />
+        return <NoData text={"আপনি কোন কোর্সে ভর্তি হননি! "} />
     }
 
     if (!userId || purchasedCourses?.length < 1) {
@@ -34,7 +35,10 @@ export default async function PlanDetails({ userId }) {
             <h1 className="text-2xl font-bold text-center mb-6">
                 🎓 আমার কোর্স সমূহ
             </h1>
-            <PurchaseCourseDetails courseData={purchasedCourses} />
+            <PurchaseCourseDetails
+                courseData={purchasedCourses}
+                viewQuestions={true}
+            />
 
         </div>
     );

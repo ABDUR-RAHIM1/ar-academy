@@ -32,10 +32,10 @@ export default function Header() {
             item: "কোর্স সমূহ",
             path: "/courses",
         },
-        {
-            item: "পরীক্ষা দিন",
-            path: "/exam",
-        },
+        // {
+        //     item: "পরীক্ষা দিন",
+        //     path: "/exam",
+        // },
         {
             item: "প্রশ্ন খুঁজুন",
             path: "/find-question",

@@ -66,6 +66,8 @@ export const questionsCreate = process.env.NEXT_PUBLIC_QUESTIONS_CREATE
 export const questionsCreateSubAdmin = process.env.NEXT_PUBLIC_QUESTIONS_CREATE_SUB_ADMIN  
 
 export const questionsGetAll = process.env.NEXT_PUBLIC_QUESTIONS_GET_ALL
+export const questionsGetAllByPaidStudent = process.env.NEXT_PUBLIC_QUESTIONS_GET_ALL_PAID_COURSES
+
 export const questionsGetAllBySubAdmin = process.env.NEXT_PUBLIC_QUESTIONS_GET_ALL_BY_SUBADMIN
 export const questionGetSingel = process.env.NEXT_PUBLIC_QUESTIONS_GET_ONE
 export const questionGetSingelByAdmin = process.env.NEXT_PUBLIC_QUESTIONS_GET_ONE_BY_ADMIN
@@ -93,12 +95,7 @@ export const getAllUsersSumary = "/api/utils/getUserSummary/"
 export const getMergeAllQuestionsWithSearch = "/api/utils/get-margeQuestions?search="
 //  Utils End here
 
-// subscription Plan Start 
-export const createPlan = "/api/plan/create/"
-export const getAllPlan = "/api/plan/getAll/"
-export const planDelete = "/api/plan/delete/"
-export const planUpdate = "/api/plan/update/"
-// subscription Plan End here
+ 
 
 //  user Start here ============================================================
 

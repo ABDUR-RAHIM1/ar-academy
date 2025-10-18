@@ -53,11 +53,11 @@ export default function LoginAccount() {
             }
 
             if (data.token) {
-                // setLoginSignal(!loginSignal);
-                setLoginSignal((prev) => ({
-                    signal: !prev,
-                    signalType: "subAdmin"
-                }))
+                setLoginSignal(!loginSignal);
+                // setLoginSignal((prev) => ({
+                //     signal: !prev.signal,
+                //     signalType: "subAdmin"
+                // }))
                 Cookies.set("onushilon_academy_sub_session", data.token, { expires: 7 });
                 setToken(data.token);
                 router.push("/subAdmin");

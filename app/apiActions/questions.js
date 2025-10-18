@@ -1,11 +1,12 @@
 
 import { getsActionSubAdmin } from "@/actions/subAdmins/getsActionSubAdmin";
 import { getsActions } from "@/actions/users/getActions";
-import { questionGetByChapter, questionGetSingel, questionReletedByCourseName, questionReletedByTitle, questionsGetAll, questionsGetAllBySubAdmin } from "@/constans";
+import { questionGetSingel, questionReletedByCourseName, questionsGetAll, questionsGetAllByPaidStudent, questionsGetAllBySubAdmin } from "@/constans";
 
-//  get all questions for user 
-export const getAllQuestions = async (cacheTime = 5) => {
-    const questions = await getsActions(questionsGetAll, cacheTime);
+//  user je course gulo kineche sei course onujayi questions gulo dekhabe 
+export const getStudentCourseListByCourse = async (courseId) => {
+    const api = questionsGetAllByPaidStudent + courseId
+    const questions = await getsActions(api);
 
     return questions;
 }

@@ -9,9 +9,14 @@ export const contextD = createContext()
 export default function DashboardState({ children }) {
     const [token, setToken] = useState("")
     const router = useRouter();
-    const [loginSignal, setLoginSignal] = useState({
-        signal: false,
-        signalType: ""
+    // const [loginSignal, setLoginSignal] = useState({
+    //     signal: false,
+    //     signalType: ""
+    // })
+    const [loginSignal, setLoginSignal] = useState(false);
+    const [tokenName, setTokenName] = useState({
+        status: false,
+        author: null
     })
     const [showSearchBar, setShowSearchBar] = useState(false)
     const [subIdentifier, setSubIdentifer] = useState("")
@@ -102,19 +107,7 @@ export default function DashboardState({ children }) {
     const [isOpen, setIsOpen] = useState(true);
     const [editData, setEditData] = useState({});
 
-    // Function to show toast
-    // const showToast = (status, data) => {
-    //     const message = data.message || data
-
-    //     if (status === 200 || status === 201) {
-    //         toast.success(message);
-    //         router.refresh();
-    //     } else {
-    //         toast.error(message);
-    //     }
-    // };
-
-
+  
     const showToast = (status, data, autoClose) => {
         const message = data.message || data;
 
@@ -174,6 +167,7 @@ export default function DashboardState({ children }) {
     const value = {
         token, setToken,
         loginSignal, setLoginSignal,
+        tokenName, setTokenName,
         imgUrl, uploadResponse, uploader,
         usedTime, setUsedTime,
         showToast, handleProfileEditActivity,

@@ -1,6 +1,7 @@
+import Link from "next/link";
 import React from "react";
 
-export default function PurchaseCourseDetails({ courseData = [] }) {
+export default function PurchaseCourseDetails({ courseData = [], viewQuestions = false }) {
     if (!courseData || courseData.length === 0) {
         return (
             <div className="text-center py-10 text-gray-500">
@@ -19,13 +20,22 @@ export default function PurchaseCourseDetails({ courseData = [] }) {
                     {/* Header */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b pb-4 mb-4">
                         <h2 className="text-2xl font-bold text-gray-800">{course.name}</h2>
-                        <div className="mt-2 sm:mt-0">
+                        <div className="flex items-center space-x-4 mt-2 sm:mt-0">
                             <span className="text-xl font-semibold text-green-600">
                                 ৳{course.offerPrice}
                             </span>
                             <span className="text-gray-400 line-through ml-2">
                                 ৳{course.regularPrice}
                             </span>
+                            {/* Questions Button */}
+                            {
+                                viewQuestions &&
+                                <Link
+                                    href={`/profile/exam/${course._id}`}
+                                    className="ml-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                                >
+                                    প্রশ্ন দেখুন
+                                </Link>}
                         </div>
                     </div>
 

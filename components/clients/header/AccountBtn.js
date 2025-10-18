@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { studentAuth, subAdminAuth, userLogin, userRegister } from '@/constans'
+import { studentAuth, subAdminAuth } from '@/constans'
 import { usePathname, useRouter } from 'next/navigation'
 import { contextD } from '@/contextApi/DashboardState'
 import { decodedToken } from '@/helpers/token-decoded/tokenDecoded'
@@ -20,34 +20,40 @@ import { FiChevronDown, FiUser } from 'react-icons/fi'
 import { LogIn } from 'lucide-react'
 
 export default function AccountBtn({ menuClick, setMenuClick }) {
-    const router = useRouter()
-    const { loginSignal } = useContext(contextD)
+    const router = useRouter();
+    const { loginSignal, tokenName, setTokenName, } = useContext(contextD)
     const path = usePathname();
-    const [token, setToken] = useState(null)
+
     const [username, setUsername] = useState(null)
 
     useEffect(() => {
 
         const getTokenData = async () => {
-            if (loginSignal.signalType === "student") {
-                const tokenGet = await getToken()
+
+            if (path.startsWith("/profile")) {
                 const decod = await decodedToken()
                 if (decod?.username) {
-                    setToken(tokenGet)
+                    setTokenName(() => ({ token: true, author: "student" }))
                     const firstLetter = decod.username.charAt(0).toUpperCase();
                     setUsername(firstLetter)
                 }
-            } else {
-                setUsername("N")
+            }
+
+            if (path.startsWith("/subAdmin")) {
+                setTokenName(() => ({ token: true, author: "subAdmin" }))
+                setUsername("সাব-অ্যাডমিন") // test purpose
+
             }
         };
 
         getTokenData()
-    }, [loginSignal.signal])
+    }, [loginSignal])
+
 
     const handleLougout = () => {
         Cookies.remove("onushilon_academy_session")
-        setToken(null)
+        setTokenName(() => ({ token: false, author: null }));
+        showToast(200, " লগ আউট করা হয়েছে")
         router.push("/")
     }
 
@@ -79,47 +85,51 @@ export default function AccountBtn({ menuClick, setMenuClick }) {
 
     return (
         <>
-            {token ? (
+            {tokenName.token && tokenName.author === "student" ? (
+                // ✅ Student Logged In
                 <DropdownMenu>
-                    {/* Avatar কে DropdownTrigger বানানো হয়েছে */}
                     <DropdownMenuTrigger asChild>
-
-                        <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md bg-gray-100hover:bg-gray-200 transition text-sm font-medium">
+                        <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md bg-gray-100 hover:bg-gray-200 transition text-sm font-medium">
                             <FiUser className="text-xl" />
                             <span>{username}</span>
                             <FiChevronDown className="text-lg" />
                         </button>
-
                     </DropdownMenuTrigger>
 
                     <DropdownMenuContent className="w-56">
                         <DropdownMenuLabel>Profile Menu</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-
-                        {
-                            profileItems.map((item, index) => (
-                                <DropdownMenuItem asChild key={index}>
-                                    <Link
-                                        onClick={() => setMenuClick(!menuClick)}
-                                        href={`/profile/${item.path}`} className=' w-full flex items-center justify-between cursor-pointer'>
-                                        {item.itemBN}
-                                        {path === `/profile/${item.path}` && <span>
-                                            ✔️
-                                        </span>}
-                                    </Link>
-                                </DropdownMenuItem>
-                            ))
-                        }
+                        {profileItems.map((item, index) => (
+                            <DropdownMenuItem asChild key={index}>
+                                <Link
+                                    onClick={() => setMenuClick(!menuClick)}
+                                    href={`/profile/${item.path}`}
+                                    className='w-full flex items-center justify-between cursor-pointer'
+                                >
+                                    {item.itemBN}
+                                    {path === `/profile/${item.path}` && <span>✔️</span>}
+                                </Link>
+                            </DropdownMenuItem>
+                        ))}
                         <DropdownMenuItem
-                            className={" cursor-pointer"}
+                            className="cursor-pointer"
                             onClick={handleLougout}
                         >
                             লগ আউট
                         </DropdownMenuItem>
-
                     </DropdownMenuContent>
                 </DropdownMenu>
+            ) : tokenName.token && tokenName.author === "subAdmin" ? (
+                // ✅ SubAdmin Logged In
+                <button
+                    onClick={() => router.push("/subAdmin")}
+                    className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md bg-gray-100 hover:bg-gray-200 transition text-sm font-medium"
+                >
+                    <FiUser className="text-xl" />
+                    <span>{username}</span>
+                </button>
             ) : (
+                // ✅ Not Logged In
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button
@@ -132,7 +142,7 @@ export default function AccountBtn({ menuClick, setMenuClick }) {
                     </DropdownMenuTrigger>
 
                     <DropdownMenuContent align="end" className="w-44">
-                        <p className=' text-sm my-2'> একাউন্ট এর ধরন</p>
+                        <p className='text-sm my-2'> একাউন্ট এর ধরন</p>
                         <hr />
                         <DropdownMenuItem asChild>
                             <Link href={studentAuth} onClick={() => setMenuClick(!menuClick)}>
@@ -146,8 +156,8 @@ export default function AccountBtn({ menuClick, setMenuClick }) {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-
             )}
         </>
-    )
+    );
+
 }

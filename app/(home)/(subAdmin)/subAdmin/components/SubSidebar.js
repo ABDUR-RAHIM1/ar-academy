@@ -1,17 +1,19 @@
 "use client"
-import { ArrowBigRight, MenuIcon, ShieldQuestionIcon } from 'lucide-react';
+import { contextD } from '@/contextApi/DashboardState';
+import Cookies from 'js-cookie';
+import { MenuIcon, ShieldQuestionIcon } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React, { useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation';
+import React, { useContext, useState } from 'react'
 import { FiHome, FiBook, FiUsers, FiSettings, FiLogOut } from "react-icons/fi";
-import { IoClose } from 'react-icons/io5';
 import { MdClose } from 'react-icons/md';
 
 export default function SubSidebar() {
 
     const path = usePathname();
     const [isMenuClick, setMenuClick] = useState(false);
-
+    const { setTokenName, showToast } = useContext(contextD);
+    const router = useRouter();
 
     const subAdminItems = [
         {
@@ -44,13 +46,21 @@ export default function SubSidebar() {
             icon: <ShieldQuestionIcon />,
             path: "/subAdmin/questions/sheet"
         },
-       
+
         {
             item: "Settings",
             icon: <FiSettings />,
             path: "/subAdmin/settings"
         },
-    ]
+    ];
+
+
+    const handleLougout = () => {
+        Cookies.remove("onushilon_academy_sub_session")
+        setTokenName(() => ({ token: false, author: null }))
+        showToast(200 , " লগ আউট করা হয়েছে") 
+        router.push("/");
+    }
 
     return (
 
@@ -80,7 +90,7 @@ export default function SubSidebar() {
                 </nav>
 
                 <div className="px-4 py-6 border-t">
-                    <button className="flex items-center gap-2 px-4 py-2 w-full rounded hover:bg-red-50 text-red-600 transition">
+                    <button onClick={handleLougout} className="flex items-center gap-2 px-4 py-2 w-full rounded hover:bg-red-50 text-red-600 transition">
                         <FiLogOut className="text-lg" /> Logout
                     </button>
                 </div>

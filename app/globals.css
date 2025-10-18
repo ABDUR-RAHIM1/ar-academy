@@ -51,6 +51,28 @@ body {
   }
 }
 
+.courseBtnAnimate {
+  animation-name: courseBtn;
+  animation-iteration-count: infinite;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+}
+
+@keyframes courseBtn {
+  0% {
+    opacity: 0.2;   /* 20% visible */
+  }
+  50% {
+    opacity: 0.7;   /* 70% visible */
+  }
+  100% {
+    opacity: 1;     /* 100% visible */
+  }
+}
+
+ 
+
+
 
 
 
