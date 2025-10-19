@@ -11,7 +11,7 @@ export default function PurchaseCourseDetails({ courseData = [], viewQuestions =
     }
 
     return (
-        <div className="max-w-5xl mx-auto p-4 grid gap-6">
+        <div className=" w-full md:max-w-5xl mx-auto p-0 md:p-4 grid gap-6">
             {courseData.map((course) => (
                 <div
                     key={course._id}

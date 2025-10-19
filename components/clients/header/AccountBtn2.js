@@ -1,10 +1,4 @@
-"use client"
-import { contextD } from '@/contextApi/DashboardState';
-import { decodedToken } from '@/helpers/token-decoded/tokenDecoded';
-import Cookies from 'js-cookie';
-import { usePathname, useRouter } from 'next/navigation'
 import React, { useContext, useEffect, useState } from 'react'
-
 
 import {
     DropdownMenu,
@@ -17,41 +11,56 @@ import {
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { studentAuth, subAdminAuth } from '@/constans'
+import { usePathname, useRouter } from 'next/navigation'
+import { contextD } from '@/contextApi/DashboardState'
+import { decodedToken } from '@/helpers/token-decoded/tokenDecoded'
+import getToken from '@/actions/getToken/getToken'
+import Cookies from 'js-cookie'
 import { FiChevronDown, FiUser } from 'react-icons/fi'
 import { LogIn } from 'lucide-react'
 
-
-export default function AccountBtn({menuClick, setMenuClick}) {
-
+export default function AccountBtn2({ menuClick, setMenuClick }) {
     const router = useRouter();
-    const { showToast, tokenName, setTokenName, } = useContext(contextD)
+    const { loginSignal, showToast, tokenName, setTokenName, } = useContext(contextD)
     const path = usePathname();
 
     const [username, setUsername] = useState(null)
 
-    useEffect(() => {
-        const getTokenData = async () => {
+    console.log(loginSignal)
 
-            if (path.startsWith("/profile")) {
+ useEffect(() => {
+    // router ready না হলে কিছুই করো না
+    if (!router.isReady) return;
 
-                const decod = await decodedToken()
+    console.log("login signal change or path update:", path);
 
-                if (decod?.username) {
-                    setTokenName({ token: true, author: "student" });
-                    const firstLetter = decod.username.charAt(0).toUpperCase();
-                    setUsername(firstLetter);
-                }
-              
-            }
+    const getTokenData = async () => {
+      const token = Cookies.get("onushilon_academy_sub_session");
+      if (!token) return;
 
-            if (path.startsWith("/subAdmin")) {
-                setTokenName({ token: true, author: "subAdmin" });
-                setUsername("সাব-অ্যাডমিন");
-                console.log("SubAdmin Token");
-            }
-        };
-        getTokenData()
-    }, [path])
+      const decod = await decodedToken(token);
+
+      if (path.startsWith("/profile")) {
+        if (decod?.username) {
+          setTokenName({ token: true, author: "student" });
+          const firstLetter = decod.username.charAt(0).toUpperCase();
+          setUsername(firstLetter);
+        }
+        console.log("User Token", decod);
+      }
+
+      if (path.startsWith("/subAdmin")) {
+        setTokenName({ token: true, author: "subAdmin" });
+        setUsername("সাব-অ্যাডমিন");
+        console.log("SubAdmin Token");
+      }
+    };
+
+    // সামান্য delay দিয়ে ensure করা হচ্ছে router update complete
+    const timeout = setTimeout(getTokenData, 100);
+
+    return () => clearTimeout(timeout);
+  }, [loginSignal, path, router.isReady]);
 
 
     const handleLougout = () => {
@@ -85,6 +94,7 @@ export default function AccountBtn({menuClick, setMenuClick}) {
             path: "settings",
         },
     ]
+
 
     return (
         <>
@@ -161,5 +171,6 @@ export default function AccountBtn({menuClick, setMenuClick}) {
                 </DropdownMenu>
             )}
         </>
-    )
+    );
+
 }

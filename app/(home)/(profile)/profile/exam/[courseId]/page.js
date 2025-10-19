@@ -19,9 +19,9 @@ export default async function ExamList({ params }) {
     }));
 
     return (
-        <div className="bg-blue-50 px-5 min-h-screen">
+        <div className="bg-blue-50 px-5  min-h-screen">
             <PageBanner text="প্রশ্ন তালিকা" />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-10">
                 {dataWithModified.length > 0 ? (
                     dataWithModified.map((exam, index) => (
                         <QuestionCard key={index} exam={exam} index={index} />

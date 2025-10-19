@@ -11,7 +11,7 @@ import { MdClose } from 'react-icons/md';
 export default function SubSidebar() {
     const path = usePathname();
     const [isMenuClick, setMenuClick] = useState(false);
-    const { setTokenName, showToast } = useContext(contextD);
+    const { setLoginSignal, setTokenName, showToast } = useContext(contextD);
     const router = useRouter();
 
     const subAdminItems = [
@@ -27,6 +27,7 @@ export default function SubSidebar() {
     const handleLougout = () => {
         Cookies.remove("onushilon_academy_sub_session");
         setTokenName(() => ({ token: false, author: null }));
+        setLoginSignal(false)
         showToast(200, " লগ আউট করা হয়েছে");
         router.push("/");
     };

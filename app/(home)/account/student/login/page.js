@@ -53,11 +53,8 @@ export default function LoginAccount() {
             }
 
             if (data.token) {
-                setLoginSignal(!loginSignal);
-                // setLoginSignal((prev) => ({
-                //     signal: !prev.signal,
-                //     signalType: "student"
-                // }))
+                setLoginSignal(prev => !prev);
+             
                 Cookies.set("onushilon_academy_session", data.token, { expires: 7 });
                 setToken(data.token);
                 router.push("/profile");
