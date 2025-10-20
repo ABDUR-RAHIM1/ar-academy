@@ -89,28 +89,6 @@ export default function AccountBtn({ menuClick, setMenuClick }) {
 
 
 
-    const profileItems = [
-        {
-            item: "profile",
-            itemBN: "প্রোফাইল",
-            path: "",
-        },
-        {
-            item: "results",
-            itemBN: "রেজাল্ট",
-            path: "results",
-        },
-        {
-            item: "make-question",
-            itemBN: "প্রশ্ন পত্র তৈরি করুন",
-            path: "make-question",
-        },
-        {
-            item: "settings",
-            itemBN: "সেটিংস",
-            path: "settings",
-        },
-    ]
 
     return (
         <>
