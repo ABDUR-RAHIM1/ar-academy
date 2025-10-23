@@ -21,6 +21,7 @@ export default function SubSidebar() {
         { item: "Add Questions", icon: <FiUsers />, path: "/subAdmin/questions/add" },
         { item: "View Questions", icon: <FiUsers />, path: "/subAdmin/questions/view" },
         { item: "Make Questions", icon: <ShieldQuestionIcon />, path: "/subAdmin/questions/sheet" },
+        { item: "Results", icon: <ShieldQuestionIcon />, path: "/subAdmin/results" },
         { item: "Settings", icon: <FiSettings />, path: "/subAdmin/settings" },
     ];
 

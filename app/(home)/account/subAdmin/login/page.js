@@ -124,8 +124,8 @@ export default function LoginAccount() {
                     </div>
 
                     <div className="space-y-4">
-                        <InputField name="email" type="email" placeholder="📧 আপনার ইমেইল লিখুন" handler={handleChange} />
-                        <InputField name="password" type="password" placeholder="🔒 পাসওয়ার্ড লিখুন" handler={handleChange} />
+                        <InputField name="email" type="email" label={"ইমেইল "} placeholder="📧 আপনার ইমেইল লিখুন" handler={handleChange} />
+                        <InputField name="password" type="password" label={"পাসওয়ার্ড "}  placeholder="🔒 পাসওয়ার্ড লিখুন" handler={handleChange} />
                     </div>
                     <br />
                     <div className="mt-6">

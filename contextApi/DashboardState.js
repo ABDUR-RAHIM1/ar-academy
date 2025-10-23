@@ -9,10 +9,7 @@ export const contextD = createContext()
 export default function DashboardState({ children }) {
     const [token, setToken] = useState("")
     const router = useRouter();
-    // const [loginSignal, setLoginSignal] = useState({
-    //     signal: false,
-    //     signalType: ""
-    // })
+  
     const [loginSignal, setLoginSignal] = useState(false);
     const [tokenName, setTokenName] = useState({
         status: false,
@@ -116,7 +113,7 @@ export default function DashboardState({ children }) {
         if (status === 200 || status === 201) {
             toast.success(message, {
                 duration: finalAutoClose ? 3000 : Infinity,
-                position: "top-right",
+                position: "top-center",
                 style: {
                     border: '1px solid #4caf50',
                     padding: '12px 16px',
@@ -159,7 +156,7 @@ export default function DashboardState({ children }) {
                         ✖
                     </button>
                 </div>
-            ), { duration: 10000, position: "center", });
+            ), { duration: 10000, position: "top-center", });
         }
     };
 

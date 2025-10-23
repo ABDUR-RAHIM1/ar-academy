@@ -83,6 +83,7 @@ export const questionDeleteSubAdmin = process.env.NEXT_PUBLIC_QUESTIONS_DELETE_S
 //  results Start here ==========================  
 export const questionsSubmit = process.env.NEXT_PUBLIC_QUESTIONS_SUBMIT
 export const resultGetAll = process.env.NEXT_PUBLIC_RESULT_ALL
+export const resultGetAllSubAdmin = process.env.NEXT_PUBLIC_RESULT_ALL_BY_SUBADMIN
 export const resultDetails = process.env.NEXT_PUBLIC_RESULT_DETAILS
 export const resultMy = process.env.NEXT_PUBLIC_RESULT_MY
 //  results End here ============================
