@@ -32,7 +32,7 @@ export default function PurchaseCourseDetails({ courseData = [], viewQuestions =
                                 viewQuestions &&
                                 <Link
                                     href={`/profile/exam/${course._id}`}
-                                    className="ml-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                                    className="ml-4 px-5 py-2 bg-blue-600 text-white rounded-full text-sm hover:bg-blue-700 transition"
                                 >
                                     প্রশ্ন দেখুন
                                 </Link>}

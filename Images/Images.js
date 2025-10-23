@@ -28,6 +28,7 @@ import f11 from "@/public/Images/features/f11.jpg"
 import f12 from "@/public/Images/features/f12.png"
 //  Features End
 
+import ogImage from "@/public/og-image.png"
 
 // Gallaary
 import gl1 from "@/public/Images/gallary/gl1.jpg"
@@ -37,6 +38,7 @@ import gl4 from "@/public/Images/gallary/gl4.jpg"
 // Gallaary End
 
 export {
+    ogImage,
     logo,
     bookIcon, bookCover, coverPhoto,
     followArrowr, followArrowl,

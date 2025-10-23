@@ -70,32 +70,15 @@ export default function ProfileEditForm() {
 
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
-        setLoading(true)
-        try {
-
-            const payload = {
-                method: "PUT",
-                api: updateUserAllInformation + formData._id,
-                body: formData
-            }
-            const { status, data } = await postActionUser(payload);
-            showToast(status, data)
-
-
-        } catch (error) {
-            console.log("failed to update profile:", error)
-            showToast(500, "failed to update profile")
-        } finally {
-            setLoading(false)
-        }
+        alert("working.....")
     }
 
 
     return (
-        <div className=" bg-gray-100 w-full min-h-screen overflow-hidden">
+        <div className=" bg-white-100 w-full min-h-screen overflow-hidden">
             <form
                 onSubmit={handleUpdateProfile}
-                className=" bg-white space-y-4 p-5 md:p-10 mx-4 md:mx-10  my-10">
+                className=" bg-gray-50 rounded-md space-y-4 p-5 md:p-10 mx-4 md:mx-10  my-10">
                 <h2 className="text-2xl font-bold mb-4 text-gray-800">
                     প্রোফাইল আপডেট করুন
                 </h2>

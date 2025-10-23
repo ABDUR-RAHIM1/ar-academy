@@ -6,24 +6,25 @@ import { contextD } from '@/contextApi/DashboardState';
 import { validateEmail } from '@/helpers/verfications';
 import Link from 'next/link';
 import { postActionUser } from '@/actions/users/postActions';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { accountLogin, roles, studentRegister } from '@/constans';
 import Cookies from 'js-cookie';
 import ResentEmailVerification from '@/utils/ResentEmailVerification';
+import { Button } from '@/components/ui/button';
 
 export default function LoginAccount() {
     const router = useRouter();
-    const { showToast, loginSignal,setLoginSignal, setToken } = useContext(contextD);
+    const path = usePathname();
+    const { showToast, loginSignal, setLoginSignal, setToken } = useContext(contextD);
     const [verifiedStatus, setVerifiedStatus] = useState(true)
-
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         email: "",
         password: "",
-        role: roles.user 
+        role: roles.user
     });
 
-    const handleChange = (e) => { 
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
@@ -54,7 +55,7 @@ export default function LoginAccount() {
 
             if (data.token) {
                 setLoginSignal(prev => !prev);
-             
+
                 Cookies.set("onushilon_academy_session", data.token, { expires: 7 });
                 setToken(data.token);
                 router.push("/profile");
@@ -65,7 +66,7 @@ export default function LoginAccount() {
             setLoading(false);
         }
     };
-
+    const isLogin = path === "/account/student/login";
     return (
         <div className='w-full flex flex-col md:flex-row items-stretch justify-center bg-gradient-to-r from-[#F0F4FF] to-[#E6F0FA] min-h-screen'>
 
@@ -88,11 +89,43 @@ export default function LoginAccount() {
                     onSubmit={handleSubmit}
                     className='w-full p-6 bg-white  rounded-xl shadow-lg'
                 >
-                    <h2 className='text-2xl font-semibold text-gray-800 mb-6 text-center'>লগইন করুন</h2>
+                    <h2 className='text-2xl font-semibold text-blue-500 mb-6 text-center'>লগইন করুন</h2>
+                    <div className="my-10 flex items-center justify-center gap-3 bg-gray-100 p-3 rounded-xl shadow-sm">
+                        {/* Login Button */}
+                        <Button
+                            // onClick={() => router.push("/account/student/login")}
+                            className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all duration-200 
+                              ${isLogin
+                                    ? "bg-blue-500 text-white shadow-md"
+                                    : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-200"
+                                }`}
+                        >
+                            
+                            <Link href={"/account/student/login"}>
+                                লগইন
+                            </Link>
+                        </Button>
+
+                        {/* Register Button */}
+                        <Button
+                            asChild
+                            // onClick={() => router.push("/account/student/register")}
+                            className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all duration-200 
+        ${!isLogin
+                                    ? "bg-blue-500 text-white shadow-md"
+                                    : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-200"
+                                }`}
+                        >
+                            <Link href={"/account/student/register"}>
+                                রেজিস্টার
+                            </Link>
+                        </Button>
+                    </div>
+
 
                     <div className="space-y-4">
-                        <InputField name="email" type="email" placeholder="📧 আপনার ইমেইল লিখুন" handler={handleChange} />
-                        <InputField name="password" type="password" placeholder="🔒 পাসওয়ার্ড লিখুন" handler={handleChange} />
+                        <InputField name="email" type="email" label={"ইমেইল"} placeholder="📧 আপনার ইমেইল লিখুন" handler={handleChange} />
+                        <InputField name="password" type="password" label={"পাসওয়ার্ড"}  placeholder="🔒 পাসওয়ার্ড লিখুন" handler={handleChange} />
                     </div>
 
                     <div className="mt-6">
@@ -103,15 +136,7 @@ export default function LoginAccount() {
                         />
                     </div>
 
-                    <div className="mt-6 text-center text-sm text-gray-600">
-                        <span>একাউন্ট নেই?</span>{" "}
-                        <Link
-                            href={studentRegister}
-                            className="text-blue-600 hover:underline font-medium"
-                        >
-                            একাউন্ট তৈরি করুন
-                        </Link>
-                    </div>
+                  
                     <ResentEmailVerification verifiedStatus={verifiedStatus} email={formData.email} />
                 </form>
             </div>

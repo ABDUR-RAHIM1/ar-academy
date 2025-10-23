@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function SubmitButton({ loadingState, btnText, width }) {
     return (
-        <Button type="submit" disabled={loadingState} className="flex items-center justify-center gap-2 bg2" style={{ width: width || "auto" }}>
+        <Button type="submit" disabled={loadingState} className="flex items-center justify-center gap-2 bg-blue-500 text-white rounded-full" style={{ width: width || "auto" }}>
             {loadingState && <LoaderIcon className="animate-spin w-8 h-8 text-white" />}
             {loadingState ? "...." : (btnText || "Submit")}
         </Button>

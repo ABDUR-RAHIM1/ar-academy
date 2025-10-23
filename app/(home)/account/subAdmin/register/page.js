@@ -8,12 +8,14 @@ import { validateEmail } from '@/helpers/verfications';
 import Link from 'next/link';
 import { postActionUser } from '@/actions/users/postActions';
 import { accountRegister, adminAccountregister, studentLogin, subAdminLogin } from '@/constans';
+import { usePathname } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 
 export default function RegisterAccount() {
- 
-  const { showToast } = useContext(contextD);
 
+  const { showToast } = useContext(contextD);
+  const path = usePathname();
 
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -61,6 +63,10 @@ export default function RegisterAccount() {
     }
   };
 
+
+  const isRegister = path === "/account/subAdmin/register";
+
+
   return (
     <div className='w-full flex flex-col md:flex-row items-stretch justify-center bg-gradient-to-r from-[#F0F4FF] to-[#E6F0FA] min-h-screen'>
 
@@ -78,12 +84,44 @@ export default function RegisterAccount() {
       {/* Right Section */}
       <div className='w-full md:w-1/2 px-4 md:px-10 py-8 flex items-center justify-center'>
         <form onSubmit={handleSubmit} className='bg-white p-6 rounded-xl shadow-lg w-full'>
-          <h3 className='text-xl font-semibold text-center mb-6'>একাউন্ট তৈরী করুন</h3>
+          <h2 className='text-2xl font-semibold text-blue-500 mb-6 text-center'>রেজিস্টার করুন</h2>
+          <div className="my-10 flex items-center justify-center gap-3 bg-gray-100 p-3 rounded-xl shadow-sm">
+            {/* Login Button */}
+            <Button
+              asChild
+              type={"button"}
+              className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all duration-200 
+               ${!isRegister
+                  ? "bg-blue-500 text-white shadow-md"
+                  : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-200"
+                }`}
+            >
+
+              <Link href={"/account/subAdmin/login"}>
+                লগইন
+              </Link>
+            </Button>
+
+            {/* Register Button */}
+            <Button
+              type={"button"}
+              asChild
+              className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all duration-200 
+        ${isRegister
+                  ? "bg-blue-500 text-white shadow-md"
+                  : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-200"
+                }`}
+            >
+              <Link href={"/account/subAdmin/register"}>
+                রেজিস্টার
+              </Link>
+            </Button>
+          </div>
 
           <InputField name="username" label={"ইউজার নাম"} placeholder="👤 প্রতিষ্ঠানের নাম লিখুন" handler={handleChange} />
           <InputField name="email" type="email" label={"ইমেইল"} placeholder="📧 ইমেইল লিখুন" handler={handleChange} />
           <InputField name="password" type="password" label={"পাসওয়ার্ড"} placeholder="🔒 পাসওয়ার্ড লিখুন" handler={handleChange} />
-
+          <br />
           <SubmitButton
             loadingState={loading}
             btnText="সাইন আপ করুন"

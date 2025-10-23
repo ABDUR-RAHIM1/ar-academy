@@ -114,8 +114,7 @@ export const subAdminStudentsAccount = "/api/account/subStudent/"
 
 export const accountDelete = "/api/account/delete/"
 export const updateUserStatus = "/api/account/updateStatus/"
-export const updateStudentStatusBySubAdmin = "/api/account/updateStatusBySubAdmin/"
-export const updateUserAllInformation = "/api/account/updateAll/"
+export const updateStudentStatusBySubAdmin = "/api/account/updateStatusBySubAdmin/" 
 export const updateAdminAllInformation = "/api/account/updateAdminAccount/"
 export const studentDeleteOnlySubAdmin = "/api/account/subDelete/"
 

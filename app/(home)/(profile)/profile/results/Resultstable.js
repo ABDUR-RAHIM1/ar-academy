@@ -126,7 +126,7 @@ export default function Resultstable({ resultsData }) {
     ];
 
     return (
-        <div className="my-10 p-4 bg-gray-100 rounded-lg shadow-lg">
+        <div className="my-10 p-4 rounded-lg shadow-lg">
             <DataTable
                 title={`ফলাফল তালিকা`}
                 columns={columns}
