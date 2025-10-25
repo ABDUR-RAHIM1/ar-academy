@@ -1,6 +1,6 @@
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { Card, CardHeader, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Clock, CheckCircle, Eye, EyeOff } from "lucide-react"
+import { Clock, CheckCircle, Eye, EyeOff, ListOrdered, CheckSquare, Zap } from "lucide-react"
 import { useContext, useState } from "react"
 import { contextD } from "@/contextApi/DashboardState"
 
@@ -19,117 +19,167 @@ export default function ExamTimerSection({
 
     const handleSubmit = () => {
         if (!token) {
-            showToast(404, "আপনি লগইন না থাকায় জমা দিতে ব্যর্থ হয়েছে!")
+            showToast(404, "আপনি লগইন না থাকায় জমা দিতে ব্যর্থ হয়েছে!")
             return
         }
         handleSubmitQuestion()
     }
 
+    // Function to format time for display
+    const formatDuration = (minutes) => {
+        const hours = Math.floor(minutes / 60);
+        const remainingMinutes = minutes % 60;
+        return `${hours > 0 ? hours + 'ঘ.' : ''}${remainingMinutes} মি.`;
+    }
+
+    // Status text and class consolidation
+    const statusInfo = {
+        upcoming: { text: "শুরু হয়নি", class: "text-yellow-700 bg-yellow-100" },
+        finished: { text: "শেষ হয়ে গেছে", class: "text-red-700 bg-red-100" },
+        active: { text: "চলছে", class: "text-green-700 bg-green-100" },
+    };
+    const currentStatus = statusInfo[status] || statusInfo.active;
+
+
     return (
-        <div className="space-y-3">
-            {/* Toggle Button */}
-            <Button
-                variant="outline"
-                onClick={() => setShowCard(!showCard)}
-                className="w-full flex items-center gap-2 text-black"
-            >
-                {showCard ? (
-                    <>
-                        <EyeOff className="w-4 h-4" />
-                        টাইমার অংশটি লুকান
-                    </>
-                ) : (
-                    <>
-                        <Eye className="w-4 h-4" />
-                        টাইমার অংশটি দেখান
-                    </>
-                )}
-            </Button>
+        <div className="space-y-1">
 
-            {/* Timer Card */}
+            {/* 2. Compact Timer Card (যখন showCard true) */}
             {showCard && (
-                <Card className="shadow-lg rounded-2xl bg-white/90 border border-gray-200">
-                    <CardHeader className="grid grid-cols-3">
-                        {/* Left: মোট সময় */}
-                        <div className="flex flex-col items-center">
-                            <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                                <Clock className="w-5 h-5 text-blue-500" />
-                                সময়
-                            </CardTitle>
-                            <span className="text-xl font-bold px-3 py-1 rounded-lg bg-blue-100 text-blue-600">
-                                {durationInMinutes} মিনিট
-                            </span>
-                        </div>
+                <Card className="shadow-xl rounded-xl border border-gray-300">
+                    <CardHeader className="py-2 px-4 border-b border-gray-200">
 
-                        {/* Status */}
-                        <div
-                            className={
-                                status === "upcoming"
-                                    ? "text-yellow-700 text-sm font-semibold text-center"
+
+                        <div className=" flex items-center justify-between">
+                            {/* Status Chip */}
+                            <div className={`text-xs font-bold px-3 py-1 rounded-full w-fit mx-auto ${currentStatus.class} mb-2`}>
+                                {status === "upcoming"
+                                    ? "🕒 " + currentStatus.text
                                     : status === "finished"
-                                        ? "text-red-700 text-sm font-semibold text-center"
-                                        : "text-green-700 text-sm font-semibold text-center"
-                            }
-                        >
-                            {status === "upcoming"
-                                ? "🕒 শুরু হয়নি"
-                                : status === "finished"
-                                    ? "✅ শেষ হয়ে গেছে"
-                                    : "📌 চলছে"}
+                                        ? "✅ " + currentStatus.text
+                                        : "📌 " + currentStatus.text}
+                            </div>
+                            <Button
+                                variant="outline"
+                                onClick={() => setShowCard(!showCard)}
+                                className="  text-black border-gray-300 hover:bg-gray-50"
+                            >
+                                {showCard ? (
+                                    <>
+                                        <EyeOff className="w-4 h-4" />
+                                        {/* টাইমার অংশটি লুকান */}
+                                    </>
+                                ) : (
+                                    <>
+                                        <Eye className="w-4 h-4" />
+                                        {/* টাইমার অংশটি দেখান */}
+                                    </>
+                                )}
+                            </Button>
                         </div>
 
-                        {/* Right: সময় বাকি আছে */}
-                        <div className="flex flex-col items-center">
-                            <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                                <Clock className="w-5 h-5 text-red-500" />
-                                সময় বাকি আছে
-                            </CardTitle>
-                            <span
-                                className={`text-xl font-bold px-3 py-1 rounded-lg ${timeLeft === "00:00:00"
-                                    ? "bg-gray-200 text-gray-600"
-                                    : "bg-red-100 text-red-600"
-                                    }`}
-                            >
-                                {timeLeft}
-                            </span>
+                        {/* Time Info */}
+                        <div className="flex justify-between items-center space-x-2">
+                            {/* Left: মোট সময় (Compact) */}
+                            <div className="flex flex-col items-start w-1/2">
+                                <span className="text-xs text-gray-500 font-medium flex items-center gap-1">
+                                    <Clock className="w-3 h-3 text-blue-500" />
+                                    মোট সময়:
+                                </span>
+                                <span className="text-sm md:text-base text-blue-600 font-bold">
+                                    {formatDuration(durationInMinutes)}
+                                </span>
+                            </div>
+
+                            {/* Right: সময় বাকি আছে (Prominent) */}
+                            <div className="flex flex-col items-end w-1/2">
+                                <span className="text-xs text-gray-500 font-medium flex items-center gap-1">
+                                    <Clock className="w-3 h-3 text-red-500" />
+                                    বাকি:
+                                </span>
+                                <span
+                                    className={`text-lg md:text-xl font-extrabold transition-colors duration-300 ${timeLeft === "00:00:00"
+                                        ? "text-gray-600"
+                                        : "text-red-600"
+                                        }`}
+                                >
+                                    {timeLeft}
+                                </span>
+                            </div>
                         </div>
                     </CardHeader>
 
-                    <CardContent className="space-y-3">
-                        {/* Question info */}
-                        <div className="flex items-center justify-between text-sm text-gray-600">
-                            <span>মোট প্রশ্ন:</span>
-                            <span className="font-medium">{totalQuestions}</span>
-                        </div>
-                        <div className="flex items-center justify-between text-sm text-gray-600">
-                            <span>উত্তর দেওয়া হয়েছে:</span>
-                            <span className="font-medium">{selectedCount}</span>
+                    <CardContent className="py-2 px-4 space-y-3">
+                        {/* Question Stats */}
+                        <div className="grid grid-cols-2 gap-3 text-sm font-medium">
+                            <div className="flex items-center gap-2 text-gray-700 p-2 bg-gray-50 rounded-lg">
+                                <ListOrdered className="w-4 h-4 text-purple-500" />
+                                <span>মোট: **{totalQuestions}**</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-gray-700 p-2 bg-gray-50 rounded-lg">
+                                <CheckSquare className="w-4 h-4 text-green-500" />
+                                <span>উত্তর: **{selectedCount}**</span>
+                            </div>
                         </div>
 
-                        {/* Progress bar */}
-                        <div className="w-full bg-gray-200 rounded-full h-2">
+                        {/* Progress Bar */}
+                        <div className="w-full bg-gray-200 rounded-full h-1.5">
                             <div
-                                className="bg-green-500 h-2 rounded-full"
+                                className="bg-green-500 h-1.5 rounded-full transition-all duration-300"
                                 style={{
                                     width: `${Math.min(
                                         (selectedCount / totalQuestions) * 100 || 0,
                                         100
                                     )}%`,
                                 }}
+                                title={`${Math.min(
+                                    (selectedCount / totalQuestions) * 100 || 0,
+                                    100
+                                )}% সম্পন্ন`}
                             ></div>
                         </div>
 
-                        {/* Submit button */}
+                        {/* Submit Button */}
                         <Button
                             onClick={handleSubmit}
                             disabled={isSubmit || timeLeft === "00:00:00"}
-                            className="w-full mt-3 flex items-center gap-2"
+                            className="w-full mt-3 flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 transition-colors duration-200"
                         >
                             <CheckCircle className="w-4 h-4" />
-                            {isSubmit ? "জমা দেওয়া হয়েছে" : "জমা দিন"}
+                            {isSubmit ? "জমা দেওয়া হয়েছে" : "জমা দিন"}
                         </Button>
                     </CardContent>
                 </Card>
+            )}
+
+            {/* 3. Floating Mini-Bar (যখন showCard false) */}
+            {!showCard && (
+                // Fixed position, bottom-right for easy access on mobile/desktop
+                <div
+                    className="fixed bottom-4 left-4 z-50 bg-white/95 backdrop-blur-sm shadow-2xl rounded-xl p-3 
+                                border-2 border-red-500 flex items-center space-x-3 transition-all duration-300 transform 
+                                hover:scale-[1.03] cursor-pointer w-fit"
+                    onClick={() => setShowCard(true)} // Click to show the full card again
+                    title="টাইমার অংশটি দেখান"
+                >
+                    <Zap className="w-5 h-5 text-red-500 animate-pulse" /> {/* Animate pulse for attention */}
+
+                    {/* Time Left */}
+                    <div className="flex items-center space-x-1">
+                        <Clock className="w-4 h-4 text-red-500" />
+                        <span className={`text-sm font-extrabold ${timeLeft === "00:00:00" ? "text-gray-600" : "text-red-600"}`}>
+                            {timeLeft}
+                        </span>
+                    </div>
+
+                    {/* Answer Count */}
+                    <div className="flex items-center space-x-1">
+                        <CheckSquare className="w-4 h-4 text-green-500" />
+                        <span className="text-sm font-bold text-green-700">
+                            {selectedCount}/{totalQuestions}
+                        </span>
+                    </div>
+                </div>
             )}
         </div>
     )

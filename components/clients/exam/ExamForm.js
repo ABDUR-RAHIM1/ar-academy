@@ -152,8 +152,7 @@ export default function ExamForm({ questionsData }) {
 
     return (
         <div>
-            <div className='  w-full sticky top-16 md:top-24 left-0 z-20'>
-                <div className="bg-blue-500 text-white">
+            <div className='  w-full sticky top-20 md:top-24 left-0 z-20'>
                     <ExamTimerSection
                         token={token}
                         timeLeft={timeLeft}
@@ -164,7 +163,6 @@ export default function ExamForm({ questionsData }) {
                         totalQuestions={formData.length || 0}
                         selectedCount={selectedCount}
                     />
-                </div>
             </div>
 
 

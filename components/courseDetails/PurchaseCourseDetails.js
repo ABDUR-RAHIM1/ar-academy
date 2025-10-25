@@ -21,12 +21,12 @@ export default function PurchaseCourseDetails({ courseData = [], viewQuestions =
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b pb-4 mb-4">
                         <h2 className="text-2xl font-bold text-gray-800">{course.name}</h2>
                         <div className="flex items-center space-x-4 mt-2 sm:mt-0">
-                            <span className="text-xl font-semibold text-green-600">
+                            {/* <span className="text-xl font-semibold text-green-600">
                                 ৳{course.offerPrice}
                             </span>
                             <span className="text-gray-400 line-through ml-2">
                                 ৳{course.regularPrice}
-                            </span>
+                            </span> */}
                             {/* Questions Button */}
                             {
                                 viewQuestions &&
