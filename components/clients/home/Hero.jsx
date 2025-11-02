@@ -1,4 +1,4 @@
-import { COMMON_ALT_TEXT } from '@/constans';
+import { COMMON_ALT_TEXT } from '@/constans'; 
 import { heroImage } from '@/Images/Images';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,7 +6,6 @@ import { FiArrowRight } from 'react-icons/fi';
 
 export default function Hero() {
   return (
-
 
     <div className="w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-10 px-5 md:px-10 py-10 md:py-20 border-b bg2"
     >

@@ -6,36 +6,31 @@ import coverPhoto from "@/public/Images/Cover.png"
 import followArrowr from "@/public/Images/flow-arrow-l-to-r.svg"
 import followArrowl from "@/public/Images/flow-arrow-r-to-l.svg"
 import arrow from "@/public/Images/arrow.png"
-import demoProfilePhoto from "@/public/Images/profile.png"
+import demoProfilePhoto from "@/public/Images/profile.png" 
 
 
-import heroImage from "@/public/Images/heroImg.png"
-
-
+// import heroImage from "@/public/Images/heroImg.png"
+export const heroImage = "https://i.ibb.co.com/G11s3b3/heroImg.png"
 
 //  Features start
-import f1 from "@/public/Images/features/f1.jpg"
-import f2 from "@/public/Images/features/f2.jpg"
-import f3 from "@/public/Images/features/f3.jpg"
-import f4 from "@/public/Images/features/f4.jpg"
-import f5 from "@/public/Images/features/f5.jpg"
-import f6 from "@/public/Images/features/f6.jpg"
-import f7 from "@/public/Images/features/f7.jpg"
-import f8 from "@/public/Images/features/f8.jpg"
-import f9 from "@/public/Images/features/f9.jpg"
-import f10 from "@/public/Images/features/f10.jpg"
-import f11 from "@/public/Images/features/f11.jpg"
-import f12 from "@/public/Images/features/f12.png"
+export const f1 = "https://i.ibb.co.com/kgznJV5C/f1.jpg"
+export const f2 = "https://i.ibb.co.com/r2cTnMBq/f2.jpg"
+export const f3 = "https://i.ibb.co.com/MDXDKDDP/f3.jpg"
+export const f4 = "https://i.ibb.co.com/jvY28ykF/f4.jpg"
+export const f5 = "https://i.ibb.co.com/hJHnfw55/f5.jpg"
+export const f6 = "https://i.ibb.co.com/84S57GBW/f6.jpg"
+export const f7 = "https://i.ibb.co.com/Lz3x3W9K/f7.jpg"
+export const f8 = "https://i.ibb.co.com/ZRQxdrfT/f8.jpg"
+export const f9 = "https://i.ibb.co.com/9msj6Mnf/f9.jpg"
+export const f10 = "https://i.ibb.co.com/Xfq2hDny/f10.jpg"
+export const f11 = "https://i.ibb.co.com/tMbgmRnp/f11.jpg"
+export const f12 = "https://i.ibb.co.com/JjWcQXZt/f12.png"
+
 //  Features End
 
 import ogImage from "@/public/og-image.png"
 
-// Gallaary
-import gl1 from "@/public/Images/gallary/gl1.jpg"
-import gl2 from "@/public/Images/gallary/gl2.jpg"
-import gl3 from "@/public/Images/gallary/gl3.jpg"
-import gl4 from "@/public/Images/gallary/gl4.jpg"
-// Gallaary End
+
 
 export {
     ogImage,
@@ -44,10 +39,4 @@ export {
     followArrowr, followArrowl,
     arrow,
     demoProfilePhoto,
-
-    heroImage,
-
-
-    f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12,
-    gl1, gl2, gl3, gl4
 }
