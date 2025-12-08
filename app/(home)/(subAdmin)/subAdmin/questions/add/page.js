@@ -19,6 +19,7 @@ import { InputField } from '@/utils/InputFIled';
 import { Label } from '@/components/ui/label';
 import { getAllCourse } from '@/app/apiActions/Course';
 import { postActionsSubAdmin } from '@/actions/subAdmins/postActionsSubAdmin';
+import { getMyPurchaseCourseBySubAdmin } from '@/app/apiActions/purchase';
 
 
  
@@ -44,24 +45,25 @@ export default function AddQuestion() {
     });
 
 
-    //  get All Courses
-    useEffect(() => {
-        const getData = async () => {
-            setCourseLoading(true)
-            try {
-                const { status, data } = await getAllCourse();
-                if (status === 200) {
-                    setCourse(data)
-                };
-            } catch (error) {
-                console.log(error)
-            } finally {
-                setCourseLoading(false)
-            }
-        };
-
-        getData();
-    }, [])
+     //  get only subAdmin Courses
+     useEffect(() => {
+         const getData = async () => {
+             setCourseLoading(true)
+             try {
+                 const { status, data } = await getMyPurchaseCourseBySubAdmin();
+            
+                 if (status === 200) {
+                     setCourse(data)
+                 };
+             } catch (error) {
+                 console.log(error)
+             } finally {
+                 setCourseLoading(false)
+             }
+         };
+ 
+         getData();
+     }, [])
      
     //  handle Course Change
     const handleCourseChange = (value) => {
@@ -186,7 +188,9 @@ export default function AddQuestion() {
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
-                                    <SelectLabel>কোর্স </SelectLabel>
+                                    <SelectLabel> {
+                                         course && course?.length <= 0 ? "আপনার কোন কোর্স নেই" : "কোর্স"
+                                        } </SelectLabel>
 
                                     {
                                         courseLoading ? <small>লোড হচ্ছে</small>

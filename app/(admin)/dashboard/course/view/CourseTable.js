@@ -2,7 +2,10 @@
 import DeleteActionButton from '@/actions/Buttons/DeleteActionButton';
 import EditActionButton from '@/actions/Buttons/EditActionButton';
 import Heading from '@/components/clients/globals/Heading';
+import { Button } from '@/components/ui/button';
 import { courseDelete } from '@/constans';
+import { Trophy } from 'lucide-react';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 
@@ -48,6 +51,14 @@ export default function CourseTable({ data }) {
         {
             name: "Price (O)",
             selector: row => row.offerPrice,
+        },
+        {
+            name: "Leaderboard",
+            selector: row => <Button className={"bg-blue-500 text-white hover:bg-blue-400"}>
+                <Link href={`/dashboard/course/leaderboard/${row._id}`}>
+                    <Trophy />
+                </Link>
+            </Button>
         },
         {
             name: "Edit",

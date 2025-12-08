@@ -100,7 +100,12 @@ body {
     background-color: #fecaca; /* red-200 */
   }
 }
-
+.headerBg {
+    filter: drop-shadow(0 0 171px blue);
+}
+.heroBg{
+  filter: drop-shadow(10px 20px 100px blue);
+}
 
   .animateOnLoad {
     opacity: 0;

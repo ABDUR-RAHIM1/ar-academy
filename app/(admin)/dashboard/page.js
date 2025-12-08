@@ -1,9 +1,6 @@
-import React from 'react'
-import { Card, CardContent } from "@/components/ui/card"
-// import AdminProfile from '@/components/dashboard/dashboardHome/AdminProfile'
+import React from 'react'  
 import SummaryState from '@/components/dashboard/dashboardHome/SummaryState'
-import UsersSummary from '@/components/dashboard/dashboardHome/UsersSummary'
-import SoldCourseOVerview from '@/components/dashboard/dashboardHome/SoldCourseOverview'
+import UsersSummary from '@/components/dashboard/dashboardHome/UsersSummary' 
 
 export default function DashboardHomePage() {
 
@@ -11,8 +8,7 @@ export default function DashboardHomePage() {
   return (
     <div className="p-4 md:p-8">
       {/* Profile Informartion of admin */}
-      {/* <AdminProfile /> */}
-      <SoldCourseOVerview />
+      {/* <AdminProfile /> */} 
       <SummaryState />
       <UsersSummary />
 
@@ -27,7 +23,7 @@ export default function DashboardHomePage() {
       </div>
 
       {/* Future Section Placeholder */}
-      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card>
           <CardContent className="p-4">
             <h3 className="text-lg font-semibold mb-2">Manage Courses</h3>
@@ -41,7 +37,7 @@ export default function DashboardHomePage() {
             <p className="text-sm text-gray-600">Post job opportunities for learners and visitors.</p>
           </CardContent>
         </Card>
-      </div> */}
+      </div>
     </div>
   )
 }

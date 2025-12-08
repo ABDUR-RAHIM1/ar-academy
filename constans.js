@@ -96,6 +96,9 @@ export const getAllUsersSumary = "/api/utils/getUserSummary/"
 export const getMergeAllQuestionsWithSearch = "/api/utils/get-margeQuestions?search="
 //  Utils End here
 
+//  leaderboard start
+export const getLeaderboarByCourse = process.env.NEXT_PUBLIC_LEADERBOARD_GET
+//  leaderboard end
  
 
 //  user Start here ============================================================

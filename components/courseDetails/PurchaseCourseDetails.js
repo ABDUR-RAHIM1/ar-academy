@@ -1,5 +1,7 @@
 import Link from "next/link";
 import React from "react";
+import { Button } from "../ui/button";
+import { TrophyIcon } from "lucide-react";
 
 export default function PurchaseCourseDetails({ courseData = [], viewQuestions = false }) {
     if (!courseData || courseData.length === 0) {
@@ -35,7 +37,16 @@ export default function PurchaseCourseDetails({ courseData = [], viewQuestions =
                                     className="ml-4 px-5 py-2 bg-blue-600 text-white rounded-full text-sm hover:bg-blue-700 transition"
                                 >
                                     প্রশ্ন দেখুন
-                                </Link>}
+                                </Link>
+                            }
+
+                            <Button asChild
+                                className={"bg-blue-600 text-white "}
+                            >
+                                <Link href={`/profile/leaderboard/${course._id}`} className={"flex itcem-center gap-2"}>
+                                    <TrophyIcon /> লিডারবোর্ড দেখুন
+                                </Link>
+                            </Button>
                         </div>
                     </div>
 

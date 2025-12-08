@@ -114,6 +114,7 @@ export default function ExamForm({ questionsData }) {
                 totalmark: totalMark,
                 totalQuestions: totalQuestions,
                 nagetiveMark: questionsData.nagetiveMark,
+                passMark: questionsData.passMark,
                 isPass: isPass,
                 isRetake: isRetakeMode
             }
@@ -153,16 +154,16 @@ export default function ExamForm({ questionsData }) {
     return (
         <div>
             <div className='  w-full sticky top-20 md:top-24 left-0 z-20'>
-                    <ExamTimerSection
-                        token={token}
-                        timeLeft={timeLeft}
-                        status={status}
-                        durationInMinutes={duration}
-                        isSubmit={isSubmit}
-                        handleSubmitQuestion={handleSubmitQuestion}
-                        totalQuestions={formData.length || 0}
-                        selectedCount={selectedCount}
-                    />
+                <ExamTimerSection
+                    token={token}
+                    timeLeft={timeLeft}
+                    status={status}
+                    durationInMinutes={duration}
+                    isSubmit={isSubmit}
+                    handleSubmitQuestion={handleSubmitQuestion}
+                    totalQuestions={formData.length || 0}
+                    selectedCount={selectedCount}
+                />
             </div>
 
 
