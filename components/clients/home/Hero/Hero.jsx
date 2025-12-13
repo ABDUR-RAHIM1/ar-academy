@@ -54,7 +54,7 @@ export default function Hero() {
           {/* Student Account */}
           <Button
             asChild
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-5 rounded-xl shadow-lg backdrop-blur-xl transition-all duration-300 flex items-center gap-2 text-lg"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-5 rounded-xl shadow-lg backdrop-blur-xl transition-all duration-300 flex items-center gap-2 text-[15px] md:text-lg"
           >
             <Link href="/account/student/register">
               শিক্ষার্থী একাউন্ট <FiArrowRight className="text-xl" />
@@ -64,7 +64,7 @@ export default function Hero() {
           {/* Sub Admin Account */}
           <Button
             asChild
-            className="bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 px-6 py-5 rounded-xl shadow-md transition-all duration-300 text-lg"
+            className="bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 px-6 py-5 rounded-xl shadow-md transition-all duration-300 text-[15px] md:text-lg"
           >
             <Link href="/account/subAdmin/register">
               সাব অ্যাডমিন একাউন্ট
@@ -74,14 +74,14 @@ export default function Hero() {
           {/* Features Browse */}
           <Button
             asChild
-            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 px-7 py-5 rounded-xl shadow-lg transition-all duration-300 text-lg"
+            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 px-7 py-5 rounded-xl shadow-lg transition-all duration-300 text-[15px] md:text-lg"
           >
             <Link href="/categories">
               ফিচারস ব্রাউজ করো
             </Link>
 
           </Button>
-          <Button asChild className="bg-purple-600 hover:bg-purple-700  text-white hover:opacity-90 px-7 py-5 rounded-xl shadow-lg transition-all duration-300 text-lg">
+          <Button asChild className="bg-purple-600 hover:bg-purple-700  text-white hover:opacity-90 px-7 py-5 rounded-xl shadow-lg transition-all duration-300 text-[15px] md:text-lg">
             <Link href="/courses">
               কোর্স সমূহ
             </Link>

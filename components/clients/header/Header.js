@@ -18,7 +18,7 @@ export default function Header() {
             const scrollTop = window.scrollY;
             const docHeight = document.body.scrollHeight - window.innerHeight;
             const scrollPercent = (scrollTop / docHeight) * 100;
-            setScrollBg(scrollPercent > 3);
+            setScrollBg(scrollPercent > 1);
         };
 
         window.addEventListener("scroll", handleScroll);

@@ -1,4 +1,5 @@
-import logo from "@/public/Images/logo.png"
+// import logo from "@/public/Images/logo.png"
+import logo from "@/public/Images/onushilonLogo.png"
 
 import bookIcon from "@/public/Images/bookIcon.png";
 import bookCover from "@/public/Images/Cover.png"
