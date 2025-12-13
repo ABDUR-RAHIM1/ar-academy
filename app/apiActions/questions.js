@@ -4,9 +4,9 @@ import { getsActions } from "@/actions/users/getActions";
 import { questionGetSingel, questionReletedByCourseName, questionsGetAll, questionsGetAllByPaidStudent, questionsGetAllBySubAdmin } from "@/constans";
 
 //  user je course gulo kineche sei course onujayi questions gulo dekhabe 
-export const getStudentCourseListByCourse = async (courseId) => {
+export const getStudentQuestionsListByCourse = async (courseId) => {
     const api = questionsGetAllByPaidStudent + courseId
-    const questions = await getsActions(api);
+    const questions = await getsActions(api , 0);
 
     return questions;
 }

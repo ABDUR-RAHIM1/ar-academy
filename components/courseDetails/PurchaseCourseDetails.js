@@ -20,35 +20,41 @@ export default function PurchaseCourseDetails({ courseData = [], viewQuestions =
                     className="bg-white shadow-md rounded-2xl p-6 border hover:shadow-lg transition-all"
                 >
                     {/* Header */}
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b pb-4 mb-4">
-                        <h2 className="text-2xl font-bold text-gray-800">{course.name}</h2>
-                        <div className="flex items-center space-x-4 mt-2 sm:mt-0">
-                            {/* <span className="text-xl font-semibold text-green-600">
-                                ৳{course.offerPrice}
-                            </span>
-                            <span className="text-gray-400 line-through ml-2">
-                                ৳{course.regularPrice}
-                            </span> */}
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b pb-4 mb-4 gap-3">
+
+                        {/* Course Title */}
+                        <h2 className="text-2xl font-bold text-gray-800 text-center sm:text-left">
+                            {course.name}
+                        </h2>
+
+                        {/* Buttons Container */}
+                        <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-4">
+
                             {/* Questions Button */}
-                            {
-                                viewQuestions &&
+                            {viewQuestions && (
                                 <Link
                                     href={`/profile/exam/${course._id}`}
-                                    className="ml-4 px-5 py-2 bg-blue-600 text-white rounded-full text-sm hover:bg-blue-700 transition"
+                                    className="px-5 py-2 bg-blue-600 text-white rounded-full text-sm hover:bg-blue-700 transition w-full sm:w-auto text-center"
                                 >
                                     প্রশ্ন দেখুন
                                 </Link>
-                            }
+                            )}
 
-                            <Button asChild
-                                className={"bg-blue-600 text-white "}
+                            {/* Leaderboard Button */}
+                            <Button
+                                asChild
+                                className="bg-blue-600 text-white w-full sm:w-auto"
                             >
-                                <Link href={`/profile/leaderboard/${course._id}`} className={"flex itcem-center gap-2"}>
+                                <Link
+                                    href={`/profile/leaderboard/${course._id}`}
+                                    className="flex items-center justify-center gap-2 text-center"
+                                >
                                     <TrophyIcon /> লিডারবোর্ড দেখুন
                                 </Link>
                             </Button>
                         </div>
                     </div>
+
 
                     {/* Title */}
                     <h3 className="text-lg font-semibold text-gray-700 mb-3">

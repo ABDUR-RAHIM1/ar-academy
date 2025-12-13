@@ -23,7 +23,7 @@ export default function DashboardHomePage() {
       </div>
 
       {/* Future Section Placeholder */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card>
           <CardContent className="p-4">
             <h3 className="text-lg font-semibold mb-2">Manage Courses</h3>
@@ -37,7 +37,7 @@ export default function DashboardHomePage() {
             <p className="text-sm text-gray-600">Post job opportunities for learners and visitors.</p>
           </CardContent>
         </Card>
-      </div>
+      </div> */}
     </div>
   )
 }

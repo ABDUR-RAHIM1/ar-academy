@@ -39,11 +39,11 @@ export default function SidebarClient({ chapterItems, paramsName, subIdentifier 
             {/* Sidebar */}
             <div
                 className={`${isOpen ? "scale-x-100" : "scale-x-0"} origin-left transition-all 
-                h-screen p-5 bg-indigo-50 
+                h-screen p-5 bg-gray-100 
                 absolute md:static w-[250px]
                 top-[70px] md:top-[80px] 
                 md:right-0 md:left-auto 
-                overflow-y-auto border-l-2 border-blue-500 md:border-r-0`}
+                overflow-y-auto border-r-2 border-gray-400`}
             >
                 <h2 className='my-5 text-center'>{paramsName}</h2>
 

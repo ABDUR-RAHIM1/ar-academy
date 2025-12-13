@@ -30,13 +30,14 @@ export default function UserTable({ usersData }) {
         const { status, data } = await postActions(payload);
         showToast(status, data)
 
-    }
+    }; 
 
-
+    
     const columns = [
         {
-            name: "Index",
-            selector: (row, index) => index + 1
+            name: "#",
+            selector: (row, index) => index + 1,
+            width:"60px"
         },
         {
             name: "Name",

@@ -1,4 +1,5 @@
-import { COMMON_ALT_TEXT } from '@/constans'; 
+import { Button } from '@/components/ui/button';
+import { COMMON_ALT_TEXT } from '@/constans';
 import { heroImage } from '@/Images/Images';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,29 +13,82 @@ export default function Hero() {
 
       {/* Text Content */}
       <div className="w-full lg:w-[50%] text-center lg:text-left space-y-6">
-        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight drop-shadow-md">
-          অনুশীলন একাডেমী
-        </h1>
-        <h2 className="text-2xl sm:text-3xl font-semibold color1">
+
+        <svg
+          viewBox="0 0 1200 150"  // height কমানো
+          className="w-full max-w-[700px] mx-auto lg:mx-0"
+        >
+          <defs>
+            <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#2563eb" />
+              <stop offset="50%" stopColor="#9333ea" />
+              <stop offset="100%" stopColor="#ec4899" />
+            </linearGradient>
+          </defs>
+
+          <text
+            x="0"
+            y="110"               // vertical position ঠিক করা
+            fill="url(#heroGrad)"
+            style={{ fontSize: "100px", fontWeight: 800 }}
+          >
+            অনুশীলন একাডেমী
+          </text>
+        </svg>
+
+        {/* Gradient Secondary Title */}
+        <h2 className="text-2xl sm:text-3xl font-semibold 
+                 bg-gradient-to-r from-indigo-600 to-blue-500 
+                 text-transparent bg-clip-text">
           শেখা এখন আরও সহজ ও মজার
         </h2>
+
+        {/* Normal Paragraph */}
         <p className="text-base sm:text-lg text-black max-w-lg mx-auto lg:mx-0">
-          এক জায়গায় সবকিছু: পড়াশোনা, প্রস্তুতি, পরীক্ষা ও মূল্যায়ন! অনলাইনে ঘরে বসেই শেখো নিজের গতিতে।
+          এক জায়গায় সবকিছু: পড়াশোনা, প্রস্তুতি, পরীক্ষা ও মূল্যায়ন!
+          অনলাইনে ঘরে বসেই শেখো নিজের গতিতে।
         </p>
 
-        <div className="flex items-center gap-4 pt-2">
-          <Link href="/account/register">
-            <button className="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-semibold shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center gap-2">
-              রেজিস্টার করো <FiArrowRight />
-            </button>
-          </Link>
+        <div className="grid grid-cols-2  gap-4 pt-4 px-5">
 
-          <Link href="/categories">
-            <button className="px-6 py-3 rounded-xl bg-white text-blue-900 hover:bg-gray-100 font-semibold shadow-md transition-all duration-300">
+          {/* Student Account */}
+          <Button
+            asChild
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-5 rounded-xl shadow-lg backdrop-blur-xl transition-all duration-300 flex items-center gap-2 text-lg"
+          >
+            <Link href="/account/student/register">
+              শিক্ষার্থী একাউন্ট <FiArrowRight className="text-xl" />
+            </Link>
+          </Button>
+
+          {/* Sub Admin Account */}
+          <Button
+            asChild
+            className="bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 px-6 py-5 rounded-xl shadow-md transition-all duration-300 text-lg"
+          >
+            <Link href="/account/subAdmin/register">
+              সাব অ্যাডমিন একাউন্ট
+            </Link>
+          </Button>
+
+          {/* Features Browse */}
+          <Button
+            asChild
+            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 px-7 py-5 rounded-xl shadow-lg transition-all duration-300 text-lg"
+          >
+            <Link href="/categories">
               ফিচারস ব্রাউজ করো
-            </button>
-          </Link>
+            </Link>
+
+          </Button>
+          <Button asChild className="bg-purple-600 hover:bg-purple-700  text-white hover:opacity-90 px-7 py-5 rounded-xl shadow-lg transition-all duration-300 text-lg">
+            <Link href="/courses">
+              কোর্স সমূহ
+            </Link>
+          </Button>
+
         </div>
+
       </div>
 
       {/* Image Section */}
@@ -74,6 +128,6 @@ export default function Hero() {
       </div> */}
 
 
-    </div>
+    </div >
   );
 }
