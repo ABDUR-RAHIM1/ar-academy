@@ -12,14 +12,13 @@ import {
 import SubmitButton from '@/utils/SubmitButton';
 import * as XLSX from 'xlsx';
 import { Input } from '@/components/ui/input';
-import { postActions } from '@/actions/admins/postActions';
-import { questionsCreate, questionsCreateSubAdmin } from '@/constans';
+import {  questionsCreateSubAdmin } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import { InputField } from '@/utils/InputFIled';
 import { Label } from '@/components/ui/label';
 import { getAllCourse } from '@/app/apiActions/Course';
 import { postActionsSubAdmin } from '@/actions/subAdmins/postActionsSubAdmin';
-import { getMyPurchaseCourseBySubAdmin } from '@/app/apiActions/purchase';
+import { getMyCreatedCourseBySubAdmin } from '@/app/apiActions/purchase';
 
 
  
@@ -50,7 +49,7 @@ export default function AddQuestion() {
          const getData = async () => {
              setCourseLoading(true)
              try {
-                 const { status, data } = await getMyPurchaseCourseBySubAdmin();
+                 const { status, data } = await getMyCreatedCourseBySubAdmin();
             
                  if (status === 200) {
                      setCourse(data)

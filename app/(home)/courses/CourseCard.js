@@ -1,47 +1,42 @@
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Heading from "@/components/clients/globals/Heading";
 import CoursePreview from "@/components/courseActions/CoursePreview";
-import { Clock, Star } from "lucide-react"; // ⏱ duration এর icon
+import { Clock, Star } from "lucide-react";
 
 export default function CourseCard({ course }) {
     return (
         <Card
             className="rounded-2xl shadow-md hover:shadow-xl transition w-full"
         >
-            <div className={"w-full p-2 border text-center"}>
-                {
-                    course.courseType !== "subAdmin" ? "শিক্ষার্থীদের জন্য" : "সাব এডমিনের জন্য"
-                }
+            <div className={"w-full p-2 border flex items-center justify-between flex-wrap"}>
+                <div className={`my-2 text-sm font-semibold`}>
+              
+                    {
+                        course?.offerPrice <= 0 ? <p className="text-blue-500">ফ্রী</p> : <p className=" text-red-500">
+                            প্রিমিয়াম
+                        </p>
+                    }
+                </div>
+
+                <div className="flex items-center gap-2 text-sm text-gray-700 mt-2">
+                    <Clock className="w-4 h-4 text-blue-500" />
+                    <span>{course.duration} মাস</span>
+                </div>
+
             </div>
             <CardHeader>
 
                 <CardTitle className="text-lg font-semibold">
-                    <div className=" flex items-center justify-between flex-wrap">
-                        <div className=" flex items-center gap-2 text-blue-600">
-                            <span>
-                                <Star size={20} />
-                            </span>
-                            {course.name}
-                        </div>
-                        <div className="flex items-center gap-2 text-sm text-gray-700 mt-2">
-                            <Clock className="w-4 h-4 text-blue-500" />
-                            <span>সময়কালঃ {course.duration} মাস</span>
-                        </div>
-                    </div>
-                    <div className={`my-2 text-sm font-semibold flex items-center gap-2`}>
-                        কোর্সের ধরনঃ {
-                            course?.offerPrice <= 0 ? <p className="text-blue-500">ফ্রী</p> : <p className=" text-red-500">
-                                প্রিমিয়াম
-                            </p>
-                        }
+                    <div className=" flex items-center gap-2 text-blue-600">
+                        <span>
+                            <Star size={20} />
+                        </span>
+                        {course.name}
                     </div>
 
                     <p className=" my-2">
                         {course.title}
                     </p>
-
-
 
                 </CardTitle>
 

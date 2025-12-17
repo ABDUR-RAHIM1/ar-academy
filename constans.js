@@ -25,12 +25,14 @@ export const adminLogin = "/auth-admin"
 export const getTokenApi = "/api/get-token/"
 
 //  Course Start Here
-export const courseCreate = process.env.NEXT_PUBLIC_COURSE_CREATE
+export const courseCreateByAdmin = process.env.NEXT_PUBLIC_COURSE_CREATE
+export const courseCreateBySubAdmin = process.env.NEXT_PUBLIC_COURSE_CREATE_SUB_ADMIN
 export const courseGetAll = process.env.NEXT_PUBLIC_COURSE_GET_ALL
 export const courseGetSingle = process.env.NEXT_PUBLIC_COURSE_GET_SINGLE
 export const courseGetByStudent = process.env.NEXT_PUBLIC_COURSE_GET_STUDENT
+export const courseGetBySubAdmin = process.env.NEXT_PUBLIC_COURSE_GET_SUB_ADMIN
 
-export const courseUpdate = process.env.NEXT_PUBLIC_COURSE_UPDATE
+export const courseUpdateByAdmin = process.env.NEXT_PUBLIC_COURSE_UPDATE
 export const courseDelete = process.env.NEXT_PUBLIC_COURSE_DELETE
 //  Course End Here
 

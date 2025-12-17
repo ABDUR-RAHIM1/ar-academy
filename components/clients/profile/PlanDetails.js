@@ -37,9 +37,9 @@ export default async function PlanDetails() {
             </h1>
             <PurchaseCourseDetails
                 courseData={purchasedCourses}
-                viewQuestions={true}
+                path='profile'
             />
-
+ 
         </div>
     );
 }

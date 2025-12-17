@@ -3,7 +3,11 @@ import React from "react";
 import { Button } from "../ui/button";
 import { TrophyIcon } from "lucide-react";
 
-export default function PurchaseCourseDetails({ courseData = [], viewQuestions = false }) {
+export default function PurchaseCourseDetails({ courseData = [], path = "profile" }) {
+
+
+    const leaderboardRoute = path === "profile" ? "/profile" : "/subAdmin"
+
     if (!courseData || courseData.length === 0) {
         return (
             <div className="text-center py-10 text-gray-500">
@@ -31,14 +35,17 @@ export default function PurchaseCourseDetails({ courseData = [], viewQuestions =
                         <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-4">
 
                             {/* Questions Button */}
-                            {viewQuestions && (
+
+                            {
+                                path === "profile" &&
                                 <Link
                                     href={`/profile/exam/${course._id}`}
                                     className="px-5 py-2 bg-blue-600 text-white rounded-full text-sm hover:bg-blue-700 transition w-full sm:w-auto text-center"
                                 >
                                     প্রশ্ন দেখুন
                                 </Link>
-                            )}
+                            }
+
 
                             {/* Leaderboard Button */}
                             <Button
@@ -46,7 +53,7 @@ export default function PurchaseCourseDetails({ courseData = [], viewQuestions =
                                 className="bg-blue-600 text-white w-full sm:w-auto"
                             >
                                 <Link
-                                    href={`/profile/leaderboard/${course._id}`}
+                                    href={`${leaderboardRoute}/leaderboard/${course._id}`}
                                     className="flex items-center justify-center gap-2 text-center"
                                 >
                                     <TrophyIcon /> লিডারবোর্ড দেখুন
@@ -63,7 +70,7 @@ export default function PurchaseCourseDetails({ courseData = [], viewQuestions =
 
                     {/* Short Description */}
                     <div className="mb-4">
-                        <h4 className="font-semibold text-gray-800 mb-2">সংক্ষিপ্ত বিবরণ:</h4>
+                        <h4 className="font-semibold text-gray-800 mb-2">যে সকল বিষয়ের উপর পরিক্ষা নেওয়া হবে:</h4>
                         <ul className="list-disc list-inside text-gray-700 space-y-1">
                             {course.shortDesc
                                 ?.split(",")

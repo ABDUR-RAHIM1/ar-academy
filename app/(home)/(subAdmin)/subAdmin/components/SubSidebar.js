@@ -16,6 +16,7 @@ export default function SubSidebar() {
 
     const subAdminItems = [
         { item: "Dashboard", icon: <FiHome />, path: "/subAdmin" },
+        { item: "Add Course", icon: <FiBook />, path: "/subAdmin/addCourse" },
         { item: "Manage Course", icon: <FiBook />, path: "/subAdmin/manageCourse" },
         { item: "Manage Students", icon: <FiUsers />, path: "/subAdmin/manageStudents" },
         { item: "Add Questions", icon: <FiUsers />, path: "/subAdmin/questions/add" },

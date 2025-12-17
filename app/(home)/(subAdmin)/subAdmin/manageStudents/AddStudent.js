@@ -1,13 +1,11 @@
-"use client"
-import getSubAdminToken from '@/actions/getToken/getSubAdminToken';
+"use client" 
 import { postActionUser } from '@/actions/users/postActions';
-import { getMyPurchaseCourseBySubAdmin } from '@/app/apiActions/purchase';
+import { getMyCreatedCourseBySubAdmin } from '@/app/apiActions/purchase';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { accountRegister, studentLogin } from '@/constans';
+import { accountRegister } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import { subAdminTokenDecoded } from '@/helpers/token-decoded/tokenDecoded';
-import { validateEmail } from '@/helpers/verfications';
 
 import SubmitButton from '@/utils/SubmitButton';
 
@@ -27,7 +25,7 @@ export default function AddStudent() {
         const getData = async () => {
             const subAdmin = await subAdminTokenDecoded()
             setSubAdminId(subAdmin.id);
-            const { status, data } = await getMyPurchaseCourseBySubAdmin();
+            const { status, data } = await getMyCreatedCourseBySubAdmin();
             if (status === 200) {
                 setSubAdminCourse(data)
             }
@@ -72,7 +70,6 @@ export default function AddStudent() {
         }
     };
 
-    console.log(courseId, formData)
 
     const handleSubmit = async (e) => {
         e.preventDefault();

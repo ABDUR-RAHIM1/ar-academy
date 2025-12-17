@@ -1,6 +1,6 @@
 import { getsActionSubAdmin } from "@/actions/subAdmins/getsActionSubAdmin";
 import { getsActions } from "@/actions/users/getActions"
-import { courseGetByStudent } from "@/constans"
+import { courseGetByStudent, courseGetBySubAdmin } from "@/constans"
 
 
 export const getMyPurchaseCourse = async () => {
@@ -9,7 +9,7 @@ export const getMyPurchaseCourse = async () => {
 };
 
 
-export const getMyPurchaseCourseBySubAdmin = async () => {
-    const purchase = await getsActionSubAdmin(courseGetByStudent);
+export const getMyCreatedCourseBySubAdmin = async () => {
+    const purchase = await getsActionSubAdmin(courseGetBySubAdmin);
     return purchase
 }
