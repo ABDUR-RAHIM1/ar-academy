@@ -9,10 +9,10 @@ export default function Logo() {
         <Link href="/" className="inline-block">
             <Image
                 src={logo}
-                width={250}
-                height={85}
+                width={150}
+                height={80}
                 alt={COMMON_ALT_TEXT}
-                className=" h-[80px] md:h-[100px] w-auto md:w-[200px] object-contain"
+                className=" w-[100px] h-[80px]"
                 priority
             />
         </Link>

@@ -36,6 +36,11 @@ export const courseUpdateByAdmin = process.env.NEXT_PUBLIC_COURSE_UPDATE
 export const courseDelete = process.env.NEXT_PUBLIC_COURSE_DELETE
 //  Course End Here
 
+//  Packages Start (only for sub Admin)
+export const packageCreate = process.env.NEXT_PUBLIC_PACKAGES_CREATE
+export const packageGetAll = process.env.NEXT_PUBLIC_PACKAGES_GET_ALL
+export const packagePurchase = process.env.NEXT_PUBLIC_PACKAGES_PURCHASE
+//  Packages End
 
 
 // 1 Categories Start
@@ -65,7 +70,7 @@ export const chapterDelete = process.env.NEXT_PUBLIC_CHAPTERS_DELETE
 
 //  questions start
 export const questionsCreate = process.env.NEXT_PUBLIC_QUESTIONS_CREATE
-export const questionsCreateSubAdmin = process.env.NEXT_PUBLIC_QUESTIONS_CREATE_SUB_ADMIN  
+export const questionsCreateSubAdmin = process.env.NEXT_PUBLIC_QUESTIONS_CREATE_SUB_ADMIN
 
 export const questionsGetAll = process.env.NEXT_PUBLIC_QUESTIONS_GET_ALL
 export const questionsGetAllByPaidStudent = process.env.NEXT_PUBLIC_QUESTIONS_GET_ALL_PAID_COURSES
@@ -75,8 +80,8 @@ export const questionGetSingel = process.env.NEXT_PUBLIC_QUESTIONS_GET_ONE
 export const questionGetSingelByAdmin = process.env.NEXT_PUBLIC_QUESTIONS_GET_ONE_BY_ADMIN
 export const questionReletedByCourseName = process.env.NEXT_PUBLIC_QUESTIONS_GET_RELATED_COURSENAME
 export const questionGetByChapter = process.env.NEXT_PUBLIC_QUESTIONS_GET_BY_CHAPTER
-export const questionUpdate = process.env.NEXT_PUBLIC_QUESTIONS_UPDATE 
-export const questionUpdateSubAdmin = process.env.NEXT_PUBLIC_QUESTIONS_UPDATE_SUB_ADMIN 
+export const questionUpdate = process.env.NEXT_PUBLIC_QUESTIONS_UPDATE
+export const questionUpdateSubAdmin = process.env.NEXT_PUBLIC_QUESTIONS_UPDATE_SUB_ADMIN
 export const questionDelete = process.env.NEXT_PUBLIC_QUESTIONS_DELETE
 export const questionDeleteSubAdmin = process.env.NEXT_PUBLIC_QUESTIONS_DELETE_SUB_ADMIN
 //  questions End
@@ -101,7 +106,7 @@ export const getMergeAllQuestionsWithSearch = "/api/utils/get-margeQuestions?sea
 //  leaderboard start
 export const getLeaderboarByCourse = process.env.NEXT_PUBLIC_LEADERBOARD_GET
 //  leaderboard end
- 
+
 
 //  user Start here ============================================================
 
@@ -120,7 +125,7 @@ export const subAdminStudentsAccount = "/api/account/subStudent/"
 
 export const accountDelete = "/api/account/delete/"
 export const updateUserStatus = "/api/account/updateStatus/"
-export const updateStudentStatusBySubAdmin = "/api/account/updateStatusBySubAdmin/" 
+export const updateStudentStatusBySubAdmin = "/api/account/updateStatusBySubAdmin/"
 export const updateAdminAllInformation = "/api/account/updateAdminAccount/"
 export const studentDeleteOnlySubAdmin = "/api/account/subDelete/"
 

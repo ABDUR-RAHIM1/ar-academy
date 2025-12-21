@@ -8,7 +8,7 @@ export default async function ManegeQuestions() {
   const { status, data } = await getSingleQuestionBySubAdmin();
 
   if (!status || status !== 200 || !data) {
-    return <NoData text={"কোন প্রশ্ন পাওয়া যায়নি !"} />
+    return <NoData text={data.message || "কোন প্রশ্ন পাওয়া যায়নি !"} />
   }
 
 

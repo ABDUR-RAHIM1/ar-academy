@@ -81,6 +81,17 @@ const sidebarItems = [
                 path: "course/view",
                 icon: <BsViewList />
             },
+            //  sub admin er jonno  package
+            {
+                item: "add package",
+                path: "course/package/add",
+                icon: <BsViewList />
+            },
+            {
+                item: "view package",
+                path: "course/package/view",
+                icon: <BsViewList />
+            },
             {
                 item: "all Questions",
                 path: "course/questions/view",
