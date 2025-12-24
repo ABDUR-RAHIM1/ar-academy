@@ -156,21 +156,21 @@ export default function AddCourseForm({ addBy, addApi, updateApi }) {
 
                 <div className="grid grid-cols-2 gap-2">
                     <InputField
-                        label={"বিস্তারিত (সংক্ষেপে)"}
+                        label={"বিষয়গুলো"}
                         type={"textarea"}
                         name={"shortDesc"}
                         value={formData.shortDesc}
                         required={true}
-                        placeholder={"কোর্সের বিস্তারিত পয়েন্ট আঁকারে কমা দিয়ে লিখুন"}
+                        placeholder={"যে সব বিষয়ের উপর পরিক্ষা নেওয়া হবে কমা দিয়ে লিখুন"}
                         handler={handleChange}
                     />
                     <InputField
-                        label={"বিস্তারিত (ব্যাখ্যা)"}
+                        label={"সুবিধা সমূহ (ব্যাখ্যা)"}
                         type={"textarea"}
                         name={"description"}
                         value={formData.description}
                         required={true}
-                        placeholder={"কোর্সের বিস্তারিত (ব্যাখ্যা) কমা দিয়ে লিখুন"}
+                        placeholder={"সুবিধাসমুহ কমা দিয়ে লিখুন"}
                         handler={handleChange}
                     />
                 </div>

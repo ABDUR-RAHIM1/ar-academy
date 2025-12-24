@@ -2,7 +2,6 @@ import { getSignleCourse } from '@/app/apiActions/Course';
 import React from 'react'
 import NoData from '@/utils/NoData';
 import CoursePurchaseButton from '@/components/courseActions/CoursePurchase';
-import SubAdminCoursePurchaseButton from '@/components/courseActions/SubAdminPurchaseCourse';
 
 //  course Details
 export default async function CoursePreview({ params }) {
@@ -10,7 +9,6 @@ export default async function CoursePreview({ params }) {
     const { courseId } = await params
 
     const { status, data: course } = await getSignleCourse(courseId);
-
 
     if (status !== 200 || !course) {
         return <NoData />
@@ -90,18 +88,9 @@ export default async function CoursePreview({ params }) {
                         <span>মোট</span>
                         <span>{course.offerPrice} ৳</span>
                     </div>
-
-                    {
-                        course.courseType !== "student" ?
-                            <SubAdminCoursePurchaseButton
-                                courseId={course._id}
-                            />
-                            :
-                            <CoursePurchaseButton
-                                courseId={course._id}
-                            />
-
-                    }
+                                <CoursePurchaseButton
+                                    courseId={course._id}
+                                /> 
                 </div>
             </div>
         </div>

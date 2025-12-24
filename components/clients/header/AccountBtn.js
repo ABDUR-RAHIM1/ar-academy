@@ -17,13 +17,12 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { roles, studentAuth, studentLogin, subAdminAuth, subAdminLogin } from '@/constans'
 import { FiChevronDown, FiUser } from 'react-icons/fi'
-import { LogIn, LogOut, Plus } from 'lucide-react'
+import { LogIn, Plus } from 'lucide-react'
 import { MdDashboard } from 'react-icons/md';
 
 export default function AccountBtn() {
 
-    const router = useRouter();
-    const { showToast, tokenName, setTokenName } = useContext(contextD)
+    const { tokenName, setTokenName } = useContext(contextD)
     const path = usePathname();
 
     const [username, setUsername] = useState(null);
@@ -72,12 +71,7 @@ export default function AccountBtn() {
         getTokenData()
     }, [path, setTokenName])
 
-    const handleLogout = () => {
-        Cookies.remove("onushilon_academy_session")
-        setTokenName(() => ({ token: false, author: null }));
-        showToast(200, "লগ আউট করা হয়েছে")
-        router.push("/")
-    }
+
 
     return (
         <>
@@ -123,9 +117,9 @@ export default function AccountBtn() {
                         {tokenName.author === "student" && !doubleLogin && (
                             <DropdownMenuItem asChild>
                                 <Link href="/profile" className='w-full flex object-center gap-2'>
-        
-                                        <MdDashboard size={10} />  শিক্ষার্থী ড্যাশবোর্ড
-                              
+
+                                    <MdDashboard size={10} />  শিক্ষার্থী ড্যাশবোর্ড
+
                                     {path.startsWith("/profile") && <span>✔️</span>}
                                 </Link>
                             </DropdownMenuItem>
@@ -134,8 +128,8 @@ export default function AccountBtn() {
                         {/* Sub Admin Dashboard */}
                         {tokenName.author === "subAdmin" && !doubleLogin && (
                             <DropdownMenuItem asChild>
-                                <Link href="/subAdmin" className='w-full flex justify-between'>
-                                    সাব-অ্যাডমিন ড্যাশবোর্ড
+                                <Link href="/subAdmin" className='w-full flex object-center gap-2'>
+                                    <MdDashboard size={10} />   সাব-অ্যাডমিন ড্যাশবোর্ড
                                     {path.startsWith("/subAdmin") && <span>✔️</span>}
                                 </Link>
                             </DropdownMenuItem>
@@ -149,11 +143,6 @@ export default function AccountBtn() {
                         </DropdownMenuItem>
 
                         <DropdownMenuSeparator />
-
-                        {/* Logout */}
-                        <DropdownMenuItem onClick={handleLogout} className={"text-red-500 cursor-pointer"}>
-                            <LogOut size={10} /> লগ আউট
-                        </DropdownMenuItem>
 
                     </DropdownMenuContent>
                 </DropdownMenu>
