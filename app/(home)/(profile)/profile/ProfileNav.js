@@ -37,7 +37,7 @@ export default function ProfileNav() {
                     <item.icon className="w-5 h-5" />
                     <span>{item.name}</span>
                 </Link>
-            ))};
+            ))}
 
             <Button onClick={handleLogout} className={"bg-red-500 flex items-center gap-2"}>
                 <LogOut />

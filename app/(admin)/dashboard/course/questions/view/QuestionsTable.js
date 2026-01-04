@@ -46,7 +46,10 @@ export default function QuestionsTable({ questionsData }) {
         },
         {
             name: "বিষয়",
-            selector: row => row.subjectName,
+            selector: row => <div className=' space-y-2 py-2'>
+                <div>{row.subjectName}</div>
+                <div className={" text-[12px]"}>({row.questionType})</div>
+            </div>,
             wrap: true
         },
         {

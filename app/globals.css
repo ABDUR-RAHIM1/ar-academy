@@ -10,10 +10,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   color: rgb(66, 64, 64);
   overscroll-behavior-y: contain;
-    -webkit-user-select: none; /* Chrome, Safari */
-    -moz-user-select: none;    /* Firefox */
-    -ms-user-select: none;     /* IE/Edge */
-    user-select: none;  
+    /* -webkit-user-select: none;  
+    -moz-user-select: none;   
+    -ms-user-select: none;     
+    user-select: none;   */
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;

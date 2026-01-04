@@ -34,7 +34,7 @@ export default function CourseCard({ course }) {
                         {course.name}
                     </div>
 
-                    <p className=" my-2">
+                    <p className=" my-2 text-sm text-center">
                         {course.title}
                     </p>
 

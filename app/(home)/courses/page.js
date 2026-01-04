@@ -16,7 +16,7 @@ export default async function Courses() {
         <div className="max-w-7xl mx-auto px-4 py-8">
             <Heading text={"আমাদের কোর্সসমূহ"} />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start  gap-6">
                 {data.map((course) => (
                     <CourseCard
                         key={course._id}

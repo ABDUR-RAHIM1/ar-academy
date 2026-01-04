@@ -1,6 +1,7 @@
 import { getSingleQuestion } from '@/app/apiActions/questions';
 import ExamForm from '@/components/clients/exam/ExamForm';
 import ExamSidebar from '@/components/clients/exam/ExamSidebar';
+import WrittenExamForm from '@/components/clients/exam/WrittenExamForm';
 import NoData from '@/utils/NoData';
 import React from 'react';
 
@@ -8,7 +9,7 @@ import React from 'react';
 export default async function ExamQuestionsPage({ params }) {
     const { questionId } = await params;
     const { status, data } = await getSingleQuestion(questionId, 0);
- 
+
 
     if (!status || status !== 200 || !data) {
         return <NoData text={data.message || "কোন প্রশ্ন পাওয়া যায়নি !"} />
@@ -21,7 +22,12 @@ export default async function ExamQuestionsPage({ params }) {
 
                 <main className="w-full md:w-[65%] p-3 md:p-3 bg-white shadow-md rounded-lg">
 
-                    <ExamForm questionsData={data} />
+                    {
+                        data.questionType === "mcq" ?
+                            <ExamForm questionsData={data} />
+                            :
+                            <WrittenExamForm questionsData={data} />
+                    }
                 </main>
                 {/*  related questions */}
                 <ExamSidebar data={data} />
