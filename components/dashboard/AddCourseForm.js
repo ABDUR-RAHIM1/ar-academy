@@ -2,8 +2,7 @@
 import { postActions } from '@/actions/admins/postActions';
 import Heading from '@/components/clients/globals/Heading';
 import LoadingSpinner from '@/components/spinner-01';
-import { Button } from '@/components/ui/button';
-import { courseUpdate } from '@/constans';
+import { Button } from '@/components/ui/button'; 
 import { contextD } from '@/contextApi/DashboardState';
 import { InputField } from '@/utils/InputFIled';
 import { usePathname } from 'next/navigation';
@@ -36,7 +35,9 @@ export default function AddCourseForm({ addBy, addApi, updateApi }) {
         regularPrice: 0,
         offerPrice: 0,
         duration: 0,
+        startDate: "",
     });
+
 
 
     //  set Editable Data in the form State
@@ -131,6 +132,7 @@ export default function AddCourseForm({ addBy, addApi, updateApi }) {
                     <Heading text={"কোর্স আপডেট করুন"} /> :
                     <Heading text={"নতুন কোর্স যুক্ত করুন"} />
             }
+            <p className=' text-center my-3 capitalize'>  {addBy === "superAdmin" ? "student" : "subAdmin"} <span>এর জন্য </span></p>
 
             <form onSubmit={handleSubmit} >
                 <div className="grid grid-cols-2 gap-2">
@@ -241,7 +243,7 @@ export default function AddCourseForm({ addBy, addApi, updateApi }) {
                             >
                                 <option value="0">কোর্সের সময়কাল বাছাই করুন</option>
                                 <option value="0">আনলিমিটেড</option>
-                                <option value="1">১ মাষ</option>
+                                <option value="1">১ মাস</option>
                                 <option value="2">২ মাস</option>
                                 <option value="3">৩ মাস</option>
                                 <option value="4">৪ মাস</option>
@@ -250,23 +252,16 @@ export default function AddCourseForm({ addBy, addApi, updateApi }) {
                             </select>
                         </div>
 
-                        <div className=' col-span-1'>
-                            {/* <select className='w-full p-2 border rounded-md text-sm' name="courseType" id="courseType"
-                                onChange={handleChange}
-                                value={formData.courseType}
-                                required
-                            >
-                                <option value="0">কে এক্সেস করতে পারবে? </option>
-                                <option value="student">শিক্ষার্থী</option>
-                                <option value="subAdmin">সাব অ্যাডমিন</option>
-                            </select> */}
-                            <Label htmlFor={"courseType"}>  কার জন্য তৈরি করেছে</Label>
+                        <div className=' col-span-1 '>
+
+                            <Label htmlFor={"startDate"}> কোর্স শুরুর তারিখ </Label>
                             <Input
-                                name={"courseType"}
-                                value={addBy === "superAdmin" ? "student" : "subAdmin"}
+                                name={"startDate"}
+                                type={"date"}
+                                value={formData.startDate}
                                 onChange={handleChange}
-                                disabled
                             />
+
                         </div>
 
                     </div>

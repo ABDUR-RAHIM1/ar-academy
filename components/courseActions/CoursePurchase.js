@@ -6,7 +6,7 @@ import { purchaseCourse } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import getToken from '@/actions/getToken/getToken';
 import LoadingSpinner from '../spinner-01';
-
+import { ShoppingCart, ArrowRight } from 'lucide-react';
 export default function CoursePurchaseButton({ courseId }) {
 
     const { showToast } = useContext(contextD);
@@ -51,11 +51,30 @@ export default function CoursePurchaseButton({ courseId }) {
 
 
 
-    return (
-        <Button onClick={handleSubmit} className="w-full rounded-xl bg-blue-700 hover:bg-blue-500">
-            {
-                loading ? <LoadingSpinner /> : " এখনই কোর্সটি কিনুন"
+return (
+    <Button 
+        onClick={handleSubmit} 
+        disabled={loading}
+        className={`
+            w-full h-14 rounded-2xl text-lg font-bold transition-all duration-300
+            ${loading 
+                ? "bg-slate-200 text-slate-400 cursor-not-allowed" 
+                : "bg-blue-600 hover:bg-blue-700 text-white shadow-[0_10px_20px_rgba(37,99,235,0.2)] hover:shadow-[0_15px_30px_rgba(37,99,235,0.3)] hover:-translate-y-1 active:scale-95"
             }
-        </Button>
-    )
+        `}
+    >
+        {loading ? (
+            <div className="flex items-center gap-2">
+                <LoadingSpinner /> {/* আপনার স্পিনার কম্পোনেন্ট */}
+                <span>প্রসেসিং হচ্ছে...</span>
+            </div>
+        ) : (
+            <div className="flex items-center justify-center gap-2 w-full">
+                <ShoppingCart size={20} className="animate-bounce" />
+                <span>এখনই কোর্সে যুক্ত হোন</span>
+                <ArrowRight size={18} className="ml-1 opacity-70 group-hover:translate-x-1 transition-transform" />
+            </div>
+        )}
+    </Button>
+);
 }
