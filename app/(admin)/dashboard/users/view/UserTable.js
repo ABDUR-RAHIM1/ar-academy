@@ -30,22 +30,22 @@ export default function UserTable({ usersData }) {
         const { status, data } = await postActions(payload);
         showToast(status, data)
 
-    }; 
+    };
 
-    
+
     const columns = [
         {
             name: "#",
             selector: (row, index) => index + 1,
-            width:"60px"
+            width: "60px"
         },
         {
             name: "Name",
             selector: row => row.username
         },
         {
-            name: "Email",
-            selector: row => row = row.email
+            name: "Email/Phone",
+            selector: row => row = row.accountMethod === "phone" ? row?.phone : row?.email
         },
         {
             name: "Verified",

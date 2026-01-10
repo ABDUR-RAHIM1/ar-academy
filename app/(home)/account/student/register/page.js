@@ -1,14 +1,16 @@
 "use client";
 import { InputField } from '@/utils/InputFIled';
 import SubmitButton from '@/utils/SubmitButton';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { contextD } from '@/contextApi/DashboardState';
-import { validateEmail } from '@/helpers/verfications';
+import { validateEmail, validatePhone } from '@/helpers/verfications';
 import Link from 'next/link';
 import { postActionUser } from '@/actions/users/postActions';
-import { accountRegister, studentLogin } from '@/constans';
+import { accountRegister } from '@/constans';
 import { Button } from '@/components/ui/button';
 import { usePathname } from 'next/navigation';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 export default function RegisterAccount() {
 
@@ -17,11 +19,30 @@ export default function RegisterAccount() {
 
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
+    accountMethod: "phone",
     username: "",
     email: "",
+    phone: "",
     password: "",
   });
 
+
+  // hamdle Clear FormState when change accountMethod
+  useEffect(() => {
+
+    if (formData.accountMethod === "phone") {
+      setFormData((prev) => ({
+        ...prev,
+        email: ''
+      }))
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        phone: ''
+      }))
+    }
+
+  }, [formData.accountMethod])
 
 
   const handleChange = (e) => {
@@ -36,10 +57,16 @@ export default function RegisterAccount() {
     setLoading(true);
 
     try {
-      const isEmail = validateEmail(formData.email);
+      let validMethod
 
-      if (!isEmail) {
-        showToast(400, "Invalid Email");
+      if (formData.accountMethod === "phone") {
+        validMethod = validatePhone(formData.phone)
+      } else {
+        validMethod = validateEmail(formData.email)
+      }
+
+      if (!validMethod) {
+        showToast(400, `Invalid ${formData.accountMethod === "phone" ? "Phone" : "Email"}`);
         return;
       }
 
@@ -61,7 +88,7 @@ export default function RegisterAccount() {
   };
 
   const isRegister = path === "/account/student/register";
-  
+
   return (
     <div className='w-full flex flex-col md:flex-row items-stretch justify-center bg-gradient-to-r from-[#F0F4FF] to-[#E6F0FA] min-h-screen'>
 
@@ -113,7 +140,32 @@ export default function RegisterAccount() {
           </div>
 
           <InputField name="username" label={"নাম"} placeholder="👤 আপনার নাম লিখুন" handler={handleChange} />
-          <InputField name="email" type="email" label={"ইমেইল"} placeholder="📧 ইমেইল লিখুন" handler={handleChange} />
+          <div>
+            <Label>
+              {
+                formData.accountMethod === "phone" ? "মোবাইল" : "ইমেইল"
+              }
+            </Label>
+            <div className=' flex items-center'>
+
+              <select name="accountMethod" id="accountMethod"
+                onChange={handleChange}
+                value={formData.accountMethod}
+                className='w-[100px] border py-2 px-1 focus:outline-0 text-sm capitalize'
+              >
+                <option value="phone">ফোন</option>
+                <option value="email">ইমেইল</option>
+              </select>
+              <Input
+                name={formData.accountMethod === "phone" ? "phone" : "email"}
+                type={formData.accountMethod === "phone" ? "number" : "email"}
+                placeholder={` ${formData.accountMethod === "phone" ? "✆ ফোন" : "✉ ইমেইল"} লিখুন `}
+                onChange={handleChange}
+              />
+
+            </div>
+          </div>
+
           <InputField name="password" type="password" label={"পাসওয়ার্ড"} placeholder="🔒 পাসওয়ার্ড লিখুন" handler={handleChange} />
 
           <SubmitButton
@@ -122,7 +174,7 @@ export default function RegisterAccount() {
             width={"130px"}
           />
 
-       
+
         </form>
       </div>
     </div>

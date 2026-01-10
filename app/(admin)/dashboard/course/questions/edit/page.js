@@ -8,7 +8,7 @@ import { contextD } from '@/contextApi/DashboardState';
 import { InputField } from '@/utils/InputFIled';
 import { Label } from '@/components/ui/label';
 import { getAllCourse } from '@/app/apiActions/Course';
-import { formatDate } from '@/utils/FormatDate'; 
+import { formatDateForForm } from '@/utils/FormatDate'; 
 import { postActions } from '@/actions/admins/postActions';
 
 export default function EditQuestion() {
@@ -39,7 +39,7 @@ export default function EditQuestion() {
         setFormData((prev) => ({
             ...editData,
             course: editData?.course?._id,
-            startDate: formatDate(editData.startDate)
+            startDate: formatDateForForm(editData.startDate)
         }))
     }, []);
 
