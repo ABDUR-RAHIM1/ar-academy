@@ -1,8 +1,8 @@
-import React from 'react'; 
+import React from 'react';
 import { getUserAccount } from '@/app/apiActions/userInformantion';
 import Image from 'next/image';
 import ProfileEditButton from '@/components/clients/profile/ProfileEditButton';
-import { ogImage } from '@/Images/Images'; 
+import { ogImage } from '@/Images/Images';
 import ProfileNav from './ProfileNav';
 
 //  profile home page
@@ -15,7 +15,7 @@ const Profile = async () => {
         return "no data found"
     }
 
-    const { username, email, profilePhoto, createdAt, updatedAt } = data
+    const { username, email, phone, profilePhoto, createdAt, updatedAt } = data
 
 
 
@@ -68,7 +68,8 @@ const Profile = async () => {
                             {/* User Main Info */}
                             <div className="md:pt-4 text-center md:text-left">
                                 <h2 className="text-3xl font-extrabold text-gray-900">{username || "নাম নেই"}</h2>
-                                <p className="text-gray-500 text-lg">{email}</p>
+                                <p className="text-gray-500 text-lg">{email || ""}</p>
+                                <p className="text-gray-500 text-lg">{phone || ""}</p>
                             </div>
                         </div>
 
