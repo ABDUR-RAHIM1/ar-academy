@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Clock, CheckCircle, Eye, EyeOff, ListOrdered, CheckSquare, Zap } from "lucide-react"
+import { Clock, CheckCircle, Eye, EyeOff, ListOrdered, CheckSquare, Zap, Minus } from "lucide-react"
 import { useContext, useState } from "react"
 import { contextD } from "@/contextApi/DashboardState"
 
@@ -62,11 +62,11 @@ export default function ExamTimerSection({
                             <Button
                                 variant="outline"
                                 onClick={() => setShowCard(!showCard)}
-                                className="  text-black border-gray-300 hover:bg-gray-50"
+                                className=" block md:hidden border-red-500 bg-red-50 text-red-600 hover:bg-red-500 hover:text-white"
                             >
                                 {showCard ? (
                                     <>
-                                        <EyeOff className="w-4 h-4" />
+                                        <Minus className="w-4 h-4" />
                                         {/* টাইমার অংশটি লুকান */}
                                     </>
                                 ) : (
@@ -114,11 +114,11 @@ export default function ExamTimerSection({
                         <div className="grid grid-cols-2 gap-3 text-sm font-medium">
                             <div className="flex items-center gap-2 text-gray-700 p-2 bg-gray-50 rounded-lg">
                                 <ListOrdered className="w-4 h-4 text-purple-500" />
-                                <span>মোট: **{totalQuestions}**</span>
+                                <span>মোট: {totalQuestions}</span>
                             </div>
                             <div className="flex items-center gap-2 text-gray-700 p-2 bg-gray-50 rounded-lg">
                                 <CheckSquare className="w-4 h-4 text-green-500" />
-                                <span>উত্তর: **{selectedCount}**</span>
+                                <span>উত্তর: {selectedCount}</span>
                             </div>
                         </div>
 

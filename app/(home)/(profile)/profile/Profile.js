@@ -2,8 +2,9 @@ import React from 'react';
 import { getUserAccount } from '@/app/apiActions/userInformantion';
 import Image from 'next/image';
 import ProfileEditButton from '@/components/clients/profile/ProfileEditButton';
-import { ogImage } from '@/Images/Images';
+import { demoProfilePhoto, ogImage } from '@/Images/Images';
 import ProfileNav from './ProfileNav';
+ 
 
 //  profile home page
 const Profile = async () => {
@@ -58,7 +59,7 @@ const Profile = async () => {
                         {/* Profile Picture and Name/Email */}
                         <div className="flex items-center justify-center md:justify-start flex-col md:flex-row  gap-2 md:gap-6 w-full z-20 ">
                             <Image
-                                src={profilePhoto || "https://i.pravatar.cc/100"}
+                                src={demoProfilePhoto}
                                 alt="User Photo"
                                 width={160}
                                 height={160}

@@ -1,6 +1,5 @@
 import { getSingleQuestion } from '@/app/apiActions/questions';
-import ExamForm from '@/components/clients/exam/ExamForm';
-import ExamSidebar from '@/components/clients/exam/ExamSidebar';
+import ExamForm from '@/components/clients/exam/ExamForm'; 
 import WrittenExamForm from '@/components/clients/exam/WrittenExamForm';
 import NoData from '@/utils/NoData';
 import React from 'react';
@@ -20,7 +19,7 @@ export default async function ExamQuestionsPage({ params }) {
         <>
             <div className=' bg-gray-100 px-3 md:px-12 py-10 flex items-start justify-between flex-wrap gap-4'>
 
-                <main className="w-full md:w-[65%] p-3 md:p-3 bg-white shadow-md rounded-lg">
+                <main className="w-full p-3 md:p-3 bg-white shadow-md rounded-lg">
 
                     {
                         data.questionType === "mcq" ?
@@ -29,8 +28,7 @@ export default async function ExamQuestionsPage({ params }) {
                             <WrittenExamForm questionsData={data} />
                     }
                 </main>
-                {/*  related questions */}
-                <ExamSidebar data={data} />
+           
             </div>
 
         </>

@@ -6,7 +6,7 @@ import { BookMarkedIcon, LogOut } from 'lucide-react';
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useContext } from 'react'
-import { FiBookOpen, FiGrid, FiSettings, FiUsers } from 'react-icons/fi';
+import { FiBookOpen, FiGrid } from 'react-icons/fi';
 
 export default function ProfileNav() {
     const path = usePathname();
@@ -15,8 +15,7 @@ export default function ProfileNav() {
     const menuItems = [
         { name: "ওভারভিউ", icon: FiGrid, link: "/profile" },
         { name: "রেজাল্ট", icon: FiBookOpen, link: "/profile/results" },
-        { name: "প্রশ্ন তৈরি", icon: BookMarkedIcon, link: "/profile/make-question" },
-        { name: "সেটিংস", icon: FiSettings, link: "/profile/settings" },
+        { name: "প্রশ্ন তৈরি", icon: BookMarkedIcon, link: "/profile/make-question" }, 
     ];
 
     const handleLogout = () => {

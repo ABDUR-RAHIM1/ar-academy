@@ -1,7 +1,7 @@
 
 import { getsActionSubAdmin } from "@/actions/subAdmins/getsActionSubAdmin";
 import { getsActions } from "@/actions/users/getActions";
-import { questionGetSingel, questionReletedByCourseName, questionsGetAll, questionsGetAllByPaidStudent, questionsGetAllBySubAdmin } from "@/constans";
+import { questionGetSingel, questionsGetAllByPaidStudent, questionsGetAllBySubAdmin } from "@/constans";
 
 //  user je course gulo kineche sei course onujayi questions gulo dekhabe 
 export const getStudentQuestionsListByCourse = async (courseId) => {
@@ -37,8 +37,3 @@ export const getSingleQuestionBySubAdmin = async (cacheTime = 2) => {
 // }
 
 
-export const getReletedQuestionsByCourseName = async (isAllTitle, cacheTime = 5) => {
-    const reletedQuestions = await getsActions(questionReletedByCourseName + isAllTitle, cacheTime);
-
-    return reletedQuestions;
-}

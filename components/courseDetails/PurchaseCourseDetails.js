@@ -1,12 +1,21 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
-import { TrophyIcon } from "lucide-react";
+import { TrophyIcon, ChevronDown, ChevronUp } from "lucide-react";
 
-export default function PurchaseCourseDetails({ courseData = [], path = "profile" }) {
+export default function PurchaseCourseDetails({
+    courseData = [],
+    path = "profile",
+}) {
+    const leaderboardRoute = path === "profile" ? "/profile" : "/subAdmin";
 
+    const [openCourseId, setOpenCourseId] = useState(null);
 
-    const leaderboardRoute = path === "profile" ? "/profile" : "/subAdmin"
+    const toggleCourse = (id) => {
+        setOpenCourseId((prev) => (prev === id ? null : id));
+    };
 
     if (!courseData || courseData.length === 0) {
         return (
@@ -17,90 +26,112 @@ export default function PurchaseCourseDetails({ courseData = [], path = "profile
     }
 
     return (
-        <div className=" w-full md:max-w-5xl mx-auto p-0 md:p-4 grid gap-6">
-            {courseData.map((course) => (
-                <div
-                    key={course._id}
-                    className="bg-white shadow-md rounded-2xl p-6 border hover:shadow-lg transition-all"
-                >
-                    {/* Header */}
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b pb-4 mb-4 gap-3">
+        <div className="w-full md:max-w-5xl mx-auto p-0 md:p-4 grid gap-6">
+            {courseData.map((course) => {
+                const isOpen = openCourseId === course._id;
 
-                        {/* Course Title */}
-                        <h2 className="text-2xl font-bold text-gray-800 text-center sm:text-left">
-                            {course.name}
-                        </h2>
+                return (
+                    <div
+                        key={course._id}
+                        className="bg-white shadow-md rounded-2xl border transition-all"
+                    >
+                        {/* ---------- HEADER ---------- */}
+                        <div className="p-6">
 
-                        {/* Buttons Container */}
-                        <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-4">
+                            {/* Top Row: Title + Actions */}
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-                            {/* Questions Button */}
+                                {/* Course Title */}
+                                <h2 className="text-2xl font-bold text-gray-800 text-center sm:text-left">
+                                    {course.name}
+                                </h2>
 
-                            {
-                                path === "profile" &&
-                                <Link
-                                    href={`/profile/exam/${course._id}`}
-                                    className="px-5 py-2 bg-blue-600 text-white rounded-full text-sm hover:bg-blue-700 transition w-full sm:w-auto text-center"
+                                {/* Action Buttons */}
+                                <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                                    {path === "profile" && (
+                                        <Link
+                                            href={`/profile/exam/${course._id}`}
+                                            className="px-5 py-2 bg-blue-600 text-white rounded-full text-sm hover:bg-blue-700 transition text-center"
+                                        >
+                                            প্রশ্ন দেখুন
+                                        </Link>
+                                    )}
+
+                                    <Button asChild className="bg-blue-600 text-white">
+                                        <Link
+                                            href={`${leaderboardRoute}/leaderboard/${course._id}`}
+                                            className="flex items-center gap-2"
+                                        >
+                                            <TrophyIcon size={18} />
+                                            লিডারবোর্ড
+                                        </Link>
+                                    </Button>
+                                </div>
+                            </div>
+
+                            {/* Bottom: Toggle Button (Centered) */}
+                            <div className="mt-4 flex justify-center">
+                                <button
+                                    onClick={() => toggleCourse(course._id)}
+                                    className="flex items-center gap-1 text-sm text-blue-600 hover:underline"
                                 >
-                                    প্রশ্ন দেখুন
-                                </Link>
-                            }
+                                    {isOpen ? "লুকান" : "বিস্তারিত দেখুন"}
+                                    {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                                </button>
+                            </div>
 
-
-                            {/* Leaderboard Button */}
-                            <Button
-                                asChild
-                                className="bg-blue-600 text-white w-full sm:w-auto"
-                            >
-                                <Link
-                                    href={`${leaderboardRoute}/leaderboard/${course._id}`}
-                                    className="flex items-center justify-center gap-2 text-center"
-                                >
-                                    <TrophyIcon /> লিডারবোর্ড দেখুন
-                                </Link>
-                            </Button>
                         </div>
+
+
+                        {/* ---------- EXPANDABLE CONTENT ---------- */}
+                        {isOpen && (
+                            <div className="px-6 pb-6 border-t space-y-4">
+                                {/* Title */}
+                                <h3 className="text-lg font-semibold text-gray-700">
+                                    {course.title}
+                                </h3>
+
+                                {/* Short Description */}
+                                <div>
+                                    <h4 className="font-semibold text-gray-800 mb-2">
+                                        যে সকল বিষয়ের উপর পরীক্ষা নেওয়া হবে:
+                                    </h4>
+                                    <ul className="list-disc list-inside text-gray-700 space-y-1">
+                                        {course.shortDesc
+                                            ?.split(",")
+                                            .map((item, index) => (
+                                                <li key={index}>{item.trim()}</li>
+                                            ))}
+                                    </ul>
+                                </div>
+
+                                {/* Description */}
+                                <div>
+                                    <h4 className="font-semibold text-gray-800 mb-2">
+                                        বিস্তারিত:
+                                    </h4>
+                                    <ul className="list-disc list-inside text-gray-700 space-y-1">
+                                        {course.description
+                                            ?.split(",")
+                                            .map((item, index) => (
+                                                <li key={index}>{item.trim()}</li>
+                                            ))}
+                                    </ul>
+                                </div>
+
+                                {/* Footer */}
+                                <div className="flex flex-wrap justify-between items-center border-t pt-4 text-sm text-gray-600">
+                                    <p>সময়কাল: {course.duration} মাস</p>
+                                    <p>
+                                        তৈরি:{" "}
+                                        {new Date(course.createdAt).toLocaleDateString("bn-BD")}
+                                    </p>
+                                </div>
+                            </div>
+                        )}
                     </div>
-
-
-                    {/* Title */}
-                    <h3 className="text-lg font-semibold text-gray-700 mb-3">
-                        {course.title}
-                    </h3>
-
-                    {/* Short Description */}
-                    <div className="mb-4">
-                        <h4 className="font-semibold text-gray-800 mb-2">যে সকল বিষয়ের উপর পরিক্ষা নেওয়া হবে:</h4>
-                        <ul className="list-disc list-inside text-gray-700 space-y-1">
-                            {course.shortDesc
-                                ?.split(",")
-                                .map((item, index) => (
-                                    <li key={index}>{item.trim()}</li>
-                                ))}
-                        </ul>
-                    </div>
-
-                    {/* Description */}
-                    <div className="mb-4">
-                        <h4 className="font-semibold text-gray-800 mb-2">বিস্তারিত:</h4>
-                        <ul className="list-disc list-inside text-gray-700 space-y-1">
-                            {course.description
-                                ?.split(",")
-                                .map((item, index) => (
-                                    <li key={index}>{item.trim()}</li>
-                                ))}
-                        </ul>
-                    </div>
-
-                    {/* Footer Info */}
-                    <div className="flex flex-wrap justify-between items-center border-t pt-4 text-sm text-gray-600">
-                        <p>সময়কাল: {course.duration} মাস</p>
-                        <p>
-                            তৈরি: {new Date(course.createdAt).toLocaleDateString("bn-BD")}
-                        </p>
-                    </div>
-                </div>
-            ))}
+                );
+            })}
         </div>
     );
 }

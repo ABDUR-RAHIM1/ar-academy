@@ -69,7 +69,7 @@ export default function Header() {
             <div
                 className={`flex md:hidden sticky top-0 px-4 py-5 items-center justify-between z-40 
                     transition-all duration-300
-                    ${scrollBg ? "bg-indigo-50 shadow-md headerBg" : "bg-transparent"}`}
+                    ${scrollBg ? "bg-indigo-50 shadow-md" : "bg-transparent"}`}
             >
                 <Logo />
 
