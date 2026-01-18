@@ -22,7 +22,9 @@ export default function CourseTable({ data }) {
     const columns = [
         {
             name: "Name",
-            selector: row => row.name
+            selector: row => <div title={row.name}>
+                {row.name}
+            </div>
         },
         {
             name: "Title",

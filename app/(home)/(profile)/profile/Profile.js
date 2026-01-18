@@ -1,10 +1,10 @@
 import React from 'react';
 import { getUserAccount } from '@/app/apiActions/userInformantion';
 import Image from 'next/image';
-import ProfileEditButton from '@/components/clients/profile/ProfileEditButton';
 import { demoProfilePhoto, ogImage } from '@/Images/Images';
 import ProfileNav from './ProfileNav';
- 
+import { ProfileEditButton } from '@/components/clients/profile/ProfileEditButton';
+
 
 //  profile home page
 const Profile = async () => {
@@ -16,7 +16,7 @@ const Profile = async () => {
         return "no data found"
     }
 
-    const { username, email, phone, profilePhoto, createdAt, updatedAt } = data
+    const { username, email, phone, photo, createdAt, updatedAt } = data
 
 
 
@@ -59,11 +59,11 @@ const Profile = async () => {
                         {/* Profile Picture and Name/Email */}
                         <div className="flex items-center justify-center md:justify-start flex-col md:flex-row  gap-2 md:gap-6 w-full z-20 ">
                             <Image
-                                src={demoProfilePhoto}
+                                src={photo || demoProfilePhoto}
                                 alt="User Photo"
                                 width={160}
                                 height={160}
-                                className="w-24 h-24 md:w-40 md:h-40 rounded-full border-4 mt-5 md:mt-0 border-white object-cover shadow-lg"
+                                className="w-24 h-24 md:w-40 md:h-40 rounded-full border-4 mt-5 md:mt-0 border-white shadow-lg"
                             />
 
                             {/* User Main Info */}
@@ -76,7 +76,7 @@ const Profile = async () => {
 
                         {/* Edit Button Area */}
                         <div className=" mt-4 md:mt-0 flex-shrink-0">
-                            <ProfileEditButton profileInfo={data} />
+                            <ProfileEditButton user={data} />
                         </div>
                     </div>
 

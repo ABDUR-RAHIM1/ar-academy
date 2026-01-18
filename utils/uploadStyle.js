@@ -25,6 +25,6 @@
     } else if (statusCode >= 400) {
         return styles.error; // Client or Server Error
     } else {
-        return styles.idle; // Fallback for unknown status
+        return styles.idle; 
     }
 }

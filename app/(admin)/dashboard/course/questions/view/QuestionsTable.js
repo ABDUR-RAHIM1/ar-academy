@@ -33,6 +33,8 @@ export default function QuestionsTable({ questionsData }) {
         )
     }
 
+
+
     const columns = [
         {
             name: "নং",
@@ -67,6 +69,10 @@ export default function QuestionsTable({ questionsData }) {
         {
             name: "সময়",
             selector: row => `${row.duration || 0} মিনিট`
+        },
+        {
+            name: "অংশগ্রহণকারী",
+            selector: row => `${row.participant?.length || 0} জন`
         },
         {
             name: "স্ট্যাটাস",

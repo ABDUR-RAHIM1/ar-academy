@@ -128,6 +128,7 @@ export const updateUserStatus = "/api/account/updateStatus/"
 export const updateStudentStatusBySubAdmin = "/api/account/updateStatusBySubAdmin/"
 export const updateAdminAllInformation = "/api/account/updateAdminAccount/"
 export const studentDeleteOnlySubAdmin = "/api/account/subDelete/"
+export const userAccountUpdate = "/api/account/userUpdate/" // :userId
 
 //  comment
 export const commentCreate = process.env.NEXT_PUBLIC_COMMENT_CREATE

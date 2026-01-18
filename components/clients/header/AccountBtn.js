@@ -78,9 +78,11 @@ export default function AccountBtn() {
             {tokenName.token ? (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md bg-gray-100 hover:bg-gray-200 transition text-sm font-medium">
+                        <button title={username || ""} className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md bg-gray-100 hover:bg-gray-200 transition text-sm font-medium">
                             <FiUser className="text-xl" />
-                            <span>{username}</span>
+                            <span>{
+                                username?.length < 10 ? username : username?.substring(0, 10) + "..."
+                            }</span>
                             <FiChevronDown className="text-lg" />
                         </button>
                     </DropdownMenuTrigger>

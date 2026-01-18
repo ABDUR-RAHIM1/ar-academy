@@ -2,7 +2,7 @@ import { getStudentQuestionsListByCourse } from '@/app/apiActions/questions';
 import NoData from '@/utils/NoData';
 import React from 'react';
 import QuestionCard from '../QuestionCard';
-import { BookOpen, FileText, LayoutGrid, BrushCleaning, ClipboardList } from 'lucide-react'; // আইকন ব্যবহার করলে ভালো দেখায়
+import { BookOpen, FileText, LayoutGrid, ClipboardList } from 'lucide-react'; // আইকন ব্যবহার করলে ভালো দেখায়
 
 
 export default async function ExamList({ params }) {
