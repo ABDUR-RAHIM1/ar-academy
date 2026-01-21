@@ -16,6 +16,7 @@ import { packageCreate } from '@/constans';
 import { postActions } from '@/actions/admins/postActions';
 import { contextD } from '@/contextApi/DashboardState';
 import LoadingSpinner from '@/components/spinner-01';
+import { Input } from '@/components/ui/input';
 
 export default function PackageAdd() {
     const [loading, setLoading] = useState(false)
@@ -23,6 +24,7 @@ export default function PackageAdd() {
     const [formData, setFormData] = useState({
         name: '',
         duration: '',
+        price: 0,
         description: ''
     });
 
@@ -106,6 +108,16 @@ export default function PackageAdd() {
                     </Select>
                 </div>
 
+                {/* Price Input */}
+                <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700">Price</label>
+                    <Input
+                        name="price"
+                        placeholder="Package Price"
+                        value={formData.price}
+                        onChange={handleChange}
+                    />
+                </div>
                 {/* Description Textarea */}
                 <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-700">Description</label>
