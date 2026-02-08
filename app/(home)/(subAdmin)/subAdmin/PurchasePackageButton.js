@@ -6,10 +6,9 @@ import { packagePurchase } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState'
 import React, { useContext, useState } from 'react'
 
-export default function PurchasePackageButton({ packageId }) {
+export default function PurchasePackageButton({ packageId, purchasePackgeId }) {
     const { showToast } = useContext(contextD);
     const [loading, setLoading] = useState(false);
-
 
     const handlePurchasePackage = async () => {
         setLoading(true);
@@ -35,14 +34,26 @@ export default function PurchasePackageButton({ packageId }) {
         }
     };
 
+    // ✅ Boolean check
+    const isPurchased = packageId === purchasePackgeId;
+
     return (
         <Button
-            // Parameter pass na kore sorasori call koro jehetu packageData scope-e ache
             onClick={handlePurchasePackage}
-            disabled={loading} // Loading obosthay button disable rakha bhalo
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+            disabled={loading || isPurchased}
+            className={`w-full py-2 rounded-lg text-white transition
+                ${isPurchased 
+                    ? "bg-green-600 cursor-not-allowed" 
+                    : "bg-blue-600 hover:bg-blue-700"
+                }
+            `}
         >
-            {loading ? <LoadingSpinner /> : "প্যাকেজ কিনুন"}
+            {loading 
+                ? <LoadingSpinner /> 
+                : isPurchased 
+                    ? "✔ অ্যাক্টিভ করা আছে" 
+                    : "অ্যাক্টিভ করুন"
+            }
         </Button>
     )
 }

@@ -40,6 +40,7 @@ export const courseDelete = process.env.NEXT_PUBLIC_COURSE_DELETE
 export const packageCreate = process.env.NEXT_PUBLIC_PACKAGES_CREATE
 export const packageGetAll = process.env.NEXT_PUBLIC_PACKAGES_GET_ALL
 export const packagePurchase = process.env.NEXT_PUBLIC_PACKAGES_PURCHASE
+export const getMyPackage = process.env.NEXT_PUBLIC_PACKAGES_GET_MY_PACKAGE
 //  Packages End
 
 

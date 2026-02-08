@@ -1,7 +1,15 @@
+import { getsActionSubAdmin } from "@/actions/subAdmins/getsActionSubAdmin";
 import { getsActions } from "@/actions/users/getActions"
-import { packageGetAll } from "@/constans"
+import { getMyPackage, packageGetAll } from "@/constans"
 
-export const getAllPackagesByAll = async () => {
+export const getAllPackages = async () => {
     const packages = await getsActions(packageGetAll);
     return packages
-}
+};
+
+
+// ===== Purchase / active kora package 
+export const fetchMyPackages = async () => {
+    const myPackage = await getsActionSubAdmin(getMyPackage);
+    return myPackage
+};

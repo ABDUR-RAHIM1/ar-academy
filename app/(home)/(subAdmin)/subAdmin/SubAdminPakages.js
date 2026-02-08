@@ -1,14 +1,17 @@
-import { getAllPackagesByAll } from "@/app/apiActions/packages";
+import { fetchMyPackages, getAllPackages } from "@/app/apiActions/packages";
 import NoData from "@/utils/NoData";
 import React from "react";
 import PurchasePackageButton from "./PurchasePackageButton";
 import { CheckCircle2, Zap, Clock, ShieldCheck } from "lucide-react";
 
 export default async function SubAdminPakages() {
-  const { status, data: packages } = await getAllPackagesByAll();
+  const { status, data: packages } = await getAllPackages();
+
+  const purchasePackge = await fetchMyPackages();
+ 
 
   if (status !== 200 || !packages || packages.length === 0) {
-    return <NoData text={"দুঃখিত, বর্তমানে কোনো প্যাকেজ উপলব্ধ নেই।"} />;
+    return <NoData text={"দুঃখিত, বর্তমানে কোনো প্যাকেজ নেই।"} />;
   }
 
   return (
@@ -65,7 +68,7 @@ export default async function SubAdminPakages() {
                   </div>
                 ))}
                 {!pkg.description && (
-                   <div className="flex items-start gap-2 text-sm text-slate-600">
+                  <div className="flex items-start gap-2 text-sm text-slate-600">
                     <CheckCircle2 size={16} className="text-green-500 mt-0.5 shrink-0" />
                     <span>সকল বেসিক সাব-অ্যাডমিন ফিচার</span>
                   </div>
@@ -74,7 +77,8 @@ export default async function SubAdminPakages() {
             </div>
 
             <div className="mt-auto">
-              <PurchasePackageButton packageId={pkg._id} />
+              <PurchasePackageButton packageId={pkg._id} purchasePackgeId={purchasePackge?.data?.packageId} />
+
               <div className="flex items-center justify-center gap-1 mt-4 text-[10px] text-slate-400 font-medium">
                 <ShieldCheck size={12} /> নিরাপদ পেমেন্ট ও ইনস্ট্যান্ট অ্যাক্সেস
               </div>
