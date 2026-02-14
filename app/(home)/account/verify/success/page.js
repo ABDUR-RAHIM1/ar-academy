@@ -4,7 +4,8 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { CheckCircle } from "lucide-react";
 import { contextD } from "@/contextApi/DashboardState";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
+// import jwtDecode from "jwt-decode";
 
 export default function EmailVerifiedSuccess() {
   const { setLoginSignal } = useContext(contextD);

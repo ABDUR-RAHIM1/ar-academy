@@ -233,8 +233,8 @@ export default async function CoursePreview({ params }) {
                             </div>
                         </div>
 
-                        <div className="pt-4">
-                            <CoursePurchaseButton courseId={course._id} />
+                        <div className="pt-4"> 
+                            <CoursePurchaseButton courseId={course._id} courseAmount={course.offerPrice} />
                             <p className="text-center text-xs text-slate-400 mt-4 px-4 font-medium leading-relaxed">
                                  {
                                  Number(course.offerPrice) <= 0  ? "শুধু বাটনে ক্লিক করলেই আপনার প্রোফাইল কোর্সের এক্সেস পেয়ে যাবেন " : "পেমেন্ট সম্পন্ন করার পর সাথে সাথেই আপনার প্রোফাইল কোর্সের এক্সেস পেয়ে যাবেন"

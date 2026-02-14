@@ -1,4 +1,4 @@
-import { getAllPackagesByAll } from '@/app/apiActions/packages'
+ 
 import React from 'react'
 import {
     Table,
@@ -13,10 +13,11 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Edit, Trash2 } from 'lucide-react'
 import NoData from '@/utils/NoData'
+import { getAllPackages } from '@/app/apiActions/packages'
 
 // Admin Panel - Package View
 export default async function PackageView() {
-    const { status, data: packages } = await getAllPackagesByAll()
+    const { status, data: packages } = await getAllPackages()
    
 
     if (status !== 200 || !packages) {

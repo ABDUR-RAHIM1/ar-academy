@@ -138,10 +138,12 @@ export const commentGetByChapter = process.env.NEXT_PUBLIC_COMMENT_GET_BY_CHAPTE
 export const commentReply = process.env.NEXT_PUBLIC_COMMENT_REPLY
 export const commentDelete = process.env.NEXT_PUBLIC_COMMENT_DELETE
 //  comment ENd
-
+ 
 
 //  Purchase Plan Start
 export const purchaseCourse = process.env.NEXT_PUBLIC_PLAN_PURCHASE;
+export const purchaseCourseAssign = process.env.NEXT_PUBLIC_PLAN_PURCHASE_ASSIGN; 
+export const purchasePayementUpdate = process.env.NEXT_PUBLIC_PLAN_PURCHASE_PAYMENT_UPDATE;
 export const assignPurchaseCourse = process.env.NEXT_PUBLIC_PLAN_PURCHASE_BY_ADMIN;
 export const purchaseCourseGetMe = process.env.NEXT_PUBLIC_MY_PLAN_ME
 export const purchaseCourseGetAll = process.env.NEXT_PUBLIC_MY_PLAN_ALL
