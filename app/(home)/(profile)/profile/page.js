@@ -9,7 +9,7 @@ import PurchaseCourseDetails from '@/components/courseDetails/PurchaseCourseDeta
 export default async function ProfileOverview() {
 
     const { status, data: purchasedCourses } = await getMyPurchaseCourse();
-
+ 
 
     // questionsGetAllByPaidStudent
     if (status !== 200 || !purchasedCourses) {
@@ -42,7 +42,7 @@ export default async function ProfileOverview() {
                 courseData={purchasedCourses}
                 path='profile'
             />
- 
+
         </div>
     );
 }

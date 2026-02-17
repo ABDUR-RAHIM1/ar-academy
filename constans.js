@@ -39,8 +39,10 @@ export const courseDelete = process.env.NEXT_PUBLIC_COURSE_DELETE
 //  Packages Start (only for sub Admin)
 export const packageCreate = process.env.NEXT_PUBLIC_PACKAGES_CREATE
 export const packageGetAll = process.env.NEXT_PUBLIC_PACKAGES_GET_ALL
+export const packagePurchedGetAll = process.env.NEXT_PUBLIC_PACKAGES_PURCHASED_GET_ALL
 export const packagePurchase = process.env.NEXT_PUBLIC_PACKAGES_PURCHASE
 export const getMyPackage = process.env.NEXT_PUBLIC_PACKAGES_GET_MY_PACKAGE
+export const packagePurchaseStatusUpdate = process.env.NEXT_PUBLIC_PACKAGES_UPDATE_STATUS
 //  Packages End
 
 
@@ -138,11 +140,11 @@ export const commentGetByChapter = process.env.NEXT_PUBLIC_COMMENT_GET_BY_CHAPTE
 export const commentReply = process.env.NEXT_PUBLIC_COMMENT_REPLY
 export const commentDelete = process.env.NEXT_PUBLIC_COMMENT_DELETE
 //  comment ENd
- 
+
 
 //  Purchase Plan Start
 export const purchaseCourse = process.env.NEXT_PUBLIC_PLAN_PURCHASE;
-export const purchaseCourseAssign = process.env.NEXT_PUBLIC_PLAN_PURCHASE_ASSIGN; 
+export const purchaseCourseAssign = process.env.NEXT_PUBLIC_PLAN_PURCHASE_ASSIGN;
 export const purchasePayementUpdate = process.env.NEXT_PUBLIC_PLAN_PURCHASE_PAYMENT_UPDATE;
 export const assignPurchaseCourse = process.env.NEXT_PUBLIC_PLAN_PURCHASE_BY_ADMIN;
 export const purchaseCourseGetMe = process.env.NEXT_PUBLIC_MY_PLAN_ME

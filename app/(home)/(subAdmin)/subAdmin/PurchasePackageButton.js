@@ -4,15 +4,34 @@ import LoadingSpinner from '@/components/spinner-01';
 import { Button } from '@/components/ui/button';
 import { packagePurchase } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState'
+import { useRouter } from 'next/navigation';
 import React, { useContext, useState } from 'react'
 
-export default function PurchasePackageButton({ packageId, purchasePackgeId }) {
+export default function PurchasePackageButton({ packageId, purchasePackgeId, packagePrice }) {
+
+    const router = useRouter();
     const { showToast } = useContext(contextD);
     const [loading, setLoading] = useState(false);
 
+    const isFree = Number(packagePrice || 0) <= 0
+
     const handlePurchasePackage = async () => {
-        setLoading(true);
+        if (!packageId) {
+            showToast(404, "কোর্স কিনতে ব্যর্থ!");
+            return
+        };
+
+        if (!isFree) {
+            const rawData = `id=${packageId}&amount=${packagePrice}`;
+            const encodedData = btoa(rawData);
+
+            router.push(`/subAdmin/payment?payload=${encodedData}`);
+            return;
+        };
+
         try {
+
+            setLoading(true);
             const formData = {
                 packageId: packageId
             };
@@ -37,21 +56,22 @@ export default function PurchasePackageButton({ packageId, purchasePackgeId }) {
     // ✅ Boolean check
     const isPurchased = packageId === purchasePackgeId;
 
+    
     return (
         <Button
             onClick={handlePurchasePackage}
             disabled={loading || isPurchased}
             className={`w-full py-2 rounded-lg text-white transition
-                ${isPurchased 
-                    ? "bg-green-600 cursor-not-allowed" 
+                ${isPurchased
+                    ? "bg-green-600 cursor-not-allowed"
                     : "bg-blue-600 hover:bg-blue-700"
                 }
             `}
         >
-            {loading 
-                ? <LoadingSpinner /> 
-                : isPurchased 
-                    ? "✔ অ্যাক্টিভ করা আছে" 
+            {loading
+                ? <LoadingSpinner />
+                : isPurchased
+                    ? "✔ অ্যাক্টিভ করা আছে"
                     : "অ্যাক্টিভ করুন"
             }
         </Button>

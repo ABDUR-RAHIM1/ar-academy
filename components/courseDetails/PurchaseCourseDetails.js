@@ -119,13 +119,28 @@ export default function PurchaseCourseDetails({
                                     </ul>
                                 </div>
 
+                                {/* Access Links */}
+                                {
+                                    course.links &&
+                                    <div>
+                                        <h4 className="font-semibold text-gray-800 mb-2">
+                                            যা যা এক্সেস পাবেন:
+                                        </h4>
+                                        <div className=" flex flex-col text-gray-700 space-y-1">
+                                            {course.links?.map((item, index) => (
+                                                <Link key={index}
+                                                    href={item.path}
+                                                    className="text-blue-500 hover:underline"
+                                                >
+                                                    {item.itemName}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </div>}
+
                                 {/* Footer */}
                                 <div className="flex flex-wrap justify-between items-center border-t pt-4 text-sm text-gray-600">
                                     <p>সময়কাল: {course.duration} মাস</p>
-                                    <p>
-                                        তৈরি:{" "}
-                                        {new Date(course.createdAt).toLocaleDateString("bn-BD")}
-                                    </p>
                                 </div>
                             </div>
                         )}

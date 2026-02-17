@@ -19,10 +19,10 @@ import {
 } from "@/components/ui/dialog";
 import { postActions } from '@/actions/admins/postActions';
 import { contextD } from '@/contextApi/DashboardState';
-import { purchasePayementUpdate } from '@/constans';
+import { packagePurchaseStatusUpdate, purchasePayementUpdate } from '@/constans';
 import { useRouter } from 'next/navigation';
 
-export default function PurchasedTable({ purchasedData }) {
+export default function PurchasedTable({ purchasedData, type }) {
     const router = useRouter();
     const { showToast } = useContext(contextD);
     const [searchTerm, setSearchTerm] = useState("");
@@ -31,6 +31,9 @@ export default function PurchasedTable({ purchasedData }) {
     const [loading, setLoading] = useState(false);
     const [updateLoading, setUpdateLoading] = useState(null);
     const [selectedItem, setSelectedItem] = useState(null);
+
+    const typePackage = type === "package"
+
 
     const loadData = useCallback(() => {
         setLoading(true);
@@ -74,11 +77,15 @@ export default function PurchasedTable({ purchasedData }) {
 
             const payload = {
                 method: "PUT",
-                api: purchasePayementUpdate,
                 body: {
                     purchaseId, newStatus
                 }
             };
+
+            typePackage ?
+                payload.api = packagePurchaseStatusUpdate :
+                payload.api = purchasePayementUpdate
+ 
 
             const { status, data } = await postActions(payload);
             showToast(status, data);
@@ -136,7 +143,13 @@ export default function PurchasedTable({ purchasedData }) {
                 <Table>
                     <TableHeader className="bg-slate-100/50">
                         <TableRow>
-                            <TableHead className="font-bold py-4">Student Info</TableHead>
+                            <TableHead className="font-bold py-4">
+
+                                {
+                                    typePackage ? "Sub Admin Info" : "Student Info"
+                                }
+
+                            </TableHead>
                             <TableHead className="font-bold">Payment Method</TableHead>
                             <TableHead className="font-bold">Amount</TableHead>
                             <TableHead className="font-bold">Date</TableHead>
@@ -149,8 +162,23 @@ export default function PurchasedTable({ purchasedData }) {
                             <TableRow key={item._id} className="bg-white hover:bg-slate-50/50 border-b border-slate-100">
                                 <TableCell>
                                     <div className="flex flex-col">
-                                        <span className="font-black text-slate-800">{item.student?.username || "N/A"}</span>
-                                        <span className="text-[11px] text-slate-500 font-medium">{item.student?.email || item.student?.phone}</span>
+
+                                        {
+                                            typePackage ?
+                                                <>
+                                                    <span className="font-black text-slate-800">
+                                                        {item.subAdmin?.username || "N/A"}
+                                                    </span>
+                                                    <span className="text-[11px] text-slate-500 font-medium">{item.subAdmin?.email || item.subAdmin?.phone}</span>
+                                                </>
+                                                :
+                                                <>
+                                                    <span className="font-black text-slate-800">
+                                                        {item.student?.username || "N/A"}
+                                                    </span>
+                                                    <span className="text-[11px] text-slate-500 font-medium">{item.student?.email || item.student?.phone}</span>
+                                                </>
+                                        }
                                     </div>
                                 </TableCell>
                                 <TableCell>

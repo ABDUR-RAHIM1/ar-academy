@@ -37,8 +37,7 @@ export default function CoursePurchaseButton({ courseId, courseAmount }) {
             const encodedData = btoa(rawData);
 
             router.push(`/courses/payment?payload=${encodedData}`);
-            return;
-            return;
+            return; 
         }
 
         setLoading(true)

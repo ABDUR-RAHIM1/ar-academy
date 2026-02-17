@@ -16,7 +16,7 @@ export default function QuestionCard({ exam, index }) {
     startTime: exam.startTime,
     duration: exam.duration
   });
-
+console.log(status, timeLeft)
 
   const formattedTime = formatTime12Hour(exam?.startTime);
 

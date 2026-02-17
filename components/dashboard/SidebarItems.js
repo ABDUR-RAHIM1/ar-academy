@@ -174,21 +174,17 @@ const sidebarItems = [
         icon: <RiTeamLine />,
         children: [
             {
-                item: "Add Subscription",
-                path: "subscription/add",
+                item: "Packages",
+                path: "subscription/packages",
                 icon: <FiUserCheck />
             },
             {
-                item: "View Subscription",
-                path: "subscription/view",
+                item: "Courses",
+                path: "subscription/courses",
                 icon: <FaUserCog />
             },
 
-            {
-                item: "Sales History",
-                path: "subscription/salesHistory",
-                icon: <FiUserCheck />
-            },
+            
         ],
     },
     {

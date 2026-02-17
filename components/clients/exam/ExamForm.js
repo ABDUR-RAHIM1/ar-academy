@@ -155,12 +155,6 @@ export default function ExamForm({ questionsData }) {
 
     if (isSubmit) return <ExamSubmitLoading />;
 
-
-
-    
-
-
-
     return (
         <>
             {/* 📱 Mobile Timer */}
