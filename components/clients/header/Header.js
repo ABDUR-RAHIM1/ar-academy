@@ -8,114 +8,134 @@ import AccountBtn from './AccountBtn'
 import Dropdown from './Dropdown'
 
 export default function Header() {
-
     const path = usePathname()
     const [menuClick, setMenuClick] = useState(false);
     const [scrollBg, setScrollBg] = useState(false);
 
+    // স্ক্রল হ্যান্ডলার
     useEffect(() => {
         const handleScroll = () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.body.scrollHeight - window.innerHeight;
-            const scrollPercent = (scrollTop / docHeight) * 100;
-            setScrollBg(scrollPercent > 1);
+            setScrollBg(window.scrollY > 10);
         };
-
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    // মেনু ওপেন থাকলে স্ক্রল লক করা (Overflow ফিক্স করতে সাহায্য করে)
+    useEffect(() => {
+        if (menuClick) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+    }, [menuClick]);
+
     const menuItems = [
-        { item: "সমস্ত ক্যাটাগরি", path: "/categories" },
-        { item: "কোর্স সমূহ", path: "/courses" },
+        { item: "কোর্স", path: "/courses" },
+        { item: "ক্যাটাগরি", path: "/categories" },
         { item: "প্রশ্ন খুঁজুন", path: "/find-question" },
-        { item: "আমাদের সম্পর্কে", path: "/about-us" },
+        { item: "সম্পর্কে", path: "/about-us" },
     ];
 
     return (
-        <>
-            {/* Desktop Header */}
-            <div
-                className={`hidden md:flex sticky top-0 px-4 py-5 items-center justify-between z-40 
-                    transition-all duration-300 
-                    ${scrollBg ? "bg-indigo-50 shadow-md" : "bg-transparent"}`}
-            >
-                <Logo />
-
-                <nav className="flex items-center gap-4 px-4 py-2 bg-white rounded-full shadow-md border border-gray-200">
-                    <Dropdown />
-
-                    {menuItems.map((item, index) => (
-                        <Link
-                            key={index}
-                            href={item.path}
-                            className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-300
-                                ${path === item.path
-                                    ? "bg-blue-100 text-blue-800"
-                                    : "text-gray-700 hover:bg-blue-50 hover:text-blue-800"
-                                }`}
-                        >
-                            {item.item}
-                        </Link>
-                    ))}
-                </nav>
-
-                <div className='flex items-center gap-1'>
-                    <AccountBtn />
-                </div>
-            </div>
-
-            {/* Mobile Header */}
-            <div
-                className={`flex md:hidden sticky top-0 px-4 py-5 items-center justify-between z-40 
-                    transition-all duration-300
-                    ${scrollBg ? "bg-indigo-50 shadow-md" : "bg-transparent"}`}
-            >
-                <Logo />
-
-                <div className='flex items-center gap-4'>
-                    {/* Profile always visible — does not toggle menu */}
-                    <AccountBtn />
-
-                    {/* Menu toggle button */}
-                    {menuClick ? (
-                        <MdClose
-                            onClick={() => setMenuClick(false)}
-                            className='text-3xl text-indigo-700 cursor-pointer'
-                        />
-                    ) : (
-                        <MdMenu
-                            onClick={() => setMenuClick(true)}
-                            className='text-3xl text-indigo-700 cursor-pointer'
-                        />
-                    )}
+        <header 
+            className={`sticky top-0 w-full z-50 transition-all duration-300 
+            ${scrollBg ? "bg-white shadow-md py-3" : "bg-transparent py-5"}`}
+        >
+            <div className="max-w-7xl mx-auto px-4 flex items-center justify-between gap-2">
+                
+                {/* 1. Logo */}
+                <div className="flex-shrink-0">
+                    <Logo />
                 </div>
 
-                {/* Mobile dropdown menu */}
-                <div
-                    className={`mobileMenus origin-top transition-transform duration-300 ease-in-out
-                        ${menuClick ? "scale-y-100" : "scale-y-0"} 
-                        absolute top-full left-0 w-full bg-white shadow-md rounded-b-md z-50`}
-                >
-                    <nav className='flex flex-col px-6 py-4 gap-3'>
+                {/* 2. Desktop Navigation (Hidden on Mobile) */}
+                <nav className="hidden lg:flex items-center gap-1 bg-gray-100/80 p-1 rounded-full border border-gray-200">
+                    <div className="px-2 border-r border-gray-300">
                         <Dropdown />
+                    </div>
+                    <div className="flex items-center gap-1">
                         {menuItems.map((item, index) => (
                             <Link
                                 key={index}
                                 href={item.path}
-                                onClick={() => setMenuClick(false)}
-                                className={`text-gray-700 text-base font-medium rounded-md px-3 py-2 transition-colors
-                                    ${path === item.path
-                                        ? "bg-blue-100 text-blue-700"
-                                        : "hover:bg-blue-50 hover:text-blue-700"
-                                    }`}
+                                className={`px-4 py-2 text-sm font-semibold rounded-full transition-all
+                                    ${path === item.path ? "bg-indigo-600 text-white" : "text-gray-600 hover:bg-white"}`}
                             >
                                 {item.item}
                             </Link>
                         ))}
-                    </nav>
+                    </div>
+                </nav>
+
+                {/* 3. Right Section (Mobile & Desktop) */}
+                <div className="flex items-center gap-2">
+                 
+                    <div className="scale-90 sm:scale-100">
+                        <AccountBtn />
+                    </div>
+
+                    {/* Mobile Menu Toggle Button */}
+                    <button 
+                        onClick={() => setMenuClick(!menuClick)}
+                        className="lg:hidden p-2 rounded-lg bg-indigo-50 text-indigo-700 active:scale-95 transition-transform"
+                        aria-label="Toggle Menu"
+                    >
+                        {menuClick ? <MdClose size={24} /> : <MdMenu size={24} />}
+                    </button>
                 </div>
             </div>
-        </>
+
+            {/* 4. Mobile Side Menu Overlay */}
+            <div 
+                className={`lg:hidden fixed inset-0 w-full h-screen z-[60] transition-opacity duration-300 ${
+                    menuClick ? "opacity-100 visible" : "opacity-0 invisible"
+                }`}
+            >
+                {/* Backdrop (Dark Layer) */}
+                <div 
+                    className="absolute inset-0 bg-black/40 backdrop-blur-sm" 
+                    onClick={() => setMenuClick(false)}
+                ></div>
+
+                {/* Menu Drawer */}
+                <div 
+                    className={`absolute right-0 top-0 h-full w-[280px] bg-white shadow-2xl transition-transform duration-300 ease-in-out
+                    ${menuClick ? "translate-x-0" : "translate-x-full"}`}
+                >
+                    <div className="p-6 flex flex-col h-full">
+                        <div className="flex items-center justify-between mb-8">
+                            <Logo />
+                            <button onClick={() => setMenuClick(false)} className="p-2 bg-gray-100 rounded-full">
+                                <MdClose size={20} />
+                            </button>
+                        </div>
+
+                        <nav className="flex flex-col gap-2 overflow-y-auto">
+                            <div className="mb-4">
+                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">ব্রাউজ করুন</p>
+                                <Dropdown />
+                            </div>
+
+                            {menuItems.map((item, index) => (
+                                <Link
+                                    key={index}
+                                    href={item.path}
+                                    onClick={() => setMenuClick(false)}
+                                    className={`px-4 py-3 rounded-xl text-base font-bold transition-all
+                                        ${path === item.path ? "bg-indigo-50 text-indigo-700" : "text-gray-600 active:bg-gray-50"}`}
+                                >
+                                    {item.item}
+                                </Link>
+                            ))}
+                        </nav>
+
+                        <div className="mt-auto border-t pt-6 text-center">
+                            <p className="text-xs text-gray-400 font-medium italic">সফলতার পথে আপনার সাথী</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
     );
 }

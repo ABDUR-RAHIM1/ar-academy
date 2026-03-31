@@ -22,7 +22,7 @@ import {
 import { postActions } from '@/actions/admins/postActions'
 import LoadingSpinner from '@/components/spinner-01'
 import { getAllCourse } from '@/app/apiActions/Course'
-import { assignPurchasePlan } from '@/constans' // নিশ্চিত করুন এটি ইমপোর্ট করা আছে
+import { purchaseCourseAssign } from '@/constans' // নিশ্চিত করুন এটি ইমপোর্ট করা আছে
 
 export default function AccessModal({ showModal, setShowModal, studentId }) {
     const { showToast } = useContext(contextD);
@@ -68,7 +68,7 @@ export default function AccessModal({ showModal, setShowModal, studentId }) {
         try {
             const payload = {
                 method: "POST",
-                api: assignPurchasePlan,
+                api: purchaseCourseAssign,
                 body: dataBody 
             }
             const { status, data } = await postActions(payload);

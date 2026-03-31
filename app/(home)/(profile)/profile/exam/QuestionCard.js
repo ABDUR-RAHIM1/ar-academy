@@ -16,7 +16,6 @@ export default function QuestionCard({ exam, index }) {
     startTime: exam.startTime,
     duration: exam.duration
   });
-console.log(status, timeLeft)
 
   const formattedTime = formatTime12Hour(exam?.startTime);
 
@@ -44,9 +43,7 @@ console.log(status, timeLeft)
 
   const styles = statusStyles[status];
 
-  // const randomUserCount = Math.round(Math.random() * 5000)
-
-
+ 
     return (
     <div className={`group relative overflow-hidden bg-white shadow-md hover:shadow-xl rounded-2xl p-6 border border-gray-100 transition-all duration-300 ${styles.card}`}>
 

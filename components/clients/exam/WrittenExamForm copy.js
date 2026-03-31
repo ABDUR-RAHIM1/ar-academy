@@ -40,7 +40,7 @@ export default function WrittenExamForm({ questionsData }) {
         }));
     };
 
-
+    // console.log(formData )
 
     // ভুল করে আপলোড করা ফাইল ডিলিট করা
     const removeFile = (questionId, fileIndex) => {
@@ -113,8 +113,7 @@ export default function WrittenExamForm({ questionsData }) {
                     questionText: question.Question,
                     answerImages: uploadedUrls,
                     type: "written",
-                    status: uploadedUrls.length > 0 ? "answered" : "skipped",
-                    obtainMarks: 0,
+                    status: uploadedUrls.length > 0 ? "answered" : "skipped"
                 };
             }));
 
@@ -144,16 +143,17 @@ export default function WrittenExamForm({ questionsData }) {
                 api: questionsSubmit,
                 body: resultSheetData
             };
+            
+            console.log(payload)
 
-
-            const { status, data } = await postActionUser(payload);
-
-            if (status === 200 || status === 201) {
-                showToast(status, "আপনার উত্তরপত্রটি সফলভাবে জমা হয়েছে!");
-                setHasSubmittedResult(true);
-            } else {
-                showToast(status, data || "জমা দিতে সমস্যা হয়েছে");
-            }
+            // const { status, data } = await postActionUser(payload);
+            // console.log(payload)
+            // if (status === 200 || status === 201) {
+            //     showToast(status, "আপনার উত্তরপত্রটি সফলভাবে জমা হয়েছে!");
+            //     setHasSubmittedResult(true);
+            // } else {
+            //     showToast(status, data || "জমা দিতে সমস্যা হয়েছে");
+            // }
 
         } catch (error) {
             console.error("Submission Error:", error);

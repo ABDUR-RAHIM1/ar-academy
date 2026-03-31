@@ -12,145 +12,163 @@ export default function Resultstable({ resultsData }) {
         }
     }, [resultsData]);
 
-
     const columns = [
         {
-            name: " বিষয়",
-            selector: row => <div className=' flex flex-col gap-2 text-sm'>
-                <p>{row?.question?.subjectName || "N/A"}</p>
-                <p>{row?.question?.questionType || "N/A"}</p>
-            </div>,
-            sortable: false
-        }, 
-        {
-            name: " সঠিক",
-            cell: row => (
-                <span className="bg-green-100 text-green-700 font-semibold py-1 px-2 rounded-md">
-                    {row.correctAns}
-                </span>
+            name: "বিষয় ও ধরণ",
+            selector: row => (
+                <div className='flex flex-col py-2'>
+                    <span className='font-bold text-slate-700 text-sm'>{row?.question?.subjectName || "N/A"}</span>
+                    <span className='text-xs text-slate-500 uppercase tracking-wider'>{row?.question?.questionType || "N/A"}</span>
+                </div>
             ),
-            sortable: true
+            sortable: true,
+            grow: 2,
         },
         {
-            name: "ভুল",
+            name: "স্কোর কার্ড",
             cell: row => (
-                <span className="bg-red-100 text-red-700 font-semibold py-1 px-2 rounded-md">
-                    {row.wrongAns}
-                </span>
+                <div className="flex gap-1 flex-wrap">
+                    <span className="bg-emerald-50 text-emerald-600 text-[11px] font-bold px-2 py-0.5 rounded-full border border-emerald-100">
+                        সঠিক: {row.correctAns}
+                    </span>
+                    <span className="bg-rose-50 text-rose-600 text-[11px] font-bold px-2 py-0.5 rounded-full border border-rose-100">
+                        ভুল: {row.wrongAns}
+                    </span>
+                </div>
             ),
-            sortable: true
+            width: "180px"
         },
         {
-            name: " স্কিপ",
+            name: "প্রাপ্ত নম্বর",
             cell: row => (
-                <span className="bg-yellow-100 text-yellow-800 font-semibold py-1 px-2 rounded-md">
-                    {row.skip}
-                </span>
+                <div className="flex flex-col">
+                    <span className="text-indigo-600 font-extrabold text-base">
+                        {row.totalmark || "0"}
+                    </span>
+                    <span className="text-[10px] text-slate-400">আউট অফ {row.totalQuestions}</span>
+                </div>
             ),
-            sortable: true
+            sortable: true,
         },
         {
-            name: "মোট নম্বর",
+            name: "ফলাফল",
             cell: row => (
-                <span className="bg-yellow-100 text-yellow-800 font-semibold py-1 px-2 rounded-md">
-                    {row.totalmark || "N/A"}
+                <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                    row.isPass 
+                    ? "bg-green-500 text-white shadow-sm shadow-green-200" 
+                    : "bg-red-400 text-white shadow-sm shadow-red-200"
+                }`}>
+                    {row.isPass ? "উত্তীর্ণ" : "ব্যর্থ"}
                 </span>
             ),
             sortable: true,
-            width: "150px"
         },
         {
-            name: "মোট প্রশ্ন",
+            name: "প্রতিযোগিতা",
             cell: row => (
-                <span className="bg-blue-100 text-blue-800 font-semibold py-1 px-2 rounded-md">
-                    {row.totalQuestions}
+                <span className={`text-xs font-medium ${row.isRetake ? "text-amber-600" : "text-blue-600"}`}>
+                    {row.isRetake ? "⚠️ রি-টেক" : "✅ মূল পরীক্ষা"}
                 </span>
             ),
             sortable: true,
-            width: "150px"
         },
         {
-            name: "রেজাল্ট",
-            cell: row => (
-                <span className="bg-blue-100 text-blue-800 font-semibold py-1 px-2 rounded-md">
-                    {row.isPass ? "পাশ" : "ফেল"}
-                </span>
-            ),
-            sortable: true,
-            width: "100px"
-        },
-        {
-            name: "প্রতিযোগিতায়",
-            cell: row => (
-                <span className=" inline-block w-full text-center bg-blue-100 text-blue-800 font-semibold py-1 px-2 rounded-md">
-                    {row.isRetake ? "না" : "হ্যাঁ "}
-                </span>
-            ),
-            sortable: true,
-            width: "140px"
-        },
-        {
-            name: "📅 তারিখ",
+            name: "তারিখ",
             selector: row => new Date(row.createdAt).toLocaleDateString('bn-BD'),
             sortable: true,
-            width: "150px"
+            width: "120px"
         },
         {
-            name: "🔍 বিস্তারিত",
+            name: "অ্যাকশন",
             cell: row => (
                 <Link
-                    className="inline-block py-2 px-3 rounded-sm bg-violet-600 text-white transition-all hover:bg-violet-700 my-3"
+                    className="flex items-center gap-2 py-1.5 px-4 rounded-lg bg-indigo-600 text-white text-sm font-medium transition-all hover:bg-indigo-700 hover:shadow-lg active:scale-95"
                     href={`/results/${row._id}`}
                 >
-                    👁️ দেখুন
+                    রিপোর্ট
                 </Link>
             ),
-            width: "150px"
+            
+            width: "120px"
         }
     ];
 
-    // ✅ Conditional row style
+    const customStyles = {
+        header: {
+            style: {
+                minHeight: '56px',
+            },
+        },
+        headRow: {
+            style: {
+                backgroundColor: '#f8fafc',
+                borderTopStyle: 'solid',
+                borderTopWidth: '1px',
+                borderTopColor: '#e2e8f0',
+            },
+        },
+        headCells: {
+            style: {
+                color: '#475569',
+                fontSize: '13px',
+                fontWeight: '700',
+                textTransform: 'uppercase',
+            },
+        },
+        rows: {
+            style: {
+                minHeight: '72px', // override the row height
+                '&:not(:last-child)': {
+                    borderBottomStyle: 'solid',
+                    borderBottomWidth: '1px',
+                    borderBottomColor: '#f1f5f9',
+                },
+            },
+            highlightOnHoverStyle: {
+                backgroundColor: '#f1f5f9',
+                borderBottomColor: '#e2e8f0',
+                borderRadius: '8px',
+                transitionDuration: '0.15s',
+            },
+        },
+        pagination: {
+            style: {
+                border: 'none',
+                fontSize: '13px',
+                color: '#64748b',
+            },
+        },
+    };
+
     const conditionalRowStyles = [
         {
             when: row => row.isRetake === true,
             style: {
-                backgroundColor: 'rgba(255, 200, 200, 0.3)', // light red
-            },
-        },
-        {
-            when: row => row.isPass === false,
-            style: {
-                backgroundColor: 'rgba(255, 220, 220, 0.3)', // light pink fail
+                backgroundColor: '#fffbeb', // Very light amber for retakes
             },
         },
     ];
 
     return (
-        <div className="my-10 p-4 rounded-lg shadow-lg">
+        <div className="my-8 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-200/50">
+            <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-white">
+                <h2 className="text-xl font-bold text-slate-800">পরীক্ষার ফলাফল তালিকা</h2>
+                <div className="text-sm text-slate-500 font-medium">
+                    মোট পরীক্ষা: {results.length} টি
+                </div>
+            </div>
             <DataTable
-                title={`ফলাফল তালিকা`}
                 columns={columns}
                 data={results}
                 pagination
                 highlightOnHover
-                subHeader
-                conditionalRowStyles={conditionalRowStyles} // ✅ conditional background
-                customStyles={{
-                    headCells: {
-                        style: {
-                            backgroundColor: '#4c4f69',
-                            color: 'white',
-                            fontSize: '14px',
-                            fontWeight: '400',
-                        },
-                    },
-                    cells: {
-                        style: {
-                            fontSize: '14px',
-                            color: '#333',
-                        },
-                    },
-                }}
+                pointerOnHover
+                responsive
+                customStyles={customStyles}
+                conditionalRowStyles={conditionalRowStyles}
+                noDataComponent={
+                    <div className="p-10 text-slate-400">কোন ফলাফল পাওয়া যায়নি</div>
+                }
             />
         </div>
     );

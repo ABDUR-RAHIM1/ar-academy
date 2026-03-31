@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { getAllCourse } from '@/app/apiActions/Course';
 import { formatDate } from '@/utils/FormatDate';
 import { postActionsSubAdmin } from '@/actions/subAdmins/postActionsSubAdmin';
+import { getMyCreatedCourseBySubAdmin } from '@/app/apiActions/purchase';
 
 export default function EditQuestion() {
 
@@ -49,7 +50,7 @@ export default function EditQuestion() {
         const getData = async () => {
             setCourseLoading(true)
             try {
-                const { status, data } = await getAllCourse();
+                const { status, data } = await getMyCreatedCourseBySubAdmin();
                 if (status === 200) {
                     setCourse(data)
                 };

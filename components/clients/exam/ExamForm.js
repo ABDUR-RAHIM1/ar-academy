@@ -130,6 +130,7 @@ export default function ExamForm({ questionsData }) {
                 passMark: questionsData.passMark,
                 isPass,
                 isRetake: isRetakeMode,
+                examType: "mcq"
             };
 
             const payload = {

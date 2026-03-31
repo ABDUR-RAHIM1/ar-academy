@@ -1,11 +1,10 @@
 import React from "react";
-import Heading from "../../globals/Heading";
 import Link from "next/link";
 import { BookOpenCheck, Sparkles, ArrowRight } from "lucide-react";
 
 export default async function Subscription() {
   return (
-    <div id="plans" className="relative my-16 px-4 py-16 md:py-24 rounded-[2.5rem] bg-slate-900 overflow-hidden shadow-2xl border border-slate-800">
+    <div id="subscription" className="relative mx-3 my-16 px-4 py-16 md:py-24 rounded-[2.5rem] bg-slate-900 overflow-hidden shadow-2xl border border-slate-800">
       
       {/* Background Decor - Floating Orbs */}
       <div className="absolute top-[-10%] left-[-10%] w-64 h-64 bg-blue-600/20 rounded-full blur-[100px] pointer-events-none"></div>
@@ -18,10 +17,7 @@ export default async function Subscription() {
           সীমিত সময়ের অফার
         </div>
 
-        <div className="mb-6">
-            {/* Heading text color override for dark background if needed */}
-            <Heading text="আপনার পছন্দের কোর্সটি বেছে নিন" className="text-white" />
-        </div>
+    
         
         <p className="mb-10 text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
           সেরা মেন্টরদের নির্দেশনায় শুরু হোক আপনার নতুন যাত্রা। 

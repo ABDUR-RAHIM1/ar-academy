@@ -1,4 +1,4 @@
-"use client" 
+"use client"
 import { postActionUser } from '@/actions/users/postActions';
 import { getMyCreatedCourseBySubAdmin } from '@/app/apiActions/purchase';
 import { Input } from '@/components/ui/input';
@@ -53,7 +53,9 @@ export default function AddStudent() {
 
                 const finalData = cleanedData.map((item) => ({
                     username: item.username,
-                    email: item.email,
+                    accountMethod: item.accountMethod,
+                    email: item.accountMethod === "email" ? item.email : null,
+                    phone: item.accountMethod === "phone" ? item.phone : null,
                     password: item.password,
                     isVerified: true,
                     courses: [courseId],
@@ -122,7 +124,7 @@ export default function AddStudent() {
 
                 <div className=' my-4'>
                     <Label >
-                       স্টুডেন্ট ফাইল আপলোড  করুন (.xls/.xlsx)
+                        স্টুডেন্ট ফাইল আপলোড  করুন (.xls/.xlsx)
                     </Label>
                     <Input onChange={handleFileChange} type="file" accept=".xlsx, .xls" className=' w-full ' />
 

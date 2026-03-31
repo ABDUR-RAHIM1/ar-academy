@@ -96,6 +96,8 @@ export const resultGetAll = process.env.NEXT_PUBLIC_RESULT_ALL
 export const resultGetAllSubAdmin = process.env.NEXT_PUBLIC_RESULT_ALL_BY_SUBADMIN
 export const resultDetails = process.env.NEXT_PUBLIC_RESULT_DETAILS
 export const resultMy = process.env.NEXT_PUBLIC_RESULT_MY
+export const resultUpdatePublishedStatus = process.env.NEXT_PUBLIC_RESULT_UPDATE_PUBLISHED
+export const resultUpdatePublishedStatusBySubAdmin = process.env.NEXT_PUBLIC_RESULT_UPDATE_PUBLISHED_SUB_ADMIN
 //  results End here ============================
 
 
@@ -144,7 +146,7 @@ export const commentDelete = process.env.NEXT_PUBLIC_COMMENT_DELETE
 
 //  Purchase Plan Start
 export const purchaseCourse = process.env.NEXT_PUBLIC_PLAN_PURCHASE;
-export const purchaseCourseAssign = process.env.NEXT_PUBLIC_PLAN_PURCHASE_ASSIGN;
+export const purchaseCourseAssign = process.env.NEXT_PUBLIC_PLAN_PURCHASE_ASSIGN; // manually assign a Course 
 export const purchasePayementUpdate = process.env.NEXT_PUBLIC_PLAN_PURCHASE_PAYMENT_UPDATE;
 export const assignPurchaseCourse = process.env.NEXT_PUBLIC_PLAN_PURCHASE_BY_ADMIN;
 export const purchaseCourseGetMe = process.env.NEXT_PUBLIC_MY_PLAN_ME
