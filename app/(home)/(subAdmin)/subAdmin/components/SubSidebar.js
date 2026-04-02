@@ -1,12 +1,23 @@
 "use client"
 import { contextD } from '@/contextApi/DashboardState';
 import Cookies from 'js-cookie';
-import { MenuIcon, ShieldQuestionIcon } from 'lucide-react';
+import { 
+    LayoutDashboard, 
+    BookPlus, 
+    BookOpenCheck, 
+    Users, 
+    FilePlus2, 
+    FileSearch, 
+    ClipboardCheck, 
+    Trophy, 
+    Settings, 
+    LogOut, 
+    Menu, 
+    X 
+} from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import React, { useContext, useState } from 'react';
-import { FiHome, FiBook, FiUsers, FiSettings, FiLogOut } from "react-icons/fi";
-import { MdClose } from 'react-icons/md';
+import React, { useContext, useState, useEffect } from 'react';
 
 export default function SubSidebar() {
     const path = usePathname();
@@ -14,90 +25,104 @@ export default function SubSidebar() {
     const { setLoginSignal, setTokenName, showToast } = useContext(contextD);
     const router = useRouter();
 
+    // মেনু আইটেমগুলো আরও অর্গানাইজড করা হয়েছে
     const subAdminItems = [
-        { item: "Dashboard", icon: <FiHome />, path: "/subAdmin" },
-        { item: "Add Course", icon: <FiBook />, path: "/subAdmin/addCourse" },
-        { item: "Manage Course", icon: <FiBook />, path: "/subAdmin/manageCourse" },
-        { item: "Manage Students", icon: <FiUsers />, path: "/subAdmin/manageStudents" },
-        { item: "Add Questions", icon: <FiUsers />, path: "/subAdmin/questions/add" },
-        { item: "View Questions", icon: <FiUsers />, path: "/subAdmin/questions/view" },
-        { item: "Make Questions", icon: <ShieldQuestionIcon />, path: "/subAdmin/questions/sheet" },
-        { item: "Results", icon: <ShieldQuestionIcon />, path: "/subAdmin/results" },
-        { item: "Settings", icon: <FiSettings />, path: "/subAdmin/settings" },
+        { item: "Dashboard", icon: <LayoutDashboard size={18} />, path: "/subAdmin" },
+        { item: "Add Course", icon: <BookPlus size={18} />, path: "/subAdmin/addCourse" },
+        { item: "Manage Course", icon: <BookOpenCheck size={18} />, path: "/subAdmin/manageCourse" },
+        { item: "Manage Students", icon: <Users size={18} />, path: "/subAdmin/manageStudents" },
+        { item: "Add Questions", icon: <FilePlus2 size={18} />, path: "/subAdmin/questions/add" },
+        { item: "View Questions", icon: <FileSearch size={18} />, path: "/subAdmin/questions/view" },
+        { item: "Make Sheets", icon: <ClipboardCheck size={18} />, path: "/subAdmin/questions/sheet" },
+        { item: "Results", icon: <Trophy size={18} />, path: "/subAdmin/results" },
+        { item: "Settings", icon: <Settings size={18} />, path: "/subAdmin/settings" },
     ];
 
-    const handleLougout = () => {
+    const handleLogout = () => {
         Cookies.remove("onushilon_academy_sub_session");
         setTokenName(() => ({ token: false, author: null }));
-        setLoginSignal(false)
-        showToast(200, " লগ আউট করা হয়েছে");
+        setLoginSignal(false);
+        showToast(200, "লগ আউট সফল হয়েছে");
         router.push("/");
     };
 
     return (
         <>
-            {/* ☰ Menu Button (mobile only) */}
-            {
-                !isMenuClick &&
+            {/* Mobile Toggle Button - আরও ক্লিন করা হয়েছে */}
+            {!isMenuClick && (
                 <button
-                    onClick={() => setMenuClick(!isMenuClick)}
-                    className="fixed top-[90px] md:top-[110px] left-[20px] bg-blue-500 rounded-full p-1 z-[60] md:hidden"
+                    onClick={() => setMenuClick(true)}
+                    className="fixed top-24 left-5 bg-indigo-600 hover:bg-indigo-700 shadow-lg text-white p-2.5 rounded-xl z-50 md:hidden transition-all active:scale-90"
                 >
-                    <MenuIcon size={20} className="text-white" />
+                    <Menu size={20} />
                 </button>
-            }
+            )}
 
-            {/* Sidebar */}
+            {/* Sidebar Container */}
             <aside
                 className={`
-          ${isMenuClick ? "translate-x-0" : "-translate-x-full"}
-          md:translate-x-0
-          fixed md:static top-0 left-0 h-full md:h-auto
-          w-64 bg-white shadow-md flex flex-col transition-transform duration-300 ease-in-out
-          z-[20]
-        `}
+                    fixed md:sticky top-0 left-0 h-screen md:h-[calc(100vh-100px)] 
+                    w-72 bg-white border-r border-slate-100 flex flex-col 
+                    transition-transform duration-300 ease-in-out z-[60]
+                    ${isMenuClick ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+                `}
             >
-                {/* Header */}
-                <div className="bg-white px-6 mt-24 md:mt-0 py-4 border-b-2 flex items-center justify-between sticky top-0 md:top-[95px]">
-                    <h2 className="text-sm font-bold text-blue-800">সাব অ্যাডমিন প্যানেল</h2>
+                {/* Header Section */}
+                <div className="p-6 flex items-center justify-between border-b border-slate-50">
+                    <div>
+                        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Control Panel</h2>
+                        <p className="text-lg font-black text-indigo-700">Sub Admin</p>
+                    </div>
                     <button
                         onClick={() => setMenuClick(false)}
-                        className="bg-red-500 rounded-full p-1 md:hidden"
+                        className="p-1.5 bg-slate-100 text-slate-500 rounded-lg md:hidden"
                     >
-                        <MdClose size={20} className="text-white" />
+                        <X size={18} />
                     </button>
                 </div>
 
-                {/* Menu Items */}
-                <nav className="flex-1 px-4 py-16 md:py-6 space-y-2 overflow-y-auto">
-                    {subAdminItems.map((item, index) => (
-                        <Link
-                            key={index}
-                            href={item.path}
-                            className={`${path === item.path ? "bg-blue-100" : ""} flex items-center gap-2 px-4 py-2 w-full rounded hover:bg-blue-50 transition`}
-                            onClick={() => setMenuClick(false)} // close sidebar when link clicked (mobile)
-                        >
-                            {item.icon} <span>{item.item}</span>
-                        </Link>
-                    ))}
+                {/* Navigation Links */}
+                <nav className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto custom-scrollbar">
+                    {subAdminItems.map((item, index) => {
+                        const isActive = path === item.path;
+                        return (
+                            <Link
+                                key={index}
+                                href={item.path}
+                                onClick={() => setMenuClick(false)}
+                                className={`
+                                    group flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-[14.5px] transition-all duration-200
+                                    ${isActive 
+                                        ? "bg-indigo-50 text-indigo-700 border-l-4 border-indigo-600" 
+                                        : "text-slate-500 hover:bg-slate-50 hover:text-indigo-600 border-l-4 border-transparent"}
+                                `}
+                            >
+                                <span className={`${isActive ? "text-indigo-600" : "text-slate-400 group-hover:text-indigo-500"}`}>
+                                    {item.icon}
+                                </span>
+                                {item.item}
+                            </Link>
+                        );
+                    })}
                 </nav>
 
-                {/* Logout */}
-                <div className="px-4 py-6 border-t">
+                {/* Logout Footer */}
+                <div className="p-4 border-t border-slate-50">
                     <button
-                        onClick={handleLougout}
-                        className="flex items-center gap-2 px-4 py-2 w-full rounded hover:bg-red-50 text-red-600 transition"
+                        onClick={handleLogout}
+                        className="flex items-center gap-3 px-4 py-3 w-full rounded-xl font-bold text-red-500 hover:bg-red-50 transition-colors"
                     >
-                        <FiLogOut className="text-lg" /> Logout
+                        <LogOut size={18} /> Logout
                     </button>
+                    <p className="mt-2 text-[10px] text-center text-slate-400 font-medium">Onushilon Academy v2.0</p>
                 </div>
             </aside>
 
-            {/* Background overlay (mobile only) */}
+            {/* Mobile Overlay */}
             {isMenuClick && (
                 <div
                     onClick={() => setMenuClick(false)}
-                    className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[10] md:hidden"
+                    className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[55] md:hidden transition-opacity"
                 />
             )}
         </>

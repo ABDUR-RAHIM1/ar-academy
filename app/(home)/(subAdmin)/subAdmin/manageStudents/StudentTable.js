@@ -1,11 +1,9 @@
 "use client"
-import { postActions } from '@/actions/admins/postActions';
-import DeleteActionButton from '@/actions/Buttons/DeleteActionButton';
-import { accountDelete, studentDeleteOnlySubAdmin, updateStudentStatusBySubAdmin, updateUserStatus } from '@/constans';
+
+import {studentDeleteOnlySubAdmin, updateStudentStatusBySubAdmin } from '@/constans';
 import { contextD } from '@/contextApi/DashboardState';
 import React, { useContext, useEffect, useState } from 'react'
-import DataTable from 'react-data-table-component';
-import { ActionDropdown } from '@/app/(admin)/dashboard/users/view/ActionDropdown';
+import DataTable from 'react-data-table-component'; 
 import DeleteActionButtonSubAdmin from '@/actions/Buttons/DeleteActionButtonSubAdmin';
 import { postActionsSubAdmin } from '@/actions/subAdmins/postActionsSubAdmin';
 
@@ -37,8 +35,9 @@ export default function StudentTable({ studentData }) {
 
     const columns = [
         {
-            name: "Index",
-            selector: (row, index) => index + 1
+            name: "Serial",
+            selector: (row, index) => index + 1,
+            width:"100px"
         },
         {
             name: "Name",
@@ -46,7 +45,8 @@ export default function StudentTable({ studentData }) {
         },
         {
             name: "Email",
-            selector: row => row = row.email
+            selector: row => row = row.email,
+            width:"250px"
         },
         {
             name: "Verified",

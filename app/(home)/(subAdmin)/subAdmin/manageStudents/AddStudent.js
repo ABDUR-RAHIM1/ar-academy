@@ -1,4 +1,5 @@
 "use client"
+import { postActionsSubAdmin } from '@/actions/subAdmins/postActionsSubAdmin';
 import { postActionUser } from '@/actions/users/postActions';
 import { getMyCreatedCourseBySubAdmin } from '@/app/apiActions/purchase';
 import { Input } from '@/components/ui/input';
@@ -77,6 +78,11 @@ export default function AddStudent() {
         e.preventDefault();
         setLoading(true);
 
+        if (!subAdminId) {
+            showToast(404, "Sub Admin Not Found")
+            return
+        }
+
         try {
 
 
@@ -86,9 +92,8 @@ export default function AddStudent() {
                 body: formData
             };
 
-            const { status, data } = await postActionUser(payload);
+            const { status, data } = await postActionsSubAdmin(payload);
             showToast(status, data);
-            console.log({ status, data })
 
         } catch (error) {
             console.log(error);
