@@ -1,9 +1,9 @@
 
 import { getResultById } from '@/app/apiActions/results';
+import ResultDeatils from '@/components/results/ResultDetails';
 import { resultMetaData } from '@/seo/resultMetadata';
 import NoData from '@/utils/NoData';
-import React from 'react';
-import ResultDeatils from '@/components/resultDetails/ResultDetails';
+import React from 'react'; 
 
 export const metadata = resultMetaData
 

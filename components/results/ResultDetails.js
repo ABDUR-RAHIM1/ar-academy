@@ -7,7 +7,7 @@ import getAdminToken from '@/actions/getToken/getAdminToken';
 import McqResultDetails from './McqResultDetails';
 import WrittenResultDetails from './WrittenResultDetails';
 import getSubAdminToken from '@/actions/getToken/getSubAdminToken';
-import { resultUpdatePublishedStatus, resultUpdatePublishedStatusBySubAdmin } from '@/constans';
+ 
 
 export const metadata = resultMetaData
 

@@ -66,9 +66,9 @@ export default function ResultDetails({ writtenResultData, isAdmin, editorRole, 
 
             const { status, data } = await postActionFunc(payload);
             showToast(status, data);
-            if (status === 200) {
-                router.refresh();
-            }
+            // if (status === 200) {
+            //     router.refresh();
+            // }
 
         } catch (error) {
             console.log(error)

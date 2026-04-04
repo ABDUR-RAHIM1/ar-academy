@@ -63,7 +63,7 @@ export default function SubSidebar() {
                 className={`
                     fixed md:sticky top-0 left-0 h-screen md:h-[calc(100vh-100px)] 
                     w-72 bg-white border-r border-slate-100 flex flex-col 
-                    transition-transform duration-300 ease-in-out z-[60]
+                    transition-transform duration-300 ease-in-out z-[10]
                     ${isMenuClick ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
                 `}
             >

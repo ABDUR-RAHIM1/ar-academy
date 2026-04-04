@@ -41,7 +41,7 @@ export default async function SubAdminPakages() {
                             </div>
                         )}
 
-                        <div className="mb-6 text-center">
+                        <div className="mb-6 text-center border-b-2 pb-3">
                             <h3 className="text-2xl font-bold text-slate-800 mb-2 capitalize group-hover:text-blue-600 transition-colors">
                                 {pkg.name}
                             </h3>
@@ -55,6 +55,10 @@ export default async function SubAdminPakages() {
                             <div className="flex items-center gap-3 text-slate-600 bg-slate-50 p-3 rounded-xl">
                                 <Clock className="text-blue-500 shrink-0" size={18} />
                                 <span className="text-sm font-semibold">মেয়াদ: {pkg.duration} মাস</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-red-600 bg-red-50 p-3 rounded-xl">
+                                <Clock className="text-red-500 shrink-0" size={18} />
+                                <span className="text-sm font-semibold">কিনেছেন: {new Date(purchasePackge?.data?.createdAt).toLocaleDateString("bn-BD") || "N/A"}</span>
                             </div>
 
                             {/* Description split logic for checkmarks */}
@@ -77,7 +81,7 @@ export default async function SubAdminPakages() {
 
                         <div className="mt-auto">
                             <PurchasePackageButton
-                                packageId={pkg._id} 
+                                packageId={pkg._id}
                                 purchasePackgeId={purchasePackge?.data?.package}
                                 packagePrice={pkg.price}
                             />

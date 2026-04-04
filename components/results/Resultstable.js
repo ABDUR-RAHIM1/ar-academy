@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 
-export default function Resultstable({ resultsData }) {
+export default function Resultstable({ resultsData, role }) {
     const [results, setResults] = useState([]);
 
     useEffect(() => {
@@ -21,8 +21,16 @@ export default function Resultstable({ resultsData }) {
                     <span className='text-xs text-slate-500 uppercase tracking-wider'>{row?.question?.questionType || "N/A"}</span>
                 </div>
             ),
-            sortable: true,
-            grow: 2,
+            sortable: true, 
+        },
+        role !== "student" && {
+            name: "শিক্ষার্থী",
+            selector: row => (
+                <div className='flex flex-col py-2'>
+                    <span className='font-bold text-slate-700 text-sm'>{row?.user?.username || "N/A"}</span>
+
+                </div>
+            ),
         },
         {
             name: "স্কোর কার্ড",
@@ -53,11 +61,10 @@ export default function Resultstable({ resultsData }) {
         {
             name: "ফলাফল",
             cell: row => (
-                <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                    row.isPass 
-                    ? "bg-green-500 text-white shadow-sm shadow-green-200" 
+                <span className={`px-3 py-1 rounded-full text-xs font-bold ${row.isPass
+                    ? "bg-green-500 text-white shadow-sm shadow-green-200"
                     : "bg-red-400 text-white shadow-sm shadow-red-200"
-                }`}>
+                    }`}>
                     {row.isPass ? "উত্তীর্ণ" : "ব্যর্থ"}
                 </span>
             ),
@@ -88,7 +95,7 @@ export default function Resultstable({ resultsData }) {
                     রিপোর্ট
                 </Link>
             ),
-            
+
             width: "120px"
         }
     ];

@@ -1,8 +1,8 @@
 
 import NoData from '@/utils/NoData';
 import React from 'react'
-import Resultstable from './Resultstable';
 import { getMyResultData } from '@/app/apiActions/results';
+import Resultstable from '@/components/results/Resultstable';
 
 //  for User profile
 export default async function Result() {
@@ -13,9 +13,8 @@ export default async function Result() {
         return <NoData text={"কোন রেজাল্ট নেই। "} />;
     }
 
-    return (
-        <div>
-            <Resultstable resultsData={data} />
-        </div>
-    );
+    return <Resultstable
+        resultsData={data}
+        role={"student"}
+    />
 }
