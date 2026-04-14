@@ -3,6 +3,18 @@ import NoData from "@/utils/NoData";
 import Heading from "@/components/clients/globals/Heading"; 
 import CourseCard from "./CourseCard";
 
+export async function generateMetadata() {
+    return {
+        title: "আমাদের কোর্সসমূহ | Onushilon Academy",
+        description: "অনুশীলন একাডেমির সকল প্রিমিয়াম এবং ফ্রি কোর্সগুলো এখানে দেখুন। আপনার দক্ষতা বৃদ্ধিতে আমরা আছি আপনার পাশে।",
+        openGraph: {
+            title: "আমাদের কোর্সসমূহ - Onushilon Academy",
+            description: "সেরা সব অনলাইন কোর্স নিয়ে সাজানো আমাদের প্ল্যাটফর্ম।",
+            type: "website",
+        },
+    };
+}
+
 export default async function Courses() {
 
     const { status, data } = await getAllCourse()

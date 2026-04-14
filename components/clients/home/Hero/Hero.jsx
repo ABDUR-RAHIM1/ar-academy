@@ -1,133 +1,105 @@
+"use client"
 import { Button } from '@/components/ui/button';
 import { COMMON_ALT_TEXT } from '@/constans';
 import { heroImage } from '@/Images/Images';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FiArrowRight } from 'react-icons/fi';
+import { FiArrowRight, FiBookOpen, FiUserCheck } from 'react-icons/fi';
 
 export default function Hero() {
   return (
-
-    <div className="w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-10 px-5 md:px-10 py-10 md:py-20 border-b heroBg"
-    >
+    <div className="relative w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-12 px-5 md:px-16 py-10 md:py-24 border-b overflow-hidden bg-white">
+      
+      {/* Background Decor */}
+      <div className="absolute top-0 -left-20 w-72 h-72 bg-blue-100 rounded-full blur-[100px] opacity-50 pointer-events-none" />
+      <div className="absolute bottom-0 -right-20 w-80 h-80 bg-purple-100 rounded-full blur-[120px] opacity-50 pointer-events-none" />
 
       {/* Text Content */}
-      <div className="w-full lg:w-[50%] text-center lg:text-left space-y-6">
-
-        <svg
-          viewBox="0 0 1200 150"  // height কমানো
-          className="w-full max-w-[700px] mx-auto lg:mx-0"
-        >
-          <defs>
-            <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#2563eb" />
-              <stop offset="50%" stopColor="#9333ea" />
-              <stop offset="100%" stopColor="#ec4899" />
-            </linearGradient>
-          </defs>
-
-          <text
-            x="0"
-            y="110"               // vertical position ঠিক করা
-            fill="url(#heroGrad)"
-            style={{ fontSize: "100px", fontWeight: 800 }}
-          >
-            অনুশীলন একাডেমী
-          </text>
-        </svg>
-
-        {/* Gradient Secondary Title */}
-        <h2 className="text-2xl sm:text-3xl font-semibold 
-                 bg-gradient-to-r from-indigo-600 to-blue-500 
-                 text-transparent bg-clip-text">
-          শেখা এখন আরও সহজ ও মজার
-        </h2>
-
-        {/* Normal Paragraph */}
-        <p className="text-base sm:text-lg text-black max-w-lg mx-auto lg:mx-0">
-          এক জায়গায় সবকিছু: পড়াশোনা, প্রস্তুতি, পরীক্ষা ও মূল্যায়ন!
-          অনলাইনে ঘরে বসেই শেখো নিজের গতিতে।
-        </p>
-
-        <div className="grid grid-cols-2  gap-4 pt-4 px-5">
-
-          {/* Student Account */}
-          <Button
-            asChild
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-5 rounded-xl shadow-lg backdrop-blur-xl transition-all duration-300 flex items-center gap-2 text-[12px] md:text-lg"
-          >
-            <Link href="/account/student/register">
-              শিক্ষার্থী একাউন্ট <FiArrowRight className="text-xl" />
-            </Link>
-          </Button>
-
-            {/* Sub Admin Account */}
-          <Button
-            asChild
-            className="bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 px-6 py-5 rounded-xl shadow-md transition-all duration-300 text-[12px] md:text-lg"
-          >
-            <Link href="/account/subAdmin/register">
-              সাব অ্যাডমিন একাউন্ট
-            </Link>
-          </Button>
-
-          {/* Features Browse */}
-          <Button
-            asChild
-            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 px-7 py-5 rounded-xl shadow-lg transition-all duration-300 text-[12px] md:text-lg"
-          >
-            <Link href="/categories">
-              ফিচারস ব্রাউজ করো
-            </Link>
-
-          </Button>
-          <Button asChild className="bg-purple-600 hover:bg-purple-700  text-white hover:opacity-90 px-7 py-5 rounded-xl shadow-lg transition-all duration-300 text-[12px] md:text-lg">
-            <Link href="/courses">
-              কোর্স সমূহ
-            </Link>
-          </Button>
-
+      <div className="w-full lg:w-[55%] text-center lg:text-left space-y-6 md:space-y-8 z-10">
+        
+        {/* Main Heading Fix */}
+        <div className="space-y-3">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.2] md:leading-[1.1]">
+             <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+               অনুশীলন একাডেমী
+             </span>
+          </h1>
+          <h2 className="text-lg sm:text-2xl md:text-3xl font-bold text-slate-700">
+            শেখা এখন আরও <span className="text-blue-600 italic">সহজ ও মজার</span>
+          </h2>
         </div>
 
+        <p className="text-base md:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+          এক জায়গায় সবকিছু: পড়াশোনা, প্রস্তুতি, পরীক্ষা ও মূল্যায়ন! 
+          <span className="hidden md:inline"> অনলাইনে ঘরে বসেই নিজের গতিতে দক্ষ হয়ে ওঠো।</span>
+        </p>
+
+        {/* Action Buttons - Mobile: 2 Columns, Desktop: 2 Columns */}
+        <div className="grid grid-cols-2 gap-3 md:gap-4 max-w-lg mx-auto lg:mx-0">
+          
+          <Button
+            asChild
+            className="group bg-blue-600 hover:bg-blue-700 text-white h-12 md:h-14 rounded-xl md:rounded-2xl shadow-lg transition-all duration-300"
+          >
+            <Link href="/account/student/register" className="flex items-center justify-center gap-1 md:gap-2 text-[12px] md:text-lg font-semibold">
+              শিক্ষার্থী <FiArrowRight className="hidden md:block group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </Button>
+
+          <Button
+            asChild
+            variant="outline"
+            className="h-12 md:h-14 rounded-xl md:rounded-2xl border-2 border-slate-200 hover:bg-slate-50 transition-all text-[12px] md:text-lg font-semibold"
+          >
+            <Link href="/account/subAdmin/register" className="flex items-center justify-center gap-1 md:gap-2">
+              <FiUserCheck className="hidden md:block" /> সাব অ্যাডমিন
+            </Link>
+          </Button>
+
+          <Button
+            asChild
+            className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white h-12 md:h-14 rounded-xl md:rounded-2xl shadow-lg transition-all text-[12px] md:text-lg font-semibold"
+          >
+            <Link href="/courses" className="flex items-center justify-center gap-1 md:gap-2">
+               <FiBookOpen className="hidden md:block" /> কোর্স সমূহ
+            </Link>
+          </Button>
+
+          <Button
+            asChild
+            variant="secondary"
+            className="h-12 md:h-14 rounded-xl md:rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 transition-all text-[12px] md:text-lg font-semibold"
+          >
+            <Link href="/categories">ফিচারস</Link>
+          </Button>
+        </div>
       </div>
 
       {/* Image Section */}
-      <div className="w-full lg:w-[50%] flex justify-center items-center">
-        <Image
-          src={heroImage}
-          width={1000}
-          height={1000}
-          alt={COMMON_ALT_TEXT}
-          className="w-full h-auto object-cover"
-          priority
-        />
+      <div className="w-full lg:w-[45%] flex justify-center items-center relative">
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse" />
+        
+        <div className="relative animate-float w-[80%] md:w-full">
+          <Image
+            src={heroImage}
+            width={800}
+            height={800}
+            alt={COMMON_ALT_TEXT}
+            className="w-full h-auto object-contain drop-shadow-2xl"
+            priority
+          />
+        </div>
       </div>
 
-      {/* <div className="w-full lg:w-[45%] flex justify-center items-center">
-        <svg
-          className="w-[80%] h-auto"
-          viewBox="0 0 640 480"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect width="640" height="480" fill="white" />
-          <circle cx="320" cy="240" r="200" fill="#E0F2FE" />
-  
-          <rect x="230" y="170" width="180" height="140" rx="8" fill="#3B82F6" />
-          <path d="M230 170 L320 210 L410 170" fill="#2563EB" />
-          <line x1="230" y1="170" x2="230" y2="310" stroke="#1E3A8A" strokeWidth="2" />
-          <line x1="410" y1="170" x2="410" y2="310" stroke="#1E3A8A" strokeWidth="2" />
- 
-          <rect x="290" y="320" width="60" height="10" rx="2" fill="#FACC15" />
-          <polygon points="350,320 360,325 350,330" fill="#EF4444" />
- 
-          <text x="320" y="220" textAnchor="middle" fontSize="18" fill="white" fontWeight="bold">
-            EDUCATION
-          </text>
-        </svg>
-      </div> */}
-
-
-    </div >
+      <style jsx global>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-15px); }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+      `}</style>
+    </div>
   );
 }

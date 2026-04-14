@@ -1,7 +1,7 @@
 import { getSingleQuestionBySubAdmin } from '@/app/apiActions/questions'
+import QuestionsTable from '@/components/questions/QuestionsTable';
 import NoData from '@/utils/NoData';
 import React from 'react'
-import QuestionsTable from '../QuestionsTable';
 
 export default async function ManegeQuestions() {
 
@@ -14,7 +14,7 @@ export default async function ManegeQuestions() {
 
   return (
     <div className=' overflow-x-auto'>
-      <QuestionsTable questionsData={data} />
+      <QuestionsTable questionsData={data} role={"subAdmin"} />
     </div>
   )
 }; 

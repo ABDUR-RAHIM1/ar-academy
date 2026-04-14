@@ -6,15 +6,29 @@ import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import dayjs from 'dayjs';
 import { getExamStatus } from '@/utils/getExamStatus';
+import { getAllCourse } from '@/app/apiActions/Course';
 
 export default function QuestionsTable({ questionsData }) {
     const [questions, setQuestions] = useState([]);
-
+    const [course, setCourse] = useState([]);
+    console.log(course)
     useEffect(() => {
         if (questionsData) {
             setQuestions(questionsData)
         }
     }, [questionsData]);
+
+    const fetchAllCourse = async () => {
+        const { status, data } = await getAllCourse();
+        console.log(data)
+        if (status === 200) {
+            setCourse(data)
+        }
+    }
+
+    useEffect(() => {
+        fetchAllCourse();
+    }, [])
 
     // Expandable row component
     const ExpandedComponent = ({ data }) => {
@@ -59,13 +73,13 @@ export default function QuestionsTable({ questionsData }) {
             selector: row => row.questionsCount || 0
         },
         {
-            name: "শুরুর তারিখ",
-            selector: row => dayjs(row.startDate).format("DD/MM/YYYY")
+            name: "শুরুর হবে",
+            selector: row => <div className=' space-y-2'>
+                <p>{dayjs(row.startDate).format("DD/MM/YYYY")}</p>
+                <p>{row.startTime}</p>
+            </div>
         },
-        {
-            name: "শুরুর সময়",
-            selector: row => row.startTime
-        },
+
         {
             name: "সময়",
             selector: row => `${row.duration || 0} মিনিট`

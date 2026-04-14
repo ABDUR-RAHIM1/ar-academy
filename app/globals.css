@@ -23,7 +23,7 @@ body {
 .scrollbar-hide {
   scrollbar-width: none;
 }
-@media print {
+/* @media print {
   @page {
     margin: 10mm; 
   }
@@ -48,6 +48,61 @@ body {
     page-break-inside: avoid;
     break-inside: avoid;
     margin-bottom: 10px;
+  }
+} */
+
+
+@media print {
+  /* পুরো বডি এবং ব্যাকগ্রাউন্ড সেটআপ */
+  body { 
+    background-color: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+body * {
+    visibility: hidden;
+  }
+ 
+  #printable-area, #printable-area * {
+    visibility: visible;
+  }
+
+  #printable-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 20px !important;
+  }
+
+  body {
+    background: none !important;
+  }
+  .print\:hidden { 
+    display: none !important; 
+  }
+
+  .max-w-\[8\.5in\] {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0px  !important;
+    padding: 0.5in !important;  
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* এ৪ সাইজ নির্ধারণ */
+  @page {
+    size: A4;
+    margin: 20px;
+    /* padding:20px */
+  }
+
+  
+  .break-inside-avoid-column {
+    break-inside: avoid-column;
+    page-break-inside: avoid;
   }
 }
 

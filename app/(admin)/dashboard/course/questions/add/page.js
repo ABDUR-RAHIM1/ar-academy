@@ -20,12 +20,13 @@ import { Label } from '@/components/ui/label';
 import { getAllCourse } from '@/app/apiActions/Course';
 
 
- 
+
 export default function AddQuestion() {
     const [courseLoading, setCourseLoading] = useState(false)
     const { showToast } = useContext(contextD);
     const [message, setMessage] = useState("")
     const [course, setCourse] = useState([])
+    const [validationError, setValidationError] = useState(null);
 
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
@@ -61,7 +62,7 @@ export default function AddQuestion() {
 
         getData();
     }, [])
-     
+
     //  handle Course Change
     const handleCourseChange = (value) => {
         setFormData((prev) => ({
@@ -98,7 +99,7 @@ export default function AddQuestion() {
         }
     };
 
- 
+
     const handleQuestionType = (value) => {
         setFormData((prev) => ({
             ...prev,
@@ -109,7 +110,7 @@ export default function AddQuestion() {
     //  handle Controller Changer 
     const handleControllChange = (e) => {
         const { name, value } = e.target;
-      
+
         setFormData((prev) => ({
             ...prev,
             [name]: value
@@ -121,6 +122,7 @@ export default function AddQuestion() {
     const handleSubmitQuestions = async (e) => {
         e.preventDefault();
         setLoading(true)
+        setValidationError(null)
         try {
 
             const payload = {
@@ -130,7 +132,10 @@ export default function AddQuestion() {
             }
             const { status, data } = await postActions(payload);
             showToast(status, data)
-
+            if (data.errors) {
+                setValidationError(data.errors)
+            }
+            console.log(data)
         } catch (error) {
             console.log(error)
             showToast(500, "Failed to Add Question")
@@ -138,8 +143,7 @@ export default function AddQuestion() {
             setLoading(false)
         }
     }
-
-
+ 
 
     return (
         <div className=' my-10'>
@@ -332,16 +336,33 @@ export default function AddQuestion() {
                     </p>
                 </div>
 
-
-
-
                 <div onClick={handleSubmitQuestions} className=' my-5 inline-block'>
                     <SubmitButton loadingState={loading} btnText={"প্রশ্ন যুক্ত করুন"} width={"120px"} />
                 </div>
 
+                {
+                    validationError?.length > 0 && (
+                        <div className="my-3 p-3 border rounded bg-red-50">
+                            <h3 className="font-semibold text-red-600 mb-2">
+                                Validation Errors
+                            </h3>
+
+                            <ul className="space-y-2">
+                                {validationError.map((err, idx) => (
+                                    <li key={idx} className="text-sm text-red-700">
+                                        <span className="font-bold">Row {err.row}:</span>{" "}
+                                        missing{" "}
+                                        <span className="font-medium">
+                                            {err.missingFields.join(", ")}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )
+                }
 
             </div>
-
         </div>
     )
 }

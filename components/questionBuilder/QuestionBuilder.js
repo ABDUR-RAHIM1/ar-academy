@@ -10,22 +10,31 @@ import QuestionBuilderSettings from './BuilderSettings';
 import { contextD } from '@/contextApi/DashboardState';
 import { useReactToPrint } from 'react-to-print';
 
-const AcademicQuestionBuilder = () => {
+const QuestionBuilder = () => {
   const { qBuilderSettingsOpen, setQBuilderSettingOpen, fontSize, questionLang } = useContext(contextD);
 
-  const [isPrintMode, setIsPrintMode] = useState(false);
-  const [columnCount, setColumnCount] = useState("1");
   const contentRef = useRef(null);
   const reactToPrintFn = useReactToPrint({ contentRef });
 
-  // নম্বর কনভার্টার ফাংশন
-  const getQuestionNumber = (index) => {
-    if (questionLang === 'bn') {
-      const bnNumbers = ['১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯', '১০']; // আরও বড় করা যাবে
-      return (bnNumbers[index] || index + 1) + ".";
-    }
-    return (index + 1) + ".";
-  };
+  const [isPrintMode, setIsPrintMode] = useState(false);
+  const [columnCount, setColumnCount] = useState("1");
+ 
+// নম্বর কনভার্টার ফাংশন (বাংলা ও ইংরেজি)
+  const getQuestionNumber = (index) => {
+    const number = index + 1;  
+    
+    if (questionLang === 'bn') {
+      const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      const converted = number
+        .toString()
+        .split('')
+        .map(digit => bnDigits[parseInt(digit)])
+        .join('');
+      return converted + ".";
+    }
+
+    return number + ".";
+  };
 
   // অপশন/বুলেট কনভার্টার ফাংশন
   const getOptionBullet = (index) => {
@@ -128,9 +137,7 @@ const AcademicQuestionBuilder = () => {
               <SelectItem value="2">2 Columns</SelectItem>
             </SelectContent>
           </Select>
-          <Button
-            onClick={reactToPrintFn}
-            className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-100 font-bold">
+          <Button onClick={reactToPrintFn} className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-100 font-bold">
             <Printer className="w-4 h-4 mr-2" /> Print
           </Button>
         </div>
@@ -149,7 +156,7 @@ const AcademicQuestionBuilder = () => {
           </div>
         )}
 
-        <div className="text-center space-y-2 border-b-2 border-black pb-4 mb-6 pt-4">
+        <div className="text-center border-b-2 border-black pb-1 mb-3 pt-4">
           {!isPrintMode ? (
             <div className="grid grid-cols-2 gap-2">
               <Input className="text-center text-xl font-bold border-blue-200 focus:border-blue-500" value={examInfo.instituteName} onChange={e => setExamInfo({ ...examInfo, instituteName: e.target.value })} placeholder="শিক্ষা প্রতিষ্ঠানের নাম" />
@@ -160,15 +167,15 @@ const AcademicQuestionBuilder = () => {
               <Input className="text-center bg-yellow-50" value={examInfo.set} onChange={e => setExamInfo({ ...examInfo, set: e.target.value })} placeholder="সেট নম্বর" />
             </div>
           ) : (
-            <>
-              <h1 className="text-2xl font-bold mb-1">{examInfo.instituteName}</h1>
-              <h1 className="text-2xl font-[400] uppercase">{examInfo.title}</h1>
-              <h2 className="text-xl font-[400]">বিষয়: {examInfo.subject}</h2>
-              <div className="flex justify-between font-medium pt-2 px-4 italic text-sm">
+            <div className={" space-y-0"}>
+              <h1 className="text-xl font-bold">{examInfo.instituteName}</h1>
+              <h1 className="text-[18px] font-[400] uppercase">{examInfo.title}</h1>
+              <h2 className="text-[17px] font-[400]">বিষয়: {examInfo.subject}</h2>
+              <div className="flex justify-between font-medium px-4 italic text-sm">
                 <span>সময়: {examInfo.time}</span>
                 <span>পূর্ণমান: {examInfo.marks}</span>
               </div>
-            </>
+            </div>
           )}
         </div>
 
@@ -180,7 +187,7 @@ const AcademicQuestionBuilder = () => {
         }}>
           {groups.map((group) => (
             <React.Fragment key={group.id}>
-              <div className="mb-4 break-inside-avoid-column border-b border-gray-100 pb-1">
+              <div className="mb-1 break-inside-avoid-column border-b border-gray-100 pb-1">
                 {isPrintMode ? (
                   <h3 className="font-bold underline" style={{ fontSize: '1.1em' }}>{group.title}</h3>
                 ) : (
@@ -197,18 +204,18 @@ const AcademicQuestionBuilder = () => {
                 )}
               </div>
 
-              <div className="space-y-2 mb-6">
+              <div className={`mb-3`}>
                 {group.questions.map((q, qIdx) => (
-                  <div key={q.id + qIdx} className="group relative break-inside-avoid-column mb-3">
+                  <div key={q.id + qIdx} className="group relative break-inside-avoid-column mb-0">
                     <div className="flex gap-2 items-start">
-                      {/* ডাইনামিক প্রশ্ন নম্বর */}
-                      <span className="font-bold min-w-[25px]">
+
+                      <span className={` font-bold min-w-[25px]  ${q.type !== "mcq" ? "my-0" : "font-bold mt-1"}`}>
                         {getQuestionNumber(qIdx)}
                       </span>
 
                       <div className="flex-1">
                         {isPrintMode ? (
-                          <p className={`leading-tight ${q.type !== "mcq" ? "" : "font-bold mb-1"} `}>{q.text}</p>
+                          <p className={`leading-tight ${q.type !== "mcq" ? "my-0" : "font-bold mt-1.5"} `}>{q.text}</p>
                         ) : (
                           <div className="flex flex-col gap-1">
                             <Input
@@ -230,35 +237,6 @@ const AcademicQuestionBuilder = () => {
 
                         {q.image && <img src={q.image} alt="Q" className="max-h-32 object-contain mt-1 rounded border" />}
 
-                        {/* {q.type === 'mcq' && (
-                          <div className={`grid ${columnCount === "2" && isPrintMode ? "grid-cols-1" : "grid-cols-2"} gap-x-4 gap-y-1 mt-1`}>
-                            {q.options.map((opt, oIdx) => (
-                              <div key={oIdx} className="flex gap-1 items-center">
-                                {!isPrintMode ? (
-                                  <>
-                                    <span className="text-[10px] font-bold text-blue-500">{getOptionBullet(oIdx)}</span>
-                                    <Input
-                                      className="h-7 text-xs"
-                                      value={opt}
-                                      onChange={e => {
-                                        const newOpts = [...q.options];
-                                        newOpts[oIdx] = e.target.value;
-                                        updateQuestion(group.id, q.id, { options: newOpts });
-                                      }}
-                                    />
-                                  </>
-                                ) : (
-                                  <>
-                                    <span className="font-semibold italic">{getOptionBullet(oIdx)}</span>
-                                    <span>{opt}</span>
-                                  </>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                        )} */}
-
-                        {/* MCQ Options Section */}
                         {q.type === 'mcq' && (
                           <div className="grid grid-cols-2 gap-x-2 gap-y-1 mt-1 w-full">
                             {q.options.map((opt, oIdx) => (
@@ -320,4 +298,4 @@ const AcademicQuestionBuilder = () => {
   );
 };
 
-export default AcademicQuestionBuilder;
+export default QuestionBuilder;

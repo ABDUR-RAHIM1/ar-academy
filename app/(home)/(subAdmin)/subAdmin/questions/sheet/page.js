@@ -1,10 +1,7 @@
-import MakeQuestionsForm from '@/components/clients/make-questions/MakeQuestionsForm'
+import QuestionBuilder from '@/components/questionBuilder/QuestionBuilder'
 import React from 'react'
 
-export default function QuestionSheet() {
-    return (
-        <div>
-            <MakeQuestionsForm />
-        </div>
-    )
-}; 
+export default function QuestionBuilderSubAdmin() {
+    return <QuestionBuilder />
+
+}

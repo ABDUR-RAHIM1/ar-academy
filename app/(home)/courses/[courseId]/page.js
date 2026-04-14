@@ -121,10 +121,7 @@ export default async function CoursePreview({ params }) {
                     
                     {/* Header Section */}
                     <div className="space-y-4">
-                        <span className="inline-block px-4 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-bold uppercase tracking-wider">
-                            {course.courseType !== "subAdmin" ? "Student Admission" : "Sub-Admin Access"}
-                        </span>
-                        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+                        <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 leading-[2rem]">
                             {course.title}
                         </h1>
                     </div>

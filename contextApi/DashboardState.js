@@ -9,7 +9,11 @@ export const contextD = createContext()
 export default function DashboardState({ children }) {
     const [token, setToken] = useState("")
     const router = useRouter();
-  
+
+    const [qBuilderSettingsOpen, setQBuilderSettingOpen] = useState(false);
+    const [fontSize, setFontSize] = useState("10")
+    const [questionLang, setQuestionLang] = useState("bn");
+
     const [loginSignal, setLoginSignal] = useState(false);
     const [tokenName, setTokenName] = useState({
         status: false,
@@ -104,7 +108,7 @@ export default function DashboardState({ children }) {
     const [isOpen, setIsOpen] = useState(true);
     const [editData, setEditData] = useState({});
 
-  
+
     const showToast = (status, data, autoClose) => {
         const message = data.message || data;
 
@@ -166,6 +170,9 @@ export default function DashboardState({ children }) {
         loginSignal, setLoginSignal,
         tokenName, setTokenName,
         imgUrl, uploadResponse, uploader,
+        qBuilderSettingsOpen, setQBuilderSettingOpen,
+        fontSize, setFontSize,
+        questionLang, setQuestionLang,
         usedTime, setUsedTime,
         showToast, handleProfileEditActivity,
         subIdentifier, setSubIdentifer,
