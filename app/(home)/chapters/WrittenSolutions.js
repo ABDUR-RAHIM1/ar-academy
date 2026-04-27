@@ -20,7 +20,7 @@ export default function WrittenSolutions({ writtenData }) {
                 <AccordionItem
                     key={index}
                     value={`item-${index}`}
-                    className="border rounded-md px-4 data-[state=open]:bg-secondary"
+                    className="border rounded-md px-2 data-[state=open]:bg-secondary"
                 >
                     <AccordionTrigger title={"উত্তর দেখতে ক্লিক করুন"} className="data-[state=closed]:py-2 flex items-center">
                         <p className=" font-semibold">

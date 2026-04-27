@@ -8,7 +8,6 @@ export const contextD = createContext()
 
 export default function DashboardState({ children }) {
     const [token, setToken] = useState("")
-    const router = useRouter();
 
     const [qBuilderSettingsOpen, setQBuilderSettingOpen] = useState(false);
     const [fontSize, setFontSize] = useState("10")
@@ -116,7 +115,7 @@ export default function DashboardState({ children }) {
 
         if (status === 200 || status === 201) {
             toast.success(message, {
-                duration: finalAutoClose ? 3000 : Infinity,
+                duration: finalAutoClose ? 2000 : Infinity,
                 position: "top-center",
                 style: {
                     border: '1px solid #4caf50',

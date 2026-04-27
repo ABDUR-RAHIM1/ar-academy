@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Clock, CheckCircle, Eye, EyeOff, ListOrdered, CheckSquare, Zap, Minus } from "lucide-react"
+import { Clock, CheckCircle, Eye, ListOrdered, CheckSquare, Zap, Minus } from "lucide-react"
 import { useContext, useState } from "react"
 import { contextD } from "@/contextApi/DashboardState"
 
@@ -15,7 +15,8 @@ export default function ExamTimerSection({
     selectedCount
 }) {
     const { showToast } = useContext(contextD);
-    const [showCard, setShowCard] = useState(true); // পুরো কার্ড hide/show state
+    const [showCard, setShowCard] = useState(true);  
+ 
 
     const handleSubmit = () => {
         if (!token) {
@@ -41,6 +42,7 @@ export default function ExamTimerSection({
     const currentStatus = statusInfo[status] || statusInfo.active;
 
 
+
     return (
         <div className="space-y-1">
 
@@ -59,10 +61,10 @@ export default function ExamTimerSection({
                                         ? "✅ " + currentStatus.text
                                         : "📌 " + currentStatus.text}
                             </div>
-                            <Button
-                                variant="outline"
+                            <div
+                                // variant="outline"
                                 onClick={() => setShowCard(!showCard)}
-                                className=" block md:hidden border-red-500 bg-red-50 text-red-600 hover:bg-red-500 hover:text-white"
+                                className=" block md:hidden border-red-500 bg-red-50 text-red-600 py-0 px-2 hover:bg-red-500 hover:text-white"
                             >
                                 {showCard ? (
                                     <>
@@ -75,7 +77,7 @@ export default function ExamTimerSection({
                                         {/* টাইমার অংশটি দেখান */}
                                     </>
                                 )}
-                            </Button>
+                            </div>
                         </div>
 
                         {/* Time Info */}

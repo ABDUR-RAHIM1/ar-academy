@@ -13,6 +13,7 @@ export const roles = {
 export const secretKey = "abrahimArAcademy"
 export const adminSecretKey = "@Admin#2024!Secure/17"
 
+
 export const studentAuth = "/account/student/register"
 export const subAdminAuth = "/account/subAdmin/register"
 export const subAdminLogin = "/account/subAdmin/login"
@@ -118,7 +119,10 @@ export const getLeaderboarByCourse = process.env.NEXT_PUBLIC_LEADERBOARD_GET
 export const adminAccountregister = "/api/account/admin/register"  // admin, moderator, subAdmin register
 export const adminAccountLogin = "/api/account/admin/login/"
 
+export const accountSingelRegister = "/api/account/singel-register" // new 
+
 export const accountRegister = "/api/account/register"
+
 export const resentVerificationEmail = "/api/account/resend-verification-email"
 export const accountLogin = "/api/account/login"
 export const AllAccount = "/api/account/all"

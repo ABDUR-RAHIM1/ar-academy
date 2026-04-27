@@ -53,7 +53,7 @@ export default function McqResultDetails({mcqResultData}) {
                                 <p className="font-semibold text-yellow-700 flex items-center gap-2">
                                     <CheckCircle className="w-4 h-4" /> আপনার নির্বাচিত উত্তর:
                                 </p>
-                                <p className="mt-1 ml-6 text-gray-800">{result.selectAns || "N/A"}</p>
+                                <p className="mt-1 ml-6 text-gray-800">{result.selectAns || "উত্তর দেননি"}</p>
                             </div>
 
                             {/* Correct Answer */}

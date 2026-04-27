@@ -11,6 +11,7 @@ import demoProfilePhoto from "@/public/Images/profile.png"
 
 
 // import heroImage from "@/public/Images/heroImg.png"
+// export const heroImage = "https://i.ibb.co.com/G11s3b3/heroImg.png"
 export const heroImage = "https://i.ibb.co.com/G11s3b3/heroImg.png"
 
 //  Features start

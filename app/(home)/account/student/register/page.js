@@ -6,16 +6,19 @@ import { contextD } from '@/contextApi/DashboardState';
 import { validateEmail, validatePhone } from '@/helpers/verfications';
 import Link from 'next/link';
 import { postActionUser } from '@/actions/users/postActions';
-import { accountRegister } from '@/constans';
+import {accountSingelRegister } from '@/constans';
 import { Button } from '@/components/ui/button';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import Cookies from 'js-cookie';
 
 export default function RegisterAccount() {
 
-  const { showToast } = useContext(contextD);
+  const { showToast, setLoginSignal, setToken } = useContext(contextD);
+
   const path = usePathname();
+  const router = useRouter();
 
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -23,7 +26,7 @@ export default function RegisterAccount() {
     username: "",
     email: "",
     phone: "",
-    password: "",
+    // password: "",
   });
 
 
@@ -71,13 +74,22 @@ export default function RegisterAccount() {
       }
 
       const payload = {
-        api: accountRegister,
+        api: accountSingelRegister,
         method: "POST",
         body: formData
       };
 
       const { status, data } = await postActionUser(payload);
       showToast(status, data);
+      console.log(data)
+
+      if (data.token) {
+        setLoginSignal(prev => !prev);
+
+        Cookies.set("onushilon_academy_session", data.token, { expires: 7 });
+        setToken(data.token);
+        router.push("/profile");
+      }
 
     } catch (error) {
       console.log(error);
@@ -139,7 +151,7 @@ export default function RegisterAccount() {
             </Button>
           </div>
 
-          <InputField name="username" label={"নাম"} placeholder="👤 আপনার নাম লিখুন" handler={handleChange} />
+          <InputField name="username" label={"নাম"} value={formData.username} placeholder="👤 আপনার নাম লিখুন" handler={handleChange} />
           <div>
             <Label>
               {
@@ -160,17 +172,19 @@ export default function RegisterAccount() {
                 name={formData.accountMethod === "phone" ? "phone" : "email"}
                 type={formData.accountMethod === "phone" ? "number" : "email"}
                 placeholder={` ${formData.accountMethod === "phone" ? "✆ ফোন" : "✉ ইমেইল"} লিখুন `}
+
                 onChange={handleChange}
               />
 
             </div>
           </div>
 
-          <InputField name="password" type="password" label={"পাসওয়ার্ড"} placeholder="🔒 পাসওয়ার্ড লিখুন" handler={handleChange} />
+          {/* <InputField name="password" type="password" label={"পাসওয়ার্ড"} placeholder="🔒 পাসওয়ার্ড লিখুন" handler={handleChange} /> */}
 
+          <br />
           <SubmitButton
             loadingState={loading}
-            btnText="সাইন আপ করুন"
+            btnText="রেজিস্টার করুন"
             width={"130px"}
           />
 

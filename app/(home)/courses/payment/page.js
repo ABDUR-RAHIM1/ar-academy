@@ -65,7 +65,7 @@ export default function ManualPaymentPage() {
             [name]: value
         }));
     };
-    console.log(formData)
+
     const handleMethodChange = (value) => {
         setSelectedMethod(value);
         setFormData((prev) => ({
@@ -89,10 +89,11 @@ export default function ManualPaymentPage() {
                 }
             };
 
-            console.log(payload)
             const { status, data } = await postActionUser(payload)
 
             showToast(status, data);
+
+             
 
         } catch (error) {
             console.log(error)

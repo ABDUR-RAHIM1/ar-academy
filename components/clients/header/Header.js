@@ -39,10 +39,10 @@ export default function Header() {
 
     return (
         <header 
-            className={`sticky top-0 w-full z-50 transition-all duration-300 
+            className={`sticky top-0 w-full z-30 transition-all duration-300 border-b 
             ${scrollBg ? "bg-white shadow-md py-3" : "bg-transparent py-5"}`}
         >
-            <div className="max-w-7xl mx-auto px-4 flex items-center justify-between gap-2">
+            <div className="max-w-7xl mx-auto px-4 flex items-center justify-between gap-2 ">
                 
                 {/* 1. Logo */}
                 <div className="flex-shrink-0">
@@ -88,7 +88,7 @@ export default function Header() {
 
             {/* 4. Mobile Side Menu Overlay */}
             <div 
-                className={`lg:hidden fixed inset-0 w-full h-screen z-[60] transition-opacity duration-300 ${
+                className={`lg:hidden fixed inset-0 w-full h-screen z-30 transition-opacity duration-300 ${
                     menuClick ? "opacity-100 visible" : "opacity-0 invisible"
                 }`}
             >

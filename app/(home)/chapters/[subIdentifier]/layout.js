@@ -16,7 +16,7 @@ export default async function ChapterDetailsLayout({ children, params }) {
         return <Error />
     }
     return (
-        <div className=' flex gap-3'>
+        <div className=' flex gap-3 items-start'>
 
             <ChapterSidebar
                 subIdentifier={subIdentifier}

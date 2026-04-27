@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 
 export default function SubSidebar() {
     const path = usePathname();
@@ -25,7 +25,6 @@ export default function SubSidebar() {
     const { setLoginSignal, setTokenName, showToast } = useContext(contextD);
     const router = useRouter();
 
-    // মেনু আইটেমগুলো আরও অর্গানাইজড করা হয়েছে
     const subAdminItems = [
         { item: "Dashboard", icon: <LayoutDashboard size={18} />, path: "/subAdmin" },
         { item: "Add Course", icon: <BookPlus size={18} />, path: "/subAdmin/addCourse" },
@@ -48,23 +47,23 @@ export default function SubSidebar() {
 
     return (
         <>
-            {/* Mobile Toggle Button - আরও ক্লিন করা হয়েছে */}
+            {/* 1. Mobile Toggle Button - Z-index 40 রাখলাম */}
             {!isMenuClick && (
                 <button
                     onClick={() => setMenuClick(true)}
-                    className="fixed top-24 left-5 bg-indigo-600 hover:bg-indigo-700 shadow-lg text-white p-2.5 rounded-xl z-50 md:hidden transition-all active:scale-90"
+                    className="fixed top-24 left-5 bg-indigo-600 text-white p-2.5 rounded-xl z-40 md:hidden shadow-lg active:scale-90 transition-all"
                 >
                     <Menu size={20} />
                 </button>
             )}
 
-            {/* Sidebar Container */}
+            {/* 2. Sidebar Container - Z-index সবচেয়ে বেশি (60) দিলাম */}
             <aside
                 className={`
-                    fixed md:sticky top-0 left-0 h-screen md:h-[calc(100vh-100px)] 
-                    w-72 bg-white border-r border-slate-100 flex flex-col 
-                    transition-transform duration-300 ease-in-out z-[10]
-                    ${isMenuClick ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+                    fixed top-0 left-0 h-screen w-72 bg-white border-r border-slate-100 flex flex-col 
+                    transition-transform duration-300 ease-in-out z-[60]
+                    ${isMenuClick ? "translate-x-0" : "-translate-x-full"}
+                    md:sticky md:translate-x-0 md:h-[calc(100vh-100px)] md:z-10
                 `}
             >
                 {/* Header Section */}
@@ -82,7 +81,7 @@ export default function SubSidebar() {
                 </div>
 
                 {/* Navigation Links */}
-                <nav className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto custom-scrollbar">
+                <nav className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
                     {subAdminItems.map((item, index) => {
                         const isActive = path === item.path;
                         return (
@@ -114,15 +113,14 @@ export default function SubSidebar() {
                     >
                         <LogOut size={18} /> Logout
                     </button>
-                    <p className="mt-2 text-[10px] text-center text-slate-400 font-medium">Onushilon Academy v2.0</p>
                 </div>
             </aside>
 
-            {/* Mobile Overlay */}
+            {/* 3. Mobile Overlay - Z-index 50 (সাইডবারের নিচে কিন্তু কন্টেন্টের উপরে) */}
             {isMenuClick && (
                 <div
                     onClick={() => setMenuClick(false)}
-                    className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[55] md:hidden transition-opacity"
+                    className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[50] md:hidden transition-opacity"
                 />
             )}
         </>

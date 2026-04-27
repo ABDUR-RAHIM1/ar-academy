@@ -110,7 +110,7 @@ export function ProfileEditButton({ user }) {
 
                     {/* Username */}
                     <div className="grid gap-3">
-                        <Label htmlFor="username">Username</Label>
+                        <Label htmlFor="username">নাম</Label>
                         <Input
                             id="username"
                             name="username"
@@ -121,17 +121,17 @@ export function ProfileEditButton({ user }) {
 
                     {/* Account Method + Email/Phone in one line */}
                     <div className="grid gap-1">
-                        <Label>Account Method</Label>
+                        <Label>মেথড</Label>
                         <div className="flex gap-2">
                             <select
                                 id="accountMethod"
                                 name="accountMethod"
                                 value={formData.accountMethod}
                                 onChange={handleChange}
-                                className="border rounded px-3 py-2 w-[100px]"
+                                className="border rounded px-3 py-[1.5] w-[100px]"
                             >
-                                <option value="email">Email</option>
-                                <option value="phone">Phone</option>
+                                <option value="email">ইমেইল</option>
+                                <option value="phone">ফোন</option>
                             </select>
 
                             {formData.accountMethod === "email" ? (
@@ -160,7 +160,7 @@ export function ProfileEditButton({ user }) {
 
                     {/* New Password */}
                     <div className="grid gap-3">
-                        <Label htmlFor="newPassword">New Password</Label>
+                        <Label htmlFor="newPassword"> নতুন পাসওয়ার্ড (যদি পরিবর্তন করতে চান)</Label>
                         <Input
                             id="newPassword"
                             name="newPassword"
@@ -171,7 +171,7 @@ export function ProfileEditButton({ user }) {
                     </div>
                     {/* Profile Photo */}
                     <div className="grid gap-3">
-                        <Label htmlFor="newPassword">Profile Photo</Label>
+                        <Label htmlFor="newPassword">প্রোফাইল ফটো</Label>
                         <Input
                             id="photo"
                             name="photo"
@@ -189,10 +189,10 @@ export function ProfileEditButton({ user }) {
 
                     <DialogFooter className="flex gap-2">
                         <DialogClose asChild>
-                            <Button variant="outline">Cancel</Button>
+                            <Button variant="outline">পরে করবো</Button>
                         </DialogClose>
                         <Button type="submit" disabled={loading || status === 100}>
-                            {loading ? "Saving..." : "Save changes"}
+                            {loading ? "Saving..." : "সংরক্ষণ করুন"}
                         </Button>
                     </DialogFooter>
                 </form>

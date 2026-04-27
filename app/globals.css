@@ -23,34 +23,13 @@ body {
 .scrollbar-hide {
   scrollbar-width: none;
 }
-/* @media print {
-  @page {
-    margin: 10mm; 
-  }
-  .exam-wrapper {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
- body {
-    margin: 0;
-    padding: 0;
-  }
 
-  .print-container {
-    padding: 20px;  
-  }
-  .header {
-    page-break-after: avoid;
-    break-after: avoid;
-  }
-
-  .question-block {
-    page-break-inside: avoid;
-    break-inside: avoid;
-    margin-bottom: 10px;
-  }
-} */
-
+.no-copy {
+    -webkit-user-select: none; /* Chrome, Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE/Edge */
+    user-select: none;         /* Standard */
+}
 
 @media print {
   /* পুরো বডি এবং ব্যাকগ্রাউন্ড সেটআপ */

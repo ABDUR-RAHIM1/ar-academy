@@ -37,6 +37,7 @@ const Footer = () => {
               <ul className="space-y-2 text-sm text-blue-100">
                 <li><Link href="/about-us" className="hover:text-blue-300 transition-colors">আমাদের সম্পর্কে</Link></li>
                 <li><Link href="/courses" className="hover:text-blue-300 transition-colors">সকল কোর্স</Link></li>
+                <li><Link href="/developer" className="hover:text-blue-300 transition-colors">ডেভেলপারের কথা</Link></li>
                 <li><Link href="/contact" className="hover:text-blue-300 transition-colors">যোগাযোগ</Link></li>
               </ul>
             </div>
@@ -55,7 +56,7 @@ const Footer = () => {
             <ul className="space-y-3 text-sm text-blue-100">
               <li className="flex items-center gap-3">
                 <Phone size={16} className="text-blue-300" />
-                <span>+৮৮০ ১২৩৪-৫৬৭৮৯০</span>
+                <span>+88 01343232179</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={16} className="text-blue-300" />

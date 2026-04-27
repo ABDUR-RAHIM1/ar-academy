@@ -34,7 +34,7 @@ export default async function ResultDeatils({ result }) {
                 <div className="bg-white rounded-[2rem] shadow-xl shadow-slate-200/60 border border-slate-100 overflow-hidden mb-10">
 
                     {/* Top Bar: Subject & Result Status */}
-                    <div className="bg-slate-900 px-8 py-6 text-white flex flex-wrap justify-between items-center gap-4">
+                    <div className="bg-slate-900 px-2 md:px-8 py-3 md:py-6 text-white flex flex-wrap justify-between items-center gap-4">
                         <div className="flex items-center gap-4">
                             <div className="bg-indigo-500 p-3 rounded-2xl">
                                 <BookOpenText className="w-6 h-6 text-white" />
@@ -52,11 +52,11 @@ export default async function ResultDeatils({ result }) {
 
                     {/* Stats Grid */}
                     {/* Stats Grid */}
-                    <div className="p-8">
+                    <div className="p-3 md:p-8">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
 
                             {/* Highlighted Score Card */}
-                            <div className="col-span-2 md:col-span-2 lg:col-span-1 bg-indigo-600 rounded-3xl p-6 text-white shadow-lg shadow-indigo-200 flex flex-col justify-center">
+                            <div className="col-span-2 md:col-span-2 lg:col-span-1 bg-indigo-600 rounded-3xl p-4 text-white shadow-lg shadow-indigo-200 flex flex-col justify-center">
                                 <p className="text-indigo-100 text-xs font-bold uppercase tracking-wider mb-1">প্রাপ্ত নম্বর</p>
                                 <h3 className="text-4xl font-black">{result?.totalmark || 0}</h3>
                                 <div className="flex flex-col gap-1 mt-2">

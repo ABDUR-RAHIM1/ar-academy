@@ -10,6 +10,14 @@ import 'katex/dist/katex.min.css';
 import { BASE_URL } from '@/constans';
 import LiveSupportChat from '@/components/clients/liveSupport/LiveSupport';
 import { SEO_KEYWORDS } from '@/seo/keywords';
+import { Noto_Sans_Bengali } from 'next/font/google'
+
+const notoBengali = Noto_Sans_Bengali({
+  subsets: ['bengali'],
+  weight: ['100', '300', '400', '500', '700', '900'],
+  variable: '--font-noto-bengali', 
+  display: 'swap', 
+});
 
 export const metadata = {
   metadataBase: new URL(BASE_URL),
@@ -56,7 +64,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body cz-shortcut-listen="true" >
+
+      <body cz-shortcut-listen="true" className={`${notoBengali.className} antialiased`}>
         <DashboardState>
           <Toaster />
           <TooltipProvider>
@@ -71,6 +80,6 @@ export default function RootLayout({ children }) {
           </TooltipProvider>
         </DashboardState>
       </body>
-    </html>
+    </html >
   );
 }

@@ -85,7 +85,7 @@ export default function PurchasedTable({ purchasedData, type }) {
             typePackage ?
                 payload.api = packagePurchaseStatusUpdate :
                 payload.api = purchasePayementUpdate
- 
+
 
             const { status, data } = await postActions(payload);
             showToast(status, data);
@@ -150,6 +150,11 @@ export default function PurchasedTable({ purchasedData, type }) {
                                 }
 
                             </TableHead>
+                            <TableHead className="font-bold">
+                                {
+                                    typePackage ? "Package" : "Course"
+                                }
+                            </TableHead>
                             <TableHead className="font-bold">Payment Method</TableHead>
                             <TableHead className="font-bold">Amount</TableHead>
                             <TableHead className="font-bold">Date</TableHead>
@@ -180,6 +185,10 @@ export default function PurchasedTable({ purchasedData, type }) {
                                                 </>
                                         }
                                     </div>
+                                </TableCell>
+                                <TableCell>
+                                    <p className={"border-b"}>{item?.course.name}</p>
+                                    <p className={"text-[12px]"}>{item?.course.title}</p>
                                 </TableCell>
                                 <TableCell>
                                     {item.paymentDetails?.paymentMethod === 'free' ? (
@@ -238,8 +247,8 @@ export default function PurchasedTable({ purchasedData, type }) {
                                                         <span className="text-xs font-bold text-slate-700">{selectedItem?.student?.email || selectedItem?.student?.phone}</span>
                                                     </div>
                                                     <div className="flex justify-between">
-                                                        <span className="text-[11px] font-bold text-slate-400 uppercase">Course ID</span>
-                                                        <span className="text-xs font-mono font-medium text-slate-600">{selectedItem?.course}</span>
+                                                        <span className="text-[11px] font-bold text-slate-400 uppercase">Course</span>
+                                                        <span className="text-xs font-mono font-medium text-slate-600 border-b">{selectedItem?.course?.name}</span>
                                                     </div>
                                                 </div>
 

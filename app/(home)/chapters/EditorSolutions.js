@@ -10,7 +10,7 @@ import 'katex/dist/katex.min.css'; // Katex styling
 export default function EditorSolutions({ markdownContent }) {
 
     return (
-        <div className="markdown prose p-4 border border-gray-200 rounded bg-white shadow-sm mb-6  overflow-y-auto overflow-x-hidden">
+        <div className="markdown prose p-2 border border-gray-200 rounded bg-white shadow-sm mb-6  overflow-y-auto overflow-x-hidden">
             <ReactMarkdown
                 remarkPlugins={[remarkGfm, remarkMath]}
                 rehypePlugins={[rehypeKatex, rehypeRaw]}

@@ -8,11 +8,14 @@ import getToken from '@/actions/getToken/getToken';
 import LoadingSpinner from '../spinner-01';
 import { ShoppingCart, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import LoginAlertModal from '@/utils/LoginAlertModal';
+import { EnrollmentModal } from '@/utils/LoginModal';
 
 export default function CoursePurchaseButton({ courseId, courseAmount }) {
     const router = useRouter();
     const { showToast } = useContext(contextD);
     const [loading, setLoading] = useState(false);
+    const [openLoginModal, setOpenLoginModal] = useState(false)
 
     const isFree = Number(courseAmount) <= 0
 
@@ -23,7 +26,8 @@ export default function CoursePurchaseButton({ courseId, courseAmount }) {
         const token = await getToken();
 
         if (!token) {
-            showToast(404, "আপনি এখনো লগিন করেননি!")
+            setOpenLoginModal(true);
+            // showToast(404, "আপনি এখনো লগিন করেননি!")
             return
         }
 
@@ -37,7 +41,7 @@ export default function CoursePurchaseButton({ courseId, courseAmount }) {
             const encodedData = btoa(rawData);
 
             router.push(`/courses/payment?payload=${encodedData}`);
-            return; 
+            return;
         }
 
         setLoading(true)
@@ -60,6 +64,13 @@ export default function CoursePurchaseButton({ courseId, courseAmount }) {
         }
     }
 
+
+    if (openLoginModal) {
+        return <EnrollmentModal
+            open={openLoginModal}
+            setOpen={setOpenLoginModal}
+        />
+    }
 
 
 

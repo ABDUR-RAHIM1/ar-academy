@@ -5,7 +5,7 @@ import { heroImage } from '@/Images/Images';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FiArrowRight, FiBookOpen, FiUserCheck } from 'react-icons/fi';
-
+import heroImg from "@/public/Images/heroImg3.png"
 export default function Hero() {
   return (
     <div className="relative w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-12 px-5 md:px-16 py-10 md:py-24 border-b overflow-hidden bg-white">
@@ -81,7 +81,8 @@ export default function Hero() {
         
         <div className="relative animate-float w-[80%] md:w-full">
           <Image
-            src={heroImage}
+            // src={heroImage}
+            src={heroImg}
             width={800}
             height={800}
             alt={COMMON_ALT_TEXT}

@@ -5,7 +5,7 @@ import PurchasedTable from '../PurchasedTable';
 
 export default async function PurchaseCourse() {
   const { status, data } = await getAllPurchased();
-
+ 
 
   if (status !== 200 || !data) {
     return <NoData text={"Not Found!"} />

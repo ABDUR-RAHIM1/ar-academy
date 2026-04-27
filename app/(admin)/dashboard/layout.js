@@ -5,6 +5,14 @@ import DashboardHeader from '@/components/dashboard/Header';
 import DashboardState from '@/contextApi/DashboardState';
 import { Toaster } from 'react-hot-toast';
 import { BASE_URL } from '@/constans';
+import { Noto_Sans_Bengali } from 'next/font/google'
+
+const notoBengali = Noto_Sans_Bengali({
+    subsets: ['bengali'],
+    weight: ['100', '300', '400', '500', '700', '900'],
+    variable: '--font-noto-bengali',
+    display: 'swap',
+});
 
 export const metadata = {
     metadataBase: new URL(BASE_URL),
@@ -50,7 +58,7 @@ export default function DashboardLayout({ children }) {
     return (
 
         <html lang="en">
-            <body cz-shortcut-listen="true">
+            <body cz-shortcut-listen="true" className={`${notoBengali.className} antialiased`}>
 
                 <Toaster />
                 <div className='flex h-screen'>

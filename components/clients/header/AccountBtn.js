@@ -78,12 +78,20 @@ export default function AccountBtn() {
             {tokenName.token ? (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <button title={username || ""} className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md bg-gray-100 hover:bg-gray-200 transition text-sm font-medium">
-                            <FiUser className="text-xl" />
-                            <span>{
-                                username?.length < 10 ? username : username?.substring(0, 10) + "..."
-                            }</span>
-                            <FiChevronDown className="text-lg" />
+                        <button
+                            title={username || ""}
+                            className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-md bg-gray-100 hover:bg-gray-200 transition text-sm font-medium"
+                        >
+                            {/* ইউজার আইকন সব সময় দেখা যাবে */}
+                            <FiUser className="text-xl flex-shrink-0" />
+
+                            {/* শুধু নামটুকু ছোট হবে বা ডট দেখাবে */}
+                            <span className="max-w-[50px] md:max-w-[100px] truncate block">
+                                {username}
+                            </span>
+
+                            {/* অ্যারো আইকন সব সময় দেখা যাবে */}
+                            <FiChevronDown className="text-lg flex-shrink-0" />
                         </button>
                     </DropdownMenuTrigger>
 

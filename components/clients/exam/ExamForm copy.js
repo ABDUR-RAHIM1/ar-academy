@@ -10,15 +10,12 @@ import ExamTimerSection from "./ExamTimerSection";
 import useExamTimerRegular from "./ExamTimerRegular";
 import useExamTimerRetake from "./ExamTimerRetake";
 import ExamSubmitLoading from "./ExamSubmitLoading";
-import TabChangeAlert from "./TabChangeAlert";
 
 export default function ExamForm({ questionsData }) {
     const { _id, duration, questions } = questionsData;
     const router = useRouter();
 
     const { showToast, token } = useContext(contextD);
-    const [alertType, setAlertType] = useState(null);
-    const [open, setOpen] = useState(false);
 
     const [loginModalOpen, setLoginModalOpen] = useState(false);
     const [isSubmit, setIsSubmit] = useState(false);
@@ -31,33 +28,9 @@ export default function ExamForm({ questionsData }) {
     );
 
     // option select
-    // const handleOptionChange = (question, selectedOption) => {
-    //     if (!token) {
-    //         setLoginModalOpen(true);
-    //         return;
-    //     }
-
-    //     setFormData((prev) =>
-    //         prev.map((q) =>
-    //             Number(q.ID) === Number(question.ID)
-    //                 ? { ...q, selectAns: selectedOption }
-    //                 : q
-    //         )
-    //     );
-    // };
-
     const handleOptionChange = (question, selectedOption) => {
         if (!token) {
             setLoginModalOpen(true);
-            return;
-        }
-
-        // প্রশ্নটির বর্তমান অবস্থা চেক করুন
-        const currentQuestion = formData.find(q => Number(q.ID) === Number(question.ID));
-
-        // 🟢 akbar option select korle 2nd time change nei 
-        if (currentQuestion && currentQuestion.selectAns) {
-            showToast(500, "পরিবর্তনের সুযোগ নেই" , 1000)
             return;
         }
 
@@ -102,8 +75,6 @@ export default function ExamForm({ questionsData }) {
             handleSubmitQuestion();
         }
     }, [status, timeLeft]);
-
-
 
     // Exam Dewar por submit Dewa hocche.
     const handleSubmitQuestion = async (e = null) => {
@@ -167,14 +138,13 @@ export default function ExamForm({ questionsData }) {
                 api: questionsSubmit,
                 body: resultSheetData,
             };
+       
+            // const { status, data } = await postActionUser(payload);
+            // showToast(status, data);
 
-            const { status, data } = await postActionUser(payload);
-            showToast(status, data);
-
-            if (status === 200 || status === 201) {
-                setHasSubmittedResult(true);
-                router.push(`/results/${data.resultId}`)
-            }
+            // if (status === 200 || status === 201) {
+            //     setHasSubmittedResult(true);
+            // }
         } catch (error) {
             console.error(error);
             showToast(500, "Failed to submit exam");
@@ -184,12 +154,36 @@ export default function ExamForm({ questionsData }) {
         }
     };
 
-    const [tabCountChange, setTabCountChange] = useState(0);
-
+    const [tabCountChange, setTabChangeCount] = useState({
+        tabChangeCount: 0
+    });
     useEffect(() => {
         const handleVisibilityChange = () => {
-            if (document.hidden && !hasSubmittedResult) {
-                setTabCountChange(prev => prev + 1);
+            if (document.hidden) {
+
+                setTabChangeCount(prev => {
+                    const newCount = prev.tabChangeCount + 1;
+
+                    if (newCount === 1) {
+                        alert("⚠️ সতর্কতা: আবার ট্যাব পরিবর্তন করলে পরীক্ষা সাবমিট হয়ে যাবে!");
+                    }
+
+                    if (newCount >= 2) {
+                        alert("❌ আপনি আবার ট্যাব পরিবর্তন করেছেন! পরীক্ষা সাবমিট হচ্ছে...");
+                        // if (!token) {
+                        //     showToast(404, "আপনি লগইন না থাকায় জমা দিতে ব্যর্থ হয়েছে!")
+                        //     return 
+                        // }
+                        
+                        handleSubmitQuestion()
+                    }
+
+                    return {
+                        ...prev,
+                        tabChangeCount: newCount
+                    };
+                });
+
             }
         };
 
@@ -198,32 +192,15 @@ export default function ExamForm({ questionsData }) {
         return () => {
             document.removeEventListener("visibilitychange", handleVisibilityChange);
         };
-    }, [hasSubmittedResult]);
+    }, []);
 
-
-    useEffect(() => {
-        if (hasSubmittedResult) return;
-
-        if (tabCountChange === 1) {
-            setAlertType("warning");
-            setOpen(true);
-        }
-
-        if (tabCountChange >= 2) {
-            setAlertType("submit");
-            setOpen(true);
-            setTimeout(() => {
-                handleSubmitQuestion();
-            }, 2000);
-        }
-    }, [tabCountChange, hasSubmittedResult]);
 
     if (isSubmit) return <ExamSubmitLoading />;
 
     return (
         <>
             {/* 📱 Mobile Timer */}
-            <div className="block lg:hidden sticky top-[68px] z-20">
+            <div className="block lg:hidden sticky top-20 z-20">
                 <ExamTimerSection
                     token={token}
                     timeLeft={timeLeft}
@@ -237,7 +214,7 @@ export default function ExamForm({ questionsData }) {
             </div>
 
             {/* 💻 Desktop Layout */}
-            <div className="flex gap-6 no-copy">
+            <div className="flex gap-6">
                 {/* Questions */}
                 <div className="w-full lg:w-[70%]">
                     {formData.map((question, index) => (
@@ -302,13 +279,6 @@ export default function ExamForm({ questionsData }) {
                     </div>
                 </div>
             </div>
-
-            <TabChangeAlert
-                open={open}
-                alertType={alertType}
-                onClose={setOpen}
-                onSubmit={handleSubmitQuestion}
-            />
 
             {/* Login Alert */}
             <LoginAlertModal
